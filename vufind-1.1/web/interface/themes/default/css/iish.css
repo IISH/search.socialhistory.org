@@ -1,0 +1,207 @@
+<?php
+Header
+
+(
+"Content-type: text/css"
+)
+;
+$configArray
+
+=
+parse_ini_file
+
+(
+'../../../../conf/config.ini'
+,
+true
+
+)
+;
+?>
+
+.archives {
+    background-image: url(<?php echo $configArray[ 'Site' ][ 'path' ];?>/interface/themes/default/images/silk/package.png );
+    background-repeat: no-repeat;
+    background-position: left top;
+    padding: 0 .5em .5em 20px;
+    margin-right: 1em;
+}
+
+.booksandbrochures {
+    background-image: url(<?php echo $configArray[ 'Site' ][ 'path' ];?>/interface/themes/default/images/silk/book.png );
+    background-repeat: no-repeat;
+    background-position: left top;
+    padding: 0 .5em .5em 20px;
+    margin-right: 1em;
+}
+
+.documentation {
+    background-image: url(<?php echo $configArray[ 'Site' ][ 'path' ];?>/interface/themes/default/images/silk/list.png );
+    background-repeat: no-repeat;
+    background-position: left top;
+    padding: 0 .5em .5em 20px;
+    margin-right: 1em;
+}
+
+.serials {
+    background-image: url(<?php echo $configArray[ 'Site' ][ 'path' ];?>/interface/themes/default/images/silk/newspaper.png );
+    background-repeat: no-repeat;
+    background-position: left top;
+    padding: 0 .5em .5em 20px;
+    margin-right: 1em;
+}
+
+.visualdocuments {
+    background-image: url(<?php echo $configArray[ 'Site' ][ 'path' ];?>/interface/themes/default/images/silk/picture.png );
+    background-repeat: no-repeat;
+    background-position: left top;
+    padding: 0 .5em .5em 20px;
+    margin-right: 1em;
+}
+
+dt.array {
+    width: 15%;
+    float: left;
+    clear: left;
+    margin: 0px 0px 0px 0px;
+}
+
+dd.array {
+    width: 84%;
+    float: left;
+    clear: right;
+    margin: 0px 0px 0px 0px;
+}
+
+.recordsubcontent {
+    display: inline-block;
+}
+
+.file {
+
+}
+
+.unittitle {
+
+}
+
+.series {
+    margin-bottom: 2em;
+}
+
+.ead_indent2{margin-left: 20px;}
+.ead_indent4{margin-left: 80px;}
+.ead_indent6{margin-left: 120px;}
+
+.eci_body {
+}
+
+.eci_kop {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 140%;
+    padding-left: 15px;
+    margin: 0px 0px 15px 0px;
+}
+
+.eci_para {
+    margin-bottom: 2em;
+}
+
+.eci_ptxt {
+
+}
+
+.eci_caption {
+    font-weight: bold;
+    padding: 5px 0px 0px 5px;
+}
+
+.eci_body table {
+    border: thin solid gray;
+    border-collapse: collapse;
+    padding: 7px;
+}
+
+.eci_body table tr td {
+    border: thin solid gray;
+    border-collapse: collapse;
+    padding: 10px;
+}
+
+.eci_list {
+    margin-left: 25px;
+    white-space: normal;
+    margin-bottom: 40px;
+}
+
+.eci_li {
+    list-style-type: disc;
+}
+
+.searchHomeContent {
+    padding: 2em 0;
+}
+
+.searchHomeForm {
+    border-top: 2px solid #C42737;
+    border-left: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+    background-color: #F7F2EE;
+}
+
+.searchHomeBrowse {
+    border-top: 2px solid #C42737;
+    background-color: #F7F2EE;
+}
+
+.searchHomeBrowseHeader h2 {
+    color: #C42737;
+}
+
+.searchHomeBrowseInner li {
+    line-height: 1.3em;
+}
+
+.searchHomeBrowseInner a {
+    color: #A26E33;
+}
+
+.searchHomeBrowseInner a:hover {
+    color: #C42737;
+    text-decoration: underline;
+}
+
+.searchHomeBrowseInner div {
+    border-right: 1px dotted #cccccc;
+}
+
+#searchForm .small {
+    color: #A26E33;
+}
+
+b.gtop, b.gtop b, b.gtop, b.gtop b {
+    background-image: none;
+    background-color: #F7F2EE;
+}
+
+.favorite {
+    background-image: url(<?php echo $configArray[ 'Site' ][ 'path' ];?>/interface/themes/default/images/silk/world.png );
+    background-repeat: no-repeat;
+    background-position: left;
+    padding: .5em .5em .5em 20px;
+    margin-right: 1em;
+}
+
+.fav {
+    background-image: url(<?php echo $configArray[ 'Site' ][ 'path' ];?>/interface/themes/default/images/silk/edit.png );
+    background-repeat: no-repeat;
+    background-position: left;
+    padding: .5em .5em .5em 20px;
+    margin-right: 1em;
+}
+
+#doc2 {
+    width: 75em;
+}

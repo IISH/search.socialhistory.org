@@ -1,0 +1,1 @@
+<table border="0" class="citation"><tbody>{$details}</tbody></table>

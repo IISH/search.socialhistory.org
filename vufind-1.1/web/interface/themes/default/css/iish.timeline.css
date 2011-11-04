@@ -1,0 +1,85 @@
+body {
+	margin: 0cm;
+	font-family: Verdana;
+	font-size: 80%;
+}
+
+#menu {
+	border-right: 1px solid #000000;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 10px 0px 0px;
+
+}
+
+div.map-lens {
+	width: 350px;
+	height: 180px;
+	/*
+	border: 3px coral solid;
+	*/
+}
+
+table.item {
+	border: 1px solid #ddd;
+	padding: 0.5em;
+}
+
+td {
+	font-family: Verdana;
+	font-size: 70%;
+	vertical-align: top;
+}
+
+
+.name {
+	font-weight: bold;
+}
+
+.year {
+	font-style: italic;
+}
+.detailfont {
+	font-size: 140%;
+}
+
+.thispicture {
+	font-size: 80%;
+}
+
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+ul {
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+}
+
+li {
+	line-height: 100%;
+	margin: 0px 0px 6px 0px;
+	padding: 0px 0px 0px 0px;
+	list-style-type: none;
+}
+
+.popupLink {
+	outline: none;
+}
+
+.popup {
+	POSITION: absolute;
+	VISIBILITY: hidden;
+	BACKGROUND-COLOR: #dcdcdc;
+	width: 200;
+	BORDER-LEFT: 1px solid black;
+	BORDER-TOP: 1px solid black;
+	BORDER-BOTTOM: 3px solid black;
+	BORDER-RIGHT: 3px solid black;
+	PADDING: 3px;
+	z-index: 99;
+}
