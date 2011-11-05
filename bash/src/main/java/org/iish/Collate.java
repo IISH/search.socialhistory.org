@@ -14,7 +14,10 @@ import java.io.*;
 import java.util.Date;
 
 /**
- * Collates all
+ * Collate
+ *
+ * Collates all Marc xml files into one catalog document.
+ *
  */
 public class Collate {
 
