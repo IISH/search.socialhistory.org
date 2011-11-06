@@ -1,5 +1,7 @@
 package org.iish;
 
+import org.socialhistoryservices.marc.Collate;
+
 public class TestCollate {
 
     public static void main(String[] args) {

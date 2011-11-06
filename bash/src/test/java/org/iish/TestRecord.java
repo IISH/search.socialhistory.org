@@ -1,9 +1,12 @@
 package org.iish;
 
 import org.junit.Assert;
-import org.marc4j.marc.*;
 import org.junit.Test;
-import java.util.Set;
+import org.marc4j.marc.DataField;
+import org.marc4j.marc.MarcFactory;
+import org.marc4j.marc.Record;
+import org.marc4j.marc.Subfield;
+import org.socialhistoryservices.marc.bash.ImportBash;
 
 public class TestRecord {
 

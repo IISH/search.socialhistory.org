@@ -25,7 +25,7 @@
                             <transformers>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>org.iish.Collate</mainClass>
+                                    <mainClass>org.socialhistoryservices.marc.Collate</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
@@ -44,16 +44,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>Solrmarc</groupId>
-            <artifactId>MarcImporter</artifactId>
-            <version>2.1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>Solrmarc</groupId>
-            <artifactId>marc4j</artifactId>
-            <version>2.1.2</version>
-        </dependency>
-        <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.8</version>
@@ -63,13 +53,30 @@
             <artifactId>junit</artifactId>
             <version>4.8.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.marc4j</groupId>
+            <artifactId>marc4j</artifactId>
+            <version>2.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>solrmarc</groupId>
+            <artifactId>MarcImporter</artifactId>
+            <version>2.1.2</version>
+        </dependency>
     </dependencies>
 
     <repositories>
         <repository>
-            <id>dev</id>
-            <name>dev</name>
-            <url>http://developer.k-int.com/maven2/</url>
+            <id>project-repro</id>
+            <name>lib-maven-repository</name>
+            <url>file://${basedir}/repo</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+                <checksumPolicy>ignore</checksumPolicy>
+            </releases>
         </repository>
     </repositories>
 
