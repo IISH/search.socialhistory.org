@@ -1,16 +1,9 @@
 package org.iish;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.marc4j.marc.DataField;
-import org.marc4j.marc.MarcFactory;
-import org.marc4j.marc.Record;
-import org.marc4j.marc.Subfield;
-import org.socialhistoryservices.marc.bash.ImportBash;
 
 public class TestRecord {
 
-    @Test
+    /*@Test
     public void getCollector() {
 
         final MarcFactory factory = MarcFactory.newInstance();
@@ -30,5 +23,5 @@ public class TestRecord {
         dataField.addSubfield(subField_a);
         dataField.addSubfield(subField_e);
         record.addVariableField(dataField);
-    }
+    }*/
 }

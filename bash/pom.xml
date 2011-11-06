@@ -53,19 +53,9 @@
             <artifactId>junit</artifactId>
             <version>4.8.1</version>
         </dependency>
-        <dependency>
-            <groupId>org.marc4j</groupId>
-            <artifactId>marc4j</artifactId>
-            <version>2.1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>solrmarc</groupId>
-            <artifactId>MarcImporter</artifactId>
-            <version>2.1.2</version>
-        </dependency>
     </dependencies>
 
-    <repositories>
+<!--    <repositories>
         <repository>
             <id>project-repro</id>
             <name>lib-maven-repository</name>
@@ -78,7 +68,7 @@
                 <checksumPolicy>ignore</checksumPolicy>
             </releases>
         </repository>
-    </repositories>
+    </repositories>-->
 
     <distributionManagement>
         <repository>
