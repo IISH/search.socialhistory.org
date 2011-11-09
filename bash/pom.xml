@@ -8,40 +8,6 @@
     <artifactId>bash</artifactId>
     <version>1.0</version>
 
-    <build>
-        <finalName>collate_marc</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>1.4</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <transformers>
-                                <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>org.socialhistoryservices.marc.Collate</mainClass>
-                                </transformer>
-                            </transformers>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-        <extensions>
-            <extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-ssh</artifactId>
-                <version>2.0</version>
-            </extension>
-        </extensions>
-    </build>
-
     <dependencies>
         <dependency>
             <groupId>log4j</groupId>
@@ -54,28 +20,5 @@
             <version>4.8.1</version>
         </dependency>
     </dependencies>
-
-<!--    <repositories>
-        <repository>
-            <id>project-repro</id>
-            <name>lib-maven-repository</name>
-            <url>file://${basedir}/repo</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-                <checksumPolicy>ignore</checksumPolicy>
-            </releases>
-        </repository>
-    </repositories>-->
-
-    <distributionManagement>
-        <repository>
-            <id>api.index0.socialhistoryservices.org</id>
-            <name>api.index0.socialhistoryservices.org</name>
-            <url>scp://api.index0.socialhistoryservices.org/home/maven/repo/</url>
-        </repository>
-    </distributionManagement>
 
 </project>

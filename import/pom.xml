@@ -7,8 +7,10 @@
     <groupId>org.socialhistory.solr</groupId>
     <artifactId>dirty</artifactId>
     <version>1.0</version>
+    <packaging>jar</packaging>
 
     <build>
+        <finalName>import</finalName>
         <extensions>
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
