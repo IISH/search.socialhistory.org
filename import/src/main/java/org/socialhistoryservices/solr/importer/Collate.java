@@ -1,4 +1,4 @@
-package org.socialhistoryservices.marc;
+package org.socialhistoryservices.solr.importer;
 
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -15,26 +15,14 @@ import java.util.Date;
 
 /**
  * Collate
- *
+ * <p/>
  * Collates all Marc xml files into one catalog document.
- *
  */
 public class Collate {
 
     Transformer transformer;
-    long filter;
-
-    /**
-     * @param args args[0]=source folder; args[1] target document; optional filter args[2]=offset in seconds
-     */
-    public static void main(String[] args) throws Exception {
-
-        Collate collate = new Collate();
-        collate.filter = (args.length > 2)
-                ? new Date().getTime() / 1000 - Long.parseLong(args[2])
-                : 0;
-        collate.process(args[0], args[1]);
-    }
+    //long filter;
+    private boolean delete;
 
     public Collate() throws TransformerConfigurationException {
 
@@ -64,14 +52,21 @@ public class Collate {
                 getFiles(file, writer);
             else {
                 try {
-                    final long time = Long.parseLong(file.getName().split("_")[0]);
-                    if (time > filter) {
-                        final Document document = loadDocument(file);
-                        if (document.getDocumentElement().hasChildNodes())
-                            saveDocument(document, writer);
+                    //final long time = Long.parseLong(file.getName().split("_")[0]);
+                    //if (time > filter) {
+                    final Document document = loadDocument(file);
+                    if (document.getDocumentElement().hasChildNodes()) {
+                        saveDocument(document, writer);
                     }
+                    //}
                 } catch (Exception e) {
                     e.printStackTrace();
+                }
+                try {
+                } catch (Exception e) {
+                    if (delete) {
+                        file.delete();
+                    }
                 }
             }
         }
@@ -94,4 +89,18 @@ public class Collate {
         transformer.transform(source, result);
     }
 
+    /**
+     * @param args args[0]=source folder; args[1] target document; optional filter args[2]=offset in seconds
+     */
+    public static void main(String[] args) throws Exception {
+
+        Collate collate = new Collate();
+        /*collate.filter = (args.length > 2)
+                ? new Date().getTime() / 1000 - Long.parseLong(args[2])
+                : 0;*/
+        collate.delete = (args.length > 2)
+                ? Boolean.valueOf(args[2])
+                : false;
+        collate.process(args[0], args[1]);
+    }
 }
