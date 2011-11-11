@@ -554,16 +554,16 @@ function iish(){
     $isn = $_GET['isn'];
     switch ($_GET['size']) {
                case 'small':
-                   $imageIndex = 'thumbnail';
+                   $imageIndex = 'level3';
                    break;
                case 'medium':
                case 'large':
                default:
-                   $imageIndex = 'resource';
+                   $imageIndex = 'level2';
                    break;
                }
 
-    $imageUrl = "http://search.iisg.nl/search/search?action=get&col=images&fieldname=" . $imageIndex . "&id=" . $isn ;
+    $imageUrl = "http://hdl.handle.net/10622/" . $isn . "?locatt=view:" . $imageIndex ;
     return processImageURL($imageUrl, true);
 }
 ?>

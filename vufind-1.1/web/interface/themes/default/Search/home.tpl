@@ -48,7 +48,7 @@
                     {assign var=break value=true}
                   {/if}
                 {else}
-                  <li><a href="{$currentUrl|escape}">{$value|escape}</a></li>
+                  <li><a href="{$currentUrl|escape}">{translate text=$value}</a></li>
                 {/if}
               {/foreach}
             {*{/if}*}

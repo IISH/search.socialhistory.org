@@ -60,7 +60,6 @@ class AvRecord extends MarcRecord
     }
 
 
-
     public function getSearchResult()
     {
         $tpl = parent::getSearchResult();
@@ -75,7 +74,7 @@ class AvRecord extends MarcRecord
     {
         $tpl = parent::getCoreMetadata();
         global $interface;
-        $barcode =$this->getBarcode();
+        $barcode = $this->getBarcode();
         $interface->assign('coreBarcode', $barcode);
         $coreNotes = $this->getNotes();
         $interface->assign('coreNotes', $coreNotes);
@@ -92,7 +91,8 @@ class AvRecord extends MarcRecord
         return $tpl;
     }
 
-    private function getBarcode(){
+    private function getBarcode()
+    {
         $barcode = $this->_getFirstFieldValue('852', array('p'));
         return $barcode;
     }
@@ -175,8 +175,10 @@ class AvRecord extends MarcRecord
     {
         $urls = $this->getURLs();
         foreach ($urls as $url) {
-            if (strpos($url, "10622/3"))
-                return substr($url, sizeof($url) - 15);
+            $pos = strpos($url, "/10622/");
+            if ($pos > 1) {
+                return substr($url, $pos + 7);
+            }
         }
         return false;
     }
@@ -185,7 +187,7 @@ class AvRecord extends MarcRecord
     {
         global $configArray;
 
-        if ($audiovisual = $this->getAudioVisual()) {
+        if ($audiovisual = $this->getAudioVisual()) { // In this case, the isn is the PID
             return $configArray['Site']['url'] . '/bookcover.php?isn=' .
                    $audiovisual . '&size=' . urlencode($size);
         }

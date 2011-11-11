@@ -2,7 +2,7 @@
 
 {translate text='order'}
 {translate text='Title'}: {$title}
-{translate text='Barcode'}: {$barcode}
+{translate text='Barcode'}: {$coreBarcode}
 {translate text='Download master'}: http://filer3.iisg.nl/?im={$barcode}tif
 {translate text='Callnumber'}: {$callnumber}
 {translate text='Website'}: {$website}

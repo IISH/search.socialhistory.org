@@ -68,6 +68,7 @@ class Home extends Action
         $interface->assign('id', $id);
         $language = $interface->getLanguage();
         $interface->assign('language', $language);
+        $interface->assign('lang', $language);
 
         $tpl_order = 'Order/reproduction.tpl';
         $interface->display($tpl_order);

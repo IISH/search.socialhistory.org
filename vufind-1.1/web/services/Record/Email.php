@@ -94,8 +94,9 @@ class Email extends Record
     {
         global $interface;
 
-        $subject = translate("Library Catalog Record") . ": " .
-            $this->recordDriver->getBreadcrumb();
+        /*$subject = translate("Library Catalog Record") . ": " .
+            $this->recordDriver->getBreadcrumb();*/
+        $subject = translate("Library Catalog Record");
         $interface->assign('from', $from);
         $interface->assign('emailDetails', $this->recordDriver->getEmail());
         $interface->assign('recordID', $this->recordDriver->getUniqueID());

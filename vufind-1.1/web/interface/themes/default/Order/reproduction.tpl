@@ -6,80 +6,98 @@
 {css media="print" filename="print.css"}
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <script type="text/javascript" src="{$url}/js/jquery-1.6.4.min.js"></script>
-<script type="text/javascript">
-{literal}
-        $("orderForm").submit(function(){
+    <script type="text/javascript">
+        {literal}
 
-        $(".required").each(function(){
-            if ( this.value == "" ){
-                alert("All fields are required for processing your order.");
-}
+        $(document).ready(function() {
+            $("form").submit(function() {
+                var missing = false;
+                $(":input").each(function() {
+                    if (this.value == "")
+                        missing = true;
+                })
+                if (missing) {
+                    alert("All fields are required for processing your order.");
+                    return false;
+                }
+                return true;
             });
-        {/literal}
+        });
 
-{if $errorMsg}
+        {/literal}
+    </script>
+
+<body>
+
+<div id="bd">
+    <div id="yui-main" class="content">
+        <div class="yui-b first">
+            <div class="alignleft">
+            <h1>{translate text='order'}</h1>
+
+            {if $errorMsg}
                 <div class="error">{$errorMsg|translate}</div>{/if}
-{if $infoMsg}
+            {if $infoMsg}
                 <div class="userMsg">{$infoMsg|translate}</div>{/if}
 
-{translate text="order.specify"}
+                <h2>{translate text="order.specify"}</h2>
 
-{$url}
-
-{translate text='order.rates'}
-{if $language=='nl'}<a target="_blank" href="http://www.iisg.nl/rates-nl.php">http://www.iisg.nl/rates-nl.php</a>
-                        {else}
-                            <a target="_blank" href="http://www.iisg.nl/rates.php">http://www.iisg.nl/rates.php</a>{/if}
-
-
-{translate text='order.email'}
-
-
-
-{translate text='order.fullname'}
-
-
-
-{translate text='order.address'}
-
-
-
-{translate text='order.zipcode'}
-
-
-
-{translate text='order.city'}
-
-
-
-{translate text='order.country'}
-
-
-
-{translate text='order.telephone'}
-
-
-
-{translate text='order.purpose'}
-
-
-
-{$coreShortTitle|escape}
-{foreach from=$coreHolding key=key item=value name=loop}
+                <form name="order" id="order" action="{$url}/Order/Email" method="POST">
+                    <table>
+                        <caption style="font-size: large;">{translate text='order.rates'} :
+                        <a target="_blank" href="{translate text='order.href'}">{translate text='order.href'}</a>
+                        </caption>
+                        <tr>
+                            <td><strong><label for="email">{translate text='order.email'}:</label></strong></td>
+                            <td><input type="text" name="email" size="40" id="email" value="{$email}"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong><label for="fullname">{translate text='order.fullname'}:</label></strong></td>
+                            <td><input type="text" name="fullname" size="40" id="fullname" value="{$fullname}"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong><label for="address">{translate text='order.address'}:</label></strong></td>
+                            <td><textarea rows="4" cols="40" name="address" id="address" value="{$address}"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td><strong><label for="zipcode">{translate text='order.zipcode'}:</label></strong></td>
+                            <td><input type="text" name="zipcode" size="40" id="zipcode" value="{$zipcode}" /></td>
+                        </tr>
+                        <tr>
+                            <td><strong><label for="city">{translate text='order.city'}:</label></strong></td>
+                            <td><input type="text" name="city" size="40" id="city" value="{$city}"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong><label for="country">{translate text='order.country'}:</label></strong></td>
+                            <td><input type="text" name="country" size="40" id="country" value="{$country}"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong><label for="telephone">{translate text='order.telephone'}:</label></strong></td>
+                            <td><input type="text" name="telephone" size="40" id="telephone" value="{$telephone}"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong><label for="purpose">{translate text='order.purpose'}:</label></strong></td>
+                            <td><textarea rows="4" cols="40" name="purpose" id="purpose" value="{$purpose}"></textarea></td>
+                        </tr>
+                    </table>
+                    <input type="hidden" name="title" id="title" value="{$coreShortTitle|escape}"/>
+                {foreach from=$coreHolding key=key item=value name=loop}
                     <input type="hidden" name="callnumber" id="callnumber" value="{$key|escape}"/>
                 {/foreach}
 
-{$coreBarcode|escape}
-{$url|escape}        {$id|escape}
-{$url|escape}
-{translate text='Send order'}
-
-
-
-
-{include file=$coreMetadata}</div>
+                    <input type="hidden" name="id" value="{$id}"/>
+                    <input type="hidden" name="coreBarcode" id="coreBarcode" value="{$coreBarcode|escape}"/>
+                    <input type="hidden" name="website" id="website" value="{$url|escape}/Record/{$id|escape}"/>
+                    <input type="hidden" name="url" id="url" value="{$url|escape}/Order/Ordered"/>
+                    <input type="submit" name="submit" value="{translate text='order.submit'}">
+                </form>
+            </div>
+        </div>
+        <div class="yui-b">
+            <div class="alignright" style="background-color: #ffffff;">{include file=$coreMetadata}</div>
         </div>
     </div>
+</div>
 
 </body>
 </html>

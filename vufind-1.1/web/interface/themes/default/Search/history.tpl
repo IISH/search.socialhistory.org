@@ -71,5 +71,5 @@
       <b class="bbot"><b></b></b>
     </div>
   </div>
-  {include file="MyResearch/menu.tpl"}
+{*  {include file="MyResearch/menu.tpl"}*}
 </div>

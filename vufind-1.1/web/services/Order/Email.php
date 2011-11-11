@@ -55,10 +55,10 @@ class Email extends Action
         if (isset($_POST['submit'])) {
 
             $limit = 25;
-            foreach ($_POST as $key => $value){
+            foreach ($_POST as $key => $value) {
                 $limit--;
                 $interface->assign($key, $value);
-                if ( $limit < 0)
+                if ($limit < 0)
                     return;
             }
 
@@ -68,10 +68,10 @@ class Email extends Action
 
 
             $limit = 25;
-            foreach ($_POST as $key => $value){
+            foreach ($_POST as $key => $value) {
                 $limit--;
                 $interface->assign($key, $value);
-                if ( $limit < 0)
+                if ($limit < 0)
                     break;
             }
 
@@ -79,12 +79,10 @@ class Email extends Action
                 $to, $from, $subject);
 
             if (!PEAR::isError($result)) {
-                //header('Location: ' . $_POST['url']);
-                $interface->display("Order/ordered.tpl");
-                exit();
-            } else {
                 $interface->assign('errorMsg', $result->getMessage());
                 $interface->display("Order/reproduction.tpl");
+            } else {
+                $interface->display("Order/ordered.tpl");
             }
         }
     }

@@ -11,7 +11,7 @@
 <div id="bd">
     <div id="yui-main" class="content">
         <div class="yui-b">
-            {translate text="order.sent"}
+            <h1>{translate text="order.sent"}</h1>
         </div>
     </div>
 

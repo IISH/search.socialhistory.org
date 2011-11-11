@@ -48,18 +48,20 @@
         <script language="JavaScript" type="text/javascript">{literal}
         /*http://stackoverflow.com/questions/5828965/bookmark-on-click-using-jquery*/
 function addFavorite(handle, title) {
-              alert("We hebben nog geen handle. Dat zou worden: http://hdl.handle.net/10622/[pid]");
-    if (window.sidebar) // firefox
+
+    if (window.sidebar) { // firefox
         window.sidebar.addPanel(title, handle, "");
+}
     else if (window.opera && window.print) { // opera
         var elem = document.createElement('a');
         elem.setAttribute('href', handle);
         elem.setAttribute('title', title);
         elem.setAttribute('rel', 'sidebar');
         elem.click();
-    } else if (document.all)// ie
+    } else if (document.all) {// ie
         window.external.AddFavorite(handle, title);
-
+    }
+}
 }{/literal}</script>
 
 

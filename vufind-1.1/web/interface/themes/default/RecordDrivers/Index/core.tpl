@@ -82,7 +82,7 @@
   {/if}
 
 <tr valign="top">
-    <th>{translate text='CoreFormat'}: </th>
+    <th>{*{translate text='CoreFormat'}*}</th>
     <td>
      {if is_array($recordFormat)}
       {foreach from=$recordFormat item=displayFormat name=loop}
