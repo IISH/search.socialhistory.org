@@ -62,12 +62,11 @@ public class Collate {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                try {
-                } catch (Exception e) {
-                    if (delete) {
+                try {if (delete) {
                         file.delete();
                     }
-                }
+                } catch (Exception e) {
+                                    }
             }
         }
     }
