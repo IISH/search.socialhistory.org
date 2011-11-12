@@ -113,8 +113,12 @@ class HarvestOAI
         // Set up base directory for harvested files:
         $this->_setBasePath($target);
 
-        // Check if there is a file containing a start date:
         $this->_lastHarvestFile = $this->_basePath . 'last_harvest.txt';
+        // We force a harvest date... the time from this script minus one day
+        $time_from = time() - 24 * 60 * 60; // One day
+        $this->_saveLastHarvestedDate(date('Y-m-d', $time_from));
+
+        // Check if there is a file containing a start date:
         $this->_loadLastHarvestedDate();
 
         // Set up base URL:
