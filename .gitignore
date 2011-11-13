@@ -10,7 +10,8 @@ data
 index
 cache/*
 oai.ini
-
+spellchecker
+spellShingle
 
 # Compiled source #
 ###################
