@@ -39,7 +39,7 @@
         <lst name="slave">
 
             <!--fully qualified url for the replication handler of master . It is possible to pass on this as a request param for the fetchindex command-->
-            <str name="masterUrl">http://erebus.index0.socialhistoryservices.org:8080/solr/biblio/replication</str>
+            <str name="masterUrl">http://erebus.index0.iisg.net:8080/solr/biblio/replication</str>
 
             <!--Interval in which the slave should poll master .Format is HH:mm:ss . If this is absent slave does not poll automatically.
 But a fetchindex can be triggered from the admin or the http API -->

@@ -162,14 +162,13 @@ public Set getFormat(Record record) {
         dbf.setValidating(false);
         DocumentBuilder db = dbf.newDocumentBuilder();
 
-        final String vufind_home = System.getenv().get("VUFIND_CACHE");
-        String folder = vufind_home + File.separatorChar + File.separatorChar;
+        final String vufind_home = System.getenv().get("VUFIND_HOME");
+        String folder = vufind_home + "/cache/ead.xml/";
         File f = new File(folder);
         if (!f.exists())
             f.mkdirs();
-        File file = new File(folder + id + ".xml");
-        Document document;
-document = db.parse(url.replace("api.iisg.nl", "api.iisg.nl:8080")); // ToDo: remove in production
+        File file = new File(folder, id + ".xml");
+        Document document = db.parse(url);
             // And cache
             saveDocument(document, file);
 

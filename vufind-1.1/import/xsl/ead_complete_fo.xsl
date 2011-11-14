@@ -4,6 +4,9 @@
                 xmlns:fo="http://www.w3.org/1999/XSL/Format" exclude-result-prefixes="exsl fo ead"
                 xmlns:ead="urn:isbn:1-931666-22-9">
     <xsl:output method="xml" version="1.0" omit-xml-declaration="no" indent="yes" encoding="UTF-8"/>
+
+<xsl:param name="path" />
+
     <!--  YP: param block: Deze parameters moeten meegegeven zijn met de transformatie. Zoniet dan worden de hier vermelde defaults gebruikt -->
     <xsl:param name="modificationDateNL">1971-01-01</xsl:param>
     <!-- YP: Het beginpunt van veel IT tijdrekening; A star (Unix) is born -->
@@ -91,15 +94,15 @@
                         </xsl:variable>
                         <xsl:choose>
                             <xsl:when test="contains($corpname, 'Geschiedenis') or contains($corpname, 'History')">
-                                <fo:external-graphic src="/var/lib/vufind/import/xsl/logo_iisg.gif"
+                                <fo:external-graphic src="{$path}/logo_iisg.gif"
                                                      content-height="3cm" scaling="uniform" height="3cm"/>
                             </xsl:when>
                             <xsl:when test="contains($corpname, 'IHLIA')">
-                                <fo:external-graphic src="/var/lib/vufind/import/xsl/logo_ihlia.jpg"
+                                <fo:external-graphic src="{$path}/logo_ihlia.jpg"
                                                      content-height="3cm" scaling="uniform" height="3cm"/>
                             </xsl:when>
                             <xsl:otherwise>
-                                <fo:external-graphic src="/var/lib/vufind/import/xsl/logo_pm.jpg"
+                                <fo:external-graphic src="{$path}/logo_pm.jpg"
                                                      content-height="2cm" scaling="uniform" height="2cm"/>
                             </xsl:otherwise>
                         </xsl:choose>
