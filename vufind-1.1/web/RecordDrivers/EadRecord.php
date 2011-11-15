@@ -115,7 +115,7 @@ class EadRecord extends MarcRecord
     public function getExtendedMetadata()
     {
         global $interface;
-        $details = $this->getDetails(Utils::getResource($this->getOAIPid(), 'ead'));
+        $details = $this->getDetails(Utils::getResource($this->getUniqueID(), $this->getOAIPid(), 'ead'));
         $interface->assign('details', $details);
         return 'RecordDrivers/Ead/extended.tpl';
     }
@@ -188,7 +188,7 @@ class EadRecord extends MarcRecord
     {
         global $interface;
         global $configArray;
-        $details = $this->getDetails(Utils::getResource($this->getOAIPid(), 'ead'));
+        $details = $this->getDetails(Utils::getResource($this->getUniqueID(), $this->getOAIPid(), 'ead'));
         $interface->assign('details', $details);
 
         // Add the deliverance API
@@ -277,6 +277,8 @@ class EadRecord extends MarcRecord
         // Add API url
         global $interface;
         $interface->assign('oaiBaseUrl', $configArray['IISH']['oaiBaseUrl']);
+        $interface->assign('oaiPid', $this->getOAIPid());
+
 
         // Send back the results:
         return $formats;
@@ -298,7 +300,7 @@ class EadRecord extends MarcRecord
 
     public function getTOC()
     {
-        $xml = Utils::getResource($this->getOAIPid(), 'ead');
+        $xml = Utils::getResource($this->getUniqueID(), $this->getOAIPid(), 'ead');
         $xml = str_replace(array(chr(29), chr(30), chr(31)), ' ', $xml);
         $style = new DOMDocument;
         $style->load('services/Record/xsl/record-ead-toc.xsl');

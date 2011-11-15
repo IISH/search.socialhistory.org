@@ -169,6 +169,7 @@ class MarcRecord extends IndexRecord
         // Add API url
         global $interface;
         $interface->assign('oaiBaseUrl', $configArray['IISH']['oaiBaseUrl']);
+        $interface->assign('oaiPid', $this->getOAIPid());
 
         // Send back the results:
         return $formats;

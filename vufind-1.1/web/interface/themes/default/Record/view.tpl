@@ -19,9 +19,9 @@
                 <ul class="menu" id="exportMenu">
                   {foreach from=$exportFormats item=exportFormat}
                     <li>
-                        {if $exportFormat=="EAD"}<a target="_blank" href="{$oaiBaseUrl}?verb=GetRecord&identifier={$id|escape:"url"}&metadataPrefix=ead">{translate text="Export to"} {$exportFormat|escape}</a>
-                        {elseif $exportFormat=="ECI"}<a target="_blank" href="{$oaiBaseUrl}?verb=GetRecord&identifier={$id|escape:"url"}&metadataPrefix=eci">{translate text="Export to"} {$exportFormat|escape}</a>
-                        {elseif $exportFormat=="MARCXML"}<a target="_blank" href="{$oaiBaseUrl}?verb=GetRecord&identifier={$id|escape:"url"}&metadataPrefix=marcxml">{translate text="Export to"} {$exportFormat|escape}</a>
+                        {if $exportFormat=="EAD"}<a target="_blank" href="{$oaiBaseUrl}?verb=GetRecord&identifier={$oaiPid}&metadataPrefix=ead">{translate text="Export to"} {$exportFormat|escape}</a>
+                        {elseif $exportFormat=="ECI"}<a target="_blank" href="{$oaiBaseUrl}?verb=GetRecord&identifier={$oaiPid}&metadataPrefix=eci">{translate text="Export to"} {$exportFormat|escape}</a>
+                        {elseif $exportFormat=="MARCXML"}<a target="_blank" href="{$oaiBaseUrl}?verb=GetRecord&identifier={$oaiPid}&metadataPrefix=marcxml">{translate text="Export to"} {$exportFormat|escape}</a>
                         {elseif $exportFormat=="PDF"}<a target="_blank" href="{$url}/cache/{$id|escape:"url"}.xml.pdf">{translate text="Export to"} {$exportFormat|escape}</a>
                         {else}<a {if $exportFormat=="RefWorks"}target="{$exportFormat}Main" {/if}href="{$url}/Record/{$id|escape:"url"}/Export?style={$exportFormat|escape:"url"}">{translate text="Export to"} {$exportFormat|escape}</a>{/if}
                     </li>
