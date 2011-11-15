@@ -1,10 +1,6 @@
 <?php
 /**
- * Created by IntelliJ IDEA.
- * User: lwo
- * Date: 7/3/11
- * Time: 3:26 PM
- * To change this template use File | Settings | File Templates.
+ * Utility class
  */
  
 final class Utils {
@@ -25,12 +21,13 @@ final class Utils {
 
         // Load from api
         $_baseURL = $configArray['IISH']['oaiBaseUrl'];
+
         // Transform MARCXML... taken from /harvest/harvest_oai.php
         $request = new Proxy_Request();
         $request->setMethod(HTTP_REQUEST_METHOD_GET);
         $request->setURL($_baseURL);
         $request->addQueryString('verb', 'GetRecord');
-        $request->addQueryString('identifier', $id);
+        $request->addQueryString('identifier', $id);  // the oai identifier... not  that of the solr
         $request->addQueryString('metadataPrefix', $metadataPrefix);
         $result = $request->sendRequest();
         if (PEAR::isError($result)) {

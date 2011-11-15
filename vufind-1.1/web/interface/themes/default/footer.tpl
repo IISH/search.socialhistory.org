@@ -9,14 +9,14 @@
           <ul>
             <li><a href="{$path}/Browse/Home">{translate text='Browse the Catalog'}</a></li>
             <li><a href="{$path}/AlphaBrowse/Home">{translate text='Browse Alphabetically'}</a></li>
-            <li><a href="{$path}/Search/NewItem">{translate text='New Items'}</a></li>
+            {*<li><a href="{$path}/Search/NewItem">{translate text='New Items'}</a></li>*}
           </ul>
         </div>
         <div><p><strong>{translate text='Need Help?'}</strong></p>
           <ul>
             <li><a href="{$url}/Help/Home?topic=search" onClick="window.open('{$url}/Help/Home?topic=search', 'Help', 'width=625, height=510'); return false;">{translate text='Search Tips'}</a></li>
-            <li><a target="_blank" href="http://www.iisg.nl/enquiries.php">{translate text='Ask a Librarian'}</a></li>
-            <li><a target="_blank" href="http://www.iisg.nl/services/faq.php">{translate text='FAQs'}</a></li>
+            <li><a target="_blank" href="{translate text='footer.href.ask'}">{translate text='Ask a Librarian'}</a></li>
+            <li><a target="_blank" href="{translate text='footer.href.faq'}">{translate text='FAQs'}</a></li>
           </ul>
         </div>
         <br clear="all">

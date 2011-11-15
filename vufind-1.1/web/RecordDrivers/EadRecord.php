@@ -115,7 +115,7 @@ class EadRecord extends MarcRecord
     public function getExtendedMetadata()
     {
         global $interface;
-        $details = $this->getDetails(Utils::getResource($this->getUniqueID(), 'ead'));
+        $details = $this->getDetails(Utils::getResource($this->getOAIPid(), 'ead'));
         $interface->assign('details', $details);
         return 'RecordDrivers/Ead/extended.tpl';
     }
@@ -188,8 +188,7 @@ class EadRecord extends MarcRecord
     {
         global $interface;
         global $configArray;
-        $id = $this->getUniqueID();
-        $details = $this->getDetails(Utils::getResource($id, 'ead'));
+        $details = $this->getDetails(Utils::getResource($this->getOAIPid(), 'ead'));
         $interface->assign('details', $details);
 
         // Add the deliverance API
@@ -198,12 +197,6 @@ class EadRecord extends MarcRecord
         $interface->assign('pid', $this->getUniqueID()); // Todo: replace with PID in 902$a
 
         return 'RecordDrivers/Ead/holdings.tpl';
-
-        /* global $interface;
-       $details = $this->getTimelines(Utils::getResource($this->getUniqueID(), 'ead'));
-       $interface->assign('details', $details);
-       return 'RecordDrivers/Av/holdings.tpl'*/
-        ;
     }
 
     private function getDetails($xml)
@@ -305,7 +298,7 @@ class EadRecord extends MarcRecord
 
     public function getTOC()
     {
-        $xml = Utils::getResource($this->getUniqueID(), 'ead');
+        $xml = Utils::getResource($this->getOAIPid(), 'ead');
         $xml = str_replace(array(chr(29), chr(30), chr(31)), ' ', $xml);
         $style = new DOMDocument;
         $style->load('services/Record/xsl/record-ead-toc.xsl');
@@ -319,87 +312,6 @@ class EadRecord extends MarcRecord
         }
         return 'RecordDrivers/Ead/toc.tpl';
     }
-
-
-/*    private function _getFieldArray($field, $subfields = null, $concat = true)
-    {
-        // Default to subfield a if nothing is specified.
-        if (!is_array($subfields)) {
-            $subfields = array('a');
-        }
-
-        // Initialize return array
-        $matches = array();
-
-        // Try to look up the specified field, return empty array if it doesn't
-        // exist.
-        $fields = $this->marcRecord->getFields($field);
-        if (!is_array($fields)) {
-            return $matches;
-        }
-
-        // Extract all the requested subfields, if applicable.
-        foreach ($fields as $currentField) {
-            $next = $this->_getSubfieldArray($currentField, $subfields, $concat);
-            $matches = array_merge($matches, $next);
-        }
-
-        return $matches;
-    }*/
-
-    /**
-     * Get the first value matching the specified MARC field and subfields.
-     * If multiple subfields are specified, they will be concatenated together.
-     *
-     * @param string $field     The MARC field to read
-     * @param array  $subfields The MARC subfield codes to read
-     *
-     * @return string
-     * @access private
-     */
-    /*private function _getFirstFieldValue($field, $subfields = null)
-    {
-        $matches = $this->_getFieldArray($field, $subfields);
-        return (is_array($matches) && count($matches) > 0) ?
-                $matches[0] : null;
-    }*/
-
-/*    private function _getSubfieldArray($currentField, $subfields, $concat = true)
-    {
-        // Start building a line of text for the current field
-        $matches = array();
-        $currentLine = '';
-
-        // Loop through all specified subfields, collecting results:
-        foreach ($subfields as $subfield) {
-            $subfieldsResult = $currentField->getSubfields($subfield);
-            if (is_array($subfieldsResult)) {
-                foreach ($subfieldsResult as $currentSubfield) {
-                    // Grab the current subfield value and act on it if it is
-                    // non-empty:
-                    $data = trim($currentSubfield->getData());
-                    if (!empty($data)) {
-                        // Are we concatenating fields or storing them separately?
-                        if ($concat) {
-                            $currentLine .= $data . ' ';
-                        } else {
-                            $matches[] = $data;
-                        }
-                    }
-                }
-            }
-        }
-
-        // If we're in concat mode and found data, it will be in $currentLine and
-        // must be moved into the matches array.  If we're not in concat mode,
-        // $currentLine will always be empty and this code will be ignored.
-        if (!empty($currentLine)) {
-            $matches[] = trim($currentLine);
-        }
-
-        // Send back our result array:
-        return $matches;
-    }*/
 
     private function getMetric($physical)
     {
