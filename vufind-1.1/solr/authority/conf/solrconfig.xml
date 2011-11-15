@@ -17,6 +17,52 @@
 -->
 
 <config>
+
+<requestHandler name="/replication" class="solr.ReplicationHandler" enable="${enable.master:false}">
+        <lst name="master">
+            <!--Replicate on 'startup' and 'commit'. 'optimize' is also a valid value for replicateAfter. -->
+            <str name="replicateAfter">startup</str>
+            <str name="replicateAfter">commit</str>
+
+            <!--Create a backup after 'optimize'. Other values can be 'commit', 'startup'. It is possible to have multiple entries of this config string.  Note that this is just for backup, replication does not require this. -->
+            <!-- <str name="backupAfter">optimize</str> -->
+
+            <!--If configuration files need to be replicated give the names here, separated by comma -->
+            <!-- We will not include any configuration files as we use a mount to share files -->
+            <str name="confFiles"/>
+            <!--The default value of reservation is 10 secs.See the documentation below . Normally , you should not need to specify this -->
+            <str name="commitReserveDuration">00:00:10</str>
+        </lst>
+    </requestHandler>
+
+    <requestHandler name="/replication" class="solr.ReplicationHandler" enable="${enable.slave:false}">
+        <lst name="slave">
+
+            <!--fully qualified url for the replication handler of master . It is possible to pass on this as a request param for the fetchindex command-->
+            <str name="masterUrl">http://erebus.index0.iisg.net:8080/solr/biblio/replication</str>
+
+            <!--Interval in which the slave should poll master .Format is HH:mm:ss . If this is absent slave does not poll automatically.
+But a fetchindex can be triggered from the admin or the http API -->
+            <str name="pollInterval">00:00:60</str>
+            <!-- THE FOLLOWING PARAMETERS ARE USUALLY NOT REQUIRED-->
+            <!--to use compression while transferring the index files. The possible values are internal|external
+if the value is 'external' make sure that your master Solr has the settings to honour the accept-encoding header.
+see here for details http://wiki.apache.org/solr/SolrHttpCompression
+If it is 'internal' everything will be taken care of automatically.
+USE THIS ONLY IF YOUR BANDWIDTH IS LOW . THIS CAN ACTUALLY SLOWDOWN REPLICATION IN A LAN-->
+            <str name="compression">internal</str>
+            <!--The following values are used when the slave connects to the master to download the index files.
+Default values implicitly set as 5000ms and 10000ms respectively. The user DOES NOT need to specify
+these unless the bandwidth is extremely low or if there is an extremely high latency-->
+            <str name="httpConnTimeout">5000</str>
+            <str name="httpReadTimeout">10000</str>
+
+            <!-- If HTTP Basic authentication is enabled on the master, then the slave can be configured with the following -->
+            <str name="httpBasicAuthUser">username</str>
+            <str name="httpBasicAuthPassword">password</str>
+
+        </lst>
+    </requestHandler>
   
   <!-- Set this to 'false' if you want solr to continue working after it has 
     encountered an severe configuration error.  In a production environment, 
