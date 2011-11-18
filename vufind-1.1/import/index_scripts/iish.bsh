@@ -4,6 +4,7 @@ import org.marc4j.marc.Subfield;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
+import javax.xml.namespace;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Source;
@@ -38,6 +39,7 @@ public String getId(Record record) {
     final String id = (i == -1)
             ? text
             : text.substring(i + 1);
+    System.out.println(id);
         return id;
 }
 
@@ -205,38 +207,51 @@ public Set getFormat(Record record) {
         return sb.toString();
     }
 
-    public String getTOC(Record record, String fieldSpec, String schema) throws Exception {
+     public String hasTOC(Record record, String fieldSpec) throws Exception {
 
         String url = indexer.getFirstFieldVal(record, fieldSpec);
         String id = indexer.getFirstFieldVal(record, "001");
-        return getTOC(url, id, schema);
-    }
-
-    private String getTOC(String url, String id, String schema) throws Exception {
-
+        if (url == null)
+            return null;
         Document document = loadDocument(url, id);
-        final String vufind_home = System.getenv().get("VUFIND_HOME");
-        String stylesheet = vufind_home + File.separatorChar + "import" + File.separatorChar + "xsl" +
-            File.separatorChar + schema;
-        String data = getData(document, stylesheet).trim();
-        return ( data.length() == 0 )
+        return hasTableOfContent(document);
+    }
+
+     private String hasTableOfContent(Document document) throws XPathExpressionException {
+
+        NamespaceContext ns = new NamespaceContext() {
+
+            public String getPrefix(String namespaceURI) {
+                throw new UnsupportedOperationException();
+            }
+
+            public Iterator getPrefixes(String namespaceURI) {
+                throw new UnsupportedOperationException();
+            }
+
+            public String getNamespaceURI(String prefix) {
+
+                if (prefix == null)
+                    throw new NullPointerException("Null prefix");
+                if (prefix.equalsIgnoreCase("ead"))
+                    return "urn:isbn:1-931666-22-9";
+                if (prefix.equalsIgnoreCase("xml"))
+                    return XMLConstants.XML_NS_URI;
+                return XMLConstants.NULL_NS_URI;
+            }
+        };
+
+        XPathFactory factory = XPathFactory.newInstance();
+        XPath xpath = factory.newXPath();
+        xpath.setNamespaceContext(ns);
+        final javax.xml.xpath.XPathExpression expr = xpath.compile("ead:archdesc/ead:dsc | ead:archdesc/ead:odd");
+        final NodeList nodelist = (NodeList) expr.evaluate(document.getDocumentElement(), XPathConstants.NODESET);
+        String toc = ( nodelist.getLength() == 0 )
             ? null
-            : data;
+            : "yes";
+        return toc;
     }
 
-    private String getData(Document document, String stylesheet) throws Exception {
-
-        File file = new File(stylesheet);
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        final Source xslSource = new StreamSource(file);
-        xslSource.setSystemId(file.toURI().toURL().toString());
-        final Transformer transformer = transformerFactory.newTransformer(xslSource);
-        DOMSource source = new DOMSource(document);
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        StreamResult result = new StreamResult(outputStream);
-        transformer.transform(source, result);
-        return new String(outputStream.toByteArray(), "utf-8");
-    }
 
     public String getFirstLetter(Record record, String fieldSpec) {
 

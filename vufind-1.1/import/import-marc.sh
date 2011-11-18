@@ -1,3 +1,4 @@
+export VUFIND_HOME=/data/search.socialhistory.org/vufind-1.1
 #!/bin/bash
 # $Id: index_file.sh 17 2008-06-20 14:40:13Z wayne.graham $
 #

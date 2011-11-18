@@ -397,17 +397,17 @@ CallNumber:
       #     Horde::YAML parsing glitch -- see VUFIND-160 in JIRA for details.
       - [append, "* "]
   QueryFields:
-    - callnumber-label:
-      - [callnumber_exact, 1000]
-      - [callnumber_fuzzy, ~]
+   # - callnumber-label:
+   #   - [callnumber_exact, 1000]
+   #   - [callnumber_fuzzy, ~]
+   # - callnumber:
+   #   - [callnumber_exact, 1000]
+   #   - [callnumber_fuzzy, ~]
+   # - dewey-full:
+   #   - [callnumber_exact, 1000]
+   #   - [callnumber_fuzzy, ~]
     - callnumber:
-      - [callnumber_exact, 1000]
-      - [callnumber_fuzzy, ~]
-    - dewey-full:
-      - [callnumber_exact, 1000]
-      - [callnumber_fuzzy, ~]
-    - callnumber:
-      - [onephrase, ~]
+      - [callnumber_fuzzy]
 
 publisher:
   QueryFields:
