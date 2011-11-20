@@ -42,7 +42,7 @@
             <th width="30%">{translate text="history_search"}</th>
             <th width="30%">{translate text="history_limits"}</th>
             <th width="10%">{translate text="history_results"}</th>
-            <th width="5%">{translate text="history_save"}</th>
+            {*<th width="5%">{translate text="history_save"}</th>*}
           </tr>
           {foreach item=info from=$links name=historyLoop}
           {if ($smarty.foreach.historyLoop.iteration % 2) == 0}
@@ -56,7 +56,7 @@
               <b>{translate text=$field|escape}</b>: {$filter.display|escape}<br/>
             {/foreach}{/foreach}</td>
             <td>{$info.hits}</td>
-            <td><a href="{$path}/MyResearch/SaveSearch?save={$info.searchId|escape:"url"}&amp;mode=history" class="add">{translate text="history_save_link"}</a></td>
+            {*<td><a href="{$path}/MyResearch/SaveSearch?save={$info.searchId|escape:"url"}&amp;mode=history" class="add">{translate text="history_save_link"}</a></td>*}
           </tr>
           {/foreach}
         </table>

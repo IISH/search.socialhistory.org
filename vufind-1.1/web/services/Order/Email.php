@@ -78,7 +78,7 @@ class Email extends Action
             $result = $this->sendEmail(
                 $to, $from, $subject);
 
-            if (!PEAR::isError($result)) {
+            if (PEAR::isError($result)) {
                 $interface->assign('errorMsg', $result->getMessage());
                 $interface->display("Order/reproduction.tpl");
             } else {

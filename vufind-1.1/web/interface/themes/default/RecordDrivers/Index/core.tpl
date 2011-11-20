@@ -460,15 +460,14 @@
     <td>
      {if is_array($coreCollector)}
       {foreach from=$coreCollector item=collector name=loop}
-        <a href="{$url}/Search/Results?lookfor="{$collector|regex_replace:"/[,\.].\Z/":""|escape:"url"}>{translate text=$collector}</a>
+        <a href="{$url}/Search/Results?lookfor={$collector|regex_replace:"/[,\.].\Z/":""|escape:"url"}&type=Collector">{translate text=$collector}</a>
       {/foreach}
     {else}
-      <a href="{$url}/Search/Results?lookfor="{$collector|regex_replace:"/[,\.].\Z/":""|escape:"url"}>{translate text=$coreCollector}</a>
+      <a href="{$url}/Search/Results?lookfor={$coreCollector|regex_replace:"/[,\.].\Z/":""|escape:"url"}&type=Collector">{translate text=$coreCollector}</a>
     {/if}
     </td>
   </tr>
 {/if}
-
 
       {*{if !empty($coreHolding)}
 <tr valign="top">

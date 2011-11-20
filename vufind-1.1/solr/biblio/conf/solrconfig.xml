@@ -218,7 +218,7 @@ these unless the bandwidth is extremely low or if there is an extremely high lat
          maxTime - oldest uncommited update (in ms) is this long ago
     -->
     <autoCommit> 
-      <maxDocs>10000</maxDocs>
+      <maxDocs>1000</maxDocs>
       <maxTime>20000</maxTime>
     </autoCommit>
 
