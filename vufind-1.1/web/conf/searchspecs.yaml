@@ -467,3 +467,8 @@ oclc_num:
   QueryFields:
     - oclc_num:
       - [oclc_num, ~]
+
+Collector:
+  QueryFields:
+    - callnumber-first-code:
+      - [and, ~]
