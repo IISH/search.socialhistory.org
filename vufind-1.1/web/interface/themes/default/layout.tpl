@@ -35,14 +35,8 @@
 
 <body>
 <a href="{$url}">
-    {*<div align="left" style="background-color: #ffffff;"><img src="http://www.iisg.nl/images/header.gif" alt=""/>
-    </div>
-    <div style="text-align: left ;background-image: url('http://www.iisg.nl/images/bannerbg-home.jpg');">
-        <img height="50" border="0" width="755" alt="" src="http://www.iisg.nl/images/banner-home.gif">
-    </div>*}
-    {*<div style="text-align: left;background-color: #ffffff;background-repeat: no-repeat;background-position: right;background-image: url('{$path}/images/iish/bannerbg-home.png');">*}
     <div style="text-align:left;background-color:#ffffff;">
-        <img border="0" src="{$path}/images/iish/{$userLang}-logo.png"/>
+        <img border="0" src="{$path}/images/iish/{$userLang}-logo.png" style="margin:15px;"/>
     </div>
 </a>
 

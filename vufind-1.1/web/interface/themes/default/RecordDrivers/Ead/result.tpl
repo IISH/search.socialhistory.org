@@ -1,13 +1,13 @@
 <div id="record{$summId|escape}" class="yui-ge">
     <div class="yui-u first">
-    <a href="{$url}/Record/{$summId|escape:"url"}">{if $summThumb}
+    <a href="{$url}/Record/{$summId|escape:"url"}/Description">{if $summThumb}
         <img src="{$summThumb|escape}" class="alignleft" alt="{translate text='Cover Image'}"/>
         {else}
         {*<img src="{$path}/bookcover.php" class="alignleft" alt="{translate text='No Cover Image'}"/>*}
     {/if}</a>
         <div class="resultitem">
             <div class="resultItemLine1">
-                <a href="{$url}/Record/{$summId|escape:"url"}"
+                <a href="{$url}/Record/{$summId|escape:"url"}/Description"
                    class="title">{if !empty($summHighlightedTitle)}{$summHighlightedTitle|addEllipsis:$summTitle|highlight}{elseif !$summTitle}{translate text='Title not available'}{else}{$summTitle|truncate:180:"..."|escape}{/if}</a>
             </div>
 

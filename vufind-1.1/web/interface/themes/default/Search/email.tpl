@@ -12,7 +12,7 @@
      failure: &quot;{translate text='email_failure'}&quot;{literal}}{/literal}
     ); return false;'>
     <input type="hidden" name="url" value="{$searchURL|escape:"html"}">
-    <strong><label for="to">{translate text='To'}:</label></strong><br>
+    <strong><label for="to">{translate text='mail.to'}:</label></strong><br>
     <input type="text" name="to" size="40" id="to"><br>
     <strong><label for="from">{translate text='From'}:</label></strong><br>
     <input type="text" name="from" size="40" id="from"><br>

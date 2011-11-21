@@ -16,6 +16,8 @@ cache/*
 oai.ini
 spellchecker
 spellShingle
+caching
+solrmarc*
 
 # Compiled source #
 ###################
