@@ -65,7 +65,7 @@
         <xsl:apply-templates select="ead:archdesc/ead:otherfindaid"/>
 
         <!-- (tot aan </descgrp> of </controlaccess> of tot eerste <odd>. -->
-        <!--<xsl:apply-templates select="ead:archdesc/ead:odd"/>-->
+        <xsl:apply-templates select="ead:archdesc/ead:odd"/>
 
     </xsl:template>
     <xsl:template match="ead:accessrestrict/ead:p[1]">
@@ -135,9 +135,9 @@
 
     <!-- main odd header -->
     <xsl:template match="ead:odd[1]/ead:head">
-        <h3>
+        
             <xsl:apply-templates/>
-        </h3>
+       
     </xsl:template>
 
     <!-- templates for handling the list -->
