@@ -28,7 +28,7 @@
                     <xsl:when test="ead:archdesc/ead:dsc[@audience='external']">
                         <xsl:apply-templates select="ead:archdesc/ead:dsc[@audience='external']"/>
                     </xsl:when>
-                    <xsl:when test="not(ead:archdesc/ead:dsc) and ($access='Vrij' or $access='Not Restricted') and $physical > 5">
+                    <xsl:when test="not(ead:archdesc/ead:dsc) and ($access='Vrij' or $access='Not restricted') and $physical > 5">
                         <!-- see https://diwoto.iisg.nl/projects/search/ticket/31 -->
                         <p><xsl:value-of select="$large_archive"/></p>
                     </xsl:when>

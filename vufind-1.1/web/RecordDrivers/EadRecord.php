@@ -317,11 +317,7 @@ class EadRecord extends MarcRecord
 
     private function getMetric($physical)
     {
-        $pattern = "([1-9][0-9][0-9]|[1-9][0-9]|[1-9])"; // 1..999 range
-        preg_match($pattern, $physical, $matches);
-        if (sizeof($matches) == 0)
-            return 0;
-        return $matches[0];
+        return (int)$physical;
     }
 }
 
