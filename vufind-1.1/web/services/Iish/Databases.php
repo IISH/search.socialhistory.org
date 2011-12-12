@@ -39,7 +39,7 @@ require_once 'RecordDrivers/Factory.php';
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/building_a_module Wiki
  */
-class Home extends Action
+class Databases extends Action
 {
 
     protected $db;
