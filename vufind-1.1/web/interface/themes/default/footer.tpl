@@ -23,4 +23,11 @@
         <li><a target="_blank" href="{translate text='footer.href.faq'}">{translate text='FAQs'}</a></li>
     </ul>
 </div>
+<div><p><strong>{translate text='more.information'}</strong></p>
+    <ul>
+        <li><a href="{translate text='more.information.iisg'}">IISG</a></li>
+        <li><a href="{translate text='more.information.neha'}">NEHA</a></li>
+        <li><a href="{translate text='more.information.persmuseum'}">Persmuseum</a></li>
+    </ul>
+</div>
 <br clear="all">
