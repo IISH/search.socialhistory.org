@@ -23,6 +23,7 @@
             <!--Replicate on 'startup' and 'commit'. 'optimize' is also a valid value for replicateAfter. -->
             <str name="replicateAfter">startup</str>
             <str name="replicateAfter">commit</str>
+    <str name="replicateAfter">optimize</str>
 
             <!--Create a backup after 'optimize'. Other values can be 'commit', 'startup'. It is possible to have multiple entries of this config string.  Note that this is just for backup, replication does not require this. -->
             <!-- <str name="backupAfter">optimize</str> -->
@@ -60,6 +61,8 @@ these unless the bandwidth is extremely low or if there is an extremely high lat
             <!-- If HTTP Basic authentication is enabled on the master, then the slave can be configured with the following -->
             <str name="httpBasicAuthUser">username</str>
             <str name="httpBasicAuthPassword">password</str>
+<str name="replicateAfter">commit</str>
+    <str name="replicateAfter">startup</str>
 
         </lst>
     </requestHandler>

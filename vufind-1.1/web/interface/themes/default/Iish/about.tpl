@@ -2,15 +2,15 @@
 <html lang="{$language}">
 <head>
     <title>{translate text="About"}</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 {css media="screen" filename="help.css"}
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
 <div id="bd">
     <div id="yui-main" class="content">
-        <div class="yui-b">
+        <div class="yui-b" style="text-align:left">
             <h1>{translate text="About"}</h1>
-        {if $lang="nl"}
+        {if $lang=="nl"}
             <p><b>search.socialhistory.org</b> is het zoekplatform voor collecties van het Internationaal Instituut voor
                 Sociale Geschiedenis (IISG), het Nederlands Economisch Historisch Archief (NEHA), Permsuseum en
                 ReclameArsenaal.<br/>
@@ -46,7 +46,7 @@
                 Een overzicht van de gebruikte trefwoorden vindt u in de thesauruslijst<br/>
                 Meer informatie: <a href="http://www.iisg.nl/image_sound/">www.iisg.nl/image_sound/</a></p>
             {else}
-            <p><b>search.socialhistory.org is a search platform for the collections of the International Institute of
+            <p><b>search.socialhistory.org</b> is a search platform for the collections of the International Institute of
                 Social History (IISH), Netherlands Economic History Archive (NEHA), Persmuseum, and ReclameArsenaal.
                 For practical information and answers to FAQs on accessing the collections please see Public Services.
                 The language switch applies to the labels on the website. The language of the data itself does not

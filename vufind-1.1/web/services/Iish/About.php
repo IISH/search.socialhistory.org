@@ -27,7 +27,6 @@
  * @link     http://vufind.org/wiki/building_a_module Wiki
  */
 require_once 'Action.php';
-require_once 'RecordDrivers/Factory.php';
 
 /**
  * Home action for about module
@@ -42,9 +41,6 @@ require_once 'RecordDrivers/Factory.php';
 class About extends Action
 {
 
-    protected $db;
-    protected $recordDriver;
-
     /**
      * Process incoming parameters and display the page.
      *
@@ -57,6 +53,7 @@ class About extends Action
         $language = $interface->getLanguage();
         $interface->assign('language', $language);
         $interface->assign('lang', $language);
+        $interface->display('Iish/about.tpl');        
     }
 }
 ?>

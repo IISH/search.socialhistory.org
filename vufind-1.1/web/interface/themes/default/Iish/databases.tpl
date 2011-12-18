@@ -2,16 +2,16 @@
 <html lang="{$language}">
 <head>
     <title>{translate text="Databases"}</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 {css media="screen" filename="help.css"}
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
 <div id="bd">
     <div id="yui-main" class="content">
-        <div class="yui-b">
+        <div class="yui-b" style="text-align:left">
             <h1>{translate text="Databases"}</h1>
 
-        {if $lang="nl"}
+        {if $lang=="nl"}
             <p><b>Database stakingen in Nederland</b><br/>
                 Ruim 16.000 stakingen en uitsluitingen in Nederland in de jaren 1372-2006 voorzien van vermelding van
                 onder andere de deelnemers, de aantallen stakers, de betrokken bedrijven, de aanleiding en de

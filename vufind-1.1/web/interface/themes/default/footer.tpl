@@ -17,15 +17,15 @@
         <li><a href="{$url}/Help/Home?topic=search"
                onClick="window.open('{$url}/Help/Home?topic=search', 'Help', 'width=625, height=510'); return false;">{translate text='Search Tips'}</a>
         </li>
-        <li><a href="{$url}/Iish/About">{translate text='About'}</a></li>
-        <li><a href="{$url}/Iish/Databases">{translate text='Databases'}</a></li>
+        <li><a href="{$url}/Iish/About" onClick="window.open('{$url}/Iish/About', '{translate text='About'}', 'width=625, height=510'); return false;">{translate text='About'}</a></li>
+        <li><a href="{$url}/Iish/Databases" onClick="window.open('{$url}/Iish/Databases', '{translate text='Databases'}', 'width=625, height=510'); return false;">{translate text='Databases'}</a></li>
         <li><a target="_blank" href="{translate text='footer.href.ask'}">{translate text='Ask a Librarian'}</a></li>
         <li><a target="_blank" href="{translate text='footer.href.faq'}">{translate text='FAQs'}</a></li>
     </ul>
 </div>
 <div><p><strong>{translate text='more.information'}</strong></p>
     <ul>
-        <li><a href="{translate text='more.information.iisg'}">IISG</a></li>
+        <li><a href="{translate text='more.information.iish'}">IISG</a></li>
         <li><a href="{translate text='more.information.neha'}">NEHA</a></li>
         <li><a href="{translate text='more.information.persmuseum'}">Persmuseum</a></li>
     </ul>
