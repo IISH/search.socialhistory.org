@@ -114,9 +114,6 @@ class HarvestOAI
         $this->_setBasePath($target);
 
         $this->_lastHarvestFile = $this->_basePath . 'last_harvest.txt';
-        // We force a harvest date... the time from this script minus one day
-        $time_from = time() - 24 * 60 * 60; // One day
-        $this->_saveLastHarvestedDate(date('Y-m-d', $time_from));
 
         // Check if there is a file containing a start date:
         $this->_loadLastHarvestedDate();
@@ -187,10 +184,11 @@ class HarvestOAI
      * @return void
      * @access public
      */
-    public function launch()
+public function launch()
     {
         // Start harvesting at the requested date:
         $token = $this->_getRecordsByDate($this->_startDate, $this->_set);
+
 
         // Keep harvesting as long as a resumption token is provided:
         while ($token !== false) {
