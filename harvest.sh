@@ -1,4 +1,6 @@
-# Harvest
+#!/bin/bash
+
+# Harvest driver scripts
 
 if ( "$VUFIND_HOME" = "" );
 then
@@ -13,7 +15,16 @@ app=/home/maven/repo/org/socialhistory/solr/import/1.0/import-1.0.jar
 
 #############################################################################
 # THe application path needs to be here:
+#
+# We shall set the harvest date to a reasonable three day range
 cd $VUFIND_HOME/harvest
+
+now=$(date +"%Y-%m-%d")
+for dir in /data/datasets/*/
+do
+        LastHarvestFile.php "$now" "-3 day" "$dir"last_harvest.txt
+done
+
 php harvest_oai.php
 
 
@@ -31,7 +42,7 @@ rm -R /data/datasets/iish.archieven/*
 # Import the EAD records into vufind's index
 # For this we will temporarily need to write in the cache
 # T orarily need to write in the cache
-cd $VUFIND_HOME/import 
+cd $VUFIND_HOME/import
 ./import-marc.sh -p import_ead.properties $f
 
 
@@ -87,7 +98,7 @@ chown -R tomcat6 /data/search.socialhistory.org.be1/vufind-1.1/solr/
 # Build the sitemap
 php $VUFIND_HOME/util/sitemap.php
 chown -R root:www-data /data/caching/sitemap
-chmod -R 754 /data/caching/sitemap 
+chmod -R 754 /data/caching/sitemap
 
 
 ##############################################################################
