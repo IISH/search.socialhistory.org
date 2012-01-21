@@ -31,7 +31,7 @@ public class DirtyImporterTest {
     public void ImportSomeDate() throws Exception {
 
         String url = "http://localhost:8080/solr/all/update";
-        String xslt = "";
+        String xslt = "C:\\Users\\lwo\\projects\\org.socialhistory.api\\solr-mappings\\solr\\all\\conf\\import\\add.xsl";
         String parameters = "collectionName:iish.evergreen.biblio";
         DirtyImporter importer = new DirtyImporter(url, xslt, parameters);
         File file = new File("C:\\data\\datasets\\iish.evergreen.biblio.xml") ;

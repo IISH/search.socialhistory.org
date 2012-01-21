@@ -1,5 +1,6 @@
 package org.socialhistoryservices.solr.importer;
 
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
@@ -11,7 +12,6 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
-import java.util.Date;
 
 /**
  * Collate
@@ -21,14 +21,20 @@ import java.util.Date;
 public class Collate {
 
     Transformer transformer;
-    //long filter;
-    private boolean delete;
+    public int counter = 0;
+    public int errors = 0;
 
     public Collate() throws TransformerConfigurationException {
 
+        String xslt = System.getProperty("xsl");
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        final InputStream resourceAsStream = this.getClass().getResourceAsStream("/marc.xsl");
-        transformer = transformerFactory.newTransformer(new StreamSource(resourceAsStream));
+        if (xslt == null) {
+            transformer = transformerFactory.newTransformer();
+        } else {
+            System.out.println("Using stylesheet " + xslt);
+            final InputStream resourceAsStream = this.getClass().getResourceAsStream("/" + xslt + ".xsl");
+            transformer = transformerFactory.newTransformer(new StreamSource(resourceAsStream));
+        }
         transformer.setOutputProperty("omit-xml-declaration", "yes");
     }
 
@@ -52,21 +58,15 @@ public class Collate {
                 getFiles(file, writer);
             else {
                 try {
-                    //final long time = Long.parseLong(file.getName().split("_")[0]);
-                    //if (time > filter) {
                     final Document document = loadDocument(file);
                     if (document.getDocumentElement().hasChildNodes()) {
                         saveDocument(document, writer);
+                        counter++;
                     }
-                    //}
                 } catch (Exception e) {
+                    errors++;
                     e.printStackTrace();
                 }
-                try {if (delete) {
-                        file.delete();
-                    }
-                } catch (Exception e) {
-                                    }
             }
         }
     }
@@ -94,12 +94,9 @@ public class Collate {
     public static void main(String[] args) throws Exception {
 
         Collate collate = new Collate();
-        /*collate.filter = (args.length > 2)
-                ? new Date().getTime() / 1000 - Long.parseLong(args[2])
-                : 0;*/
-        collate.delete = (args.length > 2)
-                ? Boolean.valueOf(args[2])
-                : false;
         collate.process(args[0], args[1]);
+        System.out.println();
+        System.out.println("Records collated: " + collate.counter);
+        System.out.println("Rejects: " + collate.errors);
     }
 }

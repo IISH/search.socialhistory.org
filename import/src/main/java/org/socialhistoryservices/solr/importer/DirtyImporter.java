@@ -31,6 +31,8 @@ public class DirtyImporter {
 
     private String url;
     private List<Transformer> tChain;
+    private int counter = 0;
+    private long numMillisecondsToSleep = 15000; // 15 seconds
 
     public DirtyImporter(String url, String _xslts, String _parameters) throws TransformerConfigurationException, FileNotFoundException, MalformedURLException {
 
@@ -94,10 +96,30 @@ public class DirtyImporter {
         final RequestEntity entity = new ByteArrayRequestEntity(record, "text/xml; charset=utf-8");
         post.setRequestEntity(entity);
         final HttpClient httpclient = new HttpClient();
+        log.info("Sending " + ++counter);
         try {
             httpclient.executeMethod(post);
+        } catch (Exception e) {
+            log.warn(e);
         } finally {
             post.releaseConnection();
+        }
+
+        if (counter % 1000 == 1) {
+            log.info("Pause");
+            sleep();
+        }
+
+    }
+
+    /**
+     * We give ourselves a breather for the socket connections to expire
+     */
+    private void sleep() {
+        try {
+            Thread.sleep(numMillisecondsToSleep);
+        } catch (InterruptedException e) {
+            log.warn(e);
         }
     }
 
