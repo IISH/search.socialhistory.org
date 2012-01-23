@@ -287,7 +287,7 @@
     </xsl:template>
 
     <xsl:template match="ead:extref">
-        <xsl:apply-templates/>
+        <a href="text()" target="_blank"><xsl:value-of select="text()"/></a>
     </xsl:template>
 
     <xsl:template match="ead:lb">

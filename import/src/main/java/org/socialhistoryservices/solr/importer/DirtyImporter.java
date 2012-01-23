@@ -62,7 +62,7 @@ public class DirtyImporter {
         final XMLStreamReader xsr = xif.createXMLStreamReader(inputStream, "utf-8");
 
         while (xsr.hasNext()) {
-            xsr.next();
+
             if (xsr.getEventType() == XMLStreamReader.START_ELEMENT) {
                 String elementName = xsr.getLocalName();
                 if ("record".equals(elementName)) {
@@ -71,8 +71,12 @@ public class DirtyImporter {
                     } catch (Exception e) {
                         log.warn(e);
                     }
+                } else {
+                    xsr.next();
                 }
-            }
+            } else {
+                xsr.next();
+            };
         }
     }
 
