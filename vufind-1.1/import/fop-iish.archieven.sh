@@ -1,4 +1,4 @@
-:wq#!/bin/sh
+#!/bin/sh
 
 # Load all of the .jar files in the lib directory into the classpath
 folder=$VUFIND_HOME/caching/ead.xml/10622

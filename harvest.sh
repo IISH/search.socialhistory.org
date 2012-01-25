@@ -2,13 +2,8 @@
 
 # Harvest driver scripts
 
-if ( "$VUFIND_HOME" = "" );
-then
-  echo "Error... VUFIND home directory must be defined. Setting some reasonable default."
   export VUFIND_HOME=/data/search.socialhistory.org.index0/vufind-1.1
-  echo "Using default: ${VUFIND_HOME}"
   export SOLR_HOME=$VUFIND_HOME/solr
-fi
 
 app=/home/maven/repo/org/socialhistory/solr/import/1.0/import-1.0.jar
 
@@ -22,67 +17,31 @@ cd $VUFIND_HOME/harvest
 now=$(date +"%Y-%m-%d")
 for dir in /data/datasets/*/
 do
-        LastHarvestFile.php "$now" "-3 day" "$dir"last_harvest.txt
+	echo "Clearing old files"
+	rm -r "$dir"20*
+	echo "Adding harvest datestamp"
+        php $VUFIND_HOME/harvest/LastHarvestFile.php "$now" "-3 day" "$dir"last_harvest.txt
+	setSpec=`basename $dir`
+	Set setSpec to $setSpec	
+	cd $VUFIND_HOME/harvest
+	echo "Begin harvest"
+	php harvest_oai.php $setSpec
+	f=/data/datasets/$setSpec.xml
+	echo "Collating files into $f"
+	java -cp $app org.socialhistoryservices.solr.importer.Collate $dir $f
+	echo "Clearing files"	
+	rm -r "$dir"20*
+	cd $VUFIND_HOME/import
+	echo "Begin import into solr"	
+	./import-marc.sh -p import_$setSpec.properties $f
+	echo "Creating PDF documents"	
+	./fop-$setSpec.sh
 done
-
-php harvest_oai.php
-
-
-#############################################################################
-# Now collate our material
-# First the EAD
-d=/data/datasets/iish.archieven/
-f=/data/datasets/iish.archieven.xml
-rm $f
-app=/home/maven/repo/org/socialhistory/solr/import/1.0/import-1.0.jar
-java -cp $app org.socialhistoryservices.solr.importer.Collate $d $f
-rm -R /data/datasets/iish.archieven/*
-
-
-# Import the EAD records into vufind's index
-# For this we will temporarily need to write in the cache
-# T orarily need to write in the cache
-cd $VUFIND_HOME/import
-./import-marc.sh -p import_ead.properties $f
-
-
-# And create PDF's
-./fop-ead.sh
-
-
-# Now update the rights
-#chown -R www-data:root /data/caching/ead.xml/*
-#chmod 774 /data/caching/ead.xml/*
-#############################################################################
-# And now for the eci...
-d=/data/datasets/iish.eci/
-f=/data/datasets/iish.eci.xml
-rm $f
-app=/home/maven/repo/org/socialhistory/solr/import/1.0/import-1.0.jar
-java -cp $app org.socialhistoryservices.solr.importer.Collate $d $f
-rm -R /data/datasets/iish.eci/*
-
-cd $VUFIND_HOME/import
-./import-marc.sh -p import_eci.properties $f
-
-
-#############################################################################
-# Now the evergreen data
-d=/data/datasets/iish.evergreen.biblio/
-f=/data/datasets/iish.evergreen.biblio.xml
-rm $f
-java -cp $app org.socialhistoryservices.solr.importer.Collate $d $f
-rm -R /data/datasets/iish.evergreen.biblio/*
-
-
-# Import the marc records into Evergreen
-cd $VUFIND_HOME/import
-./import-marc.sh $f
 
 
 ##############################################################################
 # Optimize... this ought to trigger the replica's
-wget http://localhost:8080/solr/biblio/update?optimize=true
+#wget http://localhost:8080/solr/biblio/update?optimize=true
 
 
 ##############################################################################
