@@ -376,38 +376,13 @@ TitleBrowse:
 
 
 CallNumber:
-  # We use two similar munges here -- one for exact matches, which will get
-  # a very high boost factor, and one for left-anchored wildcard searches,
-  # which will return a larger number of hits at a lower boost.
   CustomMunge:
     callnumber_exact:
-      - [uppercase]
-      # Strip whitespace and quotes:
-      - [preg_replace, '/[ "]/', ""]
-      # Strip pre-existing trailing asterisks:
-      - [preg_replace, "/\*+$/", ""]
-    callnumber_fuzzy:
-      #- [uppercase]
-      # Strip whitespace and quotes:
-      #- [preg_replace, '/[ "]/', ""]
-      # Strip pre-existing trailing asterisks:
-      #- [preg_replace, "/\*+$/", ""]
-      # Ensure we have just one trailing asterisk.  The trailing space inside
-      #     the quotes has no effect on searching; it is a workaround for a
-      #     Horde::YAML parsing glitch -- see VUFIND-160 in JIRA for details.
-      #- [append, "* "]
+      #Strip whitespace and quotes:
+      - [preg_replace, '/[ ]/', "?"]
   QueryFields:
-   # - callnumber-label:
-   #   - [callnumber_exact, 1000]
-   #   - [callnumber_fuzzy, ~]
-   # - callnumber:
-   #   - [callnumber_exact, 1000]
-   #   - [callnumber_fuzzy, ~]
-   # - dewey-full:
-   #   - [callnumber_exact, 1000]
-   #   - [callnumber_fuzzy, ~]
     - callnumber:
-      - [callnumber_fuzzy]
+      - [callnumber_exact, 1000]
 
 publisher:
   QueryFields:
