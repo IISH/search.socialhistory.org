@@ -24,6 +24,7 @@
                 <xsl:call-template name="description"/>
             </xsl:when>
             <xsl:when test="$action='Holdings'">
+		<xsl:call-template name="introduction"/>
                 <xsl:choose>
                     <xsl:when test="ead:archdesc/ead:dsc[@audience='external']">
                         <xsl:apply-templates select="ead:archdesc/ead:dsc[@audience='external']"/>
@@ -64,10 +65,14 @@
         <xsl:apply-templates select="ead:archdesc/ead:relatedmaterial"/>
         <xsl:apply-templates select="ead:archdesc/ead:otherfindaid"/>
 
-        <!-- (tot aan </descgrp> of </controlaccess> of tot eerste <odd>. -->
-        <xsl:apply-templates select="ead:archdesc/ead:odd"/>
-
     </xsl:template>
+
+	<xsl:template name="introduction">
+		<!-- (tot aan </descgrp> of </controlaccess> of tot eerste <odd>. -->
+        	<xsl:apply-templates select="ead:archdesc/ead:odd"/>
+	</xsl:template>
+
+
     <xsl:template match="ead:accessrestrict/ead:p[1]">
         <xsl:apply-templates/>
     </xsl:template>
