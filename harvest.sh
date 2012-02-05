@@ -20,7 +20,7 @@ do
 	echo "Clearing old files"
 	rm -r "$dir"20*
 	echo "Adding harvest datestamp"
-        php $VUFIND_HOME/harvest/LastHarvestFile.php "$now" "-3 day" "$dir"last_harvest.txt
+        php $VUFIND_HOME/harvest/LastHarvestFile.php "$now" "-30 day" "$dir"last_harvest.txt
 	setSpec=`basename $dir`
 	Set setSpec to $setSpec	
 	cd $VUFIND_HOME/harvest
@@ -41,16 +41,19 @@ done
 
 ##############################################################################
 # Optimize... this ought to trigger the replica's
-#wget http://localhost:8080/solr/biblio/update?optimize=true
+# Yes two times,,,,  sometimes the old index files are not cleared.
+wget -O /tmp/optimize.txt http://localhost:8080/solr/biblio/update?optimize=true
+wget -O /tmp/optimize.txt http://localhost:8080/solr/biblio/update?optimize=true
 
 
 ##############################################################################
 # Update authority browse index
 ./index-alphabetic-browse.sh
-cp -r -f ../solr/alphabetical_browse /data/search.socialhistory.org.be0/vufind-1.1/solr/.
-chown -R tomcat6 /data/search.socialhistory.org.be0/vufind-1.1/solr/
-cp -r -f ../solr/alphabetical_browse /data/search.socialhistory.org.be1/vufind-1.1/solr/.
-chown -R tomcat6 /data/search.socialhistory.org.be1/vufind-1.1/solr/
+# We leave the copying to the rsync
+#cp -r -f ../solr/alphabetical_browse /data/search.socialhistory.org.be0/vufind-1.1/solr/.
+#chown -R tomcat6 /data/search.socialhistory.org.be0/vufind-1.1/solr/
+#cp -r -f ../solr/alphabetical_browse /data/search.socialhistory.org.be1/vufind-1.1/solr/.
+#chown -R tomcat6 /data/search.socialhistory.org.be1/vufind-1.1/solr/
 
 
 ##############################################################################
