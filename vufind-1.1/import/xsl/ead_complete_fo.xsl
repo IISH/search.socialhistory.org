@@ -142,7 +142,7 @@
                         </xsl:if>
                     </fo:block>
                     <fo:block space-before.optimum="4mm">http://hdl.handle.net/<xsl:value-of
-                            select="ead:eadheader/ead:eadid/@identifier"/>?locatt=view:pdf
+                            select="ead:eadheader/ead:eadid/@identifier"/>
                     </fo:block>
                 </fo:block-container>
             </fo:flow>
