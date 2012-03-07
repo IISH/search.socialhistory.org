@@ -20,7 +20,7 @@ do
 	echo "Clearing old files"
 	rm -r "$dir"20*
 	echo "Adding harvest datestamp"
-        php $VUFIND_HOME/harvest/LastHarvestFile.php "$now" "-30 day" "$dir"last_harvest.txt
+        php $VUFIND_HOME/harvest/LastHarvestFile.php "$now" "-3 day" "$dir"last_harvest.txt
 	setSpec=`basename $dir`
 	Set setSpec to $setSpec	
 	cd $VUFIND_HOME/harvest

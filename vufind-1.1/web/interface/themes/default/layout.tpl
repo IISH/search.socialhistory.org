@@ -48,7 +48,7 @@ _gaq.push(['_trackPageview']);
 
 <body>
 <a href="{$url}">
-    <div style="text-align:left;background-color:#ffffff;">
+    <div style="text-align:center;background-color:#ffffff;">
         <img border="0" src="{$path}/images/iish/{$userLang}-logo.png" style="margin:15px;"/>
     </div>
 </a>
