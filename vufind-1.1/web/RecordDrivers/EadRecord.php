@@ -194,7 +194,7 @@ class EadRecord extends MarcRecord
         // Add the deliverance API
         $deliverance = $configArray['IISH']['deliverance'];
         $interface->assign('deliverance', $deliverance);
-        $interface->assign('pid', $this->getUniqueID()); // Todo: replace with PID in 902$a
+        $interface->assign('pid', $this->getUniqueID());
 
         return 'RecordDrivers/Ead/holdings.tpl';
     }
@@ -206,6 +206,7 @@ class EadRecord extends MarcRecord
                 : "Holdings";
         $accessRestrictions = $this->getAccessRestrictions();
         $physical = $this->getMetric($this->getPhysical());
+        $metsBaseUrl = $this->getMetsBaseUrl();
 
         // Prevent unprintable characters from interfering with the XSL transform:
         $xml = str_replace(array(chr(29), chr(30), chr(31)), ' ', $xml);
@@ -219,6 +220,7 @@ class EadRecord extends MarcRecord
         $xsl->setParameter('', "physical", $physical);
         $xsl->setParameter('', "large_archive", translate('large_archive'));
         $xsl->setParameter('', "no_inventory", translate('no_inventory'));
+        $xsl->setParameter('', "metsBaseUrl", $metsBaseUrl);
         $doc = new DOMDocument();
         if ($doc->loadXML($xml)) {
             $html = $xsl->transformToXML($doc);
@@ -318,6 +320,25 @@ class EadRecord extends MarcRecord
     private function getMetric($physical)
     {
         return (int)$physical;
+    }
+
+    /**
+     * Small proof to see if we can make a link to visual mets.
+     *
+     * @return Base url
+     */
+    private function getMetsBaseUrl()
+    {
+        $metsBaseUrl = null;
+        switch ($this->getUniqueID()) {
+            case "ARCH00483": // Archief Ferdinand Domela Nieuwenhuis
+                $metsBaseUrl = "http://webstore.iisg.nl/dorarussel/mets/";
+                break;
+            case "ARCH01225": // Dora Winifred Russell Papers
+                $metsBaseUrl = "http://webstore.iisg.nl/domela-vm/0040/xml/domela_";
+                break;
+        }
+        return $metsBaseUrl;
     }
 }
 

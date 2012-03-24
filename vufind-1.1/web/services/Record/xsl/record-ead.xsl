@@ -13,6 +13,7 @@
     <xsl:param name="physical"/>
     <xsl:param name="large_archive"/>
     <xsl:param name="no_inventory"/>
+    <xsl:param name="metsBaseUrl"/>
 
     <xsl:template match="/">
         <xsl:apply-templates select="//ead:ead"/>
@@ -24,17 +25,22 @@
                 <xsl:call-template name="description"/>
             </xsl:when>
             <xsl:when test="$action='Holdings'">
-		<xsl:call-template name="introduction"/>
+                <xsl:call-template name="introduction"/>
                 <xsl:choose>
                     <xsl:when test="ead:archdesc/ead:dsc[@audience='external']">
                         <xsl:apply-templates select="ead:archdesc/ead:dsc[@audience='external']"/>
                     </xsl:when>
-                    <xsl:when test="not(ead:archdesc/ead:dsc) and ($access='Vrij' or $access='Not restricted') and $physical > 5">
+                    <xsl:when
+                            test="not(ead:archdesc/ead:dsc) and ($access='Vrij' or $access='Not restricted') and $physical > 5">
                         <!-- see https://diwoto.iisg.nl/projects/search/ticket/31 -->
-                        <p><xsl:value-of select="$large_archive"/></p>
+                        <p>
+                            <xsl:value-of select="$large_archive"/>
+                        </p>
                     </xsl:when>
                     <xsl:otherwise>
-                        <p><xsl:value-of select="$no_inventory"/></p>
+                        <p>
+                            <xsl:value-of select="$no_inventory"/>
+                        </p>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
@@ -67,10 +73,10 @@
 
     </xsl:template>
 
-	<xsl:template name="introduction">
-		<!-- (tot aan </descgrp> of </controlaccess> of tot eerste <odd>. -->
-        	<xsl:apply-templates select="ead:archdesc/ead:odd"/>
-	</xsl:template>
+    <xsl:template name="introduction">
+        <!-- (tot aan </descgrp> of </controlaccess> of tot eerste <odd>. -->
+        <xsl:apply-templates select="ead:archdesc/ead:odd"/>
+    </xsl:template>
 
 
     <xsl:template match="ead:accessrestrict/ead:p[1]">
@@ -140,9 +146,9 @@
 
     <!-- main odd header -->
     <xsl:template match="ead:odd[1]/ead:head">
-        
-            <xsl:apply-templates/>
-       
+
+        <xsl:apply-templates/>
+
     </xsl:template>
 
     <!-- templates for handling the list -->
@@ -177,7 +183,9 @@
             </xsl:when>
             <xsl:when test="../../@level = 'item'">
                 <span class="container">
-                    <xsl:apply-templates/>
+                    <a href="{concat($metsBaseUrl, normalize-space(text()), '.xml')}" target="_blank">
+                        <xsl:apply-templates/>
+                    </a>
                 </span>
             </xsl:when>
         </xsl:choose>
@@ -292,7 +300,9 @@
     </xsl:template>
 
     <xsl:template match="ead:extref">
-        <a href="{@href}" target="_blank"><xsl:value-of select="text()"/></a>
+        <a href="{@href}" target="_blank">
+            <xsl:value-of select="text()"/>
+        </a>
     </xsl:template>
 
     <xsl:template match="ead:lb">
