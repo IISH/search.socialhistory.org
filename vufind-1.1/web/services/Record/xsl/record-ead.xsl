@@ -183,9 +183,17 @@
             </xsl:when>
             <xsl:when test="../../@level = 'item'">
                 <span class="container">
-                    <a href="{concat($metsBaseUrl, normalize-space(text()), '.xml')}" target="_blank">
-                        <xsl:apply-templates/>
-                    </a>
+                    <xsl:choose>
+                        <xsl:when test="$metsBaseUrl">
+                            <a href="http://integratievisualmets.iisg.nl/mets2/rest/popup.html?metsId={concat($metsBaseUrl, normalize-space(text()), '.xml')}"
+                               target="_blank">
+                                <xsl:apply-templates/>
+                            </a>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </span>
             </xsl:when>
         </xsl:choose>
