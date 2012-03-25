@@ -178,7 +178,15 @@
         <xsl:choose>
             <xsl:when test="../../@level = 'file'">
                 <span class="container">
-                    <xsl:apply-templates/>
+                    <xsl:choose>
+                        <xsl:when test="$metsBaseUrl and count(../..//ead:container)=1"><a href="http://integratievisualmets.iisg.nl/mets2/rest/popup.html?metsId={concat($metsBaseUrl, normalize-space(text()), '.xml')}"
+                               target="_blank">
+                                <xsl:apply-templates/></a>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </span>
             </xsl:when>
             <xsl:when test="../../@level = 'item'">
@@ -186,9 +194,7 @@
                     <xsl:choose>
                         <xsl:when test="$metsBaseUrl">
                             <a href="http://integratievisualmets.iisg.nl/mets2/rest/popup.html?metsId={concat($metsBaseUrl, normalize-space(text()), '.xml')}"
-                               target="_blank">
-                                <xsl:apply-templates/>
-                            </a>
+                               target="_blank"><xsl:apply-templates/></a>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:apply-templates/>
@@ -314,7 +320,7 @@
     </xsl:template>
 
     <xsl:template match="ead:lb">
-        <br style="margin-bottom:1em"/>
+    `<br/> <br/>
     </xsl:template>
 
     <!-- lists -->
