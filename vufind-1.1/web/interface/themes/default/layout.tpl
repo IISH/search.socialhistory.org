@@ -47,7 +47,7 @@ _gaq.push(['_trackPageview']);
 </head>
 
 <body>
-<a href="{$url}">
+<a href="http://socialhistory.org/{$userLang}" target="_blank">
     <div style="text-align:center;background-color:#ffffff;">
         <img border="0" src="{$path}/images/iish/{$userLang}-logo.png" style="margin:15px;"/>
     </div>

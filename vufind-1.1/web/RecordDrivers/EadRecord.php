@@ -332,7 +332,7 @@ class EadRecord extends MarcRecord
         $metsBaseUrl = null;
         switch ($this->getUniqueID()) {
             case "ARCH00483": // Archief Ferdinand Domela Nieuwenhuis
-                $metsBaseUrl = "http://webstore.iisg.nl/domela-vm/0040/xml/domela_";
+                $metsBaseUrl = "http://webstore.iisg.nl/domela-vm/";
                 break;
             case "ARCH01225": // Dora Winifred Russell Papers
                 $metsBaseUrl = "http://webstore.iisg.nl/dorarussel/mets/";
