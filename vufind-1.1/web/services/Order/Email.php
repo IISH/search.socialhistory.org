@@ -64,7 +64,7 @@ class Email extends Action
 
             $to = $configArray['IISH']['orderTo'];
             $from = $configArray['IISH']['orderFrom'];
-            $subject = $configArray['IISH']['orderSubject'];
+            $subject = $configArray['IISH']['orderSubject'] . " " . $_POST['fullname'];
 
 
             $limit = 25;
