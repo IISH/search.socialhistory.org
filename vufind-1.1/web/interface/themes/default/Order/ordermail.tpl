@@ -4,7 +4,7 @@
 {translate text='Title'}: {$title}
 {translate text='Callnumber'}: {$callnumber}
 {translate text='Barcode'}: {$coreBarcode}
-{translate text='Download master'}: http://filer4.iisg.nl/?im={$coreBarcode}tif
+{translate text='Download master'}: http://filer4.iisg.nl/?im={$coreBarcode}.tif
 {translate text='Website'}: {$website}
 
 {translate text="order.details"}:
