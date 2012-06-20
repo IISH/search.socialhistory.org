@@ -14,13 +14,17 @@ app=/home/maven/repo/org/socialhistory/solr/import/1.0/import-1.0.jar
 # We shall set the harvest date to a reasonable three day range
 cd $VUFIND_HOME/harvest
 
+d=$1
+if [ "$d" == "" ] ; then
+	d="-3 day"
+fi
 now=$(date +"%Y-%m-%d")
 for dir in /data/datasets/*/
 do
 	echo "Clearing old files"
 	rm -r "$dir"20*
 	echo "Adding harvest datestamp"
-        php $VUFIND_HOME/harvest/LastHarvestFile.php "$now" "-3 day" "$dir"last_harvest.txt
+	php $VUFIND_HOME/harvest/LastHarvestFile.php "$now" "$d" "$dir"last_harvest.txt
 	setSpec=`basename $dir`
 	Set setSpec to $setSpec	
 	cd $VUFIND_HOME/harvest
