@@ -17,3 +17,4 @@
 {translate text="order.telephone"}: {$telephone}
 
 {translate text="order.purpose"}: {$purpose}
+
