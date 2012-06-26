@@ -37,7 +37,7 @@
   {if $coreThumbMedium}
     <div class="alignright">
       {if $coreThumbLarge}<a href="{$coreThumbLarge|escape}">{/if}
-        <img alt="{translate text='Cover Image'}" class="recordcover" src="{$coreThumbMedium|escape}">
+        <img style="width:350px" alt="{translate text='Cover Image'}" class="recordcover" src="{$coreThumbMedium|escape}">
       {if $coreThumbLarge}</a>{/if}
     </div>
   {else}

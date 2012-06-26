@@ -2,7 +2,7 @@
   <div class="yui-u first">
       <a href="{$url}/Record/{$summId|escape:"url"}">
     {if $summThumb}
-    <img src="{$summThumb|escape}" class="alignleft" alt="{translate text='Cover Image'}"/>
+    <img style="width:100px" src="{$summThumb|escape}" class="alignleft" alt="{translate text='Cover Image'}"/>
     {else}
     {*<img src="{$path}/bookcover.php" class="alignleft" alt="{translate text='No Cover Image'}"/>*}
     {/if}
