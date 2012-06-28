@@ -37,9 +37,17 @@
   {if $coreThumbMedium}
     <div class="alignright">
       {if $coreThumbLarge}<a href="{$coreThumbLarge|escape}">{/if}
-        <img style="width:350px" alt="{translate text='Cover Image'}" class="recordcover" src="{$coreThumbMedium|escape}">
+        <img id="cover" alt="{translate text='Cover Image'}" class="recordcover" src="{$coreThumbMedium|escape}">
       {if $coreThumbLarge}</a>{/if}
     </div>
+
+{literal}
+  <script language="JavaScript" type="text/javascript">
+    // <!-- avoid HTML validation errors by including everything in a comment.
+            var cover = document.getElementById("cover");
+	if ( cover && cover.offsetWidth > 350 ) cover.style.width = "350px";
+  </script>
+{/literal}
   {else}
 {* <img src="{$path}/bookcover.php" alt="{translate text='No Cover Image'}"> *}
   {/if}
