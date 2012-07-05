@@ -1,13 +1,15 @@
 package org.socialhistoryservices.solr.importer;
 
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.*;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
@@ -31,7 +33,7 @@ public class Collate {
         if (xslt == null) {
             transformer = transformerFactory.newTransformer();
         } else {
-            System.out.println("Using stylesheet " + xslt);
+            System.out.println("Using stylesheet -Dxsl=" + xslt);
             final InputStream resourceAsStream = this.getClass().getResourceAsStream("/" + xslt + ".xsl");
             transformer = transformerFactory.newTransformer(new StreamSource(resourceAsStream));
         }
@@ -61,6 +63,7 @@ public class Collate {
                     final Document document = loadDocument(file);
                     if (document.getDocumentElement().hasChildNodes()) {
                         saveDocument(document, writer);
+                        writer.write("\r\n");
                         counter++;
                     }
                 } catch (Exception e) {

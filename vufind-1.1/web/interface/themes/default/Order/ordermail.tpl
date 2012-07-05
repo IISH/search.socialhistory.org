@@ -13,7 +13,7 @@
 {translate text="order.address"}: {$address}
 {translate text="order.zipcode"}: {$zipcode}
 {translate text="order.city"}: {$city}
-{translate text="order.country"}: {$city}
+{translate text="order.country"}: {$country}
 {translate text="order.telephone"}: {$telephone}
 
 {translate text="order.purpose"}: {$purpose}
