@@ -15,6 +15,7 @@ This stylesheet corrects some irregularities from the Evergreen OAI export.
         </xsl:copy>
     </xsl:template>
 
+
     <xsl:template match="marc:leader">
         <xsl:variable name="tmp" select="concat(substring(text(),1, 13), '     ', substring(text(),14))"/>
         <marc:leader>
@@ -22,6 +23,7 @@ This stylesheet corrects some irregularities from the Evergreen OAI export.
         </marc:leader>
     </xsl:template>
 
+    <!-- Remove authorities -->
     <xsl:template match="marc:subfield[@code='0']"/>
 
 </xsl:stylesheet>
