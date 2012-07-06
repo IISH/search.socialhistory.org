@@ -26,20 +26,20 @@ do
 	echo "Adding harvest datestamp"
 	php $VUFIND_HOME/harvest/LastHarvestFile.php "$now" "$d" "$dir"last_harvest.txt
 	setSpec=`basename $dir`
-	Set setSpec to $setSpec	
+	echo Set setSpec to $setSpec	
 	cd $VUFIND_HOME/harvest
 	echo "Begin harvest"
 	php harvest_oai.php $setSpec
 	f=/data/datasets/$setSpec.xml
 	echo "Collating files into $f"
-	java -cp $app org.socialhistoryservices.solr.importer.Collate $dir $f
+	java -Dxsl=marc -cp $app org.socialhistoryservices.solr.importer.Collate $dir $f
 	echo "Clearing files"	
 	rm -r "$dir"20*
 	cd $VUFIND_HOME/import
 	echo "Begin import into solr"	
 	./import-marc.sh -p import_$setSpec.properties $f
 	echo "Creating PDF documents"	
-	./fop-$setSpec.sh
+#	./fop-$setSpec.sh
 done
 
 

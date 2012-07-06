@@ -909,7 +909,9 @@ class MarcRecord extends IndexRecord
     }
 
     private function getIsShowBy(){
-        return $this->_getFirstFieldValue('852', array('p'));
+        $p = $this->_getFirstFieldValue('852', array('p'));
+        $pos = strpos($p, '30051' );
+        return ($pos === false) ? null : $p;
     }
 
     public function getExtendedMetadata()
