@@ -5,18 +5,14 @@
     {/foreach}
 {/if}
 
-{if !empty($holdingURLs) || $holdingsOpenURL}
 <h3>{translate text="Internet"}</h3>
-    {if !empty($holdingURLs)}
-        {foreach from=$holdingURLs item=desc key=currentUrl name=loop}
-        <a href="{if $proxy}{$proxy}/login?url={$currentUrl|escape:"url"}{else}{$currentUrl|escape}{/if}">{$desc|escape}</a>
-        <br/>
-        {/foreach}
-    {/if}
-    {if $holdingsOpenURL}
-    {include file="Search/openurl.tpl" openUrl=$holdingsOpenURL}
-    {/if}
-{/if}
+<ul>
+{if ( !empty($coreIsShownAt) )}
+    <li><a href="http://hdl.handle.net/{$coreIsShownAt}" target="_blank">{translate text='isShownAt'}</a></li>{/if}
+{if ( !empty($coreIsShownBy) )}
+    <li><a href="http://hdl.handle.net/10622/{$coreIsShownBy}" target="_blank">{translate text='isShownBy'}</a></li>{/if}
+</ul>
+
 {if (!empty($holdingLCCN)||!empty($isbn)||!empty($holdingArrOCLC))}
 <span style="">
     <a class="{if $isbn}gbsISBN{$isbn}{/if}{if $holdingLCCN}{if $isbn} {/if}gbsLCCN{$holdingLCCN}{/if}{if $holdingArrOCLC}{if $isbn|$holdingLCCN} {/if}{foreach from=$holdingArrOCLC item=holdingOCLC name=oclcLoop}gbsOCLC{$holdingOCLC}{if !$smarty.foreach.oclcLoop.last} {/if}{/foreach}{/if}"

@@ -891,6 +891,10 @@ class MarcRecord extends IndexRecord
         global $interface;
         $coreCollector = $this->getCollector();
         $coreHolding = $this->getHolding();
+        $coreIsShownAt = $this->getIsShownAt();
+        $coreIsShownBy = $this->getIsShowBy();
+        $interface->assign('coreIsShownAt', $coreIsShownAt);
+        $interface->assign('coreIsShownBy', $coreIsShownBy);
         $interface->assign('coreHolding', $coreHolding);
         $interface->assign('coreFavorite', $this->getFavorite());
         $interface->assign('coreMainAuthorRole', $this->MainAuthorRole());
@@ -898,6 +902,14 @@ class MarcRecord extends IndexRecord
         $interface->assign('coreCollector', $coreCollector);
         $this->getExtendedMetadata();
         return $tpl;
+    }
+
+    private function getIsShownAt(){
+        return $this->_getFirstFieldValue('902', array('a'));
+    }
+
+    private function getIsShowBy(){
+        return $this->_getFirstFieldValue('852', array('p'));
     }
 
     public function getExtendedMetadata()
