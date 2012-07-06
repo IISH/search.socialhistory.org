@@ -43,6 +43,9 @@ class Email extends Action
 {
     /**
      * Process incoming parameters and display the page.
+     * We will sent two mails:
+     * One to the person that ordered the poster
+     * The other to the repro
      *
      * @return void
      * @access public
@@ -62,11 +65,6 @@ class Email extends Action
                     return;
             }
 
-            $to = $configArray['IISH']['orderTo'];
-            $from = $configArray['IISH']['orderFrom'];
-            $subject = $configArray['IISH']['orderSubject'] . " " . $_POST['fullname'];
-
-
             $limit = 25;
             foreach ($_POST as $key => $value) {
                 $limit--;
@@ -75,15 +73,23 @@ class Email extends Action
                     break;
             }
 
-            $result = $this->sendEmail(
-                $to, $from, $subject);
-
+            // Sent to repo
+            $result = $this->sendEmail($configArray['IISH']['orderTo'], $_POST['email'], $configArray['IISH']['orderSubject'] . " " . $_POST['fullname']);
             if (PEAR::isError($result)) {
                 $interface->assign('errorMsg', $result->getMessage());
                 $interface->display("Order/reproduction.tpl");
-            } else {
-                $interface->display("Order/ordered.tpl");
+                return;
             }
+
+            // Sent to customer
+            $result = $this->sendEmail($_POST['email'], $configArray['IISH']['orderFrom'], $configArray['IISH']['orderSubject']);
+            if (PEAR::isError($result)) {
+                $interface->assign('errorMsg', $result->getMessage());
+                $interface->display("Order/reproduction.tpl");
+                return;
+            }
+
+            $interface->display("Order/ordered.tpl");
         }
     }
 
