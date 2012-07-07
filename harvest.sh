@@ -16,7 +16,7 @@ cd $VUFIND_HOME/harvest
 
 d=$1
 if [ "$d" == "" ] ; then
-	d="-3 day"
+	d="-5 day"
 fi
 now=$(date +"%Y-%m-%d")
 for dir in /data/datasets/*/
@@ -25,6 +25,7 @@ do
 	rm -r "$dir"20*
 	echo "Adding harvest datestamp"
 	php $VUFIND_HOME/harvest/LastHarvestFile.php "$now" "$d" "$dir"last_harvest.txt
+	"$dir"last_harvest.txt
 	setSpec=`basename $dir`
 	echo Set setSpec to $setSpec	
 	cd $VUFIND_HOME/harvest
@@ -52,12 +53,12 @@ wget -O /tmp/optimize.txt http://localhost:8080/solr/biblio/update?optimize=true
 
 ##############################################################################
 # Update authority browse index
+#
+# Should the alphabetic browse fail, we have no longer that database functionality. But it is better to have no index, than a corrupt one.
+# We remove it to avoid corruption.
+rm $SOLR_HOME/alphabetical_browse/*
 ./index-alphabetic-browse.sh
-# We leave the copying to the rsync
-#cp -r -f ../solr/alphabetical_browse /data/search.socialhistory.org.be0/vufind-1.1/solr/.
-#chown -R tomcat6 /data/search.socialhistory.org.be0/vufind-1.1/solr/
-#cp -r -f ../solr/alphabetical_browse /data/search.socialhistory.org.be1/vufind-1.1/solr/.
-#chown -R tomcat6 /data/search.socialhistory.org.be1/vufind-1.1/solr/
+# We leave the copying to the rsync on erebus.store0
 
 
 ##############################################################################
