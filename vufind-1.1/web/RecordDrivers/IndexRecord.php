@@ -479,6 +479,8 @@ class IndexRecord implements RecordInterface
         $deliverance = $configArray['IISH']['deliverance'];
         $interface->assign('deliverance', $deliverance);
         $interface->assign('pid', $this->getUniqueID()); // Todo: replace with PID in 902$a
+        $language = $interface->getLanguage();
+        $interface->assign('lang', $language);
 
         return 'RecordDrivers/Index/holdings.tpl';
     }
