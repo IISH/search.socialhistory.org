@@ -12,9 +12,7 @@
 </p>{/if}
 {if ( !empty($coreIsShownBy) )}
 <p>{translate text='isShownBy'}<br/><a href="http://hdl.handle.net/10622/{$coreIsShownBy}?locatt=view:level2"
-                                       target="_blank">http://hdl.handle.net/10622/{$coreIsShownBy}
-    ?locatt=view:level2</a></p>{/if}
-
+                                       target="_blank">http://hdl.handle.net/10622/{$coreIsShownBy}?locatt=view:level2</a></p>{/if}
 {if ( !empty($coreIsShownBy) )}
     {if $lang=="nl"}
         <h3>Beperkingen aan het gebruik van deze afbeelding</h3>

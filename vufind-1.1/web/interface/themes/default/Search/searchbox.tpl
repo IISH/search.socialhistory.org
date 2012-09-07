@@ -64,3 +64,7 @@
     </form>
   {/if}
 </div>
+
+<script language="JavaScript" type="text/javascript">
+    document.searchForm.lookfor.focus();
+</script>
