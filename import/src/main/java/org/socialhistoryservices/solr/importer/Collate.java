@@ -6,11 +6,15 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stax.StAXSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
@@ -18,7 +22,10 @@ import java.io.*;
 /**
  * Collate
  * <p/>
- * Collates all Marc xml files into one catalog document.
+ * If the file parameter is a directory: collates Marc xml documents on fs into one catalog document.
+ * If the file parameter is a file: collates all marc references into a catalog documnet.
+ * <p/>
+ * In both cases xslt an be applied.
  */
 public class Collate {
 
@@ -40,16 +47,43 @@ public class Collate {
         transformer.setOutputProperty("omit-xml-declaration", "yes");
     }
 
-    private void process(String source, String target) throws IOException {
+    private void process(String source, String target) throws IOException, XMLStreamException, TransformerException {
 
         final FileOutputStream fos = new FileOutputStream(target);
         final OutputStreamWriter writer = new OutputStreamWriter(fos, "utf8");
         writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         writer.write("<marc:catalog xmlns:marc=\"http://www.loc.gov/MARC21/slim\">");
-        getFiles(new File(source), writer);
+
+        final File sourceFile = new File(source);
+        assert sourceFile.exists();
+        if (sourceFile.isDirectory()) {
+            getFiles(sourceFile, writer);
+        } else {
+            getCatalog(sourceFile, writer);
+        }
         writer.write("</marc:catalog>");
         writer.flush();
         fos.close();
+    }
+
+    private void getCatalog(File file, OutputStreamWriter writer) throws IOException, XMLStreamException, TransformerException {
+        final XMLInputFactory xif = XMLInputFactory.newInstance();
+        final XMLStreamReader xsr = xif.createXMLStreamReader(new FileReader(file));
+
+        while (xsr.hasNext()) {
+            if (xsr.getEventType() == XMLStreamReader.START_ELEMENT) {
+                if (xsr.getLocalName().equals("record")) {
+                    transformer.transform(new StAXSource(xsr), new StreamResult(writer));
+                    writer.write("\r\n");
+                    counter++;
+                } else {
+                    xsr.next();
+                }
+            } else {
+                xsr.next();
+            }
+        }
+        xsr.close();
     }
 
     private void getFiles(File folder, OutputStreamWriter writer) {

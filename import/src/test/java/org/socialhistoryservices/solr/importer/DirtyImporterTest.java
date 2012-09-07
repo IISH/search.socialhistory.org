@@ -19,7 +19,6 @@
 
 package org.socialhistoryservices.solr.importer;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -27,14 +26,22 @@ import java.io.File;
 @Ignore
 public class DirtyImporterTest {
 
-    @Test
     public void ImportSomeDate() throws Exception {
 
         String url = "http://localhost:8080/solr/all/update";
         String xslt = "C:\\Users\\lwo\\projects\\org.socialhistory.api\\solr-mappings\\solr\\all\\conf\\import\\add.xsl";
         String parameters = "collectionName:iish.evergreen.biblio";
         DirtyImporter importer = new DirtyImporter(url, xslt, parameters);
-        File file = new File("C:\\data\\datasets\\iish.evergreen.biblio.xml") ;
+        File file = new File("C:\\data\\datasets\\iish.evergreen.biblio.xml");
         importer.process(file);
     }
+
+    @Test
+    public void ImportCatalog() throws Exception {
+
+        System.setProperty("xsl", "marc");
+        String[] args = new String[]{"C:\\Users\\lwo\\Desktop\\export.new.xml", "C:\\Users\\lwo\\Desktop\\export.new.2.xml"};
+        Collate.main(args);
+    }
+
 }
