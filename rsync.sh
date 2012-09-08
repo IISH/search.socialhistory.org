@@ -17,9 +17,9 @@ for i in {0..1}
 		be=/data/search.socialhistory.org.be"$i"/vufind-1.1/solr/
 		rsync --delete -avv $index0 $be
 		chown -R tomcat6:tomcat6 $be
-		url=http://erebus.be"$i".iisg.net:8080/solr/admin/multicore?action="RELOAD&core=biblio"
+		#url=http://erebus.be"$i".iisg.net:8080/solr/admin/multicore?action="RELOAD&core=biblio"
 		wget -O /tmp/reload.txt "$url"
-		url=http://erebus.be"$i".iisg.net:8080/solr/admin/multicore?action="RELOAD&core=authority"
+		#url=http://erebus.be"$i".iisg.net:8080/solr/admin/multicore?action="RELOAD&core=authority"
 		wget -O /tmp/reload.txt "$url"
 done
 

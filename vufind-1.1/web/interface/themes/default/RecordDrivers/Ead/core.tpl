@@ -113,10 +113,10 @@
     {/if}
 {/if}
 
-{if !empty($coreCollector)}
+{if !empty($coreCollection)}
     <tr valign="top">
             <th>{translate text='Collection'}:</th>
-            <td>{$coreCollector}</td>
+            <td>{$coreCollection}</td>
         </tr>
 {/if}
 

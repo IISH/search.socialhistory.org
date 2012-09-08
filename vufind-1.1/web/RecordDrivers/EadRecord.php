@@ -177,7 +177,9 @@ class EadRecord extends MarcRecord
     }
 
     private function getCollection() {
-        return $this->_getFieldArray('852', null, false);
+	$c = $this->_getFieldArray('852', null, false);
+	$collection = (sizeof($c) == 0) ? null : $c[0];
+        return $collection;
     }
 
     public function getStaffView()

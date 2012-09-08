@@ -25,7 +25,6 @@ do
 	rm -r "$dir"20*
 	echo "Adding harvest datestamp"
 	php $VUFIND_HOME/harvest/LastHarvestFile.php "$now" "$d" "$dir"last_harvest.txt
-	"$dir"last_harvest.txt
 	setSpec=`basename $dir`
 	echo Set setSpec to $setSpec	
 	cd $VUFIND_HOME/harvest
@@ -40,7 +39,7 @@ do
 	echo "Begin import into solr"	
 	./import-marc.sh -p import_$setSpec.properties $f
 	echo "Creating PDF documents"	
-#	./fop-$setSpec.sh
+ 	./fop-$setSpec.sh
 done
 
 
