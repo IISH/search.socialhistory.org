@@ -101,11 +101,13 @@ class EadRecord extends MarcRecord
         $corePhysical = $this->getPhysical();
         $geography = $this->getGeography();
         $accessRestrictions = $this->getAccessRestrictions();
-        $authorAndRole = $this->getAuthorAndRole();
+        $collection = $this->getCollection();
+        //$authorAndRole = $this->getAuthorAndRole();
         $interface->assign('corePeriod', $period);
         $interface->assign('corePhysical', $corePhysical);
-        $interface->assign('coreAuthor', $authorAndRole[0]);
-        $interface->assign('coreAuthorRole', $authorAndRole[1]);
+        //$interface->assign('coreAuthor', $authorAndRole[0]);
+       // $interface->assign('coreAuthorRole', $authorAndRole[1]);
+        $interface->assign('coreCollection', $collection);
         $interface->assign('coreGeography', $geography);
         $interface->assign('coreAccess', $accessRestrictions);
 
@@ -172,6 +174,10 @@ class EadRecord extends MarcRecord
                 $accessRestrictions[] = "consultation";
         }
         return $accessRestrictions;
+    }
+
+    private function getCollection() {
+        return $this->_getFieldArray('852', null, false);
     }
 
     public function getStaffView()

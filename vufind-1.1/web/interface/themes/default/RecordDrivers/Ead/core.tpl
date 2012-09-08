@@ -113,6 +113,13 @@
     {/if}
 {/if}
 
+{if !empty($coreCollector)}
+    <tr valign="top">
+            <th>{translate text='Collection'}:</th>
+            <td>{$coreCollector}</td>
+        </tr>
+{/if}
+
 {if !empty($coreAuthor)}
     <tr valign="top">
         <th>{translate text=$coreAuthorRole}:</th>
