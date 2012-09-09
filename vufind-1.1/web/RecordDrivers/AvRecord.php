@@ -111,8 +111,7 @@ class AvRecord extends MarcRecord
 
     private function getPeriod()
     {
-        $period = $this->_getFirstFieldValue('648', array('a'));
-        return $period;
+        return $this->_getFieldArray('648');
     }
 
     private function getGenres()

@@ -124,10 +124,13 @@
   </tr>
   {/if}
 
-{if $corePeriod}
+{if !empty($corePeriod)}
   <tr valign="top">
     <th>{translate text='Period'}:</th>
-    <td>{translate text=$corePeriod}</td>
+    <td>{foreach from=$corePeriod item=period name=loop}
+        <a href="{$url}/Search/Results?era_facet%3A%22{$period}%22">{$period}</a>
+        {if !$smarty.foreach.loop.last}<br/>{/if}
+    {/foreach}</td>
 </tr>
 {/if}
 
