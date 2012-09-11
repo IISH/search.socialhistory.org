@@ -7,11 +7,11 @@
 *.ipr
 *.iml
 *.iws
+.idea
 
 # Indexes and VuFind
 alphabetical_browse
 data
-index
 cache/*
 oai.ini
 spellchecker
