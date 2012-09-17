@@ -43,7 +43,7 @@ _gaq.push(['_trackPageview']);
 
 function cover() {
 	var cover = document.getElementById("cover");
-        if ( cover && cover.offsetWidth > 350 ) cover.style.width = "350px";
+        if ( cover && cover.offsetWidth < 350 ) cover.style.width = cover.offsetWidth;
 }
 
 </script>
@@ -51,7 +51,7 @@ function cover() {
 
 </head>
 
-<body onload="cover();">
+<body>
 <a href="http://socialhistory.org/{$userLang}" target="_blank">
     <div style="text-align:center;background-color:#ffffff;">
         <img border="0" src="{$path}/images/iish/{$userLang}-logo.png" style="margin:15px;"/>
