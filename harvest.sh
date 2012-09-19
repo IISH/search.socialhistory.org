@@ -14,6 +14,9 @@ app=/home/maven/repo/org/socialhistory/solr/import/1.0/import-1.0.jar
 # We shall set the harvest date to a reasonable three day range
 cd $VUFIND_HOME/harvest
 
+# Empty cache
+rm /data/caching/ead.xml/10622/*
+
 d=$1
 if [ "$d" == "" ] ; then
 	d="-5 day"

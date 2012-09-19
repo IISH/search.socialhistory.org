@@ -19,6 +19,10 @@ spellShingle
 caching
 solrmarc*
 *.gen
+vufind-1.1/solr/authority/index/
+vufind-1.1/solr/biblio/index/
+vufind-1.1/solr/stats/index/
+
 
 # Compiled source #
 ###################
