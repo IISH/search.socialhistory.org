@@ -42,68 +42,67 @@
 
                 <h2>{translate text="order.specify"}</h2>
 
-                <form name="order" id="order" action="{$url}/Order/Email" method="POST">
-                    <table>
-                        <caption style="font-size: large;">{translate text='order.rates'} :
-                        <a target="_blank" href="{translate text='order.href'}">{translate text='order.href'}</a>
-                        </caption>
-                        <tr>
-                            <td><strong><label for="email">{translate text='order.email'}:</label></strong></td>
-                            <td><input type="text" name="email" size="40" id="email" value="{$email}"/></td>
-                        </tr>
-                        <tr>
-                            <td><strong><label for="fullname">{translate text='order.fullname'}:</label></strong></td>
-                            <td><input type="text" name="fullname" size="40" id="fullname" value="{$fullname}"/></td>
-                        </tr>
-                        <tr>
-                            <td><strong><label for="address">{translate text='order.address'}:</label></strong></td>
-                            <td><textarea rows="4" cols="40" name="address" id="address" value="{$address}"></textarea></td>
-                        </tr>
-                        <tr>
-                            <td><strong><label for="zipcode">{translate text='order.zipcode'}:</label></strong></td>
-                            <td><input type="text" name="zipcode" size="40" id="zipcode" value="{$zipcode}" /></td>
-                        </tr>
-                        <tr>
-                            <td><strong><label for="city">{translate text='order.city'}:</label></strong></td>
-                            <td><input type="text" name="city" size="40" id="city" value="{$city}"/></td>
-                        </tr>
-                        <tr>
-                            <td><strong><label for="country">{translate text='order.country'}:</label></strong></td>
-                            <td><input type="text" name="country" size="40" id="country" value="{$country}"/></td>
-                        </tr>
-                        <tr>
-                            <td><strong><label for="telephone">{translate text='order.telephone'}:</label></strong></td>
-                            <td><input type="text" name="telephone" size="40" id="telephone" value="{$telephone}"/></td>
-                        </tr>
-                        <tr>
-                            <td><strong><label for="purpose">{translate text='order.purpose'}:</label></strong></td>
-                            <td><textarea rows="4" cols="40" name="purpose" id="purpose" value="{$purpose}"></textarea></td>
-                        </tr>
-                    </table>
-                    <input type="hidden" name="title" id="title" value="{$coreShortTitle|escape}"/>
-                {foreach from=$coreHolding key=key item=value name=loop}
-                    <input type="hidden" name="callnumber" id="callnumber" value="{$key|escape}"/>
-                {/foreach}
+                <table>
+                    <tr><td>
+                        <form name="order" id="order" action="{$url}/Order/Email" method="POST">
+                                        <table>
+                                            <caption style="font-size: large;">{translate text='order.rates'} :
+                                            <a target="_blank" href="{translate text='order.href'}">{translate text='order.href'}</a>
+                                            </caption>
+                                            <tr>
+                                                <td><strong><label for="email">{translate text='order.email'}:</label></strong></td>
+                                                <td><input type="text" name="email" size="40" id="email" value="{$email}"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong><label for="fullname">{translate text='order.fullname'}:</label></strong></td>
+                                                <td><input type="text" name="fullname" size="40" id="fullname" value="{$fullname}"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong><label for="address">{translate text='order.address'}:</label></strong></td>
+                                                <td><textarea rows="4" cols="40" name="address" id="address" value="{$address}"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong><label for="zipcode">{translate text='order.zipcode'}:</label></strong></td>
+                                                <td><input type="text" name="zipcode" size="40" id="zipcode" value="{$zipcode}" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong><label for="city">{translate text='order.city'}:</label></strong></td>
+                                                <td><input type="text" name="city" size="40" id="city" value="{$city}"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong><label for="country">{translate text='order.country'}:</label></strong></td>
+                                                <td><input type="text" name="country" size="40" id="country" value="{$country}"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong><label for="telephone">{translate text='order.telephone'}:</label></strong></td>
+                                                <td><input type="text" name="telephone" size="40" id="telephone" value="{$telephone}"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong><label for="purpose">{translate text='order.purpose'}:</label></strong></td>
+                                                <td><textarea rows="4" cols="40" name="purpose" id="purpose" value="{$purpose}"></textarea></td>
+                                            </tr>
+                                        </table>
+                                        <input type="hidden" name="title" id="title" value="{$coreShortTitle|escape}"/>
+                                    {foreach from=$coreHolding key=key item=value name=loop}
+                                        <input type="hidden" name="callnumber" id="callnumber" value="{$key|escape}"/>
+                                    {/foreach}
 
-                    <input type="hidden" name="id" value="{$id}"/>
-                    <input type="hidden" name="coreBarcode" id="coreBarcode" value="{$coreBarcode|escape}"/>
-                    <input type="hidden" name="website" id="website" value="{$url|escape}/Record/{$id|escape}"/>
-                    <input type="hidden" name="url" id="url" value="{$url|escape}/Order/Ordered"/>
-                    <input type="submit" name="submit" value="{translate text='order.submit'}">
-                </form>
+                                        <input type="hidden" name="id" value="{$id}"/>
+                                        <input type="hidden" name="coreBarcode" id="coreBarcode" value="{$coreBarcode|escape}"/>
+                                        <input type="hidden" name="website" id="website" value="{$url|escape}/Record/{$id|escape}"/>
+                                        <input type="hidden" name="url" id="url" value="{$url|escape}/Order/Ordered"/>
+                                        <input type="submit" name="submit" value="{translate text='order.submit'}">
+                                    </form>
+                        <p><a href="{translate text='order.moreinfo1.href'}" target="_blank">{translate text='order.moreinfo1'}</a></p>
+                                                <p>{translate text='order.moreinfo2'} (<a href="{translate text='order.moreinfo1.href'}" target="_blank">{translate text='order.moreinfo1'}</a>)</p>
+                                                <p>{translate text='order.moreinfo3'}</p></td>
+                        <td><div class="alignright" style="background-color: #ffffff;">{include file=$coreMetadata}</div></td></tr>
+                </table>
+
             </div>
 
-            <p><a href="{translate text='order.moreinfo1.href'}" target="_blank">{translate text='order.moreinfo1'}</a></p>
-            <p>{translate text='order.moreinfo2'} (<a href="{translate text='order.moreinfo1.href'}" target="_blank">{translate text='order.moreinfo1'}</a>)</p>
-            <p>{translate text='order.moreinfo3'}</p>
+
         </div>
-        <div class="yui-b">
-            <div class="alignright" style="background-color: #ffffff;">{include file=$coreMetadata}</div>
-        </div>
-
-
-
-
     </div>
 </div>
 
