@@ -1,5 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html lang="{$language}">
+<html lang="{$language}" xmlns="http://www.w3.org/1999/html">
 <head>
     <title>{translate text='order'}</title>
 {css media="screen" filename="styles.css"}
@@ -92,10 +92,18 @@
                     <input type="submit" name="submit" value="{translate text='order.submit'}">
                 </form>
             </div>
+
+            <p><a href="{translate text='order.moreinfo1.href'}" target="_blank">{translate text='order.moreinfo1'}</a></p>
+            <p>{translate text='order.moreinfo2'} (<a href="{translate text='order.moreinfo1.href'}" target="_blank">{translate text='order.moreinfo1'}</a>)</p>
+            <p>{translate text='order.moreinfo3'}</p>
         </div>
         <div class="yui-b">
             <div class="alignright" style="background-color: #ffffff;">{include file=$coreMetadata}</div>
         </div>
+
+
+
+
     </div>
 </div>
 
