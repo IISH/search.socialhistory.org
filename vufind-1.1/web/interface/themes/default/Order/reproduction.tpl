@@ -27,7 +27,7 @@
         {/literal}
     </script>
 
-<body>
+<body style="text-align: left;padding: 5px;">
 
 <div id="bd">
     <div id="yui-main" class="content">
