@@ -156,20 +156,16 @@ public Set getFormat(Record record) {
         if (url == null)
             return " ";
         Document document = loadDocument(url, id);
-        String t = getText(document);
-	
-//try{
-  // Create file 
-  //FileWriter fstream = new FileWriter("/tmp/" + id);
-  //BufferedWriter out = new BufferedWriter(fstream);
-  //out.write(t);
-  //Close the output stream
-  //out.close();
-  //}catch (Exception e){//Catch exception if any
-  //System.err.println("Error: " + e.getMessage());
- // }
-
-	return t;
+        return getText(document);
+/*try{
+  FileWriter fstream = new FileWriter("/tmp/" + id);
+  BufferedWriter out = new BufferedWriter(fstream);
+  out.write(t);
+  out.close();
+  }catch (Exception e){//Catch exception if any
+  System.err.println("Error: " + e.getMessage());
+ }
+	return t ;*/
     }
 
      public String getAllSearchableFields(Record record, String lowerBoundStr, String upperBoundStr){
@@ -214,7 +210,7 @@ public Set getFormat(Record record) {
         final NodeList nodelist = (NodeList) expr.evaluate(document.getDocumentElement(), XPathConstants.NODESET);
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < nodelist.getLength(); i++) {
-            sb.append(nodelist.item(i).getTextContent().trim());
+            sb.append(nodelist.item(i).getTextContent().replaceAll("(\\r|\\n|\\t)", "").trim());
             sb.append(" ");
         }
         return sb.toString();

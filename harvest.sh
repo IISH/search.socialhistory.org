@@ -4,6 +4,7 @@
 
   export VUFIND_HOME=/data/search.socialhistory.org.index0/vufind-1.1
   export SOLR_HOME=$VUFIND_HOME/solr
+  export JAVA_HOME=/usr/lib/jvm/default-java
 
 app=/home/maven/repo/org/socialhistory/solr/import/1.0/import-1.0.jar
 
