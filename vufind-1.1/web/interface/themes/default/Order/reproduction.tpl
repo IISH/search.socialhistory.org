@@ -38,17 +38,17 @@
             {if $infoMsg}
                 <div class="userMsg">{$infoMsg|translate}</div>{/if}
 
-                <p>{translate text="order.specify"}</p>
+                <p>{translate text="order.specify"}</p><p>{translate text='order.moreinfo1'} :
+                                                        <a target="_blank"
+                                                           href="{translate text='order.href'}">{translate text='order.moreinfo1.href'}</a>
+                                                    </p>
 
                 <table style="background-color: #ffffff;">
                     <tr>
-                        <td style="margin-right: 30px">
+                        <td style="padding-right: 30px">
                             <form name="order" id="order" action="{$url}/Order/Email" method="POST">
                                 <table>
-                                    <caption style="font-size: large;">{translate text='order.moreinfo1'} :
-                                        <a target="_blank"
-                                           href="{translate text='order.href'}">{translate text='order.moreinfo1.href'}</a>
-                                    </caption>
+
                                     <tr>
                                         <td><strong><label for="email">{translate text='order.email'}:</label></strong>
                                         </td>
@@ -109,7 +109,7 @@
                                 <input type="submit" name="submit" value="{translate text='order.submit'}">
                             </form>
                         </td>
-                        <td style="margin-left: 30px">
+                        <td style="padding-left: 30px">
                             <div class="alignright"
                                  style="background-color: #ffffff;">{include file=$coreMetadata}</div>
                         </td>
