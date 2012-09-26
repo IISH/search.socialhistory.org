@@ -227,23 +227,6 @@ class MarcRecord extends IndexRecord
         return $template;
     }
 
-protected function getHighlightedTitle()
-    {
-        $title = parent::getHighlightedTitle(); // Could be set in the Solr index side...
-
-        $append = null;
-        $fields = array('245' => array('b'), '710' => array('a'));
-        foreach ($fields as $field => $subfield) {
-            $append = $this->_getFirstFieldValue($field, $subfield);
-            if ($append) break;
-        }
-        if ($append) {
-            $pos = strpos($title, $append);
-            if ($pos === false) return $title . ": " . $append;
-        }
-        return $title;
-    }    
-
 /**
      * Assign necessary Smarty variables and return a template name to
      * load in order to display the full record information on the Staff
