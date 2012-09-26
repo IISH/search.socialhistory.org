@@ -115,8 +115,8 @@
                         </td>
                     </tr>
                 </table>
-                <p>{translate text='order.moreinfo2'} (<a href="{translate text='order.moreinfo1.href'}"
-                                                          target="_blank">{translate text='order.moreinfo1'}</a>)</p>
+                <p>{translate text='order.moreinfo2'} (<a href="{translate text='order.moreinfo2.href'}"
+                                                          target="_blank">{translate text='order.moreinfo2'}</a>)</p>
 
                 <p>{translate text='order.moreinfo3'}</p>
             </div>
