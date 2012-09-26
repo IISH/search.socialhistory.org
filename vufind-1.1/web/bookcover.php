@@ -254,7 +254,7 @@ function dieWithDefaultFailImage()
  *
  * @return bool         True if image displayed, false on failure.
  */
-function processImageURL($url, $cache = true)
+function processImageURL($url, $cache = true, $reduce = false)
 {
     global $localFile; // this was initialized by fetchFromISBN()
 
@@ -301,6 +301,14 @@ function processImageURL($url, $cache = true)
             // If $tempFile is already a JPEG, let's store it in the cache.
             @rename($tempFile, $finalFile);
         }
+
+	if ( $reduce > 0 ) {
+		include('SimpleImage.php');
+		$image = new SimpleImage();
+        	$image->load($finalFile);
+        	$image->resizeToWidth(350);
+        	$image->save($finalFile);
+	}
 
         // Display the image:
         header('Content-type: image/jpeg');
@@ -553,10 +561,7 @@ function summon($id)
  */
 function iish()
 {
-
-    include('SimpleImage.php');
-    global $localFile;
-
+    $reductionSizeInWidth = 0;
     $isn = $_GET['isn'];
     switch ($_GET['size']) {
         case 'small':
@@ -566,16 +571,12 @@ function iish()
         case 'large':
         default:
             $imageIndex = 'level2';
+		$reductionSizeInWidth = 350;
             break;
     }
 
     $imageUrl = "http://hdl.handle.net/10622/" . $isn . "?locatt=view:" . $imageIndex;
-    if (processImageURL($imageUrl, true)) {
-        $image = new SimpleImage();
-        $image->load($localFile);
-        $image->resizeToWidth(350);
-        $image->save($localFile);
-    }
+    processImageURL($imageUrl, true, $reductionSizeInWidth);
 }
 
 ?>
