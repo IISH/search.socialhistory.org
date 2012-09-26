@@ -110,5 +110,3 @@
     {/foreach}
 </ul>
 {/if}
-
-{include file="../deliverance.tpl"}
