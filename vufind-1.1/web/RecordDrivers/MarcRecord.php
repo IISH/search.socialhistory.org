@@ -223,7 +223,7 @@ class MarcRecord extends IndexRecord
         $template = parent::getSearchResult();
         //$interface->assign('summAjaxStatus', false);
 
-        //$interface->assign('summTitle', $this->getTitle());
+        $interface->assign('summTitle', $this->getTitle());
 
 
         return $template;
