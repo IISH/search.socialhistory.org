@@ -41,7 +41,7 @@ $localFile = '';
 if (isset($configArray['Proxy']['host'])) {
     if (isset($configArray['Proxy']['port'])) {
         $proxy_server
-            = $configArray['Proxy']['host'].":".$configArray['Proxy']['port'];
+            = $configArray['Proxy']['host'] . ":" . $configArray['Proxy']['port'];
     } else {
         $proxy_server = $configArray['Proxy']['host'];
     }
@@ -256,7 +256,7 @@ function dieWithDefaultFailImage()
  */
 function processImageURL($url, $cache = true)
 {
-    global $localFile;  // this was initialized by fetchFromISBN()
+    global $localFile; // this was initialized by fetchFromISBN()
 
     if ($image = @file_get_contents($url)) {
         // Figure out file paths -- $tempFile will be used to store the downloaded
@@ -329,19 +329,19 @@ function syndetics($id)
     global $configArray;
 
     switch ($_GET['size']) {
-    case 'small':
-        $size = 'SC.GIF';
-        break;
-    case 'medium':
-        $size = 'MC.GIF';
-        break;
-    case 'large':
-        $size = 'LC.JPG';
-        break;
+        case 'small':
+            $size = 'SC.GIF';
+            break;
+        case 'medium':
+            $size = 'MC.GIF';
+            break;
+        case 'large':
+            $size = 'LC.JPG';
+            break;
     }
 
     $url = isset($configArray['Syndetics']['url']) ?
-            $configArray['Syndetics']['url'] : 'http://syndetics.com';
+        $configArray['Syndetics']['url'] : 'http://syndetics.com';
     $url .= "/index.aspx?type=xw12&isbn={$_GET['isn']}/{$size}&client={$id}";
     return processImageURL($url);
 }
@@ -358,15 +358,15 @@ function contentcafe($id)
     global $configArray;
 
     switch ($_GET['size']) {
-    case 'small':
-        $size = 'S';
-        break;
-    case 'medium':
-        $size = 'M';
-        break;
-    case 'large':
-        $size = 'L';
-        break;
+        case 'small':
+            $size = 'S';
+            break;
+        case 'medium':
+            $size = 'M';
+            break;
+        case 'large':
+            $size = 'L';
+            break;
     }
     $pw = $configArray['Contentcafe']['pw'];
     $url = isset($configArray['Contentcafe']['url'])
@@ -399,16 +399,16 @@ function openlibrary()
 {
     // Convert internal size value to openlibrary equivalent:
     switch ($_GET['size']) {
-    case 'large':
-        $size = 'L';
-        break;
-    case 'medium':
-        $size = 'M';
-        break;
-    case 'small':
-    default:
-        $size = 'S';
-        break;
+        case 'large':
+            $size = 'L';
+            break;
+        case 'medium':
+            $size = 'M';
+            break;
+        case 'small':
+        default:
+            $size = 'S';
+            break;
     }
 
     // Retrieve the image; the default=false parameter indicates that we want a 404
@@ -429,7 +429,7 @@ function google()
     if (is_callable('json_decode')) {
         // Construct the request URL:
         $url = 'http://books.google.com/books?jscmd=viewapi&' .
-               'bibkeys=ISBN:' . $_GET['isn'] . '&callback=addTheCover';
+            'bibkeys=ISBN:' . $_GET['isn'] . '&callback=addTheCover';
 
         // Make the HTTP request:
         $client = new Proxy_Request();
@@ -494,18 +494,18 @@ function amazon($id)
         if (isset($data->Items->Item[0])) {
             // Where in the XML can we find the URL we need?
             switch ($_GET['size']) {
-            case 'small':
-                $imageIndex = 'SmallImage';
-                break;
-            case 'medium':
-                $imageIndex = 'MediumImage';
-                break;
-            case 'large':
-                $imageIndex = 'LargeImage';
-                break;
-            default:
-                $imageIndex = false;
-                break;
+                case 'small':
+                    $imageIndex = 'SmallImage';
+                    break;
+                case 'medium':
+                    $imageIndex = 'MediumImage';
+                    break;
+                case 'large':
+                    $imageIndex = 'LargeImage';
+                    break;
+                default:
+                    $imageIndex = false;
+                    break;
             }
 
             // Does a URL exist?
@@ -545,25 +545,37 @@ function summon($id)
  * Retrieve an audio\visual from the IISG.
  * The interpretation of the isb is the handle: http://hdl.handle.net/10622/[identifier]
  *
+ * The images from this domain a a little too large, so we resize these
+ *
  * @param string
  *
  * @return bool
  */
-function iish(){
+function iish()
+{
+
+    include('SimpleImage.php');
+    global $localFile;
 
     $isn = $_GET['isn'];
     switch ($_GET['size']) {
-               case 'small':
-                   $imageIndex = 'level3';
-                   break;
-               case 'medium':
-               case 'large':
-               default:
-                   $imageIndex = 'level2';
-                   break;
-               }
+        case 'small':
+            $imageIndex = 'level3';
+            break;
+        case 'medium':
+        case 'large':
+        default:
+            $imageIndex = 'level2';
+            break;
+    }
 
-    $imageUrl = "http://hdl.handle.net/10622/" . $isn . "?locatt=view:" . $imageIndex ;
-    return processImageURL($imageUrl, true);
+    $imageUrl = "http://hdl.handle.net/10622/" . $isn . "?locatt=view:" . $imageIndex;
+    if (processImageURL($imageUrl, true)) {
+        $image = new SimpleImage();
+        $image->load($localFile);
+        $image->resizeToWidth(350);
+        $image->save($localFile);
+    }
 }
+
 ?>
