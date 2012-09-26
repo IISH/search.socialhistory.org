@@ -152,7 +152,7 @@ class MarcRecord extends IndexRecord
         // if nothing in config array).
         global $configArray;
         $active = isset($configArray['Export']) ?
-                $configArray['Export'] : array('RefWorks' => true, 'EndNote' => true);
+            $configArray['Export'] : array('RefWorks' => true, 'EndNote' => true);
 
         // These are the formats we can possibly support if they are turned on in
         // config.ini:
@@ -222,7 +222,16 @@ class MarcRecord extends IndexRecord
         // come from the ILS:
         $template = parent::getSearchResult();
         //$interface->assign('summAjaxStatus', false);
+
+        //$interface->assign('summTitle', $this->getTitle());
+
+
         return $template;
+    }
+
+    protected function getTitle()
+    {
+        return 'a';
     }
 
     /**
@@ -315,7 +324,7 @@ class MarcRecord extends IndexRecord
             $xml->record->addAttribute(
                 'xsi:schemaLocation',
                 'http://www.loc.gov/MARC21/slim ' .
-                'http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd',
+                    'http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd',
                 'http://www.w3.org/2001/XMLSchema-instance'
             );
             $xml->record->addAttribute('type', 'Bibliographic');
@@ -512,7 +521,7 @@ class MarcRecord extends IndexRecord
     {
         $matches = $this->_getFieldArray($field, $subfields);
         return (is_array($matches) && count($matches) > 0) ?
-                $matches[0] : null;
+            $matches[0] : null;
     }
 
     /**
@@ -550,8 +559,8 @@ class MarcRecord extends IndexRecord
         // Format the times to include colons ("HH:MM:SS" format).
         for ($x = 0; $x < count($times); $x++) {
             $times[$x] = substr($times[$x], 0, 2) . ':' .
-                         substr($times[$x], 2, 2) . ':' .
-                         substr($times[$x], 4, 2);
+                substr($times[$x], 2, 2) . ':' .
+                substr($times[$x], 4, 2);
         }
 
         return $times;
@@ -705,7 +714,7 @@ class MarcRecord extends IndexRecord
                         // with 440, 490, 800 or 830 -- hence the hard-coded array
                         // rather than another parameter in $fieldInfo).
                         $number
-                                = $this->_getSubfieldArray($currentField, array('v'));
+                            = $this->_getSubfieldArray($currentField, array('v'));
                         if (isset($number[0])) {
                             $currentArray['number'] = $number[0];
                         }
@@ -874,7 +883,7 @@ class MarcRecord extends IndexRecord
 
         // Build the URL to pass data to RefWorks:
         $exportUrl = $configArray['Site']['url'] . '/Record/' .
-                     urlencode($this->getUniqueID()) . '/Export?style=refworks_data';
+            urlencode($this->getUniqueID()) . '/Export?style=refworks_data';
 
         // Build up the RefWorks URL:
         $url = $configArray['RefWorks']['url'] . '/express/expressimport.asp';
@@ -904,13 +913,15 @@ class MarcRecord extends IndexRecord
         return $tpl;
     }
 
-    private function getIsShownAt(){
+    private function getIsShownAt()
+    {
         return $this->_getFirstFieldValue('902', array('a'));
     }
 
-    private function getIsShowBy(){
+    private function getIsShowBy()
+    {
         $p = $this->_getFirstFieldValue('852', array('p'));
-        $pos = strpos($p, '30051' );
+        $pos = strpos($p, '30051');
         return ($pos === false) ? null : $p;
     }
 
@@ -934,7 +945,7 @@ class MarcRecord extends IndexRecord
     private function getCollector()
     {
         return isset($this->fields['callnumber-a']) ?
-                $this->fields['callnumber-a'] : null;
+            $this->fields['callnumber-a'] : null;
     }
 
     public function getHoldings()
@@ -998,8 +1009,8 @@ class MarcRecord extends IndexRecord
         global $configArray;
         $pid = $this->_getFieldArray('902', array('a'), false);
         $id = (sizeof($pid) == 0)
-                ? $this->getUniqueID()
-                : $pid[0];
+            ? $this->getUniqueID()
+            : $pid[0];
         return $configArray['IISH']['oaiPrefix'] . $id;
     }
 }
