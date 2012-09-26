@@ -52,8 +52,8 @@
 </h1>
 {* End Title *}
 
-{if $coreSummary}<p>{$coreSummary|truncate:300:"..."|escape} <a
-        href='{$url}/Record/{$id|escape:"url"}/Description#tabs'>{translate text='Full description'}</a></p>{/if}
+{*{if $coreSummary}<p>{$coreSummary|truncate:300:"..."|escape} <a
+        href='{$url}/Record/{$id|escape:"url"}/Description#tabs'>{translate text='Full description'}</a></p>{/if}*}
 
 {* Display Main Details *}
 <table cellpadding="2" cellspacing="0" border="0" class="citation" summary="{translate text='Bibliographic Details'}">
