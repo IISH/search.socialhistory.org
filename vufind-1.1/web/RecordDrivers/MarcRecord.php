@@ -222,9 +222,25 @@ class MarcRecord extends IndexRecord
         // come from the ILS:
         $template = parent::getSearchResult();
         //$interface->assign('summAjaxStatus', false);
-
+$interface->assign('summExtendedTitle', $this->getExtendedTitle());
 
         return $template;
+    }
+
+protected function getExtendedTitle()
+    {
+        $title = parent::getTitle();
+
+        $append = null;
+        $fields = array('245' => array('b'), '710' => array('a'));
+        foreach ($fields as $field => $subfield) {
+            $append = $this->_getFirstFieldValue($field, $subfield);
+            if ($append) {
+                $pos = strpos($title, $append);
+                if ($pos === false) return ": " . $append;
+            }
+        }
+        return '';
     }
 
 /**
