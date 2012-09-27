@@ -57,7 +57,7 @@
                     <xsl:value-of select="ead:archdesc/ead:descgrp/ead:userestrict/ead:head/text()"/>
                 </th>
                 <td>
-                    <xsl:copy-of select="ead:archdesc/ead:descgrp/ead:userestrict/ead:p/text()"/>
+                    <xsl:apply-templates select="ead:archdesc/ead:descgrp/ead:userestrict/ead:p"/>
                 </td>
             </tr>
         </xsl:if>
@@ -179,9 +179,11 @@
             <xsl:when test="../../@level = 'file'">
                 <span class="container">
                     <xsl:choose>
-                        <xsl:when test="$metsBaseUrl and count(../..//ead:container)=1"><a href="http://visualmets.socialhistoryservices.org/mets2/rest/popup.html?metsId={concat($metsBaseUrl, normalize-space(text()), '.xml')}"
+                        <xsl:when test="$metsBaseUrl and count(../..//ead:container)=1">
+                            <a href="http://visualmets.socialhistoryservices.org/mets2/rest/popup.html?metsId={concat($metsBaseUrl, normalize-space(text()), '.xml')}"
                                target="_blank">
-                                <xsl:apply-templates/></a>
+                                <xsl:apply-templates/>
+                            </a>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:apply-templates/>
@@ -194,7 +196,9 @@
                     <xsl:choose>
                         <xsl:when test="$metsBaseUrl">
                             <a href="http://visualmets.socialhistoryservices.org/mets2/rest/popup.html?metsId={concat($metsBaseUrl, normalize-space(text()), '.xml')}"
-                               target="_blank"><xsl:apply-templates/></a>
+                               target="_blank">
+                                <xsl:apply-templates/>
+                            </a>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:apply-templates/>
@@ -320,7 +324,9 @@
     </xsl:template>
 
     <xsl:template match="ead:lb">
-    `<br/> <br/>
+        `
+        <br/>
+        <br/>
     </xsl:template>
 
     <!-- lists -->
