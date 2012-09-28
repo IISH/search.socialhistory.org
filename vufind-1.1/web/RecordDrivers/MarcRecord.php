@@ -993,9 +993,14 @@ class MarcRecord extends IndexRecord
         foreach ($datafields as $datafield) {
             $tag = $datafield->getTag();
             if ($tag == "852") {
-                $subfield = $datafield->getSubfield('j');
+                $subfieldc = $datafield->getSubfield('c');
+                $subfieldj = $datafield->getSubfield('j');
+                $subfield = null;
+                if ( $subfieldc && $subfieldj ) $subfield = $subfieldc->getData() . " " . $subfieldj->getData();
+                if ( $subfieldc && !$subfieldj ) $subfield = $subfieldc->getData();
+                if ( !$subfieldc && $subfieldj ) $subfield = $subfieldj->getData();
                 if ($subfield) {
-                    $key = $subfield->getData();
+                    $key = $subfield;
                     $holdings[$key] = null;
                 }
             }
