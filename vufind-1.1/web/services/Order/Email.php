@@ -85,7 +85,7 @@ class Email extends Action
             $result = $this->sendEmail($_POST['email'], $configArray['IISH']['orderFrom'], $configArray['IISH']['orderSubject']);
             if (PEAR::isError($result)) {
                 $interface->assign('errorMsg', $result->getMessage());
-                $interface->display("Order/reproduction.tpl");
+                $interface->display("Order/reproduction.customer.tpl");
                 return;
             }
 
