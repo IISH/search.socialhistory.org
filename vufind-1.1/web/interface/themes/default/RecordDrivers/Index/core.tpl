@@ -171,11 +171,11 @@
     </td>
 </tr>
 {/if}
-{if !empty($coreMarc710)}
+{if !empty($coreMarc711)}
 <tr valign="top">
-    <th>{translate text=$coreMarc710Label}:</th>
+    <th>{translate text=$coreMarc711Label}:</th>
     <td>
-        {foreach from=$coreMarc710 item=field name=loop}
+        {foreach from=$coreMarc711 item=field name=loop}
             <a href="{$url}/Author/Home?author={$field|escape:"url"}">{$field|escape} {if !empty($coreMarc110Role)} {$coreMarc110Role}{/if}</a>{if !$smarty.foreach.loop.last}
             , {/if}
         {/foreach}
@@ -538,36 +538,51 @@
 {if !empty($coreMarc600)}
 <tr valign="top">
     <th>{translate text=coreMarc600Label}:</th>
-    <td><a href="{$url}/Search/Results?lookfor={$coreMarc600|escape:"url"}">{$coreMarc600|escape}</a>
-    </td>
+    <td>
+        {foreach from=$coreMarc600 item=field name=loop}
+                   <a href="{$url}/Search/Results?author={$field|escape:"url"}">{$field|escape}</a>{if !$smarty.foreach.loop.last}, {/if}
+               {/foreach}
+       </td>
 </tr>
 {/if}
 {if !empty($coreMarc610)}
 <tr valign="top">
     <th>{translate text=coreMarc610Label}:</th>
-    <td><a href="{$url}/Search/Results?lookfor={$coreMarc600|escape:"url"}">{$coreMarc600|escape}</a>
-    </td>
+    <td>
+            {foreach from=$coreMarc610 item=field name=loop}
+                       <a href="{$url}/Search/Results?author={$field|escape:"url"}">{$field|escape}</a>{if !$smarty.foreach.loop.last}, {/if}
+                   {/foreach}
+           </td>
 </tr>
 {/if}
 {if !empty($coreMarc611)}
 <tr valign="top">
     <th>{translate text=coreMarc611Label}:</th>
-    <td><a href="{$url}/Search/Results?lookfor={$coreMarc600|escape:"url"}">{$coreMarc600|escape}</a>
-    </td>
+    <td>
+            {foreach from=$coreMarc611 item=field name=loop}
+                       <a href="{$url}/Search/Results?author={$field|escape:"url"}">{$field|escape}</a>{if !$smarty.foreach.loop.last}, {/if}
+                   {/foreach}
+           </td>
 </tr>
 {/if}
 {if !empty($coreMarc650)}
 <tr valign="top">
     <th>{translate text=coreMarc650Label}:</th>
-    <td><a href="{$url}/Search/Results?lookfor={$coreMarc600|escape:"url"}">{$coreMarc600|escape}</a>
-    </td>
+    <td>
+            {foreach from=$coreMarc650 item=field name=loop}
+                       <a href="{$url}/Search/Results?author={$field|escape:"url"}">{$field|escape}</a>{if !$smarty.foreach.loop.last}, {/if}
+                   {/foreach}
+           </td>
 </tr>
 {/if}
 {if !empty($coreMarc651)}
 <tr valign="top">
     <th>{translate text=coreMarc651Label}:</th>
-    <td><a href="{$url}/Search/Results?lookfor={$coreMarc600|escape:"url"}">{$coreMarc600|escape}</a>
-    </td>
+    <td>
+            {foreach from=$coreMarc651 item=field name=loop}
+                       <a href="{$url}/Search/Results?author={$field|escape:"url"}">{$field|escape}</a>{if !$smarty.foreach.loop.last}, {/if}
+                   {/foreach}
+           </td>
 </tr>
 {/if}
 
