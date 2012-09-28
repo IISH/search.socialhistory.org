@@ -125,7 +125,7 @@
 {*Primary authorship*}
 {if !empty($coreMarc100)}
 <tr valign="top">
-    <th>{translate text='${coreMarc100Label}'}:</th>
+    <th>{translate text=coreMarc100Label}:</th>
     <td><a href="{$url}/Author/Home?author={$coreMarc100|escape:"url"}">{$coreMarc100|escape}</a>
         {if !empty($coreMarc100Role)} {$coreMarc100Role}{/if}
     </td>
@@ -133,7 +133,7 @@
 {/if}
 {if !empty($coreMarc110)}
 <tr valign="top">
-    <th>{translate text='${coreMarc110Label}'}:</th>
+    <th>{translate text=coreMarc110Label}:</th>
     <td><a href="{$url}/Author/Home?author={$coreMarc110|escape:"url"}">{$coreMarc110|escape}</a>
         {if !empty($coreMarc110Role)} {$coreMarc110Role}{/if}
     </td>
@@ -141,7 +141,7 @@
 {/if}
 {if !empty($coreMarc111)}
 <tr valign="top">
-    <th>{translate text='${coreMarc111Label}'}:</th>
+    <th>{translate text=coreMarc111Label}:</th>
     <td><a href="{$url}/Author/Home?author={$coreMarc111|escape:"url"}">{$coreMarc111|escape}</a>
         {if !empty($coreMarc111Role)} {$coreMarc111Role}{/if}
     </td>
@@ -151,7 +151,7 @@
 {*Secondary authorship*}
 {if !empty($coreMarc700)}
 <tr valign="top">
-    <th>{translate text='${coreMarc700Label}'}:</th>
+    <th>{translate text=coreMarc700Label}:</th>
     <td>
         {foreach from=$coreMarc700 item=field name=loop}
             <a href="{$url}/Author/Home?author={$field|escape:"url"}">{$field|escape} {if !empty($coreMarc100Role)} {$coreMarc100Role}{/if}</a>{if !$smarty.foreach.loop.last}
@@ -162,7 +162,7 @@
 {/if}
 {if !empty($coreMarc710)}
 <tr valign="top">
-    <th>{translate text='${coreMarc710Label}'}:</th>
+    <th>{translate text=coreMarc710Label}:</th>
     <td>
         {foreach from=$coreMarc710 item=field name=loop}
             <a href="{$url}/Author/Home?author={$field|escape:"url"}">{$field|escape} {if !empty($coreMarc110Role)} {$coreMarc110Role}{/if}</a>{if !$smarty.foreach.loop.last}
@@ -173,7 +173,7 @@
 {/if}
 {if !empty($coreMarc710)}
 <tr valign="top">
-    <th>{translate text='${coreMarc710Label}'}:</th>
+    <th>{translate text=$coreMarc710Label}:</th>
     <td>
         {foreach from=$coreMarc710 item=field name=loop}
             <a href="{$url}/Author/Home?author={$field|escape:"url"}">{$field|escape} {if !empty($coreMarc110Role)} {$coreMarc110Role}{/if}</a>{if !$smarty.foreach.loop.last}

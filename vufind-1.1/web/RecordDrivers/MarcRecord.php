@@ -526,7 +526,7 @@ class MarcRecord extends IndexRecord
      * @return string
      * @access private
      */
-    public function c_getFirstFieldValue($field, $subfields = null)
+    public function _getFirstFieldValue($field, $subfields = null)
     {
         $matches = $this->_getFieldArray($field, $subfields);
         return (is_array($matches) && count($matches) > 0) ?
