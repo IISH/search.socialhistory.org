@@ -97,6 +97,11 @@ class AvRecord extends MarcRecord
         return $tpl;
     }
 
+    protected function getPublicationDates(){
+        $date = $this->_getFieldArray('260', array('c'));
+        return isset($date) ? $date : array();
+    }
+
     protected function getMarc6xx($field) {
         return $this->_getFieldArray($field);
     }
