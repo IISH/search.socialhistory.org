@@ -102,7 +102,10 @@
     {if sizeof($coreAccess) > 1}
         <tr valign="top">
             <th/>
-            <td>{$coreAccess[1]}</td>
+            <td>{$coreAccess[1]}
+            {if !empty($coreAccessRestrictionsHref)}<br/>(<a target="_blank" href="{$coreAccessRestrictionsHref}">More information on this website</a>)
+            {/if}
+            </td>
         </tr>
     {/if}
     {if sizeof($coreAccess) > 2}

@@ -106,10 +106,11 @@ class EadRecord extends MarcRecord
         $interface->assign('corePeriod', $period);
         $interface->assign('corePhysical', $corePhysical);
         //$interface->assign('coreAuthor', $authorAndRole[0]);
-       // $interface->assign('coreAuthorRole', $authorAndRole[1]);
+        // $interface->assign('coreAuthorRole', $authorAndRole[1]);
         $interface->assign('coreCollection', $collection);
         $interface->assign('coreGeography', $geography);
         $interface->assign('coreAccess', $accessRestrictions);
+        $interface->assign('coreAccessRestrictionsHref', $this->getAccessRestrictionsHref());
 
         return 'RecordDrivers/Ead/core.tpl';
     }
@@ -176,9 +177,16 @@ class EadRecord extends MarcRecord
         return $accessRestrictions;
     }
 
-    private function getCollection() {
-	$c = $this->_getFieldArray('852', null, false);
-	$collection = (sizeof($c) == 0) ? null : $c[0];
+    private function getAccessRestrictionsHref()
+    {
+        $marc506c = $this->_getSubfieldArray('506', array('c'));
+        return (isset($marc506c[0])) ? $marc506c[0] : null;
+    }
+
+    private function getCollection()
+    {
+        $c = $this->_getFieldArray('852', null, false);
+        $collection = (sizeof($c) == 0) ? null : $c[0];
         return $collection;
     }
 
@@ -210,8 +218,8 @@ class EadRecord extends MarcRecord
     private function getDetails($xml)
     {
         $action = (isset($_REQUEST["action"]))
-                ? $_REQUEST["action"]
-                : "Holdings";
+            ? $_REQUEST["action"]
+            : "Holdings";
         $accessRestrictions = $this->getAccessRestrictions();
         $physical = $this->getMetric($this->getPhysical());
         $metsBaseUrl = $this->getMetsBaseUrl();
@@ -237,7 +245,7 @@ class EadRecord extends MarcRecord
         return false;
     }
 
-/*    private function getTimelines($xml)
+    /*    private function getTimelines($xml)
     {
         $action = (isset($_REQUEST["action"]))
                 ? $_REQUEST["action"]
@@ -277,7 +285,7 @@ class EadRecord extends MarcRecord
         // Check which formats are currently active:
         global $configArray;
         $active = isset($configArray['Export']) ?
-                $configArray['Export'] : array();
+            $configArray['Export'] : array();
         foreach ($possible as $current) {
             if ($active[$current]) {
                 $formats[] = $current;
@@ -304,7 +312,7 @@ class EadRecord extends MarcRecord
         //10716410_EAD
         // Do we have a table of contents stored in the index?
         return (isset($this->fields['contents']) &&
-                count($this->fields['contents']) > 0);
+            count($this->fields['contents']) > 0);
     }
 
 
