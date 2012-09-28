@@ -1054,8 +1054,6 @@ class MarcRecord extends IndexRecord
     protected function getMainMarcxxxRole($field)
     {
         return $this->_getFirstFieldValue($field, array('e'));
-        if ($role == "collector.") return null;
-        return $role;
     }
 }
 

@@ -125,7 +125,7 @@
 {*Primary authorship*}
 {if !empty($coreMarc100)}
 <tr valign="top">
-    <th>{if empty($coreMarc100Role)}{translate text='Collector'}{else}{translate text=coreMarc100Label}{/if}: </th>
+    <th>{if $coreMarc100Role == "collector."}{translate text='Collector'}{else}{translate text=coreMarc100Label}{/if}: </th>
     <td><a href="{$url}/Author/Home?author={$coreMarc100|escape:"url"}">{$coreMarc100|escape}</a>
         {if !empty($coreMarc100Role)} {$coreMarc100Role}{/if}
     </td>
@@ -133,7 +133,7 @@
 {/if}
 {if !empty($coreMarc110)}
 <tr valign="top">
-    <th>{if $coreMarc110Role == null}{translate text='Collector'}{else}{translate text=coreMarc110Label}{/if}: </th>
+    <th>{if $coreMarc110Role == "collector."}{translate text='Collector'}{else}{translate text=coreMarc110Label}{/if}: </th>
     <td><a href="{$url}/Author/Home?author={$coreMarc110|escape:"url"}">{$coreMarc110|escape}</a>
         {if !empty($coreMarc110Role)} {$coreMarc110Role}{/if}
     </td>
@@ -141,7 +141,7 @@
 {/if}
 {if !empty($coreMarc111)}
 <tr valign="top">
-    <th>{if $coreMarc111Role == null}{translate text='Collector'}{else}{translate text=coreMarc111Label}{/if}: </th>
+    <th>{if $coreMarc111Role == "collector."}{translate text='Collector'}{else}{translate text=coreMarc111Label}{/if}: </th>
     <td><a href="{$url}/Author/Home?author={$coreMarc111|escape:"url"}">{$coreMarc111|escape}</a>
         {if !empty($coreMarc111Role)} {$coreMarc111Role}{/if}
     </td>
@@ -151,7 +151,7 @@
 {*Secondary authorship*}
 {if !empty($coreMarc700)}
 <tr valign="top">
-    <th>{if $coreMarc700Role == null}{translate text='Collector'}{else}{translate text=coreMarc700Label}{/if}: </th>
+    <th>{if $coreMarc700Role == "collector."}{translate text='Collector'}{else}{translate text=coreMarc700Label}{/if}: </th>
     <td>
         {foreach from=$coreMarc700 item=field name=loop}
             <a href="{$url}/Author/Home?author={$field|escape:"url"}">{$field|escape} {if !empty($coreMarc700Role)} {$coreMarc700Role}{/if}</a>{if !$smarty.foreach.loop.last}
@@ -162,7 +162,7 @@
 {/if}
 {if !empty($coreMarc710)}
 <tr valign="top">
-    <th>{if $coreMarc710Role == null}{translate text='Collector'}{else}{translate text=coreMarc710Label}{/if}: </th>
+    <th>{if $coreMarc710Role == "collector."}{translate text='Collector'}{else}{translate text=coreMarc710Label}{/if}: </th>
     <td>
         {foreach from=$coreMarc710 item=field name=loop}
             <a href="{$url}/Author/Home?author={$field|escape:"url"}">{$field|escape} {if !empty($coreMarc710Role)} {$coreMarc710Role}{/if}</a>{if !$smarty.foreach.loop.last}
@@ -173,7 +173,7 @@
 {/if}
 {if !empty($coreMarc711)}
 <tr valign="top">
-    <th>{if $coreMarc711Role == null}{translate text='Collector'}{else}{translate text=coreMarc711Label}{/if}: </th>
+    <th>{if $coreMarc711Role == "collector."}{translate text='Collector'}{else}{translate text=coreMarc711Label}{/if}: </th>
     <td>
         {foreach from=$coreMarc711 item=field name=loop}
             <a href="{$url}/Author/Home?author={$field|escape:"url"}">{$field|escape} {if !empty($coreMarc711Role)} {$coreMarc711Role}{/if}</a>{if !$smarty.foreach.loop.last}
