@@ -222,12 +222,12 @@ class MarcRecord extends IndexRecord
         // come from the ILS:
         $template = parent::getSearchResult();
         //$interface->assign('summAjaxStatus', false);
-$interface->assign('summExtendedTitle', $this->getExtendedTitle());
+        $interface->assign('summExtendedTitle', $this->getExtendedTitle());
 
         return $template;
     }
 
-protected function getExtendedTitle()
+    protected function getExtendedTitle()
     {
         $title = parent::getTitle();
 
@@ -243,7 +243,7 @@ protected function getExtendedTitle()
         return '';
     }
 
-/**
+    /**
      * Assign necessary Smarty variables and return a template name to
      * load in order to display the full record information on the Staff
      * View tab of the record view page.
@@ -526,7 +526,7 @@ protected function getExtendedTitle()
      * @return string
      * @access private
      */
-    public function _getFirstFieldValue($field, $subfields = null)
+    public function c_getFirstFieldValue($field, $subfields = null)
     {
         $matches = $this->_getFieldArray($field, $subfields);
         return (is_array($matches) && count($matches) > 0) ?
@@ -918,6 +918,30 @@ protected function getExtendedTitle()
         $interface->assign('coreMainAuthorRole', $this->MainAuthorRole());
         $interface->assign('coreClassification', $this->CoreClassification());
         $interface->assign('coreCollector', $coreCollector);
+
+        // Main authorship
+        $interface->assign('coreMarc100', $this->getMarc1xx('100'));
+        $interface->assign('coreMarc100Role', $this->getMainMarcxxxRole('100'));
+        $interface->assign('coreMarc100Label', $this->getMainMarcxxxLabel('100'));
+        $interface->assign('coreMarc110', $this->getMarc1xx('110'));
+        $interface->assign('coreMarc110Role', $this->getMainMarcxxxRole('110'));
+        $interface->assign('coreMarc110Label', $this->getMainMarcxxxLabel('110'));
+        $interface->assign('coreMarc111', $this->getMarc1xx('111'));
+        $interface->assign('coreMarc111Role', $this->getMainMarcxxxRole('111'));
+        $interface->assign('coreMarc110Label', $this->getMainMarcxxxLabel('111'));
+
+        // Secondary authorship
+        $interface->assign('coreMarc700', $this->getMarc7xx('700'));
+        $interface->assign('coreMarc700Role', $this->getMainMarcxxxRole('700'));
+        $interface->assign('coreMarc700Label', $this->getMainMarcxxxLabel('700'));
+        $interface->assign('coreMarc710', $this->getMarc7xx('710'));
+        $interface->assign('coreMarc710Role', $this->getMainMarcxxxRole('710'));
+        $interface->assign('coreMarc710Label', $this->getMainMarcxxxLabel('710'));
+        $interface->assign('coreMarc711', $this->getMarc7xx('711'));
+        $interface->assign('coreMarc711Role', $this->getMainMarcxxxRole('711'));
+        $interface->assign('coreMarc711Label', $this->getMainMarcxxxLabel('711'));
+
+
         $this->getExtendedMetadata();
         return $tpl;
     }
@@ -1021,6 +1045,36 @@ protected function getExtendedTitle()
             ? $this->getUniqueID()
             : $pid[0];
         return $configArray['IISH']['oaiPrefix'] . $id;
+    }
+
+    private function getMarc1xx($field)
+    {
+        return $this->_getFirstFieldValue($field, array('a', 'b', 'c', 'd'));
+    }
+
+    private function getMarc7xx($field)
+    {
+        return $this->_getFieldArray($field, array('a', 'b', 'c', 'd'));
+    }
+
+    protected function getMainMarcxxxRole($field)
+    {
+        $role = $this->_getFirstFieldValue($field, array('e'));
+        if ($role == "collection") return null;
+        return $role;
+    }
+
+    private function getMainMarcxxxLabel($field)
+    {
+        $role = $this->_getFirstFieldValue($field, array('e'));
+        if ($role == "collection") return "Collection";
+        if ($field == "100") return "Author";
+        if ($field == "110") return "Organization";
+        if ($field == "111") return "Congress";
+        if ($field == "700") return "Secondary author";
+        if ($field == "710") return "Secondary organization";
+        if ($field == "711") return "Secondary congress ";
+        return null;
     }
 }
 
