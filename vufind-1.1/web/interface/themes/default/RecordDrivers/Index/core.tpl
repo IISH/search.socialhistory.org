@@ -445,6 +445,7 @@
 </tr>
 {/if}
 
+{*
 {if !empty($coreSubjects)}
 <tr valign="top">
     <th>{translate text='Subjects'}:</th>
@@ -464,6 +465,7 @@
     </td>
 </tr>
 {/if}
+*}
 
 {if !empty($coreGenres)}
 <tr valign="top">
