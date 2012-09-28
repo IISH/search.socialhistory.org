@@ -74,7 +74,7 @@ class Email extends Action
             }
 
             // Sent to repo
-            $result = $this->sendEmail($configArray['IISH']['orderTo'], $_POST['email'], $configArray['IISH']['orderSubject'] . " " . $_POST['fullname']);
+            $result = $this->sendEmail('Order/ordermail.tpl', $configArray['IISH']['orderTo'], $_POST['email'], $configArray['IISH']['orderSubject'] . " " . $_POST['fullname']);
             if (PEAR::isError($result)) {
                 $interface->assign('errorMsg', $result->getMessage());
                 $interface->display("Order/reproduction.tpl");
@@ -82,10 +82,10 @@ class Email extends Action
             }
 
             // Sent to customer
-            $result = $this->sendEmail($_POST['email'], $configArray['IISH']['orderFrom'], $configArray['IISH']['orderSubject']);
+            $result = $this->sendEmail('Order/ordermail.customer.tpl', $_POST['email'], $configArray['IISH']['orderFrom'], $configArray['IISH']['orderSubject']);
             if (PEAR::isError($result)) {
                 $interface->assign('errorMsg', $result->getMessage());
-                $interface->display("Order/reproduction.customer.tpl");
+                $interface->display("Order/reproduction.tpl");
                 return;
             }
 
@@ -104,11 +104,11 @@ class Email extends Action
      * @return mixed          Boolean true on success, PEAR_Error on failure.
      * @access public
      */
-    public function sendEmail($to, $from, $subject)
+    public function sendEmail($tpl, $to, $from, $subject)
     {
         global $interface;
 
-        $body = $interface->fetch('Order/ordermail.tpl');
+        $body = $interface->fetch($tpl);
         $mail = new VuFindMailer();
         return $mail->send($to, $from, $subject, $body);
     }
