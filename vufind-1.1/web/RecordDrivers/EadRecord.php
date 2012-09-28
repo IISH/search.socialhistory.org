@@ -179,7 +179,7 @@ class EadRecord extends MarcRecord
 
     private function getAccessRestrictionsHref()
     {
-        $marc506c = $this->_getSubfieldArray('506', array('c'));
+        $marc506c = $this->_getFieldArray('506', array('c'));
         return (isset($marc506c[0])) ? $marc506c[0] : null;
     }
 
