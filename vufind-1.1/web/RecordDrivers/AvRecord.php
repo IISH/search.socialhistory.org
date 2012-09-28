@@ -88,7 +88,17 @@ class AvRecord extends MarcRecord
         $interface->assign('coreGenres', $coreGenres);
         $interface->assign('coreURLs', null);
         $interface->assign('recordLanguage', null);
+        $interface->assign('coreMarc600', $this->_getFieldArray('600'));
+        $interface->assign('coreMarc610', $this->_getFieldArray('610'));
+        $interface->assign('coreMarc611', $this->_getFieldArray('611'));
+        $interface->assign('coreMarc650', $this->_getFieldArray('650'));
+        $interface->assign('coreMarc651', $this->_getFieldArray('651'));
+
         return $tpl;
+    }
+
+    protected function getMarc6xx($field) {
+        return $this->_getFieldArray($field);
     }
 
     private function getBarcode()

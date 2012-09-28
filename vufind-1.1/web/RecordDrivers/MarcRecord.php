@@ -922,24 +922,18 @@ class MarcRecord extends IndexRecord
         // Main authorship
         $interface->assign('coreMarc100', $this->getMarc1xx('100'));
         $interface->assign('coreMarc100Role', $this->getMainMarcxxxRole('100'));
-        $interface->assign('coreMarc100Label', $this->getMainMarcxxxLabel('100'));
         $interface->assign('coreMarc110', $this->getMarc1xx('110'));
         $interface->assign('coreMarc110Role', $this->getMainMarcxxxRole('110'));
-        $interface->assign('coreMarc110Label', $this->getMainMarcxxxLabel('110'));
         $interface->assign('coreMarc111', $this->getMarc1xx('111'));
         $interface->assign('coreMarc111Role', $this->getMainMarcxxxRole('111'));
-        $interface->assign('coreMarc110Label', $this->getMainMarcxxxLabel('111'));
 
         // Secondary authorship
         $interface->assign('coreMarc700', $this->getMarc7xx('700'));
         $interface->assign('coreMarc700Role', $this->getMainMarcxxxRole('700'));
-        $interface->assign('coreMarc700Label', $this->getMainMarcxxxLabel('700'));
         $interface->assign('coreMarc710', $this->getMarc7xx('710'));
         $interface->assign('coreMarc710Role', $this->getMainMarcxxxRole('710'));
-        $interface->assign('coreMarc710Label', $this->getMainMarcxxxLabel('710'));
         $interface->assign('coreMarc711', $this->getMarc7xx('711'));
         $interface->assign('coreMarc711Role', $this->getMainMarcxxxRole('711'));
-        $interface->assign('coreMarc711Label', $this->getMainMarcxxxLabel('711'));
 
 
         $this->getExtendedMetadata();
@@ -1062,19 +1056,6 @@ class MarcRecord extends IndexRecord
         $role = $this->_getFirstFieldValue($field, array('e'));
         if ($role == "collection") return null;
         return $role;
-    }
-
-    private function getMainMarcxxxLabel($field)
-    {
-        $role = $this->_getFirstFieldValue($field, array('e'));
-        if ($role == "collection") return "Collection";
-        if ($field == "100") return "Author";
-        if ($field == "110") return "Organization";
-        if ($field == "111") return "Congress";
-        if ($field == "700") return "Secondary author";
-        if ($field == "710") return "Secondary organization";
-        if ($field == "711") return "Secondary congress ";
-        return null;
     }
 }
 

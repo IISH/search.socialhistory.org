@@ -535,6 +535,42 @@
 </tr>
 {/if}
 
+{if !empty($coreMarc600)}
+<tr valign="top">
+    <th>{translate text=coreMarc600Label}:</th>
+    <td><a href="{$url}/Search/Results?lookfor={$coreMarc600|escape:"url"}">{$coreMarc600|escape}</a>
+    </td>
+</tr>
+{/if}
+{if !empty($coreMarc610)}
+<tr valign="top">
+    <th>{translate text=coreMarc610Label}:</th>
+    <td><a href="{$url}/Search/Results?lookfor={$coreMarc600|escape:"url"}">{$coreMarc600|escape}</a>
+    </td>
+</tr>
+{/if}
+{if !empty($coreMarc611)}
+<tr valign="top">
+    <th>{translate text=coreMarc611Label}:</th>
+    <td><a href="{$url}/Search/Results?lookfor={$coreMarc600|escape:"url"}">{$coreMarc600|escape}</a>
+    </td>
+</tr>
+{/if}
+{if !empty($coreMarc650)}
+<tr valign="top">
+    <th>{translate text=coreMarc650Label}:</th>
+    <td><a href="{$url}/Search/Results?lookfor={$coreMarc600|escape:"url"}">{$coreMarc600|escape}</a>
+    </td>
+</tr>
+{/if}
+{if !empty($coreMarc651)}
+<tr valign="top">
+    <th>{translate text=coreMarc651Label}:</th>
+    <td><a href="{$url}/Search/Results?lookfor={$coreMarc600|escape:"url"}">{$coreMarc600|escape}</a>
+    </td>
+</tr>
+{/if}
+
 {*{if !empty($coreHolding)}
 <tr valign="top">
     <th>{translate text='Holding'}:</th>
