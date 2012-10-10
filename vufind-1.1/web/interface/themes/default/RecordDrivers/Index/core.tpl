@@ -35,8 +35,10 @@
 
 {if $coreThumbMedium}
 <div class="alignright">
-    {if $coreThumbLarge}<a href="{$coreThumbLarge|escape}">{/if}
-    <img id="cover" alt="{translate text='Cover Image'}" class="recordcover" src="{$coreThumbMedium|escape}">
+    {if $coreThumbLarge}
+        {if ( empty($coreIsShownBy) )}<a href="{$coreThumbLarge|escape}">{else}<a href="http://hdl.handle.net/10622/{$coreIsShownBy}?locatt=view:level2" target="_blank">{/if}
+    {/if}
+    <img id="cover" title='' alt="{translate text='Cover Image'}" class="recordcover" src="{$coreThumbMedium|escape}">
     {if $coreThumbLarge}</a>{/if}
 </div>
 
