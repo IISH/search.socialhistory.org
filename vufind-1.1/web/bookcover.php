@@ -280,6 +280,14 @@ function processImageURL($url, $cache = true, $reduce = false)
             return false;
         }
 
+        if ( $reduce > 0 ) {
+        		include('SimpleImage.php');
+        		$image = new SimpleImage();
+                	$image->load($tempFile);
+                	$image->resizeToWidth(350);
+                	$image->save($tempFile);
+        	}
+
         // Conversion needed -- do some normalization for non-JPEG images:
         if ($type != IMAGETYPE_JPEG) {
             // We no longer need the temp file:
@@ -302,13 +310,7 @@ function processImageURL($url, $cache = true, $reduce = false)
             @rename($tempFile, $finalFile);
         }
 
-	if ( $reduce > 0 ) {
-		include('SimpleImage.php');
-		$image = new SimpleImage();
-        	$image->load($finalFile);
-        	$image->resizeToWidth(350);
-        	$image->save($finalFile);
-	}
+
 
         // Display the image:
         header('Content-type: image/jpeg');
