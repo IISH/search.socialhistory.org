@@ -3,8 +3,6 @@
 {translate text='order'}
 {translate text='Title'}: {$title}
 {translate text='Callnumber'}: {$callnumber}
-{translate text='Barcode'}: {$coreBarcode}
-{translate text='Preview level2'}: http://disseminate.objectrepository.org/file/level2/10622/{$coreBarcode}
 {translate text='Website'}: {$website}
 
 {translate text="order.details"}:
