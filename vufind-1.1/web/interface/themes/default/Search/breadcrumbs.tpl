@@ -1,5 +1,5 @@
 {if $searchId}
-<em>{translate text="Search"}: {$lookfor|capitalize|escape:"html"}</em>
+<em>{translate text="Search results"}: {$lookfor|capitalize|escape:"html"}</em>
 {elseif $pageTemplate=="newitem.tpl" || $pageTemplate=="newitem-list.tpl"}
 <em>{translate text="New Items"}</em>
 {elseif $pageTemplate=="view-alt.tpl"}
