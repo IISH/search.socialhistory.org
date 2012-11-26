@@ -38,9 +38,8 @@
             {if $infoMsg}
                 <div class="userMsg">{$infoMsg|translate}</div>{/if}
 
-                <p>{translate text="order.specify"}</p><p>{translate text='order.moreinfo1'} :
-                                                        <a target="_blank"
-                                                           href="{translate text='order.href'}">{translate text='order.moreinfo1.href'}</a>
+                <p>{translate text="order.specify"}</p><p><a target="_blank"
+                                                           href="{translate text='order.moreinfo1.href'}">{translate text='order.moreinfo1'}</a>
                                                     </p>
 
                 <table style="background-color: #ffffff;">
@@ -115,7 +114,7 @@
                         </td>
                     </tr>
                 </table>
-                <p>{translate text='order.moreinfo2'} (<a href="{translate text='order.moreinfo2.href'}"
+                <p><a href="{translate text='order.moreinfo2.href'}"
                                                           target="_blank">{translate text='order.moreinfo2'}</a>)</p>
 
                 <p>{translate text='order.moreinfo3'}</p>
