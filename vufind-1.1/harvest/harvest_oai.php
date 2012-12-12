@@ -391,7 +391,7 @@ public function launch()
      * @return void
      * @access private
      */
-    private function _saveRecord($id, $record)
+    private function _saveRecord($id, $record, $extension = 'xml')
     {
         if (!isset($record->metadata)) {
             die("Unexpected missing record metadata.\n");
@@ -442,7 +442,7 @@ public function launch()
 
 
         // Save our XML:
-        file_put_contents($this->_getFilename($id, 'xml'), trim($xml));
+        file_put_contents($this->_getFilename($id, $extension), trim($xml));
     }
 
     /**
@@ -557,7 +557,9 @@ public function launch()
             // Save the current record, either as a deleted or as a regular file:
             $attribs = $record->header->attributes();
             if (strtolower($attribs['status']) == 'deleted') {
-                $this->_saveDeletedRecord($id);
+               // $this->_saveDeletedRecord($id);
+                $this->_saveRecord($id, $record, 'deleted');
+                                $harvestedIds[] = $id;
             } else {
                 $this->_saveRecord($id, $record);
                 $harvestedIds[] = $id;
