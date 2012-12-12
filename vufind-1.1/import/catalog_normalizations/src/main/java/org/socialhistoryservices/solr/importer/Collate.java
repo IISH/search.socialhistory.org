@@ -95,8 +95,10 @@ public class Collate {
             else {
                 try {
                     final Document document = loadDocument(file);
+                    final String filename = file.getName();
+                    final String extension = filename.substring(filename.lastIndexOf(".") + 1);
                     if (document.getDocumentElement().hasChildNodes()) {
-                        saveDocument(document, writer);
+                        saveDocument(document, writer, extension);
                         writer.write("\r\n");
                         counter++;
                     }
@@ -118,10 +120,11 @@ public class Collate {
         return db.parse(file);
     }
 
-    private void saveDocument(Document document, Writer writer) throws TransformerException {
+    private void saveDocument(Document document, Writer writer, String extension) throws TransformerException {
 
         DOMSource source = new DOMSource(document);
         StreamResult result = new StreamResult(writer);
+        transformer.setParameter("extension", extension);
         transformer.transform(source, result);
     }
 

@@ -5,6 +5,7 @@
 {translate text='Callnumber'}: {$callnumber}
 {translate text='Barcode'}: {$coreBarcode}
 {translate text='Download master'}: http://filer4.iisg.nl/?im={$coreBarcode}.tif
+{translate text='Download master from Sor'}: https://disseminate.objectrepository.org/file/master/10622${coreBarcode}?access_token=dc609ac9-1511-4d90-b649-4c949026d6d7&contentType=application/save
 {translate text='Website'}: {$website}
 
 {translate text="order.details"}:

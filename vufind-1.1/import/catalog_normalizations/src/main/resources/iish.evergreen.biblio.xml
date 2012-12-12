@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<marc:catalog xmlns:marc="http://www.loc.gov/MARC21/slim">
-
     <marc:record xmlns:marc="http://www.loc.gov/MARC21/slim">
         <marc:leader>00620nam a22</marc:leader>
         <marc:controlfield tag="001">1458858</marc:controlfield>
@@ -59,5 +57,3 @@
             <marc:subfield code="a">10622/40C2786C-8CEA-4BA4-AA90-1D90A95DF9D5</marc:subfield>
         </marc:datafield>
     </marc:record>
-
-</marc:catalog>
