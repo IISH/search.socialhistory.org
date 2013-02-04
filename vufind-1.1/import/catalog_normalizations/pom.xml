@@ -10,7 +10,6 @@
     <packaging>jar</packaging>
 
     <build>
-        <finalName>import</finalName>
         <extensions>
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
