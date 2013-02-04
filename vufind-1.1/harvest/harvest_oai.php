@@ -396,6 +396,7 @@ public function launch()
         if (!isset($record->metadata)) {
             die("Unexpected missing record metadata.\n");
         }
+        }
 
         // Extract the actual metadata from inside the <metadata></metadata> tags;
         // there is probably a cleaner way to do this, but this simple method avoids
@@ -558,7 +559,7 @@ public function launch()
             $attribs = $record->header->attributes();
             if (strtolower($attribs['status']) == 'deleted') {
                // $this->_saveDeletedRecord($id);
-                $this->_saveRecord($id, $record, 'deleted.xml');
+                $this->_saveRecord($id, $record, '.xml.deleted');
             } else {
                 $this->_saveRecord($id, $record);
             }
