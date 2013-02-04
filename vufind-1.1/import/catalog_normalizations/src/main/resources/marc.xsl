@@ -9,8 +9,6 @@ This stylesheet corrects some irregularities from the Evergreen OAI export.
         xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
         xmlns:marc="http://www.loc.gov/MARC21/slim">
 
-    <xsl:param name="extension"/>
-
     <xsl:template match="@*|node()">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
@@ -40,15 +38,5 @@ This stylesheet corrects some irregularities from the Evergreen OAI export.
 
     <!-- Remove authorities -->
     <xsl:template match="marc:subfield[@ode='0']"/>
-
-    <!-- Add delete status -->
-    <xsl:template match="marc:record">
-        <xsl:copy>
-            <xsl:if test="$extension='deleted'">
-                <xsl:attribute name="status">deleted</xsl:attribute>
-            </xsl:if>
-            <xsl:apply-templates select="@*|node()"/>
-        </xsl:copy>
-    </xsl:template>
 
 </xsl:stylesheet>

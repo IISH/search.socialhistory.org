@@ -1,6 +1,7 @@
 package org.socialhistoryservices.solr.importer;
 
 import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -18,6 +19,7 @@ import javax.xml.transform.stax.StAXSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
+import java.util.Scanner;
 
 /**
  * Collate
@@ -47,7 +49,7 @@ public class Collate {
         transformer.setOutputProperty("omit-xml-declaration", "yes");
     }
 
-    private void process(String source, String target) throws IOException, XMLStreamException, TransformerException {
+    private void process(String source, String target, FileFilter filter) throws IOException, XMLStreamException, TransformerException {
 
         final FileOutputStream fos = new FileOutputStream(target);
         final OutputStreamWriter writer = new OutputStreamWriter(fos, "utf8");
@@ -57,7 +59,7 @@ public class Collate {
         final File sourceFile = new File(source);
         assert sourceFile.exists();
         if (sourceFile.isDirectory()) {
-            getFiles(sourceFile, writer);
+            getFiles(sourceFile, writer, filter);
         } else {
             getCatalog(sourceFile, writer);
         }
@@ -86,19 +88,17 @@ public class Collate {
         xsr.close();
     }
 
-    private void getFiles(File folder, OutputStreamWriter writer) {
+    private void getFiles(File folder, OutputStreamWriter writer, FileFilter filter) {
 
-        final File[] files = folder.listFiles();
+        final File[] files = folder.listFiles(filter);
         for (File file : files) {
             if (file.isDirectory())
-                getFiles(file, writer);
+                getFiles(file, writer, filter);
             else {
                 try {
                     final Document document = loadDocument(file);
-                    final String filename = file.getName();
-                    final String extension = filename.substring(filename.lastIndexOf(".") + 1);
                     if (document.getDocumentElement().hasChildNodes()) {
-                        saveDocument(document, writer, extension);
+                        saveDocument(document, writer);
                         writer.write("\r\n");
                         counter++;
                     }
@@ -120,21 +120,29 @@ public class Collate {
         return db.parse(file);
     }
 
-    private void saveDocument(Document document, Writer writer, String extension) throws TransformerException {
+    private void saveDocument(Document document, Writer writer) throws TransformerException {
 
         DOMSource source = new DOMSource(document);
         StreamResult result = new StreamResult(writer);
-        transformer.setParameter("extension", extension);
         transformer.transform(source, result);
     }
 
     /**
-     * @param args args[0]=source folder; args[1] target document; optional filter args[2]=offset in seconds
+     * @param args args[0]=source folder;
+     *             args[1] target document;
+     *             optional filter args[2]=listfiles filter
      */
     public static void main(String[] args) throws Exception {
 
         Collate collate = new Collate();
-        collate.process(args[0], args[1]);
+        final String regex = (args.length > 2) ? args[2] : "/*.*";
+        FileFilter filter =
+                new FileFilter() {
+                    public boolean accept(File pathname) {
+                        return pathname.getName().matches(regex);
+                    }
+                };
+        collate.process(args[0], args[1], filter);
         System.out.println();
         System.out.println("Records collated: " + collate.counter);
         System.out.println("Rejects: " + collate.errors);

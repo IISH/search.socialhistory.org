@@ -558,12 +558,11 @@ public function launch()
             $attribs = $record->header->attributes();
             if (strtolower($attribs['status']) == 'deleted') {
                // $this->_saveDeletedRecord($id);
-                $this->_saveRecord($id, $record, 'deleted');
-                                $harvestedIds[] = $id;
+                $this->_saveRecord($id, $record, 'deleted.xml');
             } else {
                 $this->_saveRecord($id, $record);
-                $harvestedIds[] = $id;
             }
+                $harvestedIds[] = $id;
 
             // If the current record's date is newer than the previous end date,
             // remember it for future reference:
