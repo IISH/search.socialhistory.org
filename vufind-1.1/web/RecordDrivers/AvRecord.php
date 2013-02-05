@@ -78,8 +78,8 @@ class AvRecord extends MarcRecord
         $interface->assign('coreBarcode', $barcode);
         $coreNotes = $this->getNotes();
         $interface->assign('coreNotes', $coreNotes);
-        $coreCopyright = $this->getCopyRight();
-        $interface->assign('coreCopyright', $coreCopyright);
+        $interface->assign('coreCopyrightA', $this->getCopyright('a'));
+        $interface->assign('coreCopyrightB', $this->getCopyright('b'));
         $corePeriod = $this->getPeriod();
         $interface->assign('corePeriod', $corePeriod);
         $coreGenres = $this->getGenres();
@@ -118,9 +118,9 @@ class AvRecord extends MarcRecord
         return $notes;
     }
 
-    private function getCopyRight()
+    private function getCopyRight($subfield)
     {
-        $copyright = $this->_getFirstFieldValue('540', array('b'));
+        $copyright = $this->_getFirstFieldValue('540', array($subfield));
         return $copyright;
     }
 
