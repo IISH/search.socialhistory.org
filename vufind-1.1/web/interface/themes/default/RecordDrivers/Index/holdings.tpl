@@ -13,22 +13,15 @@
 {if ( !empty($coreIsShownBy) )}
 <p>{translate text='isShownBy'}<br/><a href="http://hdl.handle.net/10622/{$coreIsShownBy}?locatt=view:level2"
                                        target="_blank">http://hdl.handle.net/10622/{$coreIsShownBy}?locatt=view:level2</a></p>{/if}
-{if ( !empty($coreIsShownBy) )}
-    {if $lang=="nl"}
-        <h3>Beperkingen aan het gebruik van deze afbeelding</h3>
-        Raadpleeg de <a href="http://socialhistory.org/nl/dienstverlening/auteursrechten" target="_blank">IISG
-            Auteursrechten verklaring</a> vóór gebruik van deze afbeelding.<br/>
-        Het IISG weet niet bij wie de eventuele rechten op dit document berusten. In vele gevallen dient de eigenaar van zulke rechten echter toestemming te geven voor de vermenigvuldiging van het materiaal, in het bijzonder voor commerciele doeleinden. Het vaststellen wie de eigenaar is en het verkrijgen van toestemming is de taak van de gebruiker.
-        Bent u de eigenaar van de rechten, neem dan alstublieft contact op met het IISG.</p>
-    {else}
-        <h3>Use restrictions for the image</h3>
-        <p>Please consult the <a href="http://socialhistory.org/en/services/copyrights" target="_blank">IISH copyright
-            statement</a> before using this image.<br>
-            The IISH does not know the copyright owner of this document, if any.
-            In many cases, however, most notably for commercial purposes, permission to reproduce material in copyright is
-            required from the copyright owner.
-            The onus of establishing the copyright owner and obtaining permission rests with the user. If you are the copyright
-            owner, please get in touch with the IISH.</p>
+
+
+{if (empty($coreCopyrightA) || $coreCopyrightA != "Public Domain") && !empty($coreIsShownBy) }
+<h3>{translate text='copyright.use'}</h3>
+<p><a href="{translate text='copyright.consult.href'}" target="_blank">{translate text='copyright.consult'}</a></p>
+    {if empty($coreCopyrightB)}
+         <p>{translate text='copyright.unknown'}</p>
+            {else}
+         <p>{translate text='copyright.known'}</p>
     {/if}
 {/if}
 
