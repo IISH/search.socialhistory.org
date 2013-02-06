@@ -9,6 +9,17 @@ This stylesheet corrects some irregularities from the Evergreen OAI export.
         xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
         xmlns:marc="http://www.loc.gov/MARC21/slim">
 
+    <xsl:template match="marc:record">
+        <xsl:choose>
+            <xsl:when test="marc:datafield[@tag='852']">
+                <xsl:copy>
+                    <xsl:apply-templates select="@*|node()"/>
+                </xsl:copy>
+            </xsl:when>
+            <xsl:otherwise/>
+        </xsl:choose>
+    </xsl:template>
+
     <xsl:template match="@*|node()">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
