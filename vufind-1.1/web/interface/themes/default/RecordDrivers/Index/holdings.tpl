@@ -15,7 +15,7 @@
                                        target="_blank">http://hdl.handle.net/10622/{$coreIsShownBy}?locatt=view:level2</a></p>{/if}
 
 
-{if (empty($coreCopyrightA) || $coreCopyrightA != "Public Domain") && !empty($coreIsShownBy) }
+{if (empty($coreCopyrightA) || $coreCopyrightA != "Public Domain.") && !empty($coreIsShownBy) }
 <h3>{translate text='copyright.use'}</h3>
 <p><a href="{translate text='copyright.consult.href'}" target="_blank">{translate text='copyright.consult'}</a></p>
     {if empty($coreCopyrightB)}
