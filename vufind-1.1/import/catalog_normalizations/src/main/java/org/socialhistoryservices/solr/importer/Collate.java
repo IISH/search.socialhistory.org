@@ -76,7 +76,7 @@ public class Collate {
             if (xsr.getEventType() == XMLStreamReader.START_ELEMENT) {
                 if (xsr.getLocalName().equals("record")) {
                     transformer.transform(new StAXSource(xsr), new StreamResult(writer));
-                    writer.write("\r\n");
+                    writer.write("\n");
                     counter++;
                 } else {
                     xsr.next();
