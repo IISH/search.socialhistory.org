@@ -1023,11 +1023,11 @@ class Solr implements IndexEngine
         return $this->deleteRecords(array($id));
     }
 
-    public function deleteRecordByQuery($id)
+    public function deleteRecordByQuery($q)
     {
         // Treat single-record deletion as a special case of multi-record deletion:
         // Build the delete XML
-        $body = '<delete><query>' . htmlspecialchars($id) . '</query></delete>';
+        $body = '<delete><query>' . htmlspecialchars($q) . '</query></delete>';
 
         // Attempt to post the XML:
         return $this->_update($body);
