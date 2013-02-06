@@ -49,7 +49,7 @@ public class Collate {
         transformer.setOutputProperty("omit-xml-declaration", "yes");
     }
 
-    private void process(String source, String target, FileFilter filter) throws IOException, XMLStreamException, TransformerException {
+    private void process(String source, String target) throws IOException, XMLStreamException, TransformerException {
 
         final FileOutputStream fos = new FileOutputStream(target);
         final OutputStreamWriter writer = new OutputStreamWriter(fos, "utf8");
@@ -59,7 +59,7 @@ public class Collate {
         final File sourceFile = new File(source);
         assert sourceFile.exists();
         if (sourceFile.isDirectory()) {
-            getFiles(sourceFile, writer, filter);
+            getFiles(sourceFile, writer);
         } else {
             getCatalog(sourceFile, writer);
         }
@@ -76,7 +76,6 @@ public class Collate {
             if (xsr.getEventType() == XMLStreamReader.START_ELEMENT) {
                 if (xsr.getLocalName().equals("record")) {
                     transformer.transform(new StAXSource(xsr), new StreamResult(writer));
-                    writer.write("\r\n");
                     counter++;
                 } else {
                     xsr.next();
@@ -88,12 +87,12 @@ public class Collate {
         xsr.close();
     }
 
-    private void getFiles(File folder, OutputStreamWriter writer, FileFilter filter) {
+    private void getFiles(File folder, OutputStreamWriter writer) {
 
-        final File[] files = folder.listFiles(filter);
+        final File[] files = folder.listFiles();
         for (File file : files) {
             if (file.isDirectory())
-                getFiles(file, writer, filter);
+                getFiles(file, writer);
             else {
                 try {
                     final Document document = loadDocument(file);
@@ -135,14 +134,7 @@ public class Collate {
     public static void main(String[] args) throws Exception {
 
         Collate collate = new Collate();
-        final String regex = (args.length > 2) ? args[2] : ".xml";
-        FileFilter filter =
-                new FileFilter() {
-                    public boolean accept(File pathname) {
-                        return pathname.getName().endsWith(regex);
-                    }
-                };
-        collate.process(args[0], args[1], filter);
+        collate.process(args[0], args[1]);
         System.out.println();
         System.out.println("Records collated: " + collate.counter);
         System.out.println("Rejects: " + collate.errors);
