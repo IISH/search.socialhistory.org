@@ -135,11 +135,11 @@ public class Collate {
     public static void main(String[] args) throws Exception {
 
         Collate collate = new Collate();
-        final String regex = (args.length > 2) ? args[2] : "/*.*";
+        final String regex = (args.length > 2) ? args[2] : ".xml";
         FileFilter filter =
                 new FileFilter() {
                     public boolean accept(File pathname) {
-                        return pathname.getName().matches(regex);
+                        return pathname.getName().endsWith(regex);
                     }
                 };
         collate.process(args[0], args[1], filter);
