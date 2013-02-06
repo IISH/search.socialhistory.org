@@ -398,16 +398,16 @@ public function launch()
             if (!isset($record->header)) {
                       die("Unexpected missing record metadata and header.\n");
             }
-            $record->metadata='<metadata><marc:record xmlns:marc="http://www.loc.gov/MARC21/slim"><marc:controlfield tag="001">$id</marc:controlfield></marc:record></metadata>';
+    $identifier=explode(":", $id);
+    $xml='<marc:record xmlns:marc="http://www.loc.gov/MARC21/slim"><marc:controlfield tag="001">' . $identifier[2] . '</marc:controlfield><marc:datafield tag="902"><marc:subfield code="a">' . $identifier[2] . '</marc:subfield></marc:datafield></marc:record>';
         }
-       
-        // Extract the actual metadata from inside the <metadata></metadata> tags;
+      else {
+// Extract the actual metadata from inside the <metadata></metadata> tags;
         // there is probably a cleaner way to do this, but this simple method avoids
         // the complexity of dealing with namespaces in SimpleXML:
         $xml = trim($record->metadata->asXML());
         $xml = preg_replace('/(^<metadata>)|(<\/metadata>$)/m', '', $xml);
-
-         //$xml = str_replace('<record ', '<record xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ', $xml);
+} 
 
         // If we are supposed to inject any values, do so now inside the first
         // tag of the file:
@@ -562,7 +562,7 @@ public function launch()
             $attribs = $record->header->attributes();
             if (strtolower($attribs['status']) == 'deleted') {
                // $this->_saveDeletedRecord($id);
-                $this->_saveRecord($id, $record, '.xml.deleted');
+                $this->_saveRecord($id, $record);
             } else {
                 $this->_saveRecord($id, $record);
             }
