@@ -26,6 +26,7 @@ for dir in /data/datasets/*/
 do
 	echo "Clearing old files"
 	rm -r "$dir"20*
+
 	echo "Adding harvest datestamp"
 	php $VUFIND_HOME/harvest/LastHarvestFile.php "$now" "$d" "$dir"last_harvest.txt
 	setSpec=`basename $dir`
@@ -36,14 +37,18 @@ do
 	f=/data/datasets/$setSpec.xml
 	echo "Collating files into $f"
 	java -Dxsl=marc -cp $app org.socialhistoryservices.solr.importer.Collate $dir $f
-	echo "Clearing files"	
-	rm -r "$dir"20*
 	cd $VUFIND_HOME/import
 	echo "Begin import into solr"	
 	./import-marc.sh -p import_$setSpec.properties $f
         echo "Delete records"
+        java -Dxsl=deleted -cp $app org.socialhistoryservices.solr.importer.Collate $dir $f
+        
         wget -O /tmp/delete.txt http://localhost:8080/solr/biblio/update?stream.body=%3Cdelete%3E%3Cquery%3Ecallnumber:deleted%3C/query%3E%3C/delete%3E
         wget -O /tmp/delete.txt http://localhost:8080/solr/biblio/update?commit=true
+
+        echo "Clearing files"
+        rm -r "$dir"20*
+
 	echo "Creating PDF documents"	
  	./fop-$setSpec.sh
 done
