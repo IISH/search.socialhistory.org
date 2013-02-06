@@ -447,7 +447,7 @@
 </tr>
 {/if}
 
-{if !empty($coreSubjects)}
+{*{if !empty($coreSubjects)}
 <tr valign="top">
     <th>{translate text='Subjects'}:</th>
     <td>
@@ -465,7 +465,7 @@
         {/foreach}
     </td>
 </tr>
-{/if}
+{/if}*}
 
 {if !empty($coreGenres)}
 <tr valign="top">
@@ -494,10 +494,10 @@
 </tr>
 {/if}
 
-{if !empty($coreCopyright)}
+{if !empty($coreCopyrightB)}
 <tr valign="top">
     <th>{translate text='Copyright'}:</th>
-    <td>{translate text=$coreCopyright}</td>
+    <td>{translate text=$coreCopyrightB}</td>
 </tr>
 {/if}
 
