@@ -97,7 +97,7 @@ if ($mode == 'flat') {
         $idField = $record->getField('001');
         $id = (string)$idField->getData();
         $solr->deleteRecord($id);
-        $solr->deleteRecordByQuery($id);
+        $solr->deleteRecordByQuery('pid:"' . $id . '"');
         $i++;
     }
 }
