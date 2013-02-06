@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-This stylesheet corrects some irregularities from the Evergreen OAI export.
+Select deleted records
 -->
 
 <xsl:stylesheet
@@ -11,12 +11,12 @@ This stylesheet corrects some irregularities from the Evergreen OAI export.
 
     <xsl:template match="marc:record">
         <xsl:choose>
-            <xsl:when test="marc:controlfield[@tag='008']">
+            <xsl:when test="marc:controlfield[@tag='008']"/>
+            <xsl:otherwise>
                 <xsl:copy>
                     <xsl:apply-templates select="@*|node()"/>
                 </xsl:copy>
-            </xsl:when>
-            <xsl:otherwise/>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 

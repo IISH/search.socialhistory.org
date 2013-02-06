@@ -25,7 +25,7 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/importing_records#oai-pmh_harvesting Wiki
  */
-require_once '../util/util.inc.php';        // set up util environment
+require_once '../util/util.inc.php'; // set up util environment
 require_once 'sys/Proxy_Request.php';
 
 // Read Config files
@@ -73,23 +73,23 @@ die("Completed without errors -- {$processed} source(s) processed.\n");
  */
 class HarvestOAI
 {
-    private $_baseURL;               // URL to harvest from
-    private $_set = null;            // Target set to harvest (null for all records)
-    private $_metadata = 'oai_dc';   // Metadata type to harvest
-    private $_idPrefix = '';         // OAI prefix to strip from ID values
-    private $_idSearch = array();    // Regular expression searches
-    private $_idReplace = array();   // Replacements for regular expression matches
-    private $_basePath;              // Directory for storing harvested files
-    private $_lastHarvestFile;       // File for tracking last harvest date
-    private $_startDate = null;      // Harvest start date (null for all records)
-    private $_granularity = 'auto';  // Date granularity
-    private $_injectId = false;      // Tag to use for injecting IDs into XML
+    private $_baseURL; // URL to harvest from
+    private $_set = null; // Target set to harvest (null for all records)
+    private $_metadata = 'oai_dc'; // Metadata type to harvest
+    private $_idPrefix = ''; // OAI prefix to strip from ID values
+    private $_idSearch = array(); // Regular expression searches
+    private $_idReplace = array(); // Replacements for regular expression matches
+    private $_basePath; // Directory for storing harvested files
+    private $_lastHarvestFile; // File for tracking last harvest date
+    private $_startDate = null; // Harvest start date (null for all records)
+    private $_granularity = 'auto'; // Date granularity
+    private $_injectId = false; // Tag to use for injecting IDs into XML
     private $_injectSetSpec = false; // Tag to use for injecting setSpecs
     private $_injectSetName = false; // Tag to use for injecting set names
-    private $_injectDate = false;    // Tag to use for injecting datestamp
-    private $_setNames = array();    // Associative array of setSpec => setName
-    private $_harvestedIdLog = false;// Filename for logging harvested IDs.
-    private $_verbose = false;       // Should we display debug output?
+    private $_injectDate = false; // Tag to use for injecting datestamp
+    private $_setNames = array(); // Associative array of setSpec => setName
+    private $_harvestedIdLog = false; // Filename for logging harvested IDs.
+    private $_verbose = false; // Should we display debug output?
 
     // As we harvest records, we want to track the most recent date encountered
     // so we can set a start point for the next harvest.
@@ -184,7 +184,7 @@ class HarvestOAI
      * @return void
      * @access public
      */
-public function launch()
+    public function launch()
     {
         // Start harvesting at the requested date:
         $token = $this->_getRecordsByDate($this->_startDate, $this->_set);
@@ -293,7 +293,7 @@ public function launch()
         }
 
         // Set up the request:
-        $request = new Proxy_Request(null, array('allowRedirects'=>true));
+        $request = new Proxy_Request(null, array('allowRedirects' => true));
         $request->setMethod(HTTP_REQUEST_METHOD_GET);
         $request->setURL($this->_baseURL);
 
@@ -336,7 +336,7 @@ public function launch()
             $attribs = $result->error->attributes();
             die(
                 "OAI-PMH error -- code: {$attribs['code']}, " .
-                "value: {$result->error}\n"
+                    "value: {$result->error}\n"
             );
         }
 
@@ -358,7 +358,7 @@ public function launch()
         // // But we add a subfolder, because we dont want to overburden our fs now, do we?
 
         $f = $this->_basePath . date("YmdHi") . "/";
-         if (!is_dir($f)) {
+        if (!is_dir($f)) {
             if (!mkdir($f, true)) {
                 die("Problem creating directory {$f}.\n");
             }
@@ -396,18 +396,16 @@ public function launch()
         if (!isset($record->metadata)) {
             //die("Unexpected missing record metadata.\n");
             if (!isset($record->header)) {
-                      die("Unexpected missing record metadata and header.\n");
+                die("Unexpected missing record metadata and header.\n");
             }
-    $xml='<marc:record xmlns:marc="http://www.loc.gov/MARC21/slim"><marc:leader>00620njm a22      a 4500</marc:leader><marc:controlfield tag="001">' . $id . '</marc:controlfield><marc:controlfield tag="003">NL-AMISG</marc:controlfield><marc:controlfield tag="008">121022s1991 io ind d</marc:controlfield><marc:datafield ind1=" " ind2=" " tag="040"><marc:subfield code="a">NL-AMISG</marc:subfield></marc:datafield><marc:datafield ind1=" " ind2=" " tag="041"><marc:subfield code="a">ind</marc:subfield></marc:datafield><marc:datafield ind1=" " ind2=" " tag="044"><marc:subfield code="a">io</marc:subfield></marc:datafield><marc:datafield ind1="1" ind2="0" tag="245"><marc:subfield code="k">deleted</marc:subfield></marc:datafield><marc:datafield ind1=" " ind2=" " tag="260"><marc:subfield code="c">1991.</marc:subfield></marc:datafield><marc:datafield ind1=" " ind2=" " tag="500"><marc:subfield code="a">Papoea-mannenkoor Anuqerah, gevangenis Kalisosok, Surabaya.</marc:subfield></marc:datafield><marc:datafield ind1=" " ind2="4" tag="648"><marc:subfield code="a">1991-1991.</marc:subfield><marc:subfield code="0">(NL-AMISG)369921</marc:subfield></marc:datafield><marc:datafield ind1=" " ind2="4" tag="650"><marc:subfield code="a">Music.</marc:subfield><marc:subfield code="0">(NL-AMISG)164053</marc:subfield></marc:datafield><marc:datafield ind1=" " ind2="4" tag="651"><marc:subfield code="a">Surabaya (Indonesia).</marc:subfield><marc:subfield code="0">(NL-AMISG)302890</marc:subfield></marc:datafield><marc:datafield ind1=" " ind2="4" tag="655"><marc:subfield code="a">Audio cassette.</marc:subfield><marc:subfield code="0">(NL-AMISG)108021</marc:subfield></marc:datafield><marc:datafield ind1="1" ind2=" " tag="700"><marc:subfield code="a">Van Ammers-Douwes, Jeanne J.,</marc:subfield><marc:subfield code="e">collector.</marc:subfield><marc:subfield code="0">(NL-AMISG)2005643</marc:subfield></marc:datafield><marc:datafield ind1=" " ind2=" " tag="852"><marc:subfield code="a">IISG</marc:subfield><marc:subfield code="b">IISG</marc:subfield><marc:subfield code="c">IISG</marc:subfield><marc:subfield code="j">deleted</marc:subfield><marc:subfield code="p">977565321</marc:subfield></marc:datafield><marc:datafield ind1=" " ind2=" " tag="901"><marc:subfield code="a">1462597</marc:subfield><marc:subfield code="b">Unknown</marc:subfield><marc:subfield code="c">1462597</marc:subfield><marc:subfield code="t">biblio</marc:subfield></marc:datafield><marc:datafield ind1=" " ind2=" " tag="902"><marc:subfield code="a">' . $id . '</marc:subfield></marc:datafield></marc:record>
-';
-        }
-      else {
+            $xml = '<marc:record xmlns:marc="http://www.loc.gov/MARC21/slim"><marc:controlfield tag="001">' . $id . '</marc:controlfield><marc:datafield ind1=" " ind2=" " tag="902"><marc:subfield code="a">' . $id . '</marc:subfield></marc:datafield></marc:record>';
+        } else {
 // Extract the actual metadata from inside the <metadata></metadata> tags;
-        // there is probably a cleaner way to do this, but this simple method avoids
-        // the complexity of dealing with namespaces in SimpleXML:
-        $xml = trim($record->metadata->asXML());
-        $xml = preg_replace('/(^<metadata>)|(<\/metadata>$)/m', '', $xml);
-} 
+            // there is probably a cleaner way to do this, but this simple method avoids
+            // the complexity of dealing with namespaces in SimpleXML:
+            $xml = trim($record->metadata->asXML());
+            $xml = preg_replace('/(^<metadata>)|(<\/metadata>$)/m', '', $xml);
+        }
 
         // If we are supposed to inject any values, do so now inside the first
         // tag of the file:
@@ -561,12 +559,12 @@ public function launch()
             // Save the current record, either as a deleted or as a regular file:
             $attribs = $record->header->attributes();
             if (strtolower($attribs['status']) == 'deleted') {
-               // $this->_saveDeletedRecord($id);
+                // $this->_saveDeletedRecord($id);
                 $this->_saveRecord($id, $record);
             } else {
                 $this->_saveRecord($id, $record);
             }
-                $harvestedIds[] = $id;
+            $harvestedIds[] = $id;
 
             // If the current record's date is newer than the previous end date,
             // remember it for future reference:

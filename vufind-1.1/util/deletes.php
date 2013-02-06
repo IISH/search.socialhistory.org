@@ -76,6 +76,7 @@ if ($mode == 'flat') {
         $id = trim($id);
         if (!empty($id)) {
             $solr->deleteRecord($id);
+            $solr->deleteRecordByQuery($id);
             $i++;
         }
     }
@@ -96,6 +97,7 @@ if ($mode == 'flat') {
         $idField = $record->getField('001');
         $id = (string)$idField->getData();
         $solr->deleteRecord($id);
+        $solr->deleteRecordByQuery($id);
         $i++;
     }
 }

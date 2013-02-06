@@ -79,19 +79,19 @@
     </tr>
 {/if}
 
-    {if $corePeriod}
-     <tr valign="top">
+{if $corePeriod}
+    <tr valign="top">
         <th>{translate text='Period'}:</th>
         <td>{translate text=$corePeriod}</td>
     </tr>
-    {/if}
+{/if}
 
-    {if $corePhysical}
-     <tr valign="top">
+{if $corePhysical}
+    <tr valign="top">
         <th>{translate text='Physical'}:</th>
         <td>{translate text=$corePhysical}</td>
     </tr>
-    {/if}
+{/if}
 
     <!-- EAD extended -->
 {if !empty($coreAccess)}
@@ -103,24 +103,32 @@
         <tr valign="top">
             <th/>
             <td>{$coreAccess[1]}
-            {if !empty($coreAccessRestrictionsHref)}<br/>(<a target="_blank" href="{$coreAccessRestrictionsHref}">More information on this website</a>)
-            {/if}
+                {if !empty($coreAccessRestrictionsHref)}<br/>(<a target="_blank" href="{$coreAccessRestrictionsHref}">More
+                    information on this website</a>)
+                {/if}
             </td>
         </tr>
     {/if}
     {if sizeof($coreAccess) > 2}
         <tr valign="top">
             <th/>
-            <td><a href="{translate text='consultation_url'}">{translate text='consultation'}</a></td>
+        <td>
+            {if $coreAccess[0]=="closed" || $coreAccess[0] == "gesloten"}
+                <a href="{translate text='archive.closed.href'}">{translate text='archive.closed'}</a></td>
+                {else}
+                <a href="{translate text='archive.restricted.href'}">{translate text='archive.restricted'}</a></td>
+            {else}
+                <a href="{translate text='consultation_url'}">{translate text='consultation'}</a>
+            {/if}
         </tr>
     {/if}
 {/if}
 
 {if !empty($coreCollection)}
     <tr valign="top">
-            <th>{translate text='Collection'}:</th>
-            <td>{$coreCollection}</td>
-        </tr>
+        <th>{translate text='Collection'}:</th>
+        <td>{$coreCollection}</td>
+    </tr>
 {/if}
 
 {if !empty($coreAuthor)}
@@ -130,14 +138,14 @@
     </tr>
 {/if}
 
-    {if $recordLanguage}
+{if $recordLanguage}
     <tr valign="top">
         <th>{translate text='Language'}:</th>
         <td>{foreach from=$recordLanguage item=lang}{$lang|escape}<br>{/foreach}</td>
     </tr>{/if}
 
 {if !empty($coreGeography)}
-   <tr valign="top">
+    <tr valign="top">
         <th>{translate text='Geography'}:</th>
         <td>{foreach from=$coreGeography item=lang}{$lang|escape}<br>{/foreach}</td>
     </tr>
@@ -147,7 +155,7 @@
     <tr valign="top">
         <th>{translate text='Online Access'}:</th>
         <td>
-            {include file="Search/openurl.tpl" openUrl=$coreOpenURL}<br/>
+        {include file="Search/openurl.tpl" openUrl=$coreOpenURL}<br/>
         </td>
     </tr>
 {/if}
