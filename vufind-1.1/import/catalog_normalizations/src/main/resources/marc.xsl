@@ -11,7 +11,7 @@ This stylesheet corrects some irregularities from the Evergreen OAI export.
 
     <xsl:template match="marc:record">
         <xsl:choose>
-            <xsl:when test="marc:datafield[@tag='852']">
+            <xsl:when test="marc:controlfield[@tag='008']">
                 <xsl:copy>
                     <xsl:apply-templates select="@*|node()"/>
                 </xsl:copy>

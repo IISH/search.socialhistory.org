@@ -32,7 +32,6 @@
                     </xsl:when>
                     <xsl:when
                             test="not(ead:archdesc/ead:dsc) and ($access='Vrij' or $access='Not restricted') and $physical > 5">
-                        <!-- see https://diwoto.iisg.nl/projects/search/ticket/31 -->
                         <p>
                             <xsl:value-of select="$large_archive"/>
                         </p>
@@ -194,7 +193,7 @@
             <xsl:when test="../../@level = 'item'">
                 <span class="container">
                     <xsl:choose>
-                        <xsl:when test="$metsBaseUrl">
+                        <xsl:when test="$metsBaseUrl and count(../..//ead:container)=1">
                             <a href="http://visualmets.socialhistoryservices.org/mets2/rest/popup.html?metsId={concat($metsBaseUrl, normalize-space(text()), '.xml')}"
                                target="_blank">
                                 <xsl:apply-templates/>
