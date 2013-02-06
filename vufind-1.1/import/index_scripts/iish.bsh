@@ -58,13 +58,12 @@ public Set getFormat(Record record) {
 
         // example leader
         // 00427nam a22001330a 45a0
-
         String format = leader.substring(6, 8).toLowerCase();
         if (format.equals("ar") || format.equals("as") || format.equals("ps") || format.equals("ar"))
             result.add(SE);
         if (format.equals("am") || format.equals("pm"))
             result.add(BK);
-        if (format.equals("im") || format.equals("pi") || format.equals("ic") || format.equals("nj"))
+        if (format.equals("im") || format.equals("pi") || format.equals("ic") || format.equals("jm"))
             result.add(MU);
         if (format.equals("do") || format.equals("oc"))
             result.add(DO);
