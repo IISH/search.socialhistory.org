@@ -107,6 +107,7 @@
   </types>
  <fields>
    <!-- Core Fields  -->
+     <field name="pid" type="string" indexed="true" stored="false" />
      <field name="collector" type="string" indexed="true" stored="false" />
 
    <field name="id" type="string" indexed="true" stored="true"/>
