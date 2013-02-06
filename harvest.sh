@@ -41,6 +41,9 @@ do
 	cd $VUFIND_HOME/import
 	echo "Begin import into solr"	
 	./import-marc.sh -p import_$setSpec.properties $f
+        echo "Delete records"
+        wget -O /tmp/delete.txt http://localhost:8080/solr/biblio/update?stream.body=%3Cdelete%3E%3Cquery%3Ecallnumber:deleted%3C/query%3E%3C/delete%3E
+        wget -O /tmp/delete.txt http://localhost:8080/solr/biblio/update?commit=true
 	echo "Creating PDF documents"	
  	./fop-$setSpec.sh
 done
