@@ -398,8 +398,7 @@ public function launch()
             if (!isset($record->header)) {
                       die("Unexpected missing record metadata and header.\n");
             }
-    $identifier=explode(":", $id);
-    $xml='<marc:record xmlns:marc="http://www.loc.gov/MARC21/slim"><marc:controlfield tag="001">' . $identifier[2] . '</marc:controlfield><marc:datafield tag="902"><marc:subfield code="a">' . $identifier[2] . '</marc:subfield></marc:datafield></marc:record>';
+    $xml='<marc:record xmlns:marc="http://www.loc.gov/MARC21/slim"><marc:controlfield tag="001">' . $id . '</marc:controlfield><marc:datafield tag="902"><marc:subfield code="a">' . $id . '</marc:subfield></marc:datafield></marc:record>';
         }
       else {
 // Extract the actual metadata from inside the <metadata></metadata> tags;
