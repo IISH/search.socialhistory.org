@@ -117,6 +117,8 @@
                     <a href="{translate text='archive.closed.href'}" target="_blank">{translate text='archive.closed'}</a></td>
                 {elseif $coreAccess[0]=="Beperkt" || $coreAccess[0] == "Restricted"}
                     <a href="{translate text='archive.restricted.href'}" target="_blank">{translate text='archive.restricted'}</a>
+                {else}
+               {* Link to how to request access for an open collection ?*}
                 {/if}
             </td>
         </tr>
