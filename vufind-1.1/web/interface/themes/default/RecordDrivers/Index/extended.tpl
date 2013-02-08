@@ -18,6 +18,7 @@
     <td>
       {foreach from=$extendedDateSpan item=field name=loop}
         {$field|escape}<br>
+        {if !empty($extendedDateSpanPublisher)}, {$extendedDateSpanPublisher}{/if}
       {/foreach}
     </td>
   </tr>
