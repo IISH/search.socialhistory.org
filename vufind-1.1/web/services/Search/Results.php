@@ -98,7 +98,7 @@ class Results extends Action
         // Set Interface Variables
         //   Those we can construct BEFORE the search is executed
         $displayQuery = $searchObject->displayQuery();
-        if (strpos($displayQuery, ":") ) $displayQuery = '"' . $displayQuery . '.';
+        if ( !strpos($displayQuery, '"') && strpos($displayQuery, ':') ) $displayQuery = '"' . $displayQuery . '"';
         $interface->setPageTitle(
             translate('Search Results') .
                 (empty($displayQuery) ? '' : ' - ' . htmlspecialchars($displayQuery))
