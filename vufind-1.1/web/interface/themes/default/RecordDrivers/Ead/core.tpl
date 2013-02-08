@@ -116,8 +116,7 @@
             {if $coreAccess[0]=="Closed" || $coreAccess[0] == "Gesloten"}
                 <a href="{translate text='archive.closed.href'}">{translate text='archive.closed'}</a></td>
                 {else}
-                <a href="{translate text='consultation_url'}">{translate text='consultation'}</a>
-                {*todo: make it <a href="{translate text='archive.restricted.href'}">{translate text='archive.restricted'}*}
+                <a href="{translate text='archive.restricted.href'}">{translate text='archive.restricted'}
                 </a></td>
             {/if}
         </tr>
