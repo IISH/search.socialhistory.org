@@ -380,6 +380,7 @@ CallNumber:
     callnumber_exact:
       #Strip whitespace and quotes:
       - [preg_replace, '/[ ]/', "?"]
+      - [uppercase]
   QueryFields:
     - callnumber:
       - [callnumber_exact, 1000]
