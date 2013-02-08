@@ -171,7 +171,7 @@ class EadRecord extends MarcRecord
         if (sizeof($accessRestrictions) == 2) {
             $pos1 = strpos($accessRestrictions[0], 'Beperkt');
             $pos2 = strpos($accessRestrictions[0], 'Restricted');
-            if ($pos1 != -1 || $pos2 != -1)
+            if ($pos1 || $pos2)
                 $accessRestrictions[] = "consultation";
         }
         return $accessRestrictions;
