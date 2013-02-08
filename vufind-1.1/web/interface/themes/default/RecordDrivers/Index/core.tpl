@@ -221,7 +221,9 @@
     <th>{translate text='Published'}:</th>
     <td>
         {foreach from=$extendedDateSpan item=field name=loop}
-            {$field|escape}<br>
+            {$field|escape}
+            {if !empty($extendedDateSpanPublisher)}, {$extendedDateSpanPublisher}{/if}
+            <br>
         {/foreach}
     </td>
 </tr>

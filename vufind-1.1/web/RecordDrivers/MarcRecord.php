@@ -935,6 +935,8 @@ class MarcRecord extends IndexRecord
         $interface->assign('coreMarc711', $this->getMarc7xx('711'));
         $interface->assign('coreMarc711Role', $this->getMainMarcxxxRole('711'));
 
+        // extend the extendedDateSpan...
+        $interface->assign('extendedDateSpanPublisher', $this->getExtendedDateSpanPublisher());
 
         $this->getExtendedMetadata();
         return $tpl;
@@ -1059,6 +1061,11 @@ class MarcRecord extends IndexRecord
     protected function getMainMarcxxxRole($field)
     {
         return $this->_getFirstFieldValue($field, array('e'));
+    }
+
+    private function getExtendedDateSpanPublisher()
+    {
+        return $this->_getFirstFieldValue('260', array('f'));
     }
 }
 
