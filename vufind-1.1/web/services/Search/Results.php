@@ -76,15 +76,15 @@ class Results extends Action
             $interface->assign('showPreviews', true);
             foreach ($providers as $provider) {
                 switch ($provider) {
-                case 'Google':
-                    $interface->assign('showGBSPreviews', true);
-                    break;
-                case 'OpenLibrary':
-                    $interface->assign('showOLPreviews', true);
-                    break;
-                case 'HathiTrust':
-                    $interface->assign('showHTPreviews', true);
-                    break;
+                    case 'Google':
+                        $interface->assign('showGBSPreviews', true);
+                        break;
+                    case 'OpenLibrary':
+                        $interface->assign('showOLPreviews', true);
+                        break;
+                    case 'HathiTrust':
+                        $interface->assign('showHTPreviews', true);
+                        break;
                 }
             }
         }
@@ -98,12 +98,13 @@ class Results extends Action
         // Set Interface Variables
         //   Those we can construct BEFORE the search is executed
         $displayQuery = $searchObject->displayQuery();
+        if (strpos($displayQuery, ":") ) $displayQuery = '"' . $displayQuery . '.';
         $interface->setPageTitle(
             translate('Search Results') .
-            (empty($displayQuery) ? '' : ' - ' . htmlspecialchars($displayQuery))
+                (empty($displayQuery) ? '' : ' - ' . htmlspecialchars($displayQuery))
         );
-        $interface->assign('sortList',   $searchObject->getSortList());
-        $interface->assign('rssLink',    $searchObject->getRSSUrl());
+        $interface->assign('sortList', $searchObject->getSortList());
+        $interface->assign('rssLink', $searchObject->getRSSUrl());
 
         // Process Search
         $result = $searchObject->processSearch(true, true);
@@ -174,7 +175,7 @@ class Results extends Action
             $summary = $searchObject->getResultSummary();
             $interface->assign('recordCount', $summary['resultTotal']);
             $interface->assign('recordStart', $summary['startRecord']);
-            $interface->assign('recordEnd',   $summary['endRecord']);
+            $interface->assign('recordEnd', $summary['endRecord']);
 
             // Big one - our results
             $interface->assign('recordSet', $searchObject->getResultRecordHTML());
@@ -186,8 +187,8 @@ class Results extends Action
             // Process Paging
             $link = $searchObject->renderLinkPageTemplate();
             $options = array('totalItems' => $summary['resultTotal'],
-                             'fileName'   => $link,
-                             'perPage'    => $summary['perPage']);
+                'fileName' => $link,
+                'perPage' => $summary['perPage']);
             $pager = new VuFindPager($options);
             $interface->assign('pageLinks', $pager->getLinks());
         }
@@ -198,9 +199,9 @@ class Results extends Action
         // Show the save/unsave code on screen
         // The ID won't exist until after the search has been put in the search
         //    history so this needs to occur after the close() on the searchObject
-        $interface->assign('showSaved',   true);
+        $interface->assign('showSaved', true);
         $interface->assign('savedSearch', $searchObject->isSavedSearch());
-        $interface->assign('searchId',    $searchObject->getSearchId());
+        $interface->assign('searchId', $searchObject->getSearchId());
 
         // Save the URL of this search to the session so we can return to it easily:
         $_SESSION['lastSearchURL'] = $searchObject->renderSearchUrl();
