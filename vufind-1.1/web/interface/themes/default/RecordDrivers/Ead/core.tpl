@@ -112,13 +112,13 @@
     {if sizeof($coreAccess) > 2}
         <tr valign="top">
             <th/>
-        <td>
-            {if $coreAccess[0]=="Closed" || $coreAccess[0] == "Gesloten"}
-                <a href="{translate text='archive.closed.href'}" target="_blank">{translate text='archive.closed'}</a></td>
-                {else}
-                <a href="{translate text='archive.restricted.href'} target="_blank"">{translate text='archive.restricted'}
-                </a></td>
-            {/if}
+            <td>
+                {if $coreAccess[0]=="Closed" || $coreAccess[0] == "Gesloten"}
+                    <a href="{translate text='archive.closed.href'}" target="_blank">{translate text='archive.closed'}</a></td>
+                {elseif $coreAccess[0]=="Beperkt" || $coreAccess[0] == "Restricted"}
+                    <a href="{translate text='archive.restricted.href'}" target="_blank">{translate text='archive.restricted'}</a>
+                {/if}
+            </td>
         </tr>
     {/if}
 {/if}
