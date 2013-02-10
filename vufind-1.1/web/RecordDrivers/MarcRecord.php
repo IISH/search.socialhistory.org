@@ -954,7 +954,11 @@ class MarcRecord extends IndexRecord
         if ($pos === false) {
             $j = $this->_getFirstFieldValue('852', array('j'));
             if ( $j == "Embedded" ) {
-                return $this->_getFirstFieldValue('856', array('u'));
+                $u = $this->_getFirstFieldValue('856', array('u'));
+                if ( $u ) {
+                    $pos = strpos($u, '/10622/');
+                    return ( $pos === false ) ? null : substr($u, $pos + 7);
+                }
             }
         }
         return ($pos === false) ? null : $p;
