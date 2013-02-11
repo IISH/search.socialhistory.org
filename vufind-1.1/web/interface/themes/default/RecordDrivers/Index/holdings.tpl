@@ -5,8 +5,6 @@
     {/foreach}
 {/if}
 
-<h3>{translate text="Internet"}</h3>
-
 {if ( !empty($coreIsShownAt) )}
 <p>{translate text='isShownAt'}<br/><a href="http://hdl.handle.net/{$coreIsShownAt}" target="_blank">http://hdl.handle.net/{$coreIsShownAt}</a>
 </p>{/if}
