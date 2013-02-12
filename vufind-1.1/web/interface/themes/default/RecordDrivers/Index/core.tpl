@@ -543,7 +543,7 @@
     <th>{translate text=coreMarc600Label}:</th>
     <td>
         {foreach from=$coreMarc600 item=field name=loop}
-                   <a href="{$url}/Search/Results?author={$field|escape:"url"}">{$field|escape}</a>{if !$smarty.foreach.loop.last}, {/if}
+                   <a href="{$url}/Search/Results?lookfor={$field|escape:"url"}">{$field|escape}</a>{if !$smarty.foreach.loop.last}<br/>{/if}
                {/foreach}
        </td>
 </tr>
@@ -553,7 +553,7 @@
     <th>{translate text=coreMarc610Label}:</th>
     <td>
             {foreach from=$coreMarc610 item=field name=loop}
-                       <a href="{$url}/Search/Results?author={$field|escape:"url"}">{$field|escape}</a>{if !$smarty.foreach.loop.last}, {/if}
+                       <a href="{$url}/Search/Results?lookfor={$field|escape:"url"}">{$field|escape}</a>{if !$smarty.foreach.loop.last}<br/>{/if}
                    {/foreach}
            </td>
 </tr>
@@ -563,7 +563,7 @@
     <th>{translate text=coreMarc611Label}:</th>
     <td>
             {foreach from=$coreMarc611 item=field name=loop}
-                       <a href="{$url}/Search/Results?author={$field|escape:"url"}">{$field|escape}</a>{if !$smarty.foreach.loop.last}, {/if}
+                       <a href="{$url}/Search/Results?lookfor={$field|escape:"url"}">{$field|escape}</a>{if !$smarty.foreach.loop.last}<br/>{/if}
                    {/foreach}
            </td>
 </tr>
@@ -573,7 +573,7 @@
     <th>{translate text=coreMarc650Label}:</th>
     <td>
             {foreach from=$coreMarc650 item=field name=loop}
-                       <a href="{$url}/Search/Results?author={$field|escape:"url"}">{$field|escape}</a>{if !$smarty.foreach.loop.last}, {/if}
+                       <a href="{$url}/Search/Results?lookfor={$field|escape:"url"}">{$field|escape}</a>{if !$smarty.foreach.loop.last}<br/>{/if}
                    {/foreach}
            </td>
 </tr>
@@ -583,7 +583,7 @@
     <th>{translate text=coreMarc651Label}:</th>
     <td>
             {foreach from=$coreMarc651 item=field name=loop}
-                       <a href="{$url}/Search/Results?author={$field|escape:"url"}">{$field|escape}</a>{if !$smarty.foreach.loop.last}, {/if}
+                       <a href="{$url}/Search/Results?lookfor={$field|escape:"url"}">{$field|escape}</a>{if !$smarty.foreach.loop.last}<br/>{/if}
                    {/foreach}
            </td>
 </tr>
