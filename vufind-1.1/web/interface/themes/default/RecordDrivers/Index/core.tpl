@@ -157,7 +157,7 @@
     <td>
         {foreach from=$coreMarc700 item=field name=loop}
             <a href="{$url}/Author/Home?author={$field|escape:"url"}">{$field|escape} {if !empty($coreMarc700Role)} {$coreMarc700Role}{/if}</a>{if !$smarty.foreach.loop.last}
-            , {/if}
+            <br/>{/if}
         {/foreach}
     </td>
 </tr>
@@ -168,7 +168,7 @@
     <td>
         {foreach from=$coreMarc710 item=field name=loop}
             <a href="{$url}/Author/Home?author={$field|escape:"url"}">{$field|escape} {if !empty($coreMarc710Role)} {$coreMarc710Role}{/if}</a>{if !$smarty.foreach.loop.last}
-            , {/if}
+            <br/>{/if}
         {/foreach}
     </td>
 </tr>
@@ -179,7 +179,7 @@
     <td>
         {foreach from=$coreMarc711 item=field name=loop}
             <a href="{$url}/Author/Home?author={$field|escape:"url"}">{$field|escape} {if !empty($coreMarc711Role)} {$coreMarc711Role}{/if}</a>{if !$smarty.foreach.loop.last}
-            , {/if}
+            <br/>{/if}
         {/foreach}
     </td>
 </tr>
