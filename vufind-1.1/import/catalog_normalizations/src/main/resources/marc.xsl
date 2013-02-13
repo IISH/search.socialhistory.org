@@ -50,4 +50,8 @@ This stylesheet corrects some irregularities from the Evergreen OAI export.
     <!-- Remove authorities -->
     <xsl:template match="marc:subfield[@code='0']"/>
 
+    <xsl:template match="marc:subfield/text()">
+        <xsl:value-of select="normalize-space(.)"/>
+    </xsl:template>
+
 </xsl:stylesheet>

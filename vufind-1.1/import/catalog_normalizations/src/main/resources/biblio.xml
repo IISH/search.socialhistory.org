@@ -19,7 +19,7 @@
             <marc:subfield code="a">bo</marc:subfield>
         </marc:datafield>
         <marc:datafield ind1="1" ind2=" " tag="100">
-            <marc:subfield code="a">Kohl, Benjamin.</marc:subfield>
+            <marc:subfield code="a"> ohl, Benjamin.   </marc:subfield>
         </marc:datafield>
         <marc:datafield ind1="1" ind2="3" tag="245">
             <marc:subfield code="a">El bumerán boliviano :</marc:subfield>
@@ -30,6 +30,7 @@
             <marc:subfield code=""/>
         </marc:datafield>
         <marc:datafield ind1=" " ind2=" " tag="260">
+            <marc:subfield code="0">this should not be here</marc:subfield>
             <marc:subfield code="a">La Paz :</marc:subfield>
             <marc:subfield code="b">Plural,</marc:subfield>
             <marc:subfield code="c">2012.</marc:subfield>
