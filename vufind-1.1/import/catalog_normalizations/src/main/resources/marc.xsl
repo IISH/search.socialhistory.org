@@ -53,5 +53,8 @@ This stylesheet corrects some irregularities from the Evergreen OAI export.
     <xsl:template match="marc:subfield/text()">
         <xsl:value-of select="normalize-space(.)"/>
     </xsl:template>
+    <xsl:template match="marc:controlfield/text()">
+        <xsl:value-of select="normalize-space(.)"/>
+    </xsl:template>
 
 </xsl:stylesheet>

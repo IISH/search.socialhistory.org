@@ -4,7 +4,7 @@
         <marc:leader>00620nam a22</marc:leader>
         <marc:controlfield tag="001">1458858</marc:controlfield>
         <marc:controlfield tag="003">NL-AMISG</marc:controlfield>
-        <marc:controlfield tag="005">20120703155616.0</marc:controlfield>
+        <marc:controlfield tag="005">20120703155616.0 </marc:controlfield>
         <marc:controlfield tag="008">120703s2012 bo spa d</marc:controlfield>
         <marc:datafield ind1=" " ind2=" " tag="020">
             <marc:subfield code="a">978-99905-1-059-9</marc:subfield>
