@@ -39,7 +39,7 @@ public class Collate {
 
         String xslt = System.getProperty("xsl");
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        if (xslt == null) {
+        if (xslt == null || xslt.isEmpty()) {
             transformer = transformerFactory.newTransformer();
         } else {
             System.out.println("Using stylesheet -Dxsl=" + xslt);
