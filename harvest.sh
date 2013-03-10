@@ -33,7 +33,7 @@ do
 	echo Set setSpec to $setSpec	
 	cd $VUFIND_HOME/harvest
 	echo "Begin harvest"
-	php harvest_oai.php $setSpec
+	php harvest_oai.php $setSpec >> /data/log/$setSpec.$now.harvest.log
 	f=/data/datasets/$setSpec.xml
 	echo "Collating files into $f"
 	java -Dxsl=marc -cp $app org.socialhistoryservices.solr.importer.Collate $dir $f
@@ -42,12 +42,12 @@ do
 	./import-marc.sh -p import_$setSpec.properties $f
         wget -O /tmp/commit.txt http://localhost:8080/solr/biblio/update?commit=true
         echo "Delete records"
-        java -Dxsl=deleted -cp $app org.socialhistoryservices.solr.importer.Collate $dir $f
+        java -Dxsl=deleted -cp $app org.socialhistoryservices.solr.importer.Collate $dir $f.delete
         while read line; do 
             if [ ${#line} -gt 5 ] ; then
                 wget -O /tmp/deletion.txt http://localhost:8080/solr/biblio/update?stream.body=%3Cdelete%3E%3Cquery%3Epid%3A%22$line%22%3C%2Fquery%3E%3C%2Fdelete%3E
             fi
-        done < $f
+        done < $f.delete
 
         echo "Clearing files"
         rm -r "$dir"20*
