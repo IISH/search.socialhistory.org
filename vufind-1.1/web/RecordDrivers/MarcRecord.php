@@ -1036,8 +1036,8 @@ class MarcRecord extends IndexRecord
                 $marc_b = $classification->getSubfield('b');
                 if ($marc_a != null || $marc_b != null) {
                     $c = array();
-                    $c[] = $marc_a->getData();
-                    $c[] = $marc_b->getData();
+                    if ( $marc_a ) $c[] = $marc_a->getData();
+                    if ( $marc_b ) $c[] = $marc_b->getData();
                     return $c;
                 }
             }
