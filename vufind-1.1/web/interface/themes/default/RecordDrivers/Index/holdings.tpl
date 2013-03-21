@@ -9,8 +9,8 @@
 
     {literal}<script type="text/javascript">function setButtons(){{/literal}
     {foreach from=$coreHolding key=key item=value name=loop}
-        {if $key.j}
-            {literal}$("#item{/literal}{$smarty.foreach.loop.index}{literal}").determineReservationButton('{/literal}{$coreShortTitle|escape|regex_replace:"/\s.\Z/":""}{literal}','{/literal}{$coreIsShownAt}{literal}','{/literal}{$key.j}{literal}', false);{/literal}
+        {if $value.j}
+            {literal}$("#item{/literal}{$smarty.foreach.loop.index}{literal}").determineReservationButton('{/literal}{$coreShortTitle|escape|regex_replace:"/\s.\Z/":""}{literal}','{/literal}{$coreIsShownAt}{literal}','{/literal}{$value.j}{literal}', false);{/literal}
         {/if}
     {/foreach}
     {literal}}/* setButtons */</script>{/literal}
