@@ -1,9 +1,18 @@
 {if !empty($coreHolding)}
-<h3 xmlns="http://www.w3.org/1999/html">{translate text="Holding"}</h3>
+    <h3>{translate text="Holding"}</h3>
+    <table>
+        {foreach from=$coreHolding key=key item=value name=loop}
+            <tr><td>{$key}</td><td><div style="padding-left:50px" id='item{$smarty.foreach.loop.index}'></div></td></tr>
+            {if $value}<tr><td>{$value}</td><td/></tr>{/if}
+        {/foreach}
+    </table>
+
+    {literal}<script type="text/javascript">function setButtons(){{/literal}
     {foreach from=$coreHolding key=key item=value name=loop}
-    <p>{$key}{if $value}<br/>{$value}{/if}</p>
+        {literal}$("#item{/literal}{$smarty.foreach.loop.index}{literal}").determineReservationButton('{/literal}{$coreShortTitle|escape|regex_replace:"/\s.\Z/":""}{literal}','{/literal}{$coreIsShownAt}{literal}','{/literal}{$key}{literal}', false);{/literal}
     {/foreach}
-{/if}
+    {literal}}/* setButtons */</script>{/literal}
+{/if}   
 
 {if ( !empty($coreIsShownAt) )}
 <p>{translate text='isShownAt'}<br/><a href="http://hdl.handle.net/{$coreIsShownAt}" target="_blank">http://hdl.handle.net/{$coreIsShownAt}</a>

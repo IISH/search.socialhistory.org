@@ -62,7 +62,7 @@ function addFavorite(handle, title) {
         window.external.AddFavorite(handle, title);
     }
 }
-}{/literal}</script>
+{/literal}</script>
 
 
         <div class="record">

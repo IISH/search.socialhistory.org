@@ -1,3 +1,28 @@
+{css media="screen" filename="delivery_shop/example/resources/css/delivery_shop.css"}
+{js filename="delivery_shop/example/resources/js/jquery-1.5.1.min.js"}
+{js filename="delivery_shop/example/resources/js/jquery-ui-1.8.13.custom.min.js"}
+{*js filename="delivery_shop/example/resources/js/jquery.jsonp.js"*}
+{js filename="delivery_shop/example/resources/js/simpleCart.min.js"}
+{js filename="delivery_shop/delivery.locale.en.js"}
+{js filename="delivery_shop/delivery.locale.nl.js"}
+{js filename="delivery_shop/delivery_shop.js"}
+
+{literal}<script type="text/javascript">
+$(document).ready(function()
+            {
+                initDelivery({ 
+                    host:      "node-120.dev.socialhistoryservices.org",
+                    language:  "{/literal}{$userLang}{literal}",
+                    max_items: 2,
+                    cart_div:  "#delivery_cart"
+                });
+                //$("#delivery_info").getDeliveryInfo();     // For debugging
+                // $("#delivery_cart").emptyShoppingCart();
+                
+                setButtons();
+            });  /* ready */
+</script>{/literal}
+
 {* Display Title *}
 {literal}
 <script language="JavaScript" type="text/javascript">
