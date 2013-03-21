@@ -3,13 +3,15 @@
     <table>
         {foreach from=$coreHolding key=key item=value name=loop}
             <tr><td>{$key}</td><td><div style="padding-left:50px" id='item{$smarty.foreach.loop.index}'></div></td></tr>
-            {if $value}<tr><td>{$value}</td><td/></tr>{/if}
+            {if $value.note}<tr><td>{$value.note}</td><td/></tr>{/if}
         {/foreach}
     </table>
 
     {literal}<script type="text/javascript">function setButtons(){{/literal}
     {foreach from=$coreHolding key=key item=value name=loop}
-        {literal}$("#item{/literal}{$smarty.foreach.loop.index}{literal}").determineReservationButton('{/literal}{$coreShortTitle|escape|regex_replace:"/\s.\Z/":""}{literal}','{/literal}{$coreIsShownAt}{literal}','{/literal}{$key}{literal}', false);{/literal}
+        {if $key.j}
+            {literal}$("#item{/literal}{$smarty.foreach.loop.index}{literal}").determineReservationButton('{/literal}{$coreShortTitle|escape|regex_replace:"/\s.\Z/":""}{literal}','{/literal}{$coreIsShownAt}{literal}','{/literal}{$key.j}{literal}', false);{/literal}
+        {/if}
     {/foreach}
     {literal}}/* setButtons */</script>{/literal}
 {/if}   

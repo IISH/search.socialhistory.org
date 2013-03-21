@@ -1013,13 +1013,13 @@ class MarcRecord extends IndexRecord
                 if ( !$subfieldc && $subfieldj ) $subfield = $subfieldj->getData();
                 if ($subfield) {
                     $key = $subfield;
-                    $holdings[$key] = null;
+                    $holdings[$key]['j'] = $subfieldj;
                 }
             }
             if ($tag == "866") {
                 $subfield = $datafield->getSubfield('a');
                 if ($subfield)
-                    $holdings[$key] = $subfield->getData();
+                    $holdings[$key]['note'] = $subfield->getData();
             }
         }
 
