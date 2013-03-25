@@ -1,6 +1,6 @@
 .deliveryReserveButton {
     border: 1px solid #39a8ff;
-    background: #eef;
+    background-color: #ffffff;
 }
 
 .deliveryReserveButton:hover {
@@ -14,7 +14,7 @@
 
 .simpleCart_checkout {
     border: 1px solid #39a8ff;
-    background: #eef;
+    background-color: #ffffff;
 }
 
 .simpleCart_checkout:hover {
@@ -24,7 +24,7 @@
 
 .simpleCart_empty {
     border: 1px solid #39a8ff;
-    background: #eef;
+    background-color: #ffffff;
 }
 
 .simpleCart_empty:hover {
@@ -32,14 +32,23 @@
     background: #ccf;
 }
 
-#delivery_cart table {
-    border: 1px;
+.simpleCart_items table {
+    width: 300px;
     border-collapse: collapse;
     border-color: #003399;
 }
 
+#delivery_cart {
+    padding: 1px;
+    width: 300px;
+}
+
 #delivery_cart .item-remove {
     text-align: center;
+}
+
+#delivery_cart th {
+    background-color: #e5eCf9;
 }
 
 #delivery_cart  th, td {
@@ -48,14 +57,15 @@
 }
 
 #delivery_cart .odd {
-    background-color: #e5eCf9;
-}
-
-#delivery_cart .even {
     background-color: #f9f4f2;
 }
 
+#delivery_cart .even {
+    background-color: #ffffff;
+}
+
 #delivery_cart {
+    background-color: #e5eCf9;
     font-size: smaller;
 }
 
