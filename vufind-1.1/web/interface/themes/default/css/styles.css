@@ -5,7 +5,7 @@ $configArray = parse_ini_file('../../../../conf/config.ini', true);
 
 @import "layout.css";
 @import "autocomplete.css";
-@import "iish.css";
+@import "{include file="shopping_cart.tpl"}<div class="sidegroup";
 
 /* YUI Slider Styles
 Copyright (c) 2010, Yahoo! Inc. All rights reserved.
