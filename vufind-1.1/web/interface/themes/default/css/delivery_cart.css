@@ -1,7 +1,8 @@
-
-
 .deliveryReserveButton {
-  color: #900;
-  border: 1px solid #900;
-  font-weight: bold;
+    border: 1px solid #62c5eb;
+    background: #ccf;
+}
+.deliveryReserveButton:hover {
+    border: 1px solid #39a8ff;
+    background: #eef;
 }
