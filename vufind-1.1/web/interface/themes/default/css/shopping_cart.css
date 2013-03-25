@@ -14,21 +14,23 @@
 .simpleCart_checkout {
     border: 1px solid #39a8ff;
     background: #eef;
-    font-size: smaller;
+    font-size: small;
 }
 .simpleCart_checkout:hover {
     border: 1px solid #62c5eb;
     background: #ccf;
-    font-size: smaller;
+    font-size: small;
 }
 
 .simpleCart_empty {
     border: 1px solid #39a8ff;
     background: #eef;
+    font-size: small;
 }
 .simpleCart_empty:hover {
     border: 1px solid #62c5eb;
     background: #ccf;
+    font-size: small;
 }
 
 #delivery_cart table {
