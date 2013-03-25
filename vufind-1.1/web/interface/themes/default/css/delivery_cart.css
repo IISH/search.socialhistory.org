@@ -7,11 +7,20 @@
     background: #ccf;
 }
 
-.deliveryCartButtons {
+.simpleCart_checkout {
     border: 1px solid #39a8ff;
     background: #eef;
 }
-.deliveryCartButtons:hover {
+.simpleCart_checkout:hover {
+    border: 1px solid #62c5eb;
+    background: #ccf;
+}
+
+.simpleCart_empty {
+    border: 1px solid #39a8ff;
+    background: #eef;
+}
+.simpleCart_empty:hover {
     border: 1px solid #62c5eb;
     background: #ccf;
 }
