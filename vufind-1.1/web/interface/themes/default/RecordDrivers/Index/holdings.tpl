@@ -1,10 +1,10 @@
 {if !empty($coreHolding)}
 
     <h3>{translate text="Holding"}</h3>
-    <table style="padding-bottom: 25px;">
+    <table style="margin-bottom: 25px;">
         {foreach from=$coreHolding key=key item=value name=loop}
             <tr>
-                <td><div style="padding-left:50px" id='item{$smarty.foreach.loop.index}'></div></td>
+                <td><div id='item{$smarty.foreach.loop.index}'></div></td>
                 <td>{$key}</td>
                 <td><!-- empty --></td>
             </tr>
