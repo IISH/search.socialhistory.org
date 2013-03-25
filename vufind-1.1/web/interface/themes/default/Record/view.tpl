@@ -136,9 +136,7 @@ function addFavorite(handle, title) {
  
       
   <div class="yui-b">
-  
-  
-    <div class="sidegroup">
+    {include file="shopping_cart.tpl"}<div class="sidegroup">
       <h4>{translate text="Similar Items"}</h4>
       {if is_array($similarRecords)}
       <ul class="similar">
@@ -164,7 +162,7 @@ function addFavorite(handle, title) {
     </div>
 
     {if is_array($editions)}
-    <div class="sidegroup">
+   <div class="sidegroup">
       <h4>{translate text="Other Editions"}</h4>
       <ul class="similar">
         {foreach from=$editions item=edition}

@@ -1,4 +1,4 @@
-<div class="sidegroup">
+{include file="shopping_cart.tpl"}<div class="sidegroup">
   {if $recordCount > 0}<h4>{translate text='Narrow Search'}</h4>{/if}
   {if isset($checkboxFilters) && count($checkboxFilters) > 0}
   <p>
