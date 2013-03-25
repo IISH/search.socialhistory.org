@@ -6,3 +6,12 @@
     border: 1px solid #62c5eb;
     background: #ccf;
 }
+
+.deliveryCartButtons {
+    border: 1px solid #39a8ff;
+    background: #eef;
+}
+.deliveryCartButtons:hover {
+    border: 1px solid #62c5eb;
+    background: #ccf;
+}
