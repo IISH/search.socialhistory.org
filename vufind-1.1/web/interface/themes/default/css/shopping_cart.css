@@ -7,6 +7,10 @@
     background: #ccf;
 }
 
+.deliveryReserveButton {
+    font-size: small;
+}
+
 #delivery_cart {
     font-size: smaller;
 }
@@ -19,7 +23,6 @@
 .simpleCart_checkout:hover {
     border: 1px solid #62c5eb;
     background: #ccf;
-    font-size: small;
 }
 
 .simpleCart_empty {
@@ -30,7 +33,6 @@
 .simpleCart_empty:hover {
     border: 1px solid #62c5eb;
     background: #ccf;
-    font-size: small;
 }
 
 #delivery_cart table {
