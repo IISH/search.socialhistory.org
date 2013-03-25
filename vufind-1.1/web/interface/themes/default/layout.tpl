@@ -17,7 +17,7 @@
           href="{$url}/Search/OpenSearch?method=describe">
 {css media="screen" filename="styles.css"}
 {css media="screen" filename="iish.css"}
-{css media="screen" filename="delivery_cart.css"}
+{css media="screen" filename="shopping_cart.css"}
 {css media="print" filename="print.css"}
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <script language="JavaScript" type="text/javascript">

@@ -31,6 +31,4 @@
     </ul>
 </div>
 
-<div id="delivery_cart"></div>
-
 <br clear="all">

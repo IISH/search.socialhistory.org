@@ -7,6 +7,10 @@
     background: #ccf;
 }
 
+#delivery_cart {
+    font-size: smaller;
+}
+
 .simpleCart_checkout {
     border: 1px solid #39a8ff;
     background: #eef;
@@ -24,3 +28,17 @@
     border: 1px solid #62c5eb;
     background: #ccf;
 }
+
+#delivery_cart table {
+    border:1px;
+    border-color: #003399;
+}
+
+#delivery_cart th,td {
+    text-align:left;
+}
+
+#delivery_cart .odd {
+    background-color:#e5eCf9;
+}
+
