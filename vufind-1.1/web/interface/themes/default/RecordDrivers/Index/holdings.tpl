@@ -1,20 +1,22 @@
 {if !empty($coreHolding)}
+
     <h3>{translate text="Holding"}</h3>
     <table>
         {foreach from=$coreHolding key=key item=value name=loop}
             <tr><td>{$key}</td><td><div style="padding-left:50px" id='item{$smarty.foreach.loop.index}'></div></td></tr>
-            {if $value['note']}<tr><td>{$value['note']}</td><td/></tr>{/if}
+            {if $value.note}<tr><td>{$value.note}</td><td/></tr>{/if}
         {/foreach}
     </table>
 
     {literal}<script type="text/javascript">function setButtons(){{/literal}
     {foreach from=$coreHolding key=key item=value name=loop}
-        {if $value['j']}
-            {literal}$("#item{/literal}{$smarty.foreach.loop.index}{literal}").determineReservationButton('{/literal}{$coreShortTitle|escape|regex_replace:"/\s.\Z/":""}{literal}','{/literal}{$coreIsShownAt}{literal}','{/literal}{$value['j']}{literal}', false);{/literal}
+        {if $value.j}
+            {literal}$("#item{/literal}{$smarty.foreach.loop.index}{literal}").determineReservationButton('{/literal}{$coreShortTitle|escape|regex_replace:"/\s.\Z/":""}{literal}','{/literal}{$coreIsShownAt}{literal}','{/literal}{$value.j}{literal}', false);{/literal}
         {/if}
     {/foreach}
     {literal}}/* setButtons */</script>{/literal}
 {/if}   
+
 
 {if ( !empty($coreIsShownAt) )}
 <p>{translate text='isShownAt'}<br/><a href="http://hdl.handle.net/{$coreIsShownAt}" target="_blank">http://hdl.handle.net/{$coreIsShownAt}</a>

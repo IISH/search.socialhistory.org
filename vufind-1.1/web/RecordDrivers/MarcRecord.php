@@ -908,7 +908,7 @@ class MarcRecord extends IndexRecord
         $tpl = parent::getCoreMetadata();
         global $interface;
         $coreCollector = $this->getCollector();
-        $coreHolding = $this->getHolding();
+        //$coreHolding = $this->getHolding();
         $coreIsShownAt = $this->getIsShownAt();
         $coreIsShownBy = $this->getIsShowBy();
         $interface->assign('coreIsShownAt', $coreIsShownAt);
@@ -1013,16 +1013,18 @@ class MarcRecord extends IndexRecord
                 if ( !$subfieldc && $subfieldj ) $subfield = $subfieldj->getData();
                 if ($subfield) {
                     $key = $subfield;
-                    $holdings[$key]['j'] = $subfieldj;
+                    if ($subfieldj) $holdings[$key]['j'] = $subfieldj->getData();
                 }
             }
-            if ($tag == "866") {
+            if ($tag == "866" && $key) {
                 $subfield = $datafield->getSubfield('a');
                 if ($subfield)
                     $holdings[$key]['note'] = $subfield->getData();
             }
         }
-
+print("<!--");
+print_r($holdings);
+print("-->");
         return $holdings;
     }
 
