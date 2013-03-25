@@ -2,6 +2,7 @@
     border: 1px solid #39a8ff;
     background: #eef;
 }
+
 .deliveryReserveButton:hover {
     border: 1px solid #62c5eb;
     background: #ccf;
@@ -11,15 +12,11 @@
     font-size: small;
 }
 
-#delivery_cart {
-    font-size: smaller;
-}
-
 .simpleCart_checkout {
     border: 1px solid #39a8ff;
     background: #eef;
-    font-size: small;
 }
+
 .simpleCart_checkout:hover {
     border: 1px solid #62c5eb;
     background: #ccf;
@@ -28,23 +25,40 @@
 .simpleCart_empty {
     border: 1px solid #39a8ff;
     background: #eef;
-    font-size: small;
 }
+
 .simpleCart_empty:hover {
     border: 1px solid #62c5eb;
     background: #ccf;
 }
 
 #delivery_cart table {
-    border:1px;
+    border: 1px;
+    border-collapse: collapse;
     border-color: #003399;
 }
 
-#delivery_cart th,td {
-    text-align:left;
+#delivery_cart .item-remove {
+    text-align: center;
+}
+
+#delivery_cart  th, td {
+    text-align: left;
+    padding: 2px;
 }
 
 #delivery_cart .odd {
-    background-color:#e5eCf9;
+    background-color: #e5eCf9;
 }
 
+#delivery_cart .even {
+    background-color: #f9f4f2;
+}
+
+#delivery_cart {
+    font-size: smaller;
+}
+
+#delivery_cart button {
+    font-size: smaller;
+}
