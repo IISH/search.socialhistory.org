@@ -1,1 +1,1 @@
-<div id="delivery_cart"></div>
+<div id="delivery_cart" class="sidegroup"></div>
