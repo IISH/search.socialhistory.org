@@ -14,10 +14,12 @@
 .simpleCart_checkout {
     border: 1px solid #39a8ff;
     background: #eef;
+    font-size: smaller;
 }
 .simpleCart_checkout:hover {
     border: 1px solid #62c5eb;
     background: #ccf;
+    font-size: smaller;
 }
 
 .simpleCart_empty {
