@@ -20,12 +20,12 @@
     {literal}<script type="text/javascript">function setButtons(){{/literal}
     {foreach from=$coreHolding key=key item=value name=loop}
         {if $value.j}
-            {literal}$("#item{/literal}{$smarty.foreach.loop.index}{literal}").determineReservationButton('{/literal}{$coreShortTitle|escape|regex_replace:"/\s.\Z/":""|regex_replace:"/'/g":""} - {$value.j}{literal}','{/literal}{$coreIsShownAt}{literal}','{/literal}{$value.j}{literal}', false);{/literal}
+            {literal}$("#item{/literal}{$smarty.foreach.loop.index}{literal}").determineReservationButton('{/literal}{$coreShortTitle|escape|regex_replace:"/[']/":"''"} - {$value.j}{literal}','{/literal}{$coreIsShownAt}{literal}','{/literal}{$value.j}{literal}', false);{/literal}
         {/if}
     {/foreach}
     {literal}}/* setButtons */</script>{/literal}
 
-<h3>Your selected items</h3>
+<h3>{translate text='delivery.request'}</h3>
     {include file="shopping_cart.tpl"}
 {/if}
 
