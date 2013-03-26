@@ -1,7 +1,12 @@
 #delivery_cart_container {
+    width: 600px;
     background-color: #e7f4f9;
     padding: 2px;
     margin-bottom: 25px;
+}
+
+.item-pid {
+    display: none;
 }
 
 #delivery_cart {
@@ -13,9 +18,6 @@
     background-color: #ffffff;
 }
 
-.item-pid {
-    display: none;
-}
 
 .deliveryReserveButton:hover {
     border: 1px solid #62c5eb;
@@ -47,6 +49,7 @@
 }
 
 .simpleCart_items table {
+    width: 600px;
     border-collapse: collapse;
     border-color: #003399;
 }

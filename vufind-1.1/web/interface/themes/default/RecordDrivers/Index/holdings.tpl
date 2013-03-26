@@ -20,15 +20,14 @@
     {literal}<script type="text/javascript">function setButtons(){{/literal}
     {foreach from=$coreHolding key=key item=value name=loop}
         {if $value.j}
-            {literal}$("#item{/literal}{$smarty.foreach.loop.index}{literal}").determineReservationButton('{/literal}{$coreShortTitle|escape|truncate:100:"..."|regex_replace:"/\s'.\Z/":""}{$value.j}{literal}','{/literal}{$coreIsShownAt}{literal}','{/literal}{$value.j}{literal}', false);{/literal}
+            {literal}$("#item{/literal}{$smarty.foreach.loop.index}{literal}").determineReservationButton('{/literal}{$coreShortTitle|escape|regex_replace:"/\s.\Z/":""|regex_replace:"/'/g":""} - {$value.j}{literal}','{/literal}{$coreIsShownAt}{literal}','{/literal}{$value.j}{literal}', false);{/literal}
         {/if}
     {/foreach}
     {literal}}/* setButtons */</script>{/literal}
 
+<h3>Your selected items</h3>
     {include file="shopping_cart.tpl"}
-
-{/if}   
-
+{/if}
 
 {if ( !empty($coreIsShownAt) )}
 <p>{translate text='isShownAt'}<br/><a href="http://hdl.handle.net/{$coreIsShownAt}" target="_blank">http://hdl.handle.net/{$coreIsShownAt}</a>
