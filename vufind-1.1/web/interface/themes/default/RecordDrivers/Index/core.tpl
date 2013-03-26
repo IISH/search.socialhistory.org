@@ -2,8 +2,8 @@
 {js filename="delivery_shop/example/resources/js/jquery-1.9.1.min.js"}
 {js filename="delivery_shop/example/resources/js/jquery-ui-1.8.13.custom.min.js"}
 {js filename="delivery_shop/example/resources/js/simpleCart.min.js"}
-{js filename="delivery_shop/delivery.locale.en.js"}
-{js filename="delivery_shop/delivery.locale.nl.js"}
+{js filename="delivery_shop_custom/delivery.locale.en.js"}
+{js filename="delivery_shop_custom/delivery.locale.nl.js"}
 {js filename="delivery_shop/delivery_shop.js"}
 
 {literal}<script type="text/javascript">
