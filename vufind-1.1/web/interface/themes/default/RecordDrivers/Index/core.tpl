@@ -13,7 +13,8 @@ $(document).ready(function()
                     host:      "node-120.dev.socialhistoryservices.org",
                     language:  "{/literal}{$userLang}{literal}",
                     max_items: 3,
-                    cart_div:  "#delivery_cart"
+                    cart_div:  "#delivery_cart",
+                    cartStyle: "table"
                 });
                 //$("#delivery_info").getDeliveryInfo();     // For debugging
                 // $("#delivery_cart").emptyShoppingCart();
