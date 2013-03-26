@@ -17,8 +17,9 @@ $(document).ready(function()
                 });
                 //$("#delivery_info").getDeliveryInfo();     // For debugging
                 // $("#delivery_cart").emptyShoppingCart();
-                
+{/literal}{if $recordFormat[0] == 'Books and brochures' || $recordFormat[0] == 'Serials'}{literal}                
                 setButtons();
+{/literal}{/if}{literal}
             });  /* ready */
 </script>{/literal}
 

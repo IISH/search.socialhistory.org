@@ -16,7 +16,7 @@
         {/foreach}
     </table>
 
-{if $codeFormat[0] == 'Books and brochures' || $coreFormat[0] == 'Serials'}
+
     {literal}<script type="text/javascript">function setButtons(){{/literal}
     {foreach from=$coreHolding key=key item=value name=loop}
         {if $value.j}
@@ -24,7 +24,6 @@
         {/if}
     {/foreach}
     {literal}}/* setButtons */</script>{/literal}
-{/if}
 
 {/if}   
 
