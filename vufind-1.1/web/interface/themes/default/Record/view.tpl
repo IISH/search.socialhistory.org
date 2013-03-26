@@ -136,7 +136,7 @@ function addFavorite(handle, title) {
  
       
   <div class="yui-b">
-    {include file="shopping_cart.tpl"}<div class="sidegroup">
+    <div class="sidegroup">
       <h4>{translate text="Similar Items"}</h4>
       {if is_array($similarRecords)}
       <ul class="similar">

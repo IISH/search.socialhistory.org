@@ -92,7 +92,7 @@
       {/foreach}
     </div>
   {/if}
-    {include file="shopping_cart.tpl"}<div class="sidegroup">
+    <div class="sidegroup">
       <h4>{translate text="Search Tips"}</h4>
 
       <a href="{$url}/Help/Home?topic=search" onClick="window.open('{$url}/Help/Home?topic=advsearch', 'Help', 'width=625, height=510'); return false;">{translate text="Help with Advanced Search"}</a><br />

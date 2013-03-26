@@ -1,5 +1,5 @@
 #delivery_cart_container {
-    width: 300px;
+    width: 400px;
     background-color: #e7f4f9;
     padding: 2px;
 }
@@ -44,7 +44,7 @@
 }
 
 .simpleCart_items table {
-    width: 300px;
+    width: 400px;
     border-collapse: collapse;
     border-color: #003399;
 }

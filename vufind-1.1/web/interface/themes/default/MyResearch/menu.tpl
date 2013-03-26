@@ -1,5 +1,5 @@
 <div class="yui-b">
-  {include file="shopping_cart.tpl"}<div class="sidegroup">
+  <div class="sidegroup">
     <h4>{translate text='Your Account'}</h4>
     <ul class="bulleted">
       <li{if $pageTemplate=="favorites.tpl"} class="active"{/if} style="float: none;"><a href="{$url}/MyResearch/Favorites">{translate text='Favorites'}</a></li>
