@@ -12,7 +12,7 @@ $(document).ready(function()
                 initDelivery({ 
                     host:      "node-120.dev.socialhistoryservices.org",
                     language:  "{/literal}{$userLang}{literal}",
-                    max_items: 2,
+                    max_items: 3,
                     cart_div:  "#delivery_cart"
                 });
                 //$("#delivery_info").getDeliveryInfo();     // For debugging
