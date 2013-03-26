@@ -1,5 +1,4 @@
 {if !empty($coreHolding)}
-
     <h3>{translate text="Holding"}</h3>
     <table style="margin-bottom: 25px;">
         {foreach from=$coreHolding key=key item=value name=loop}
@@ -17,6 +16,7 @@
         {/foreach}
     </table>
 
+{if $codeFormat[0] == 'Books and brochures' || $coreFormat[0] == 'Serials'}
     {literal}<script type="text/javascript">function setButtons(){{/literal}
     {foreach from=$coreHolding key=key item=value name=loop}
         {if $value.j}
@@ -24,6 +24,8 @@
         {/if}
     {/foreach}
     {literal}}/* setButtons */</script>{/literal}
+{/if}
+
 {/if}   
 
 
