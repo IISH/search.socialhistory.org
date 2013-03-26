@@ -1,3 +1,13 @@
+#delivery_cart_container {
+    width: 300px;
+    background-color: #e7f4f9;
+    padding: 2px;
+}
+
+#delivery_cart {
+    font-size: smaller;
+}
+
 .deliveryReserveButton {
     border: 1px solid #39a8ff;
     background-color: #ffffff;
@@ -9,7 +19,7 @@
 }
 
 .deliveryReserveButton {
-    font-size: small;
+    font-size: smaller;
 }
 
 .simpleCart_checkout {
@@ -40,7 +50,6 @@
 
 #delivery_cart {
     padding: 1px;
-    width: 300px;
 }
 
 #delivery_cart .item-remove {
@@ -66,9 +75,6 @@
 
 #delivery_cart {
     background-color: #e5eCf9;
-    font-size: smaller;
 }
 
-#delivery_cart button {
-    font-size: smaller;
-}
+

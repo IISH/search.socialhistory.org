@@ -33,6 +33,7 @@ public class DirtyImporter {
     private List<Transformer> tChain;
     private int counter = 0;
     private long numMillisecondsToSleep = 15000; // 15 seconds
+    final HttpClient httpclient = new HttpClient();
 
     public DirtyImporter(String url, String _xslts, String _parameters) throws TransformerConfigurationException, FileNotFoundException, MalformedURLException {
 
@@ -99,7 +100,6 @@ public class DirtyImporter {
         final PostMethod post = new PostMethod(url);
         final RequestEntity entity = new ByteArrayRequestEntity(record, "text/xml; charset=utf-8");
         post.setRequestEntity(entity);
-        final HttpClient httpclient = new HttpClient();
         log.info("Sending " + ++counter);
         try {
             httpclient.executeMethod(post);

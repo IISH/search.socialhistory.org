@@ -1,3 +1,1 @@
-<div>Your selected items (Maximum 3 items)
-    <div id="delivery_cart"></div>
-</div>
+<div id="delivery_cart_container"><div id="delivery_cart">Your selected items (max. 3 items possible)</div></div>
