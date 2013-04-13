@@ -77,7 +77,7 @@ public class DirtyImporter {
                 }
             } else {
                 xsr.next();
-            };
+            }
         }
     }
 
@@ -109,23 +109,23 @@ public class DirtyImporter {
             post.releaseConnection();
         }
 
-        if (counter % 1000 == 1) {
+        /*if (counter % 1000 == 1) {
             log.info("Pause");
             sleep();
-        }
+        }*/
 
     }
 
     /**
      * We give ourselves a breather for the socket connections to expire
      */
-    private void sleep() {
+    /*private void sleep() {
         try {
             Thread.sleep(numMillisecondsToSleep);
         } catch (InterruptedException e) {
             log.warn(e);
         }
-    }
+    }*/
 
     private byte[] convertRecord(Transformer transformer, byte[] record) throws TransformerException {
 
