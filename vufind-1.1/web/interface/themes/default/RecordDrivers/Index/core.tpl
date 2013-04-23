@@ -1,29 +1,12 @@
-{css media="screen" filename="delivery_shop/example/resources/css/delivery_shop.css"}
-{js filename="delivery_shop/example/resources/js/jquery-1.9.1.min.js"}
-{js filename="delivery_shop/example/resources/js/jquery-ui-1.8.13.custom.min.js"}
-{js filename="delivery_shop/example/resources/js/simpleCart.min.js"}
-{js filename="delivery_shop_custom/delivery.locale.en.js"}
-{js filename="delivery_shop_custom/delivery.locale.nl.js"}
-{js filename="delivery_shop/delivery_shop.js"}
-
-{literal}<script type="text/javascript">
+{if $recordFormat[0] == 'Books and brochures' || $recordFormat[0] == 'Serials'}{literal}
+<script type="text/javascript">
 $(document).ready(function()
             {
-                initDelivery({ 
-                    host:      "node-120.dev.socialhistoryservices.org",
-                    language:  "{/literal}{$userLang}{literal}",
-                    max_items: 3,
-                    cart_div:  "#delivery_cart",
-                    cartStyle: "table"
-                });
-                //$("#delivery_info").getDeliveryInfo();     // For debugging
-                // $("#delivery_cart").emptyShoppingCart();
-{/literal}{if $recordFormat[0] == 'Books and brochures' || $recordFormat[0] == 'Serials'}{literal}                
                 setButtons();
-{/literal}{/if}{literal}
             });  /* ready */
-</script>{/literal}
-
+</script>
+{/literal}
+{/if}
 {* Display Title *}
 {literal}
 <script language="JavaScript" type="text/javascript">

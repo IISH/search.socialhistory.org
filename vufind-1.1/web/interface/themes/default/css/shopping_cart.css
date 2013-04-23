@@ -1,9 +1,32 @@
-#delivery_cart_container {
-    width: 600px;
-    background-color: #e7f4f9;
-    padding: 2px;
-    margin-bottom: 25px;
+#delivery_cart_wrapper {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background-color: white;
+    border: 1px solid black;
+    padding: 3px;
+    z-index: 999;
+    display: none;
 }
+
+#delivery_cart_wrapper h3 {
+    margin-top: 1px;
+    background: #73A1C7;
+    color: white;
+    padding: 2px;
+    padding-left: 5px;
+    margin-bottom: 0;
+}
+
+#delivery_cart_wrapper span {
+    background: #73A1C7;
+    color: black;
+    padding: 2px;
+    padding-left: 5px;
+    font-size: smaller;
+    display: block;
+}
+
 
 .item-pid {
     display: none;
@@ -11,6 +34,7 @@
 
 #delivery_cart {
     font-size: smaller;
+    margin-top: 5px;
 }
 
 .deliveryReserveButton {
@@ -49,9 +73,10 @@
 }
 
 .simpleCart_items table {
-    width: 600px;
+    width: 300px;
     border-collapse: collapse;
     border-color: #003399;
+    
 }
 
 #delivery_cart {
@@ -83,4 +108,14 @@
     background-color: #e5eCf9;
 }
 
+.deliveryStatReserved, .deliveryStatUsageRestriction, .deliveryStatClosed {
+    color: #D10018;
+}
+
+.deliveryStatRestricted {
+}
+
+.deliveryResponseText {
+    margin-left: 10px;
+}
 

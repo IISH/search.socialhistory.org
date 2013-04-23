@@ -3,14 +3,14 @@
     <table style="margin-bottom: 25px;">
         {foreach from=$coreHolding key=key item=value name=loop}
             <tr>
-                <td><div id='item{$smarty.foreach.loop.index}'></div></td>
-                <td>{$key}</td>
-                <td><!-- empty --></td>
+                <td>{$key}<div style="display:inline;margin-left:10px" id='item{$smarty.foreach.loop.index}'></div></td>
+                <td></td>
+		<td></td>
             </tr>
             {if $value.note}
             <tr>
-                <td><!-- empty --></td>
                 <td colspan="2">{$value.note}</td>
+                <td><!-- empty --></td>
             </tr>
             {/if}
         {/foreach}
@@ -20,13 +20,11 @@
     {literal}<script type="text/javascript">function setButtons(){{/literal}
     {foreach from=$coreHolding key=key item=value name=loop}
         {if $value.j}
-            {literal}$("#item{/literal}{$smarty.foreach.loop.index}{literal}").determineReservationButton('{/literal}{$coreShortTitle|escape|regex_replace:"/[']/":"''"} - {$value.j}{literal}','{/literal}{$coreIsShownAt}{literal}','{/literal}{$value.j}{literal}', false);{/literal}
+            {literal}$("#item{/literal}{$smarty.foreach.loop.index}{literal}").determineReservationButton('{/literal}{$coreShortTitle|escape|regex_replace:"/[']/":"''"|truncate:40} - {$value.j}{literal}','{/literal}{$coreIsShownAt}{literal}','{/literal}{$value.j}{literal}', false);{/literal}
         {/if}
     {/foreach}
     {literal}}/* setButtons */</script>{/literal}
 
-<h3>{translate text='delivery.request'}</h3>
-    {include file="shopping_cart.tpl"}
 {/if}
 
 {if ( !empty($coreIsShownAt) )}

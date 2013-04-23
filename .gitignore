@@ -1,5 +1,9 @@
 .gitignore
 
+httpd-vufind.conf
+config.ini
+
+
 #NFS
 .nfs*
 
