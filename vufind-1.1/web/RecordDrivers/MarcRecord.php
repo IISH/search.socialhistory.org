@@ -937,7 +937,7 @@ class MarcRecord extends IndexRecord
         $interface->assign('coreMarc711Role', $this->getMainMarcxxxRole('711'));
 
         // Journal article reference
-        $interface->assign('coreMarc773', $this->getMarc773('773'));
+        $interface->assign('coreArticle', $this->getMarc773('773'));
 
         // extend the extendedDateSpan...
         $interface->assign('extendedDateSpanPublisher', $this->getExtendedDateSpanPublisher());
@@ -1078,14 +1078,17 @@ class MarcRecord extends IndexRecord
 
     private function getMarc773($field)
     {
-        return $this->_getFirstFieldValue($field, array('a'));
+        $a = $this->_getFirstFieldValue($field, array('a'));
+        $g =  $this->_getFirstFieldValue($field, array('g'));
+        if ( $a && $g ) return $a . ", " . $g ;
+        return ($a) ? $a : $g;
     }
 
     private function getExtendedDateSpanPublisher()
     {
         $e = $this->_getFirstFieldValue('260', array('e'));
         $f = $this->_getFirstFieldValue('260', array('f'));
-        if ($e && $f) return $e . ":" . $f;
+        if ($e && $f) return $e . $f;
         return ($e) ? $e : $f;
     }
 }
