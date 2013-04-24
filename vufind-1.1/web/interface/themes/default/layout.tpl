@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE html>
 <html lang="{$userLang}">
 
 {* We should hide the top search bar and breadcrumbs in some contexts: *}
@@ -14,13 +14,13 @@
     <title>{$pageTitle|truncate:64:"..."}</title>
 {if $addHeader}{$addHeader}{/if}
     <link rel="search" type="application/opensearchdescription+xml" title="Library Catalog Search"
-          href="{$url}/Search/OpenSearch?method=describe">
+          href="{$url}/Search/OpenSearch?method=describe" />
 {css media="screen" filename="styles.css"}
 {css media="screen" filename="iish.css"}
 {css media="screen" filename="shopping_cart.css"}
 {css media="print" filename="print.css"}
-{css media="screen" filename="delivery_shop/example/resources/css/delivery_shop.css"}
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+{*{css media="screen" filename="delivery_shop/example/resources/css/delivery_shop.css"}*}
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <script language="JavaScript" type="text/javascript">
         path = '{$url}';
     </script>
@@ -54,8 +54,6 @@ _gaq.push(['_trackPageview']);
 
 {literal}
 <script type="text/javascript">
-$(document).ready(function()
-            {
                 var openCloseWrapper = function () {
                     if (simpleCart.quantity() > 0) {
                         $("#delivery_cart_wrapper").show();
@@ -132,7 +130,7 @@ $(document).ready(function()
         {/if}
     {/if}
 
-        <br clear="all">
+        <br clear="all" />
     </div>
 </div>
 

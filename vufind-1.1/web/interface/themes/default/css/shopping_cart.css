@@ -1,3 +1,7 @@
+<?php
+Header ("Content-type: text/css");
+$configArray = parse_ini_file('../../../../conf/config.ini', true);
+?>
 #delivery_cart_wrapper {
     position: fixed;
     bottom: 0;
@@ -7,22 +11,23 @@
     padding: 3px;
     z-index: 999;
     display: none;
+    width: 300px;
 }
 
 #delivery_cart_wrapper h3 {
     margin-top: 1px;
     background: #73A1C7;
     color: white;
-    padding: 2px;
-    padding-left: 5px;
+    padding: 0;
     margin-bottom: 0;
+    width: 100%;
 }
 
 #delivery_cart_wrapper span {
+    width: 100%;
     background: #73A1C7;
     color: black;
-    padding: 2px;
-    padding-left: 5px;
+    padding: 0px;
     font-size: smaller;
     display: block;
 }
@@ -73,7 +78,7 @@
 }
 
 .simpleCart_items table {
-    width: 300px;
+    width: 100%;
     border-collapse: collapse;
     border-color: #003399;
     

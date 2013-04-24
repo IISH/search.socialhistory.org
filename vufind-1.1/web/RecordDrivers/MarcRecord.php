@@ -1022,9 +1022,9 @@ class MarcRecord extends IndexRecord
                     $holdings[$key]['note'] = $subfield->getData();
             }
         }
-print("<!--");
-print_r($holdings);
-print("-->");
+//print("<!--");
+//print_r($holdings);
+//print("-->");
         return $holdings;
     }
 
