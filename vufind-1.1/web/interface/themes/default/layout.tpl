@@ -21,7 +21,7 @@
 {css media="print" filename="print.css"}
 {*{css media="screen" filename="delivery_shop/example/resources/css/delivery_shop.css"}*}
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    <script language="JavaScript" type="text/javascript">
+    <script type="text/javascript">
         path = '{$url}';
     </script>
 
@@ -54,6 +54,7 @@ _gaq.push(['_trackPageview']);
 
 {literal}
 <script type="text/javascript">
+$(document).ready(function () {
                 var openCloseWrapper = function () {
                     if (simpleCart.quantity() > 0) {
                         $("#delivery_cart_wrapper").show();
