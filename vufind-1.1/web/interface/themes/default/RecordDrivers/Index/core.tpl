@@ -92,6 +92,16 @@ $(document).ready(function()
 </tr>
 {/if}
 
+
+{if !empty($coreMarc773)}
+    <tr valign="top">
+        <th>In:</th>
+        <td>{$coreMarc773}</td>
+    </tr>
+{/if}
+
+
+
 <tr valign="top">
     <th>{*{translate text='CoreFormat'}*}</th>
     <td>

@@ -222,7 +222,8 @@ class MarcRecord extends IndexRecord
         // come from the ILS:
         $template = parent::getSearchResult();
         //$interface->assign('summAjaxStatus', false);
-        $interface->assign('summExtendedTitle', $this->getExtendedTitle());
+        $article = $this->getMarc773('773');
+        $interface->assign('summExtendedTitle', ($article) ? $article : $this->getExtendedTitle());
 
         return $template;
     }
@@ -908,7 +909,7 @@ class MarcRecord extends IndexRecord
         $tpl = parent::getCoreMetadata();
         global $interface;
         $coreCollector = $this->getCollector();
-        //$coreHolding = $this->getHolding();
+        $coreHolding = $this->getHolding();
         $coreIsShownAt = $this->getIsShownAt();
         $coreIsShownBy = $this->getIsShowBy();
         $interface->assign('coreIsShownAt', $coreIsShownAt);
@@ -935,6 +936,9 @@ class MarcRecord extends IndexRecord
         $interface->assign('coreMarc711', $this->getMarc7xx('711'));
         $interface->assign('coreMarc711Role', $this->getMainMarcxxxRole('711'));
 
+        // Journal article reference
+        $interface->assign('coreMarc773', $this->getMarc773('773'));
+
         // extend the extendedDateSpan...
         $interface->assign('extendedDateSpanPublisher', $this->getExtendedDateSpanPublisher());
 
@@ -953,11 +957,11 @@ class MarcRecord extends IndexRecord
         $pos = strpos($p, '30051');
         if ($pos === false) {
             $j = $this->_getFirstFieldValue('852', array('j'));
-            if ( $j == "Embedded" ) {
+            if ($j == "Embedded") {
                 $u = $this->_getFirstFieldValue('856', array('u'));
-                if ( $u ) {
+                if ($u) {
                     $pos = strpos($u, '/10622/');
-                    return ( $pos === false ) ? null : substr($u, $pos + 7);
+                    return ($pos === false) ? null : substr($u, $pos + 7);
                 }
             }
         }
@@ -1008,9 +1012,9 @@ class MarcRecord extends IndexRecord
                 $subfieldc = $datafield->getSubfield('c');
                 $subfieldj = $datafield->getSubfield('j');
                 $subfield = null;
-                if ( $subfieldc && $subfieldj ) $subfield = $subfieldc->getData() . " " . $subfieldj->getData();
-                if ( $subfieldc && !$subfieldj ) $subfield = $subfieldc->getData();
-                if ( !$subfieldc && $subfieldj ) $subfield = $subfieldj->getData();
+                if ($subfieldc && $subfieldj) $subfield = $subfieldc->getData() . " " . $subfieldj->getData();
+                if ($subfieldc && !$subfieldj) $subfield = $subfieldc->getData();
+                if (!$subfieldc && $subfieldj) $subfield = $subfieldj->getData();
                 if ($subfield) {
                     $key = $subfield;
                     if ($subfieldj) $holdings[$key]['j'] = $subfieldj->getData();
@@ -1022,9 +1026,6 @@ class MarcRecord extends IndexRecord
                     $holdings[$key]['note'] = $subfield->getData();
             }
         }
-//print("<!--");
-//print_r($holdings);
-//print("-->");
         return $holdings;
     }
 
@@ -1038,8 +1039,8 @@ class MarcRecord extends IndexRecord
                 $marc_b = $classification->getSubfield('b');
                 if ($marc_a != null || $marc_b != null) {
                     $c = array();
-                    if ( $marc_a ) $c[] = $marc_a->getData();
-                    if ( $marc_b ) $c[] = $marc_b->getData();
+                    if ($marc_a) $c[] = $marc_a->getData();
+                    if ($marc_b) $c[] = $marc_b->getData();
                     return $c;
                 }
             }
@@ -1075,9 +1076,17 @@ class MarcRecord extends IndexRecord
         return $this->_getFirstFieldValue($field, array('e'));
     }
 
+    private function getMarc773($field)
+    {
+        return $this->_getFirstFieldValue($field, array('a'));
+    }
+
     private function getExtendedDateSpanPublisher()
     {
-        return $this->_getFirstFieldValue('260', array('f'));
+        $e = $this->_getFirstFieldValue('260', array('e'));
+        $f = $this->_getFirstFieldValue('260', array('f'));
+        if ($e && $f) return $e . ":" . $f;
+        return ($e) ? $e : $f;
     }
 }
 
