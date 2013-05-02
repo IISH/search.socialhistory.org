@@ -909,12 +909,12 @@ class MarcRecord extends IndexRecord
         $tpl = parent::getCoreMetadata();
         global $interface;
         $coreCollector = $this->getCollector();
-        $coreHolding = $this->getHolding();
+        //$coreHolding = $this->getHolding();
         $coreIsShownAt = $this->getIsShownAt();
         $coreIsShownBy = $this->getIsShowBy();
         $interface->assign('coreIsShownAt', $coreIsShownAt);
         $interface->assign('coreIsShownBy', $coreIsShownBy);
-        $interface->assign('coreHolding', $coreHolding);
+        //$interface->assign('coreHolding', $coreHolding);
         $interface->assign('coreFavorite', $this->getFavorite());
         $interface->assign('coreMainAuthorRole', $this->MainAuthorRole());
         $interface->assign('coreClassification', $this->CoreClassification());
@@ -1006,6 +1006,7 @@ class MarcRecord extends IndexRecord
         $holdings = array();
         $key = null;
         $datafields = $this->marcRecord->getFields();
+        $i = 1 ;
         foreach ($datafields as $datafield) {
             $tag = $datafield->getTag();
             if ($tag == "852") {
@@ -1016,7 +1017,8 @@ class MarcRecord extends IndexRecord
                 if ($subfieldc && !$subfieldj) $subfield = $subfieldc->getData();
                 if (!$subfieldc && $subfieldj) $subfield = $subfieldj->getData();
                 if ($subfield) {
-                    $key = $subfield;
+                    $key = $i++;
+                    $holdings[$key]['c'] = $subfield;
                     if ($subfieldj) $holdings[$key]['j'] = $subfieldj->getData();
                 }
             }
@@ -1024,8 +1026,9 @@ class MarcRecord extends IndexRecord
                 $subfield = $datafield->getSubfield('a');
                 if ($subfield)
                     $holdings[$key]['note'] = $subfield->getData();
-            }
+            } else if ( $tag == "866" && !$key ) {print("Key was null ");}
         }
+print_r($holdings);
         return $holdings;
     }
 

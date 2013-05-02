@@ -3,7 +3,7 @@
     <table style="margin-bottom: 25px;">
         {foreach from=$coreHolding key=key item=value name=loop}
             <tr>
-                <td>{$key}<div style="display:inline;margin-left:10px" id='item{$smarty.foreach.loop.index}'></div></td>
+                <td>{$value.c}<div style="display:inline;margin-left:10px" id='item{$smarty.foreach.loop.index}'></div></td>
                 <td></td>
 		<td></td>
             </tr>
