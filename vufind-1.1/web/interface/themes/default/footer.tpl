@@ -30,4 +30,5 @@
         <li><a href="{translate text='more.information.persmuseum'}">Persmuseum</a></li>
     </ul>
 </div>
-<br clear="all">
+
+<br clear="all" />

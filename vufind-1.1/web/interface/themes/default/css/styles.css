@@ -1015,6 +1015,7 @@ alignleft {
 .groupSearchHolder .advRow div {
     float: left;
     padding: 0px 2px;
+    margin-left: 5px;
 }
 .clearer {
     display: block;
@@ -1255,13 +1256,13 @@ alignleft {
 
 #autoCompleteContainer {
     width: 213px;
-    margin-right: 3px;
+    margin-right: 10px;
     margin-top: 2px;
     float: left;
 }
 
 #autoCompleteContainer input {
-    min-height: 22px;
+    /*min-height: 22px;*/
 }
 
 .hiddenLabel {

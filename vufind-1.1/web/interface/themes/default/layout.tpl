@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE html>
 <html lang="{$userLang}">
 
 {* We should hide the top search bar and breadcrumbs in some contexts: *}
@@ -14,12 +14,14 @@
     <title>{$pageTitle|truncate:64:"..."}</title>
 {if $addHeader}{$addHeader}{/if}
     <link rel="search" type="application/opensearchdescription+xml" title="Library Catalog Search"
-          href="{$url}/Search/OpenSearch?method=describe">
+          href="{$url}/Search/OpenSearch?method=describe" />
 {css media="screen" filename="styles.css"}
 {css media="screen" filename="iish.css"}
+{css media="screen" filename="shopping_cart.css"}
 {css media="print" filename="print.css"}
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-    <script language="JavaScript" type="text/javascript">
+{*{css media="screen" filename="delivery_shop/example/resources/css/delivery_shop.css"}*}
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <script type="text/javascript">
         path = '{$url}';
     </script>
 
@@ -31,6 +33,12 @@
 {js filename="scripts.js"}
 {js filename="rc4.js"}
 {js filename="ajax.yui.js"}
+{js filename="delivery_shop/example/resources/js/jquery-1.9.1.min.js"}
+{js filename="delivery_shop/example/resources/js/jquery-ui-1.8.13.custom.min.js"}
+{js filename="delivery_shop/example/resources/js/simpleCart.min.js"}
+{js filename="delivery_shop_custom/delivery.locale.en.js"}
+{js filename="delivery_shop_custom/delivery.locale.nl.js"}
+{js filename="delivery_shop/delivery_shop.js"}
 
 {literal}
 <script type="text/javascript">
@@ -44,9 +52,32 @@ _gaq.push(['_trackPageview']);
 </script>
 {/literal}
 
+{literal}
+<script type="text/javascript">
+$(document).ready(function () {
+                var openCloseWrapper = function () {
+                    if (simpleCart.quantity() > 0) {
+                        $("#delivery_cart_wrapper").show();
+                    } else {
+                        $("#delivery_cart_wrapper").hide();
+                    }
+                    
+                };
+                initDelivery({ 
+                    host:      "node-120.dev.socialhistoryservices.org",
+                    language:  "{/literal}{$userLang}{literal}",
+                    max_items: 3,
+                    cart_div:  "#delivery_cart",
+                    onLoad: openCloseWrapper,
+                    onUpdate: openCloseWrapper
+                });
+});
+</script>
+{/literal}
 </head>
 
 <body>
+    {include file="shopping_cart.tpl"}
 <a href="http://socialhistory.org/{$userLang}" target="_blank">
     <div style="text-align:center;background-color:#ffffff;">
         <img border="0" src="{$path}/images/iish/{$userLang}-logo.png" style="margin:15px;"/>
@@ -100,7 +131,7 @@ _gaq.push(['_trackPageview']);
         {/if}
     {/if}
 
-        <br clear="all">
+        <br clear="all" />
     </div>
 </div>
 

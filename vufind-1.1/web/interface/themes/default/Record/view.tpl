@@ -62,7 +62,7 @@ function addFavorite(handle, title) {
         window.external.AddFavorite(handle, title);
     }
 }
-}{/literal}</script>
+{/literal}</script>
 
 
         <div class="record">
@@ -136,8 +136,6 @@ function addFavorite(handle, title) {
  
       
   <div class="yui-b">
-  
-  
     <div class="sidegroup">
       <h4>{translate text="Similar Items"}</h4>
       {if is_array($similarRecords)}
@@ -164,7 +162,7 @@ function addFavorite(handle, title) {
     </div>
 
     {if is_array($editions)}
-    <div class="sidegroup">
+   <div class="sidegroup">
       <h4>{translate text="Other Editions"}</h4>
       <ul class="similar">
         {foreach from=$editions item=edition}

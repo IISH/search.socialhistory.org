@@ -1,3 +1,12 @@
+{if $recordFormat[0] == 'Books and brochures' || $recordFormat[0] == 'Serials'}{literal}
+<script type="text/javascript">
+$(document).ready(function()
+            {
+                setButtons();
+            });  /* ready */
+</script>
+{/literal}
+{/if}
 {* Display Title *}
 {literal}
 <script language="JavaScript" type="text/javascript">
@@ -95,6 +104,14 @@
     {/if}
     </td>
 </tr>
+
+{if !empty($coreArticle)}
+    <tr valign="top">
+        <th>{translate text='Published in'}:</th>
+        <td>{$coreArticle}</td>
+    </tr>
+{/if}
+
 
 {*{if !empty($coreMainAuthor)}
 <tr valign="top">

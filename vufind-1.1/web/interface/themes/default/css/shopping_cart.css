@@ -1,0 +1,126 @@
+<?php
+Header ("Content-type: text/css");
+$configArray = parse_ini_file('../../../../conf/config.ini', true);
+?>
+#delivery_cart_wrapper {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background-color: white;
+    border: 1px solid black;
+    padding: 3px;
+    z-index: 999;
+    display: none;
+    width: 300px;
+}
+
+#delivery_cart_wrapper h3 {
+    margin-top: 1px;
+    background: #73A1C7;
+    color: white;
+    padding: 0;
+    margin-bottom: 0;
+    width: 100%;
+}
+
+#delivery_cart_wrapper span {
+    width: 100%;
+    background: #73A1C7;
+    color: black;
+    padding: 0px;
+    font-size: smaller;
+    display: block;
+}
+
+
+.item-pid {
+    display: none;
+}
+
+#delivery_cart {
+    font-size: smaller;
+    margin-top: 5px;
+}
+
+.deliveryReserveButton {
+    border: 1px solid #39a8ff;
+    background-color: #ffffff;
+}
+
+
+.deliveryReserveButton:hover {
+    border: 1px solid #62c5eb;
+    background: #ccf;
+}
+
+.deliveryReserveButton {
+    font-size: smaller;
+}
+
+.simpleCart_checkout {
+    border: 1px solid #39a8ff;
+    background-color: #ffffff;
+}
+
+.simpleCart_checkout:hover {
+    border: 1px solid #62c5eb;
+    background: #ccf;
+}
+
+.simpleCart_empty {
+    border: 1px solid #39a8ff;
+    background-color: #ffffff;
+}
+
+.simpleCart_empty:hover {
+    border: 1px solid #62c5eb;
+    background: #ccf;
+}
+
+.simpleCart_items table {
+    width: 100%;
+    border-collapse: collapse;
+    border-color: #003399;
+    
+}
+
+#delivery_cart {
+    padding: 1px;
+}
+
+#delivery_cart .item-remove {
+    text-align: center;
+}
+
+#delivery_cart th {
+    background-color: #e5eCf9;
+}
+
+#delivery_cart  th, td {
+    text-align: left;
+    padding: 2px;
+}
+
+#delivery_cart .odd {
+    background-color: #f9f4f2;
+}
+
+#delivery_cart .even {
+    background-color: #ffffff;
+}
+
+#delivery_cart {
+    background-color: #e5eCf9;
+}
+
+.deliveryStatReserved, .deliveryStatUsageRestriction, .deliveryStatClosed {
+    color: #D10018;
+}
+
+.deliveryStatRestricted {
+}
+
+.deliveryResponseText {
+    margin-left: 10px;
+}
+
