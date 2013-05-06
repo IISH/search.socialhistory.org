@@ -1028,7 +1028,6 @@ class MarcRecord extends IndexRecord
                     $holdings[$key]['note'] = $subfield->getData();
             } else if ( $tag == "866" && !$key ) {print("Key was null ");}
         }
-print_r($holdings);
         return $holdings;
     }
 
