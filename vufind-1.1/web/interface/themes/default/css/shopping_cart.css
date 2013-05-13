@@ -14,6 +14,10 @@ $configArray = parse_ini_file('../../../../conf/config.ini', true);
     width: 300px;
 }
 
+th.item-name, th.item-remove {
+    font-weight: bold;
+}
+
 #delivery_cart_wrapper h3 {
     margin-top: 1px;
     background: #73A1C7;
@@ -38,7 +42,7 @@ $configArray = parse_ini_file('../../../../conf/config.ini', true);
 }
 
 #delivery_cart {
-    font-size: smaller;
+    font-size: normal;
     margin-top: 5px;
 }
 
@@ -54,7 +58,7 @@ $configArray = parse_ini_file('../../../../conf/config.ini', true);
 }
 
 .deliveryReserveButton {
-    font-size: smaller;
+    font-size: normal;
 }
 
 .simpleCart_checkout {
