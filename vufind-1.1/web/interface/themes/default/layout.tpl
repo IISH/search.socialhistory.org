@@ -64,7 +64,7 @@ $(document).ready(function () {
                     
                 };
                 initDelivery({ 
-                    host:      "node-120.dev.socialhistoryservices.org",
+                    host:      "delivery.socialhistory.org",
                     language:  "{/literal}{$userLang}{literal}",
                     max_items: 3,
                     cart_div:  "#delivery_cart",
