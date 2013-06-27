@@ -27,7 +27,6 @@
  */
 require_once 'RecordDrivers/MarcRecord.php';
 require_once 'RecordDrivers/Utils.php';
-require_once 'services/Record/xsl/TimePeriods.php';
 
 /**
  * EAD Record Driver
@@ -91,38 +90,6 @@ class EadRecord extends MarcRecord
         return 'RecordDrivers/Ead/result.tpl';
     }
 
-    public function getCoreMetadata()
-    {
-        parent::getCoreMetadata();
-
-        global $interface;
-
-        $period = $this->getPeriod();
-        $corePhysical = $this->getPhysical();
-        $geography = $this->getGeography();
-        $accessRestrictions = $this->getAccessRestrictions();
-        $collection = $this->getCollection();
-        //$authorAndRole = $this->getAuthorAndRole();
-        $interface->assign('corePeriod', $period);
-        $interface->assign('corePhysical', $corePhysical);
-        //$interface->assign('coreAuthor', $authorAndRole[0]);
-        // $interface->assign('coreAuthorRole', $authorAndRole[1]);
-        $interface->assign('coreCollection', $collection);
-        $interface->assign('coreGeography', $geography);
-        $interface->assign('coreAccess', $accessRestrictions);
-        $interface->assign('coreAccessRestrictionsHref', $this->getAccessRestrictionsHref());
-
-        return 'RecordDrivers/Ead/core.tpl';
-    }
-
-    public function getExtendedMetadata()
-    {
-        global $interface;
-        $details = $this->getDetails(Utils::getResource($this->getUniqueID(), $this->getOAIPid(), 'ead'));
-        $interface->assign('details', $details);
-        return 'RecordDrivers/Ead/extended.tpl';
-    }
-
     private function getPeriod()
     {
         $period = $this->_getFieldArray('245', array('g'), false);
@@ -130,142 +97,36 @@ class EadRecord extends MarcRecord
         return $period;
     }
 
-    private function getPhysical()
+    public function getCoreMetadata()
     {
-        $physical = $this->_getFieldArray('300', array('d'), false);
-        $physical = count($physical) > 0 ? $physical[0] : null;
-        return $physical;
+        parent::getCoreMetadata();
+        //$interface->assign('ead', $this->getEADArray(Utils::getResource($this->getUniqueID(), $this->getOAIPid(), 'ead')));
+        $xml = Utils::getTestResource("http://localhost/". $this->getUniqueID() . "_test.xml");
+        global $interface;
+        $ead = $this->getEADArray($xml);
+        $interface->assign('ead', $ead);
+        return 'RecordDrivers/Ead/core.tpl';
     }
 
     /**
-     * Retrieve author2 and role from the Marc field. We could have uses the Solr fields as well for this.
-     *
-     * @return array
+     * Parse the EAD as an array.
+     * It has descgrp as the main keys:
+     * descgrp['context' ... '']
      */
-    private function getAuthorAndRole()
-    {
-        $collector = $this->_getFieldArray('700', array('a', 'e'), false);
-        if (sizeof($collector) == 0)
-            $collector = $this->_getFieldArray('710', array('a', 'e'), false);
-        if (sizeof($collector) == 0)
-            $collector = $this->_getFieldArray('711', array('a', 'e'), false);
-        if (sizeof($collector) == 1)
-            $collector[] = "Author";
-        return $collector;
-    }
-
-    private function getGeography()
-    {
-        return null;
-    }
-
-    /**
-     * Get access restriction notes for the record.
-     *
-     * @return array
-     * @access protected
-     */
-    protected function getAccessRestrictions()
-    {
-        $accessRestrictions = $this->_getFieldArray('506', array('a', 'b'), false);
-        if (sizeof($accessRestrictions) == 2) {
-            $pos1 = strpos($accessRestrictions[0], 'Beperkt');
-            $pos2 = strpos($accessRestrictions[0], 'Restricted');
-            if ($pos1 != -1 || $pos2 != -1)
-                $accessRestrictions[] = "consultation";
-        }
-        return $accessRestrictions;
-    }
-
-    private function getAccessRestrictionsHref()
-    {
-        $marc506c = $this->_getFieldArray('506', array('c'));
-        return (isset($marc506c[0])) ? $marc506c[0] : null;
-    }
-
-    private function getCollection()
-    {
-        $c = $this->_getFieldArray('852', null, false);
-        $collection = (sizeof($c) == 0) ? null : $c[0];
-        return $collection;
-    }
-
-    public function getStaffView()
-    {
-        parent::getStaffView();
-
-        global $interface;
-        $staffURLs = $this->getURLs();
-        $interface->assign('staffURLs', $staffURLs);
-        return 'RecordDrivers/Ead/staff.tpl';
-    }
-
-    public function getHoldings()
-    {
-        global $interface;
-        global $configArray;
-        $details = $this->getDetails(Utils::getResource($this->getUniqueID(), $this->getOAIPid(), 'ead'));
-        $interface->assign('details', $details);
-
-        // Add the deliverance API
-        $deliverance = $configArray['IISH']['deliverance'];
-        $interface->assign('deliverance', $deliverance);
-        $interface->assign('pid', $this->getUniqueID());
-
-        return 'RecordDrivers/Ead/holdings.tpl';
-    }
-
-    private function getDetails($xml)
+    private function getEADArray($doc)
     {
         $action = (isset($_REQUEST["action"]))
             ? $_REQUEST["action"]
-            : "Holdings";
-        $accessRestrictions = $this->getAccessRestrictions();
-        $physical = $this->getMetric($this->getPhysical());
-        $metsBaseUrl = $this->getMetsBaseUrl();
+            : "ArchiveCollectionSummary";
+        if ($action == "Description") $action = "ArchiveCollectionSummary";
 
-        // Prevent unprintable characters from interfering with the XSL transform:
-        $xml = str_replace(array(chr(29), chr(30), chr(31)), ' ', $xml);
         $style = new DOMDocument;
-        $style->load('services/Record/xsl/record-ead.xsl');
+        $style->load('services/Record/xsl/record-ead-' . $action . '.xsl');
         $xsl = new XSLTProcessor();
         $xsl->importStyleSheet($style);
-        $xsl->setParameter('', "action", $action);
-        $xsl->setParameter('', "notgeschiedenis", translate('notgeschiedenis'));
-        $xsl->setParameter('', "access", $accessRestrictions[0]);
-        $xsl->setParameter('', "physical", $physical);
-        $xsl->setParameter('', "large_archive", translate('large_archive'));
-        $xsl->setParameter('', "no_inventory", translate('no_inventory'));
-        $xsl->setParameter('', "metsBaseUrl", $metsBaseUrl);
-        $doc = new DOMDocument();
-        if ($doc->loadXML($xml)) {
-            $html = $xsl->transformToXML($doc);
-            return $html;
-        }
-        return false;
+        $xsl->setParameter('', 'baseUrl', '/Record/' . $this->getUniqueID());
+        return $xsl->transformToXML($doc);
     }
-
-    /*    private function getTimelines($xml)
-    {
-        $action = (isset($_REQUEST["action"]))
-                ? $_REQUEST["action"]
-                : "Holdings";
-        // Prevent unprintable characters from interfering with the XSL transform:
-        $xml = str_replace(array(chr(29), chr(30), chr(31)), ' ', $xml);
-        $style = new DOMDocument;
-        $style->load('services/Record/xsl/ead-timelines.xsl');
-        $xsl = new XSLTProcessor();
-        $xsl->importStyleSheet($style);
-        $xsl->setParameter('', "notgeschiedenis", translate('notgeschiedenis'));
-        $xsl->setParameter('', "action", $action);
-        $xsl->registerPHPFunctions("TimePeriods::getDates");
-        $doc = new DOMDocument();
-        if ($doc->loadXML($xml)) {
-            $html = $xsl->transformToXML($doc);
-            return $html;
-        }
-        return false;
-    }*/
 
     /**
      * Get an array of strings representing formats in which this record's
@@ -300,61 +161,6 @@ class EadRecord extends MarcRecord
 
         // Send back the results:
         return $formats;
-    }
-
-    /**
-     * In the
-     *
-     * @return bool
-     */
-    public function hasTOC()
-    {
-        //10716410_EAD
-        // Do we have a table of contents stored in the index?
-        return (isset($this->fields['contents']) &&
-            count($this->fields['contents']) > 0);
-    }
-
-
-    public function getTOC()
-    {
-        $xml = Utils::getResource($this->getUniqueID(), $this->getOAIPid(), 'ead');
-        $xml = str_replace(array(chr(29), chr(30), chr(31)), ' ', $xml);
-        $style = new DOMDocument;
-        $style->load('services/Record/xsl/record-ead-toc.xsl');
-        $xsl = new XSLTProcessor();
-        $xsl->importStyleSheet($style);
-        $doc = new DOMDocument();
-        if ($doc->loadXML($xml)) {
-            global $interface;
-            $html = $xsl->transformToXML($doc);
-            $interface->assign('toc', $html);
-        }
-        return 'RecordDrivers/Ead/toc.tpl';
-    }
-
-    private function getMetric($physical)
-    {
-        return (int)$physical;
-    }
-
-    /**
-     * Small proof to see if we can make a link to visual mets.
-     *
-     * @return Base url
-     */
-    private function getMetsBaseUrl()
-    {
-        $metsBaseUrl = null;
-        switch ($this->getUniqueID()) {
-            case "ARCH00483": // Archief Ferdinand Domela Nieuwenhuis
-                $metsBaseUrl = "http://webstore.iisg.nl/domela-vm/";
-                break;
-            case "ARCH01225": // Dora Winifred Russell Papers
-                $metsBaseUrl = "http://webstore.iisg.nl/dorarussel/mets/";
-                break;
-        }
-        return $metsBaseUrl;
     }
 }
 

@@ -86,12 +86,13 @@ function addFavorite(handle, title) {
         
         </div>{* End Record *}
 
+    {if $recordType=="ead"}
+     {else}
         <div id="tabnav">
             <ul>
               <li{if $tab == 'Holdings'} class="active"{/if}>
                   {*EAD gets different labeling*}
-                      {if $recordType=="ead"}<a href="{$url}/Record/{$id|escape:"url"}/Holdings#tabnav" class="first"><span></span>{translate text='ead.holdings'}</a>
-                      {else}<a href="{$url}/Record/{$id|escape:"url"}/Holdings#tabnav" class="first"><span></span>{translate text='Holdings'}</a>{/if} </li>
+                      <a href="{$url}/Record/{$id|escape:"url"}/Holdings#tabnav" class="first"><span></span>{translate text='Holdings'}</a></li>
             {if $recordType=="av" ||  $recordType=="marc"}{else}
               <li{if $tab == 'Description'} class="active"{/if}>
                 <a href="{$url}/Record/{$id|escape:"url"}/Description#tabnav" class="first"><span></span>{translate text='Description'}</a>
@@ -119,11 +120,13 @@ function addFavorite(handle, title) {
               </li>
             </ul><div style="clear:both;"></div>
         </div>
+        <div class="recordsubcontent">
+        {include file="Record/$subTemplate"}
+    </div>
+
+    {/if}
            
                     
-        <div class="recordsubcontent">
-          {include file="Record/$subTemplate"}
-        </div>
 
           {* Add COINS *}  
           <span class="Z3988" title="{$openURL|escape}"></span>

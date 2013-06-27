@@ -2,8 +2,9 @@
 /**
  * Utility class
  */
- 
-final class Utils {
+
+final class Utils
+{
 
     public static function getResource($id, $pid, $metadataPrefix)
     {
@@ -27,7 +28,7 @@ final class Utils {
         $request->setMethod(HTTP_REQUEST_METHOD_GET);
         $request->setURL($_baseURL);
         $request->addQueryString('verb', 'GetRecord');
-        $request->addQueryString('identifier', $pid);  // the oai identifier... not  that of the solr
+        $request->addQueryString('identifier', $pid); // the oai identifier... not  that of the solr
         $request->addQueryString('metadataPrefix', $metadataPrefix);
         $result = $request->sendRequest();
         if (PEAR::isError($result)) {
@@ -48,5 +49,20 @@ final class Utils {
         } catch (Exception $e) {
         }
         return false;
+    }
+
+    public static function getTestResource($url)
+    {
+        /*$request = new Proxy_Request();
+        $request->setMethod(HTTP_REQUEST_METHOD_GET);
+        $request->setURL($url);
+        $result = $request->sendRequest();
+        if (PEAR::isError($result)) {
+            die($result->getMessage() . "\n");
+        }
+        return $request->getResponseBody();*/
+        $doc = new DOMDocument();
+        $doc = DOMDocument::load($url);
+        return $doc;
     }
 }
