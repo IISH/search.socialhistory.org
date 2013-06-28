@@ -222,13 +222,12 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
     width: 75em;
 }
 
-#tabnavarch {
+#tabnavarch {   float:left;
     padding:0 0 0 0;
     border-bottom: 1px dotted #cccccc;
     margin-bottom: 15px;
 }
 #tabnavarch ul {
-    float: left;
     margin:0;
     padding:0 0 0 0;
     list-style:none;
@@ -254,15 +253,54 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
     color:#000;
 }
 #tabnavarch .active {
-    background:url("<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/subnavTab_left.jpg") no-repeat left top;margin-bottom:-1px;
+    background:url("<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/archTab_left.png") no-repeat left top;margin-bottom:-1px;
 }
 #tabnavarch .active a {
-    background:url("<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/subnavTab_right.jpg") no-repeat right top;
+    background:url("<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/archTab_right.png") no-repeat right top;
     color:#000;
     padding:18px 10px 12px 0px;
 }
 
+#arch h2 {
+    font-weight: bold;
+    padding-top: 25px;
+}
+#arch h3 {
+    font-weight: bold;
+    padding-top: 25px;
+}
 #arch h4 {
     font-weight: bold;
     padding-top: 25px;
 }
+
+.appendices ul{
+    border-radius: 3px 3px 3px 3px;
+    list-style: none;
+    padding-left:25px;
+    padding-bottom:25px;
+}
+
+/***** arch Table *****/
+
+#arch table tr td:first-child { width:80px;  }
+#arch table th {
+    text-align:left;
+    color:#666;
+    padding:.3em 0 .3em 0;
+    border-bottom: 1px solid #f3f3f3;
+}
+#arch table tr {
+    border-collapse: collapse;
+}
+#arch table td {
+    padding:.3em 22px .3em 1em;
+    border-bottom: 1px solid #f3f3f3;
+}
+#arch table tr, td {
+    vertical-align:top;
+}
+
+/*
+#arch tr:nth-child(even) {background: #f9f4f2}
+#arch tr:nth-child(odd) {background: #ffffff}*/

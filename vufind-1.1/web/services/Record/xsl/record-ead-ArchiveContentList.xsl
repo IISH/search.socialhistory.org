@@ -16,6 +16,7 @@
     <xsl:strip-space elements="*"/>
 
     <xsl:param name="action"/>
+    <xsl:param name="baseUrl"/>
     <xsl:param name="lang"/>
 
     <xsl:template match="/">
@@ -23,9 +24,12 @@
     </xsl:template>
 
     <xsl:template match="ead:ead">
-        <table class="citation">
-            <xsl:call-template name="contentlist"/>
-        </table>
+        <xsl:call-template name="navigation"/>
+        <div id="arch">
+            <table class="citation">
+                <xsl:call-template name="contentlist"/>
+            </table>
+        </div>
     </xsl:template>
 
     <xsl:template name="contentlist">
@@ -46,9 +50,12 @@
                     </xsl:call-template>
                 </xsl:variable>
                 <xsl:variable name="indent" select="($level - $offset - 1) * 40"/>
-                <xsl:variable name="indent2" select="($level - $offset - 1) * 40+40"/>
-                <div style="float:left;margin-left:{$indent}px;"><xsl:apply-templates select="ead:did/ead:unitid"/>.</div>
-                <div style="margin-left:{$indent2}px;word-wrap: break-word;"><xsl:apply-templates select="ead:did/*[not(local-name() = 'unitid')]"/></div>
+                <xsl:variable name="indent2" select="($level - $offset - 1) * 40+60"/>
+                <div style="float:left;margin-left:{$indent}px;"><xsl:apply-templates select="ead:did/ead:unitid"/>.
+                </div>
+                <div style="margin-left:{$indent2}px;word-wrap: break-word;">
+                    <xsl:apply-templates select="ead:did/*[not(local-name() = 'unitid')]"/>
+                </div>
                 <xsl:apply-templates select="*[not(local-name()='did')]"/>
             </xsl:otherwise>
         </xsl:choose>
@@ -147,7 +154,9 @@
         <xsl:text> </xsl:text><xsl:value-of select="text()"/>
     </xsl:template>
 
-    <xsl:template match="ead:daogrp"/>
+    <xsl:template match="ead:daogrp">
+        [ <a href="{ead:daoloc[@label='pdf']/@href}" target="_blank">pdf</a> | <a class="m" href="http://hdl.handle.net/10622/ARCH01225.1?locatt=view:mets">view</a> ] -
+    </xsl:template>
 
 </xsl:stylesheet>
 

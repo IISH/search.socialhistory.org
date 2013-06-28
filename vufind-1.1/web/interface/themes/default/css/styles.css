@@ -1284,12 +1284,12 @@ alignleft {
 
 /* Open Library Subjects */
 .olSubjectImage {
-    width:36px; 
+    width:36px;
     border: 1px solid black
 }
 
 .olSubjectCover {
-    float:left; 
+    float:left;
     margin-right: 10px;
 }
 

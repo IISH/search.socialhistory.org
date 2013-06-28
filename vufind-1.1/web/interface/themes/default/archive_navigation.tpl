@@ -1,7 +1,6 @@
-<div id="tree"><!-- View is here --></div>
-{css filename="aciTree/css/aciTree.css"}
-{js filename="aciTree/js/jquery.aciPlugin.min.js"}
-{js filename="aciTree/js/jquery.aciTree.min.js"}
+{*
+<div id="tree"></div>
+
 {literal}
     <script type="text/javascript">
         $('#tree').aciTree({
@@ -13,4 +12,9 @@
                 });
             }})
     </script>
+
 {/literal}
+
+*}
+
+

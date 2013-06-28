@@ -16,6 +16,7 @@
     <xsl:strip-space elements="*"/>
 
     <xsl:param name="action"/>
+    <xsl:param name="baseUrl"/>
     <xsl:param name="lang"/>
 
     <xsl:template match="/">
@@ -23,22 +24,22 @@
     </xsl:template>
 
     <xsl:template match="ead:ead">
-        <table class="citation">
+        <xsl:call-template name="navigation"/>
+        <div id="arch">
             <xsl:call-template name="appendices"/>
-        </table>
+        </div>
     </xsl:template>
 
     <xsl:template name="appendices">
-        <ul>
+        <ul class="appendices">
             <xsl:apply-templates select="ead:archdesc/ead:descgrp[@type='appendices']/ead:odd" mode="toc"/>
         </ul>
-        <xsl:apply-templates select="ead:archdesc/ead:descgrp[@type='appendices']/ead:odd" mode="body"/>
+        <xsl:apply-templates select="ead:archdesc/ead:descgrp[@type='appendices']/ead:odd"/>
     </xsl:template>
 
     <xsl:template match="ead:odd" mode="toc">
-        <xsl:variable name="anchor" select="generate-id()"/>
         <li>
-            <a href="#{$anchor}">
+            <a href="#{generate-id(ead:head)}">
                 <xsl:value-of select="normalize-space(ead:head/text())"/>
             </a>
             <xsl:if test="ead:odd">
@@ -49,19 +50,18 @@
         </li>
     </xsl:template>
 
-    <xsl:template match="ead:odd" mode="body">
-        <xsl:variable name="anchor" select="generate-id()"/>
-            <a name="{$anchor}">
-                <h2>
-                    <xsl:value-of select="normalize-space(ead:head/text())"/>
-                </h2>
-            </a>
-            <xsl:apply-templates/>
-            <xsl:apply-templates mode="body"/>
+    <xsl:template match="ead:odd">
+        <xsl:apply-templates />
     </xsl:template>
 
-    <xsl:template match="ead:odd" />
-    <xsl:template match="ead:head" />
+    <xsl:template match="ead:head">
+        <xsl:variable name="anchor" select="generate-id()"/>
+        <a name="{$anchor}">
+            <h2>
+                <xsl:value-of select="normalize-space(text())"/>
+            </h2>
+        </a>
+    </xsl:template>
 
 </xsl:stylesheet>
 

@@ -9,26 +9,74 @@
                 xmlns:ead="urn:isbn:1-931666-22-9"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xsi:schemaLocation="urn:isbn:1-931666-22-9 http://www.loc.gov/ead/ead.xsd"
-                exclude-result-prefixes="*">
+                xmlns:ext="http://exslt.org/common"
+                xmlns:php="http://php.net/xsl"
+                exclude-result-prefixes="ead ext">
 
     <xsl:template name="row">
         <xsl:param name="key"/>
         <xsl:param name="value"/>
-        <tr>
-            <td valign="top">
-                <xsl:call-template name="language">
-                    <xsl:with-param name="key" select="normalize-space($key)"/>
-                </xsl:call-template>
-            </td>
-            <td valign="top">
-                <xsl:copy-of select="$value"/>
-            </td>
-        </tr>
+        <xsl:if test="$value">
+            <tr>
+                <td>
+                    <xsl:call-template name="language">
+                        <xsl:with-param name="key" select="normalize-space($key)"/>
+                    </xsl:call-template>
+                </td>
+                <td>
+                    <xsl:copy-of select="$value"/>
+                </td>
+            </tr>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template name="navigation">
+        <xsl:variable name="items">
+            <item>ArchiveCollectionSummary</item>
+            <xsl:if test="ead:archdesc/ead:dsc/ead:c01">
+                <item>ArchiveContentList</item>
+            </xsl:if>
+            <xsl:if test="ead:archdesc/ead:descgrp[@type='context']/ead:bioghist|ead:archdesc/ead:descgrp[@type='content_and_structure'][ead:scopecontent|ead:arrangement|ead:processinfo|ead:altformavail|ead:originalsloc|ead:relatedmaterial]">
+                <item>ArchiveContentAndStructure</item>
+            </xsl:if>
+            <xsl:if test="ead:archdesc/ead:descgrp[@type='content_and_structure']/ead:controlaccess/ead:controlaccess/ead:geogname">
+                <item>ArchiveSubjects</item>
+            </xsl:if>
+            <item>ArchiveAccessAndUse</item>
+            <xsl:if test="ead:archdesc/ead:descgrp[@type='appendices']/ead:odd">
+                <item>ArchiveAppendices</item>
+            </xsl:if>
+        </xsl:variable>
+        <div id="tabnavarch">
+            <ul>
+                <xsl:for-each select="ext:node-set($items)/item">
+                    <li>
+                        <xsl:if test=".=$action">
+                            <xsl:attribute name="class">active</xsl:attribute>
+                        </xsl:if>
+                        <a href="{concat($baseUrl, '/', .)}">
+                            <xsl:call-template name="language">
+                                <xsl:with-param name="key" select="."/>
+                            </xsl:call-template>
+                        </a>
+                    </li>
+                </xsl:for-each>
+            </ul>
+        </div>
+        <div style="clear:both;"><!-- empty --></div>
     </xsl:template>
 
     <xsl:template name="language">
         <xsl:param name="key"/>
-        <xsl:value-of select="$key"/>
+        <xsl:value-of select="php:function('Lang::translate', $lang, normalize-space($key))"/>
+    </xsl:template>
+
+    <xsl:template match="ead:corpname|ead:persname|ead:name">
+        <xsl:apply-templates select="node()|@*"/>
+    </xsl:template>
+
+    <xsl:template match="ead:subarea">
+        <xsl:apply-templates select="text()"/>
     </xsl:template>
 
     <xsl:template match="ead:p">
@@ -47,6 +95,10 @@
         <li>
             <xsl:apply-templates select="node()|@*"/>
         </li>
+    </xsl:template>
+
+    <xsl:template match="ead:tgroup">
+        <xsl:apply-templates select="node()|@*"/>
     </xsl:template>
 
     <xsl:template match="ead:row">
@@ -82,8 +134,13 @@
         <xsl:apply-templates select="node()"/>
     </xsl:template>
 
+    <xsl:template match="ead:head"/>
+
+    <!-- Catch all -->
     <xsl:template match="ead:*">
-        <xsl:apply-templates select="node()|@*"/>
+        <xsl:copy>
+            <xsl:apply-templates select="node()|@*"/>
+        </xsl:copy>
     </xsl:template>
 
 </xsl:stylesheet>

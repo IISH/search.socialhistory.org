@@ -27,6 +27,7 @@
  */
 require_once 'RecordDrivers/MarcRecord.php';
 require_once 'RecordDrivers/Utils.php';
+require_once 'services/Record/xsl/Lang.php';
 
 /**
  * EAD Record Driver
@@ -123,8 +124,12 @@ class EadRecord extends MarcRecord
         $style = new DOMDocument;
         $style->load('services/Record/xsl/record-ead-' . $action . '.xsl');
         $xsl = new XSLTProcessor();
+        $xsl->registerPHPFunctions('Lang::translate');
         $xsl->importStyleSheet($style);
+        $xsl->setParameter('', 'action', $action);
         $xsl->setParameter('', 'baseUrl', '/Record/' . $this->getUniqueID());
+        global $interface;
+        $xsl->setParameter('', 'lang', $interface->getLanguage());
         return $xsl->transformToXML($doc);
     }
 
