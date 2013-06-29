@@ -155,7 +155,21 @@
     </xsl:template>
 
     <xsl:template match="ead:daogrp">
-        [ <a href="{ead:daoloc[@label='pdf']/@href}" target="_blank">pdf</a> | <a class="m" href="http://hdl.handle.net/10622/ARCH01225.1?locatt=view:mets">view</a> ] -
+        [
+        <a href="{ead:daoloc[@label='pdf']/@href}" target="_blank">
+            <xsl:call-template name="language">
+                <xsl:with-param
+                        name="key" select="'ArchiveContentList.pdf'"/>
+            </xsl:call-template>
+        </a>
+        |
+        <a class="m" href="http://localhost/ARCH01225.1.xml">
+            <xsl:call-template name="language">
+                <xsl:with-param
+                        name="key" select="'ArchiveContentList.view'"/>
+            </xsl:call-template>
+        </a>
+        ] -
     </xsl:template>
 
 </xsl:stylesheet>

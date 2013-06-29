@@ -1,6 +1,21 @@
 <?php
-Header ("Content-type: text/css");
-$configArray = parse_ini_file('../../../../conf/config.ini', true);
+Header
+
+(
+"Content-type: text/css"
+)
+;
+$configArray
+
+=
+parse_ini_file
+(
+'../../../../conf/config.ini'
+,
+true
+
+)
+;
 ?>
 
 .archives {
@@ -81,9 +96,17 @@ dd.array {
     margin-bottom: 2em;
 }
 
-.ead_indent2{margin-left: 20px;}
-.ead_indent4{margin-left: 80px;}
-.ead_indent6{margin-left: 120px;}
+.ead_indent2 {
+    margin-left: 20px;
+}
+
+.ead_indent4 {
+    margin-left: 80px;
+}
+
+.ead_indent6 {
+    margin-left: 120px;
+}
 
 .eci_body {
 }
@@ -160,7 +183,7 @@ dd.array {
 }
 
 /*.searchHomeBrowseHeader h2 {*/
-    /*color: #C42737;*/
+/*color: #C42737;*/
 /*}*/
 .searchHomeBrowseHeader h2 {
     color: #039;
@@ -171,7 +194,7 @@ dd.array {
 }
 
 /*.searchHomeBrowseInner a {*/
-    /*color: #A26E33;*/
+/*color: #A26E33;*/
 /*}*/
 .searchHomeBrowseInner a {
     color: #039;
@@ -191,7 +214,7 @@ dd.array {
 }
 
 /*#searchForm .small {*/
-    /*color: #A26E33;*/
+/*color: #A26E33;*/
 /*}*/
 #searchForm .small {
     color: #039;
@@ -222,83 +245,142 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
     width: 75em;
 }
 
-#tabnavarch {   float:left;
-    padding:0 0 0 0;
+#tabnavarch {
+    float: left;
+    padding: 0 0 0 0;
     border-bottom: 1px dotted #cccccc;
     margin-bottom: 15px;
 }
+
 #tabnavarch ul {
-    margin:0;
-    padding:0 0 0 0;
-    list-style:none;
+    margin: 0;
+    padding: 0 0 0 0;
+    list-style: none;
 }
+
 #tabnavarch li {
-    float:left;
-    margin:0 0 0 0px;
-    padding:0 0 0 10px;
+    float: left;
+    margin: 0 0 0 0px;
+    padding: 0 0 0 10px;
 }
+
 #tabnavarch a {
-    float:left;
-    display:block;
-    padding:18px 10px 10px 5px;
-    text-decoration:none;
-    font-weight:normal;
-    color:#000;
+    float: left;
+    display: block;
+    padding: 18px 10px 10px 5px;
+    text-decoration: none;
+    font-weight: normal;
+    color: #000;
 }
+
 /* Commented Backslash Hack
     hides rule from IE5-Mac \*/
-#tabnavarch a {float:none;}
+#tabnavarch a {
+    float: none;
+}
+
 /* End IE5-Mac hack */
 #tabnavarch a:hover {
-    color:#000;
+    color: #000;
 }
+
 #tabnavarch .active {
-    background:url("<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/archTab_left.png") no-repeat left top;margin-bottom:-1px;
+    background: url("<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/archTab_left.png") no-repeat left top;
+    margin-bottom: -1px;
 }
+
 #tabnavarch .active a {
-    background:url("<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/archTab_right.png") no-repeat right top;
-    color:#000;
-    padding:18px 10px 12px 0px;
+    background: url("<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/archTab_right.png") no-repeat right top;
+    color: #000;
+    padding: 18px 10px 12px 0px;
 }
 
 #arch h2 {
     font-weight: bold;
     padding-top: 25px;
 }
+
 #arch h3 {
     font-weight: bold;
     padding-top: 25px;
 }
+
 #arch h4 {
     font-weight: bold;
     padding-top: 25px;
 }
 
-.appendices ul{
+.appendices ul {
     border-radius: 3px 3px 3px 3px;
     list-style: none;
-    padding-left:25px;
-    padding-bottom:25px;
+    padding-left: 25px;
+    padding-bottom: 25px;
 }
 
 /***** arch Table *****/
 
-#arch table tr td:first-child { width:80px;  }
+#arch table tr td:first-child {
+    width: 80px;
+}
+
 #arch table th {
-    text-align:left;
-    color:#666;
-    padding:.3em 0 .3em 0;
+    text-align: left;
+    color: #666;
+    padding: .3em 0 .3em 0;
     border-bottom: 1px solid #f3f3f3;
 }
+
 #arch table tr {
     border-collapse: collapse;
 }
+
 #arch table td {
-    padding:.3em 22px .3em 1em;
+    padding: .3em 22px .3em 1em;
     border-bottom: 1px solid #f3f3f3;
 }
+
 #arch table tr, td {
-    vertical-align:top;
+    vertical-align: top;
+}
+
+.metsiframe {
+    background-color: #ffffff;
+    border:  1px solid #ffffff;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+
+#mets {
+    padding: 25px 25px 25px 25px;
+}
+
+#metsnav ul {
+    list-style: none;
+}
+
+#metsnav li {
+    float: left;
+    padding-right: 25px;
+}
+
+#metsfullview {
+    float: right;
+}
+
+#metsimage ul {
+    margin-top: 25px;
+
+    list-style: none;
+}
+
+#metsimage li {
+    float: left;
+    padding-right: 25px;
+    padding-bottom: 25px;
+}
+
+#metsimage img {
+    width: 100px;
 }
 
 /*

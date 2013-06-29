@@ -33,12 +33,13 @@
 {$ead}
 {include file="archive_navigation.tpl"}
 
-           {*ToDo: misschien beter geen mets viewer meteen voor preview te tonen, maar via de mets een lijstje van plaatjes.*}
 {literal}
-<script type='text/javascript'>
-    $('.m').click(function(){
-        var div = '<iframe width="400px" src="http://visualmets.socialhistoryservices.org/mets2/rest/popup.html?metsId='+$(this).attr('href')+'"><\/iframe>';
-        $(div).insertAfter($(this).parent());
-        return false;
-    })
-</script>{/literal}
+    <script type='text/javascript'>
+        $('.m').click(function () {
+            var url = '/Mets/Home?metsId=' + encodeURI($(this).attr('href'));
+            var iframe = '<iframe class="metsiframe" src="' + url + '"><\/iframe>';
+            $(iframe).insertAfter($(this).parent());
+            return false;
+        })
+    </script>
+{/literal}
