@@ -163,12 +163,12 @@
             </xsl:call-template>
         </a>
         |
-        <a class="m" href="http://localhost/ARCH01225.1.xml">
+        <span class="m" title="{ead:daoloc[@label='mets']/@href}">
             <xsl:call-template name="language">
                 <xsl:with-param
                         name="key" select="'ArchiveContentList.view'"/>
             </xsl:call-template>
-        </a>
+        </span>
         ] -
     </xsl:template>
 

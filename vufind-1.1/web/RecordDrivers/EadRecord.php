@@ -101,8 +101,8 @@ class EadRecord extends MarcRecord
     public function getCoreMetadata()
     {
         parent::getCoreMetadata();
-        //$interface->assign('ead', $this->getEADArray(Utils::getResource($this->getUniqueID(), $this->getOAIPid(), 'ead')));
-        $xml = Utils::getTestResource("http://localhost/". $this->getUniqueID() . "_test.xml");
+        //$interface->assign('ead', $this->getEADArray(Utils::getOAIRecord, this->getUniqueID(), $this->getOAIPid(), 'ead')));
+        $xml = Utils::getResource("http://localhost/". $this->getUniqueID() . ".xml");
         global $interface;
         $ead = $this->getEADArray($xml);
         $interface->assign('ead', $ead);

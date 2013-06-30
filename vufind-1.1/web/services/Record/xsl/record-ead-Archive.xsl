@@ -16,7 +16,7 @@
     <xsl:template name="row">
         <xsl:param name="key"/>
         <xsl:param name="value"/>
-        <xsl:if test="$value">
+        <xsl:if test="string-length($value) > 0">
             <tr>
                 <td>
                     <xsl:call-template name="language">

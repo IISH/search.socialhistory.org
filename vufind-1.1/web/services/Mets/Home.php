@@ -68,9 +68,8 @@ class Home extends Action
             return;
         }
 
-        global $configArray;
 
-        // Add API url
+        global $configArray;
         global $interface;
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
         $rows = isset($_GET['rows']) ? $_GET['rows'] : $configArray['IISH']['visualmets.rows'];
@@ -85,6 +84,7 @@ class Home extends Action
         $xsl->setParameter('', 'level', 'level3');
         $xsl->setParameter('', 'page', $page);
         $xsl->setParameter('', 'rows', $rows);
+        $xsl->setParameter('', 'visualmets', $configArray['IISH']['visualmets.url']);
         $body = $xsl->transformToXML($doc);
         $interface->assign('body', $body);
 

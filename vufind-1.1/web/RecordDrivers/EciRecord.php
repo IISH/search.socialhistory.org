@@ -74,7 +74,7 @@ class EciRecord extends MarcRecord
     public function getExtendedMetadata()
     {
         global $interface;
-        $details = $this->getDetails(Utils::getResource($this->getUniqueID(), $this->getOAIPid(), 'eci'));
+        $details = $this->getDetails(Utils::getOAIRecord($this->getUniqueID(), $this->getOAIPid(), 'eci'));
         $interface->assign('details', $details);
         return 'RecordDrivers/Eci/extended.tpl';
     }
@@ -92,7 +92,7 @@ class EciRecord extends MarcRecord
     public function getHoldings()
     {
         global $interface;
-        $details = $this->getDetails(Utils::getResource($this->getUniqueID(), $this->getOAIPid(), 'eci'));
+        $details = $this->getDetails(Utils::getOAIRecord($this->getUniqueID(), $this->getOAIPid(), 'eci'));
         $interface->assign('details', $details);
         return 'RecordDrivers/Eci/holdings.tpl';
     }

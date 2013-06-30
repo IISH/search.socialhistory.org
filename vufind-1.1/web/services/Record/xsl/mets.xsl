@@ -13,6 +13,7 @@
     <xsl:param name="page"/>
     <xsl:param name="rows"/>
     <xsl:param name="level"/>
+    <xsl:param name="visualmets"/>
 
     <xsl:template match="/">
         <xsl:apply-templates select="//mets:mets"/>
@@ -88,8 +89,9 @@
                     </li>
                 </ul>
             </div>
+
             <div id="metsfullview">
-                <a id="fullview" href="#">
+                <a id="fullview" href="{concat($visualmets, '?metsId=', $metsId)}" target="_blank">
                     <xsl:value-of select="php:function('Lang::translate', $lang, 'ArchiveContentList.fullview')"/>
                 </a>
             </div>
@@ -103,10 +105,15 @@
                             select="mets:structMap[@TYPE='physical']/mets:div/mets:div[@ID][position() &gt; $from and position() &lt; $to]">
                         <xsl:sort data-type="number" select="mets:ORDER"/>
                         <xsl:variable name="alt" select="@LABEL"/>
-                        <xsl:variable name="file" select="$fileSet/mets:file[@ID=//mets:fptr/@FILEID]/mets:FLocat"/>
-                        <li>
-                            <img src="{$file/@xlink:href}" title="{$alt}"/>
-                        </li>
+                        <xsl:for-each select="mets:fptr">
+                            <xsl:variable name="FILEID" select="@FILEID"/>
+                            <xsl:variable name="file" select="$fileSet/mets:file[@ID=$FILEID]/mets:FLocat"/>
+                            <xsl:if test="$file">
+                                <li>
+                                    <img src="{$file/@xlink:href}" title="{$alt}"/>
+                                </li>
+                            </xsl:if>
+                        </xsl:for-each>
                     </xsl:for-each>
                 </ul>
             </div>

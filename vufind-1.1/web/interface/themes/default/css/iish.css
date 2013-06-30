@@ -9,6 +9,7 @@ $configArray
 
 =
 parse_ini_file
+
 (
 '../../../../conf/config.ini'
 ,
@@ -345,13 +346,16 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
 
 .metsiframe {
     background-color: #ffffff;
-    border:  1px solid #ffffff;
-    margin: 0 0 0 0;
+    border: 1px solid #888;
+    margin: 5px 0 5px 0;
     padding: 0 0 0 0;
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px#888;
+    box-shadow: 0 0 5px #888;
 }
 
 #mets {
-    padding: 25px 25px 25px 25px;
+    padding: 15px 15px 15px 15px;
 }
 
 #metsnav ul {
@@ -360,7 +364,7 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
 
 #metsnav li {
     float: left;
-    padding-right: 25px;
+    padding-right: 15px;
 }
 
 #metsfullview {
@@ -368,15 +372,14 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
 }
 
 #metsimage ul {
-    margin-top: 25px;
-
+    margin-top: 15px;
     list-style: none;
 }
 
 #metsimage li {
     float: left;
-    padding-right: 25px;
-    padding-bottom: 25px;
+    padding-right: 16px;
+    padding-bottom: 15px;
 }
 
 #metsimage img {

@@ -78,7 +78,7 @@
                 </li>
             </xsl:for-each>
         </xsl:variable>
-        <xsl:if test="$value">
+        <xsl:if test="string-length($value) > 0">
             <xsl:call-template name="row">
                 <xsl:with-param name="key" select="'ArchiveCollectionSummary.creator.first'"/>
                 <xsl:with-param name="value">
@@ -98,7 +98,7 @@
                 </li>
             </xsl:for-each>
         </xsl:variable>
-        <xsl:if test="$value">
+        <xsl:if test="string-length($value) > 0">
             <xsl:call-template name="row">
                 <xsl:with-param name="key" select="'ArchiveCollectionSummary.creator.second'"/>
                 <xsl:with-param name="value">
@@ -196,7 +196,7 @@
                 </li>
             </xsl:for-each>
         </xsl:variable>
-        <xsl:if test="$value">
+        <xsl:if test="string-length($value) > 0">
             <xsl:call-template name="row">
                 <xsl:with-param name="key" select="'ArchiveCollectionSummary.langmaterial'"/>
                 <xsl:with-param name="value">

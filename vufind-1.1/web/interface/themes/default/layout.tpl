@@ -40,10 +40,6 @@
     {js filename="delivery_shop_custom/delivery.locale.nl.js"}
     {js filename="delivery_shop/delivery_shop.js"}
 
-    {css filename="aciTree/css/aciTree.css"}
-    {js filename="aciTree/js/jquery.aciPlugin.min.js"}
-    {js filename="aciTree/js/jquery.aciTree.min.js"}
-
     {literal}
         <script type="text/javascript">
 

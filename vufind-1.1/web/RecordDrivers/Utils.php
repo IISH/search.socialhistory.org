@@ -6,27 +6,17 @@
 final class Utils
 {
 
-    public static function getResource($id, $pid, $metadataPrefix)
+    public static function getOAIRecord($id, $pid, $metadataPrefix)
     {
         global $configArray;
-
-        // First see if we have it in cache. This ought to have been done by the indexing process ( iish.bsh )
-        $folder = $configArray['IISH']['cache'] . "/";
-        if (!is_dir($folder)) {
-            mkdir($folder);
-        }
-        $file = $folder . $id . ".xml";
-        if ($configArray['IISH']['useCache'] && is_readable($file)) {
-            return Utils::fromCache($file);
-        }
+        $file = $configArray['IISH']['cache'] . '/' . md5($id . '_' . $pid . '_' . $metadataPrefix);
+        if (Utils::useCache($file)) return @file_get_contents($file);
 
         // Load from api
-        $_baseURL = $configArray['IISH']['oaiBaseUrl'];
-
         // Transform MARCXML... taken from /harvest/harvest_oai.php
         $request = new Proxy_Request();
         $request->setMethod(HTTP_REQUEST_METHOD_GET);
-        $request->setURL($_baseURL);
+        $request->setURL($configArray['IISH']['oaiBaseUrl']);
         $request->addQueryString('verb', 'GetRecord');
         $request->addQueryString('identifier', $pid); // the oai identifier... not  that of the solr
         $request->addQueryString('metadataPrefix', $metadataPrefix);
@@ -35,34 +25,28 @@ final class Utils
             die($result->getMessage() . "\n");
         }
         $response = $request->getResponseBody();
-        // Save our XML:
         file_put_contents($file, $response);
-
-        return Utils::fromCache($file);
+        return @file_get_contents($file);
     }
 
-    private static function fromCache($file)
+    public static function getResource($url)
     {
-
-        try {
-            return @file_get_contents($file);
-        } catch (Exception $e) {
-        }
-        return false;
-    }
-
-    public static function getTestResource($url)
-    {
-        /*$request = new Proxy_Request();
-        $request->setMethod(HTTP_REQUEST_METHOD_GET);
-        $request->setURL($url);
-        $result = $request->sendRequest();
-        if (PEAR::isError($result)) {
-            die($result->getMessage() . "\n");
-        }
-        return $request->getResponseBody();*/
+        global $configArray;
+        $file = $configArray['IISH']['cache'] . '/' . md5($url);
         $doc = new DOMDocument();
-        $doc = DOMDocument::load($url);
+        if (Utils::useCache($file)) {
+            $doc->load($file);
+            if ($doc && $doc->documentElement) return $doc;
+        }
+
+        $doc->load($url);
+        $doc->save($file);
         return $doc;
+    }
+
+    private static function useCache($file)
+    {
+        global $configArray;
+        return $configArray['IISH']['cacheExpiration'] && is_readable($file) && filectime($file) > (time() - $configArray['IISH']['cacheExpiration']);
     }
 }
