@@ -210,7 +210,7 @@ class AvRecord extends MarcRecord
     }
 
     private function getMeeting()    {
-        return $this->_getFieldArray('611', array('e', 'd', 'c'));
+        return $this->_getFieldArray('611', array('a', 'e', 'd', 'c'));
     }
 
     /*    private function _getFirstFieldValue($field, $subfields = null)

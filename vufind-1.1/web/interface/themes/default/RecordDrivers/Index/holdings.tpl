@@ -13,6 +13,7 @@
                 <td><!-- empty --></td>
             </tr>
             {/if}
+	<tr><td colspan="3"><p><!-- empty --></p></td></tr>
         {/foreach}
     </table>
 
