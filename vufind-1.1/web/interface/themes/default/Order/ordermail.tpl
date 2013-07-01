@@ -4,8 +4,7 @@
 {translate text='Title'}: {$title}
 {translate text='Callnumber'}: {$callnumber}
 {translate text='Barcode'}: {$coreBarcode}
-{translate text='Download master'}: http://filer4.iisg.nl/?im={$coreBarcode}.tif
-{translate text='Download master from Sor'}: https://disseminate.objectrepository.org/file/master/10622/{$coreBarcode}?access_token=94b7d173-e18a-41b9-bd4c-9b3d2a7c3c98&contentType=application/save
+{translate text='Download master from Sor'}: https://disseminate.objectrepository.org/file/master/10622/{$coreBarcode}?access_token=dc609ac9-1511-4d90-b649-4c949026d6d7&contentType=application/save
 {translate text='Website'}: {$website}
 
 {translate text="order.details"}:
@@ -18,4 +17,3 @@
 {translate text="order.telephone"}: {$telephone}
 
 {translate text="order.purpose"}: {$purpose}
-

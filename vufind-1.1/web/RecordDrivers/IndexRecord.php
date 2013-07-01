@@ -476,8 +476,7 @@ class IndexRecord implements RecordInterface
         $interface->assign('history', $this->getRealTimeHistory());
 
         // Add the deliverance API
-        $deliverance = $configArray['IISH']['deliverance'];
-        $interface->assign('deliverance', $deliverance);
+        $interface->assign('delivery_url', $configArray['IISH']['delivery_url']);
         $interface->assign('pid', $this->getUniqueID()); // Todo: replace with PID in 902$a
         $language = $interface->getLanguage();
         $interface->assign('lang', $language);

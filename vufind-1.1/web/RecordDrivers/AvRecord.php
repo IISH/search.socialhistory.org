@@ -90,7 +90,7 @@ class AvRecord extends MarcRecord
         $interface->assign('recordLanguage', null);
         $interface->assign('coreMarc600', $this->_getFieldArray('600'));
         $interface->assign('coreMarc610', $this->_getFieldArray('610'));
-        $interface->assign('coreMarc611', $this->_getFieldArray('611'));
+        $interface->assign('coreMarc611', $this->getMeeting());
         $interface->assign('coreMarc650', $this->_getFieldArray('650'));
         $interface->assign('coreMarc651', $this->_getFieldArray('651'));
 
@@ -209,12 +209,16 @@ class AvRecord extends MarcRecord
         return false;
     }
 
-/*    private function _getFirstFieldValue($field, $subfields = null)
-    {
-        $matches = $this->_getFieldArray($field, $subfields);
-        return (is_array($matches) && count($matches) > 0) ?
-                $matches[0] : null;
-    }*/
+    private function getMeeting()    {
+        return $this->_getFieldArray('611', array('a', 'e', 'd', 'c'));
+    }
+
+    /*    private function _getFirstFieldValue($field, $subfields = null)
+        {
+            $matches = $this->_getFieldArray($field, $subfields);
+            return (is_array($matches) && count($matches) > 0) ?
+                    $matches[0] : null;
+        }*/
 
 /*    private function _getFieldArray($field, $subfields = null, $concat = true)
     {
