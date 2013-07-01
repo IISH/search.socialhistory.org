@@ -38,7 +38,9 @@ do
 	echo "Collating files into $f"
 	java -Dxsl=marc -cp $app org.socialhistoryservices.solr.importer.Collate $dir $f
 	cd $VUFIND_HOME/import
-	echo "Begin import into solr"	
+	echo "Begin import into solr"
+        mv solrmarc.log /data/log/solrmarc.$now.log
+        mv solrmarc.log.1 /data/log/solrmarc.$now.log.1
 	./import-marc.sh -p import_$setSpec.properties $f
         wget -O /tmp/commit.txt http://localhost:8080/solr/biblio/update?commit=true
         echo "Delete records"
