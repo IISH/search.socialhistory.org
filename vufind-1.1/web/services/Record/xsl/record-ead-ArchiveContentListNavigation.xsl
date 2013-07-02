@@ -11,7 +11,6 @@
                 xsi:schemaLocation="urn:isbn:1-931666-22-9 http://www.loc.gov/ead/ead.xsd"
                 exclude-result-prefixes="*">
 
-    <!--<xsl:import href="record-ead-Archive.xsl"/>-->
     <xsl:output method="xml" encoding="UTF-8" indent="no"/>
     <xsl:strip-space elements="*"/>
 
@@ -24,10 +23,9 @@
     </xsl:template>
 
     <xsl:template match="ead:ead">
-        <!--<xsl:call-template name="navigation"/>-->
-        <div id="arch">
+        <ul id="archtoc">
             <xsl:apply-templates select="//ead:dsc"/>
-        </div>
+        </ul>
     </xsl:template>
 
     <xsl:template
@@ -37,7 +35,7 @@
             <xsl:when test="@level = 'series' or @level = 'subseries'">
                 <xsl:apply-templates/>
             </xsl:when>
-            <xsl:otherwise>
+            <xsl:otherwise><!--
                 <xsl:variable name="offset">
                     <xsl:call-template name="parent">
                         <xsl:with-param name="c" select="parent::node()"/>
@@ -51,7 +49,7 @@
                     <xsl:apply-templates select="ead:did/*[not(local-name() = 'unitid')]"/>
                 </div>
                 <xsl:apply-templates select="*[not(local-name()='did')]"/>
-            </xsl:otherwise>
+            --></xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 
@@ -70,26 +68,29 @@
     </xsl:template>
 
     <xsl:template match="ead:unitid">
-        <xsl:choose>
-            <xsl:when test="../../@level = 'file'">
-                <xsl:apply-templates/>
-            </xsl:when>
-            <xsl:when test="../../@level = 'item'">
-                <xsl:apply-templates/>
-            </xsl:when>
-        </xsl:choose>
+        <!--
+                <xsl:choose>
+                    <xsl:when test="../../@level = 'file'">
+                        <xsl:apply-templates/>
+                    </xsl:when>
+                    <xsl:when test="../../@level = 'item'">
+                        <xsl:apply-templates/>
+                    </xsl:when>
+                </xsl:choose>
+        -->
     </xsl:template>
     <xsl:template match="ead:dsc//*/ead:unittitle">
+
         <xsl:choose>
             <xsl:when test="../../@level = 'file'">
                 <xsl:apply-templates/>
             </xsl:when>
             <xsl:when test="../../@level = 'series'">
-                <h3>
+                <li n="{name($p)}">
                     <a name="{generate-id()}">
                         <xsl:apply-templates/>
                     </a>
-                </h3>
+                </li>
             </xsl:when>
             <xsl:when test="../../@level = 'subseries'">
                 <xsl:choose>
@@ -100,18 +101,18 @@
                         <xsl:apply-templates/>
                     </xsl:when>
                     <xsl:when test="ancestor::ead:c02">
-                        <h4>
+                        <li n="{name($p)}">
                             <a name="{generate-id()}">
                                 <xsl:apply-templates/>
                             </a>
-                        </h4>
+                        </li>
                     </xsl:when>
                     <xsl:when test="ancestor::ead:c03">
-                        <h5>
+                        <li n="{name($p)}">
                             <a name="{generate-id()}">
                                 <xsl:apply-templates/>
                             </a>
-                        </h5>
+                        </li>
                     </xsl:when>
                 </xsl:choose>
             </xsl:when>
@@ -130,33 +131,12 @@
     </xsl:template>
 
     <xsl:template match="ead:dsc">
-        <h2>
-            <a name="{generate-id()}">
+        <li>
+            <a href="{generate-id()}">
                 <xsl:value-of select="normalize-space(ead:head)"/>
             </a>
-        </h2>
+        </li>
         <xsl:apply-templates select="ead:c01"/>
     </xsl:template>
 
-    <!--
-        <xsl:template match="ead:daogrp">
-            [
-            <a href="{ead:daoloc[@label='pdf']/@href}" target="_blank">
-                <xsl:call-template name="language">
-                    <xsl:with-param
-                            name="key" select="'ArchiveContentList.pdf'"/>
-                </xsl:call-template>
-            </a>
-            |
-            <span class="m" title="{ead:daoloc[@label='mets']/@href}">
-                <xsl:call-template name="language">
-                    <xsl:with-param
-                            name="key" select="'ArchiveContentList.view'"/>
-                </xsl:call-template>
-            </span>
-            ] -
-        </xsl:template>
-    -->
-
 </xsl:stylesheet>
-

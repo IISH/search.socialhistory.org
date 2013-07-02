@@ -64,7 +64,9 @@ function addFavorite(handle, title) {
 }
 {/literal}</script>
 
-
+        {if $recordType=="ead"}
+            {include file=$coreMetadata}
+            {else}
         <div class="record">
 
           {if $errorMsg || $infoMsg}
@@ -84,7 +86,7 @@ function addFavorite(handle, title) {
 
           {include file=$coreMetadata}
         
-        </div>{* End Record *}
+        </div>{/if}{* End Record *}
 
     {if $recordType=="ead"}
      {else}

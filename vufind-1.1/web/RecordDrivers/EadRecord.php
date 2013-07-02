@@ -102,7 +102,7 @@ class EadRecord extends MarcRecord
     {
         parent::getCoreMetadata();
         //$interface->assign('ead', $this->getEADArray(Utils::getOAIRecord, this->getUniqueID(), $this->getOAIPid(), 'ead')));
-        $xml = Utils::getResource("http://localhost/". $this->getUniqueID() . ".xml");
+        $xml = Utils::getResource("http://localhost/iish.archives/". $this->getUniqueID() . ".xml");
         global $interface;
         $ead = $this->getEADArray($xml);
         $interface->assign('ead', $ead);
@@ -131,6 +131,10 @@ class EadRecord extends MarcRecord
         global $interface;
         $xsl->setParameter('', 'lang', $interface->getLanguage());
         return $xsl->transformToXML($doc);
+    }
+
+    public function getNavigation(){
+
     }
 
     /**

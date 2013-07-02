@@ -12,7 +12,7 @@
                 exclude-result-prefixes="*">
 
     <xsl:import href="record-ead-Archive.xsl"/>
-    <xsl:output method="html" encoding="UTF-8" indent="no"/>
+    <xsl:output method="xml" encoding="UTF-8" indent="no"/>
     <xsl:strip-space elements="*"/>
 
     <xsl:param name="action"/>

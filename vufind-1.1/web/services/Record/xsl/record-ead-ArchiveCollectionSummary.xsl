@@ -12,7 +12,7 @@
                 exclude-result-prefixes="*">
 
     <xsl:import href="record-ead-Archive.xsl"/>
-    <xsl:output method="html" encoding="UTF-8" indent="no"/>
+    <xsl:output method="xml" encoding="UTF-8" indent="no"/>
     <xsl:strip-space elements="*"/>
 
     <xsl:param name="action"/>
@@ -43,8 +43,8 @@
                 })();
             </script>
             <xsl:variable name="handle" select="//ead:daogrp[1]/ead:daoloc[@label='thumbnail']/@href"/>
-            <div style="float:right">
-                <img id="thumbnail" src="{$handle}"/>
+            <div id="thumbnail" style="float:right">
+                <img src="{$handle}"/>
                 <p>
                     <xsl:call-template name="language">
                         <xsl:with-param name="key">ArchiveCollectionSummary.image</xsl:with-param>
@@ -113,7 +113,7 @@
         <xsl:variable name="more">
             <xsl:value-of
                     select="substring(ead:archdesc/ead:descgrp[@type='content_and_structure']/ead:scopecontent/ead:p[1], 1, 255)"/>
-            <a href="{concat($baseUrl, '/', 'ArchiveContentAndStructure')}">
+            <a href="{concat($baseUrl, '/', 'ArchiveContentAndStructure')}"><br/>
                 <xsl:call-template name="language">
                     <xsl:with-param name="key" select="'ArchiveCollectionSummary.abstract.more'"/>
                 </xsl:call-template>
