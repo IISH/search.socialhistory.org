@@ -16,7 +16,7 @@
 #
 # SOLR_HOME
 #   Home of the Solr installation.
-SOLR_HOME=/usr/local/vufind-1.1/solr
+SOLR_HOME=/usr/local/vufind/solr
 
 # JAVA_HOME
 #   Home of Java installation.

@@ -13,6 +13,8 @@
                 xmlns:php="http://php.net/xsl"
                 exclude-result-prefixes="ead ext">
 
+    <xsl:output method="xml" omit-xml-declaration="yes" encoding="UTF-8" indent="no"/>
+
     <xsl:template name="row">
         <xsl:param name="key"/>
         <xsl:param name="value"/>
@@ -28,6 +30,21 @@
                 </td>
             </tr>
         </xsl:if>
+    </xsl:template>
+
+    <xsl:template name="aname">
+        <xsl:param name="value"/>
+        <xsl:param name="tag"/>
+        <a name="{php:function('Lang::generateID', normalize-space($value), $tag)}">
+            <xsl:value-of select="$value"/>
+        </a>
+    </xsl:template>
+    <xsl:template name="ahref">
+        <xsl:param name="value"/>
+        <xsl:param name="tag"/>
+        <a href="{concat('#', php:function('Lang::generateID', normalize-space($value), $tag))}">
+            <xsl:value-of select="$value"/>
+        </a>
     </xsl:template>
 
     <xsl:template name="navigation">
@@ -63,7 +80,6 @@
                 </xsl:for-each>
             </ul>
         </div>
-        <div style="clear:both;"><!-- empty --></div>
     </xsl:template>
 
     <xsl:template name="language">
@@ -135,6 +151,24 @@
     </xsl:template>
 
     <xsl:template match="ead:head"/>
+
+    <xsl:template match="ead:daogrp">
+        [
+        <a href="{ead:daoloc[@label='pdf']/@href}" target="_blank">
+            <xsl:call-template name="language">
+                <xsl:with-param
+                        name="key" select="'ArchiveContentList.pdf'"/>
+            </xsl:call-template>
+        </a>
+        |
+        <span class="m" title="{ead:daoloc[@label='mets']/@href}">
+            <xsl:call-template name="language">
+                <xsl:with-param
+                        name="key" select="'ArchiveContentList.view'"/>
+            </xsl:call-template>
+        </span>
+        ] -
+    </xsl:template>
 
     <!-- Catch all -->
     <xsl:template match="ead:*">

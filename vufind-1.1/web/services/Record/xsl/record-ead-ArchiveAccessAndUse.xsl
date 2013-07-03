@@ -12,7 +12,7 @@
                 exclude-result-prefixes="*">
 
     <xsl:import href="record-ead-Archive.xsl"/>
-    <xsl:output method="xml" encoding="UTF-8" indent="no"/>
+    <xsl:output method="xml" omit-xml-declaration="yes" encoding="UTF-8" indent="no"/>
     <xsl:strip-space elements="*"/>
 
     <xsl:param name="action"/>
@@ -25,19 +25,21 @@
 
     <xsl:template match="ead:ead">
         <xsl:call-template name="navigation"/>
-        <table>
-            <xsl:call-template name="access"/>
-            <xsl:call-template name="userestrict"/>
-            <xsl:call-template name="prefercite"/>
-            <xsl:call-template name="otherfindaid"/>
-        </table>
+        <div id="arch">
+            <table>
+                <xsl:call-template name="access"/>
+                <xsl:call-template name="userestrict"/>
+                <xsl:call-template name="prefercite"/>
+                <xsl:call-template name="otherfindaid"/>
+            </table>
+        </div>
     </xsl:template>
 
     <xsl:template name="access">
         <xsl:call-template name="row">
             <xsl:with-param name="key" select="'ArchiveAccessAndUse.access'"/>
             <xsl:with-param name="value">
-               <xsl:apply-templates select="ead:archdesc/ead:descgrp[@type='access_and_use']/ead:accessrestrict/*"/>
+                <xsl:apply-templates select="ead:archdesc/ead:descgrp[@type='access_and_use']/ead:accessrestrict/*"/>
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
@@ -46,7 +48,7 @@
         <xsl:call-template name="row">
             <xsl:with-param name="key" select="'ArchiveAccessAndUse.userestrict'"/>
             <xsl:with-param name="value">
-               <xsl:apply-templates select="ead:archdesc/ead:descgrp[@type='access_and_use']/ead:userestrict/*"/>
+                <xsl:apply-templates select="ead:archdesc/ead:descgrp[@type='access_and_use']/ead:userestrict/*"/>
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
@@ -55,7 +57,7 @@
         <xsl:call-template name="row">
             <xsl:with-param name="key" select="'ArchiveAccessAndUse.prefercite'"/>
             <xsl:with-param name="value">
-               <xsl:apply-templates select="ead:archdesc/ead:descgrp[@type='access_and_use']/ead:prefercite/*"/>
+                <xsl:apply-templates select="ead:archdesc/ead:descgrp[@type='access_and_use']/ead:prefercite/*"/>
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
@@ -64,7 +66,7 @@
         <xsl:call-template name="row">
             <xsl:with-param name="key" select="'ArchiveAccessAndUse.otherfindaid'"/>
             <xsl:with-param name="value">
-               <xsl:apply-templates select="ead:archdesc/ead:descgrp[@type='access_and_use']/ead:otherfindaid/*"/>
+                <xsl:apply-templates select="ead:archdesc/ead:descgrp[@type='access_and_use']/ead:otherfindaid/*"/>
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>

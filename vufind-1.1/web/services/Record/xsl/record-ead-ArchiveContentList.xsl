@@ -11,8 +11,8 @@
                 xsi:schemaLocation="urn:isbn:1-931666-22-9 http://www.loc.gov/ead/ead.xsd"
                 exclude-result-prefixes="*">
 
-    <!--<xsl:import href="record-ead-Archive.xsl"/>-->
-    <xsl:output method="xml" encoding="UTF-8" indent="no"/>
+    <xsl:import href="record-ead-Archive.xsl"/>
+    <xsl:output method="xml" omit-xml-declaration="yes" encoding="UTF-8" indent="no"/>
     <xsl:strip-space elements="*"/>
 
     <xsl:param name="action"/>
@@ -24,18 +24,45 @@
     </xsl:template>
 
     <xsl:template match="ead:ead">
-        <!--<xsl:call-template name="navigation"/>-->
+        <xsl:call-template name="navigation"/>
         <div id="arch">
-            <xsl:apply-templates select="//ead:dsc"/>
+            <xsl:for-each select="//ead:dsc">
+                <xsl:for-each select="ead:c01">
+                    <xsl:call-template name="cxx"/>
+                </xsl:for-each>
+            </xsl:for-each>
         </div>
     </xsl:template>
 
+    <xsl:template name="cxx">
+        <xsl:variable name="value">
+            <xsl:apply-templates select="." mode="l"/>
+        </xsl:variable>
+        <xsl:if test="$value">
+            <xsl:copy-of select="$value"/>
+            <xsl:for-each select="*[starts-with(name(), 'c')]">
+                <xsl:call-template name="cxx"/>
+            </xsl:for-each>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="ead:dsc">
+        <h2>
+            <xsl:call-template name="aname">
+                <xsl:with-param name="value" select="normalize-space(ead:head)"/>
+                <xsl:with-param name="tag" select="name(ancestor::node())"/>
+            </xsl:call-template>
+        </h2>
+    </xsl:template>
+
     <xsl:template
-            match="ead:c01|ead:c02|ead:c03|ead:c04|ead:c05|ead:c06|ead:c07|ead:c08|ead:c09|ead:c10|ead:c11|ead:c12">
+            match="ead:c01|ead:c02|ead:c03|ead:c04|ead:c05|ead:c06|ead:c07|ead:c08|ead:c09|ead:c10|ead:c11|ead:c12"
+            mode="l">
         <xsl:variable name="level" select="substring(local-name(),2)"/>
         <xsl:choose>
             <xsl:when test="@level = 'series' or @level = 'subseries'">
-                <xsl:apply-templates/>
+                <!--<xsl:apply-templates />-->
+                <xsl:apply-templates select="*[not(starts-with(name(),'c'))]"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:variable name="offset">
@@ -50,7 +77,7 @@
                 <div style="margin-left:{$indent2}px;word-wrap: break-word;">
                     <xsl:apply-templates select="ead:did/*[not(local-name() = 'unitid')]"/>
                 </div>
-                <xsl:apply-templates select="*[not(local-name()='did')]"/>
+                <xsl:apply-templates select="*[not(local-name()='did')]" mode="l"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -69,6 +96,10 @@
         </xsl:choose>
     </xsl:template>
 
+    <xsl:template match="ead:did">
+        <xsl:apply-templates/>
+    </xsl:template>
+
     <xsl:template match="ead:unitid">
         <xsl:choose>
             <xsl:when test="../../@level = 'file'">
@@ -79,16 +110,20 @@
             </xsl:when>
         </xsl:choose>
     </xsl:template>
-    <xsl:template match="ead:dsc//*/ead:unittitle">
+
+    <xsl:template match="ead:unittitle">
         <xsl:choose>
             <xsl:when test="../../@level = 'file'">
                 <xsl:apply-templates/>
             </xsl:when>
             <xsl:when test="../../@level = 'series'">
                 <h3>
-                    <a name="{generate-id()}">
-                        <xsl:apply-templates/>
-                    </a>
+                    <xsl:call-template name="aname">
+                        <xsl:with-param name="value">
+                            <xsl:apply-templates/>
+                        </xsl:with-param>
+                        <xsl:with-param name="tag" select="name(../..)"/>
+                    </xsl:call-template>
                 </h3>
             </xsl:when>
             <xsl:when test="../../@level = 'subseries'">
@@ -97,20 +132,33 @@
                             test="ancestor::ead:c04 | ancestor::ead:c05 | ancestor::ead:c06 | ancestor::ead:c07
                              | ancestor::ead:c08 | ancestor::ead:c09 | ancestor::ead:c09 | ancestor::ead:c10
                               | ancestor::ead:c11 | ancestor::ead:c12">
-                        <xsl:apply-templates/>
+                        <h4>
+                            <xsl:call-template name="aname">
+                                <xsl:with-param name="value">
+                                    <xsl:apply-templates/>
+                                </xsl:with-param>
+                                <xsl:with-param name="tag" select="name(../..)"/>
+                            </xsl:call-template>
+                        </h4>
                     </xsl:when>
                     <xsl:when test="ancestor::ead:c02">
                         <h4>
-                            <a name="{generate-id()}">
-                                <xsl:apply-templates/>
-                            </a>
+                            <xsl:call-template name="aname">
+                                <xsl:with-param name="value">
+                                    <xsl:apply-templates/>
+                                </xsl:with-param>
+                                <xsl:with-param name="tag" select="name(../..)"/>
+                            </xsl:call-template>
                         </h4>
                     </xsl:when>
                     <xsl:when test="ancestor::ead:c03">
                         <h5>
-                            <a name="{generate-id()}">
-                                <xsl:apply-templates/>
-                            </a>
+                            <xsl:call-template name="aname">
+                                <xsl:with-param name="value">
+                                    <xsl:apply-templates/>
+                                </xsl:with-param>
+                                <xsl:with-param name="tag" select="name(../..)"/>
+                            </xsl:call-template>
                         </h5>
                     </xsl:when>
                 </xsl:choose>
@@ -128,35 +176,6 @@
     <xsl:template match="ead:physdesc/ead:extent">
         <xsl:text> </xsl:text><xsl:value-of select="normalize-space(text())"/>
     </xsl:template>
-
-    <xsl:template match="ead:dsc">
-        <h2>
-            <a name="{generate-id()}">
-                <xsl:value-of select="normalize-space(ead:head)"/>
-            </a>
-        </h2>
-        <xsl:apply-templates select="ead:c01"/>
-    </xsl:template>
-
-    <!--
-        <xsl:template match="ead:daogrp">
-            [
-            <a href="{ead:daoloc[@label='pdf']/@href}" target="_blank">
-                <xsl:call-template name="language">
-                    <xsl:with-param
-                            name="key" select="'ArchiveContentList.pdf'"/>
-                </xsl:call-template>
-            </a>
-            |
-            <span class="m" title="{ead:daoloc[@label='mets']/@href}">
-                <xsl:call-template name="language">
-                    <xsl:with-param
-                            name="key" select="'ArchiveContentList.view'"/>
-                </xsl:call-template>
-            </span>
-            ] -
-        </xsl:template>
-    -->
 
 </xsl:stylesheet>
 

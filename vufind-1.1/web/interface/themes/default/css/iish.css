@@ -251,8 +251,8 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
     padding: 0 0 0 0;
     border-bottom: 1px dotted #cccccc;
     margin: 0 0 15px 0;
-    background-color:#fafafa;
-    width:100%;
+    background-color: #e7e7e7;
+    width: 100%;
 }
 
 #tabnavarch ul {
@@ -296,7 +296,7 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
 }
 
 #arch {
-    padding:0 1.5em 0 1.5em;
+    padding: 0 1.5em 0 1.5em;
 }
 
 #arch h2 {
@@ -353,7 +353,7 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
     margin: 5px 0 5px 0;
     padding: 0 0 0 0;
     -moz-box-shadow: 0 0 5px #888;
-    -webkit-box-shadow: 0 0 5px#888;
+    -webkit-box-shadow: 0 0 5px #888;
     box-shadow: 0 0 5px #888;
 }
 
@@ -400,12 +400,17 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
 #archnav {
     position: fixed;
     background-color: white;
-    border: 1px solid black;
     padding: 5px;
-    margin-left: 5px;
-    left:0;
+    margin-left: 25px;
+    left: 0;
     z-index: 888;
     width: 300px;
+    height: 300px;
+
+    border: 1px solid #888;
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px #888;
+    box-shadow: 0 0 5px #888;
 }
 
 #tree {

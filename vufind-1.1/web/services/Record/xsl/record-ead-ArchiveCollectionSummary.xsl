@@ -12,7 +12,7 @@
                 exclude-result-prefixes="*">
 
     <xsl:import href="record-ead-Archive.xsl"/>
-    <xsl:output method="xml" encoding="UTF-8" indent="no"/>
+    <xsl:output method="xml" omit-xml-declaration="yes" encoding="UTF-8" indent="no"/>
     <xsl:strip-space elements="*"/>
 
     <xsl:param name="action"/>
@@ -28,23 +28,9 @@
     <xsl:template match="ead:ead">
         <xsl:call-template name="navigation"/>
         <xsl:if test="$digital_items>0">
-            <script type="text/javascript">
-                (function() {
-                var urls=[
-                <xsl:for-each select="//ead:daogrp/ead:daoloc[@label='thumbnail'][1]/@href">
-                    '<xsl:value-of select="."/>'
-                    <xsl:if test="not(position()=last())">,</xsl:if>
-                </xsl:for-each>
-                ];
-                function swap() {
-                document.getElementById('thumbnail').setAttribute('src', urls[Math.round(Math.random() * urls.length)]);
-                }
-                setInterval(swap, 5000);
-                })();
-            </script>
             <xsl:variable name="handle" select="//ead:daogrp[1]/ead:daoloc[@label='thumbnail']/@href"/>
-            <div id="thumbnail" style="float:right">
-                <img src="{$handle}"/>
+            <div style="float:right;padding-right:25px">
+                <img id="thumbnail" src="{$handle}"/>
                 <p>
                     <xsl:call-template name="language">
                         <xsl:with-param name="key">ArchiveCollectionSummary.image</xsl:with-param>
@@ -68,6 +54,23 @@
             </table>
         </div>
 
+        <xsl:if test="$digital_items>0">
+            <script type="text/javascript">
+                (function() {
+                var urls=[
+                <xsl:for-each select="//ead:daogrp/ead:daoloc[@label='thumbnail'][1]/@href">
+                    '<xsl:value-of select="."/>'
+                    <xsl:if test="not(position()=last())">,</xsl:if>
+                </xsl:for-each>
+                ];
+                function swap() {
+                document.getElementById('thumbnail').setAttribute('src', urls[Math.round(Math.random() * urls.length)]);
+                }
+                setInterval(swap, 5000);
+                })();
+            </script>
+        </xsl:if>
+
     </xsl:template>
 
     <xsl:template name="creator">
@@ -78,6 +81,7 @@
                 </li>
             </xsl:for-each>
         </xsl:variable>
+
         <xsl:if test="string-length($value) > 0">
             <xsl:call-template name="row">
                 <xsl:with-param name="key" select="'ArchiveCollectionSummary.creator.first'"/>
@@ -113,7 +117,8 @@
         <xsl:variable name="more">
             <xsl:value-of
                     select="substring(ead:archdesc/ead:descgrp[@type='content_and_structure']/ead:scopecontent/ead:p[1], 1, 255)"/>
-            <a href="{concat($baseUrl, '/', 'ArchiveContentAndStructure')}"><br/>
+            <a href="{concat($baseUrl, '/', 'ArchiveContentAndStructure')}">
+                <br/>
                 <xsl:call-template name="language">
                     <xsl:with-param name="key" select="'ArchiveCollectionSummary.abstract.more'"/>
                 </xsl:call-template>

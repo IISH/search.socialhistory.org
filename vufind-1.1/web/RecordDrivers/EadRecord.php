@@ -105,7 +105,13 @@ class EadRecord extends MarcRecord
         $xml = Utils::getResource("http://localhost/iish.archives/". $this->getUniqueID() . ".xml");
         global $interface;
         $ead = $this->getEADArray($xml);
+
+        // When using the navigation of ArchiveContentListNavigation we have many undesireable empty elements.
+        // We remove them here.
+
+
         $interface->assign('ead', $ead);
+        $interface->assign('baseUrl', '/Record/' . $this->getUniqueID());
         return 'RecordDrivers/Ead/core.tpl';
     }
 
@@ -124,6 +130,7 @@ class EadRecord extends MarcRecord
         $style = new DOMDocument;
         $style->load('services/Record/xsl/record-ead-' . $action . '.xsl');
         $xsl = new XSLTProcessor();
+        $xsl->registerPHPFunctions('Lang::generateID');
         $xsl->registerPHPFunctions('Lang::translate');
         $xsl->importStyleSheet($style);
         $xsl->setParameter('', 'action', $action);
