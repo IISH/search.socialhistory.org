@@ -18,7 +18,7 @@
                 var h = $('body').height() - position - 50;
                 archnav.css({'height': h + 'px', width: w + 'px' })
             }
-            $(window).resize(s);            no
+            $(window).resize(s);
             $(window).scroll(function () {
                 var scrollTop = $(window).scrollTop();
                 position = marker - scrollTop;
@@ -39,10 +39,10 @@
                 var a = $('<a href="' + $(this).attr('title') + '">' + $(this).text() + '<\/a>');
                 $(a).click(function () {
                     var parent = $(this).parent();
-                    var iframe = $(parent).next().prop('tagName');
-                    if (iframe == 'DIV') {
-                        $('<iframe class="metsiframe" scrolling="no"  width="730px" height="200px" src="'
-                                + url + '"><\/iframe>').insertAfter(parent);
+                    var iframe = $(parent).next();
+                    if (iframe.prop('tagName') == 'DIV') {
+                        $('<iframe class="metsiframe" width="730px" height="200px" src="' + url + '"><\/iframe>')
+                                .insertAfter(parent);
                     } else {
                         $(iframe).remove();
                     }

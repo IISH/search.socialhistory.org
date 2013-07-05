@@ -354,6 +354,11 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
 }
 
 .metsiframe {
+    background-image: url("/images/ajax_spinner.gif") ;
+    background-repeat: no-repeat;
+    background-position: center;
+    width:730px;
+    height:200px;
     background-color: #ffffff;
     border: 1px solid #888;
     margin: 5px 0 5px 0;
@@ -404,6 +409,9 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
 #arch tr:nth-child(odd) {background: #ffffff}*/
 
 #archnav {
+    background-image: url("/images/ajax_spinner.gif") ;
+    background-repeat: no-repeat;
+    background-position: center;
     position: fixed;
     background-color: white;
     padding: 5px;

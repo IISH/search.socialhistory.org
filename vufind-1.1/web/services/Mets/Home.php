@@ -70,10 +70,10 @@ class Home extends Action
         $rows = isset($_GET['rows']) ? $_GET['rows'] : $configArray['IISH']['visualmets.rows'];
 
         $style = new DOMDocument;
-        $style->load('services/Record/xsl/ArchiveMets.xsl');
+        $style->load('services/Mets/ArchiveMets.xsl');
         $xsl = new XSLTProcessor();
         $xsl->importStylesheet($style);
-        $xsl->registerPHPFunctions('Lang::translate');
+        $xsl->registerPHPFunctions('ArchiveUtil::translate');
         $xsl->setParameter('', 'lang', $lang);
         $xsl->setParameter('', 'metsId', $metsId);
         $xsl->setParameter('', 'level', 'level3');
