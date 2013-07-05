@@ -173,7 +173,8 @@ class EadRecord extends MarcRecord
 
         // Add API url
         global $interface;
-        $interface->assign('oaiBaseUrl', $configArray['IISH']['oaiBaseUrl']);
+        $interface->assign('oaiBaseUrl', 'http://localhost/iish.archives/' . $this->getUniqueID() . '.xml');
+        //$interface->assign('oaiBaseUrl', $configArray['IISH']['oaiBaseUrl']);
         $interface->assign('oaiPid', $this->getOAIPid());
 
 
