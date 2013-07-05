@@ -9,7 +9,8 @@
                 xmlns:ead="urn:isbn:1-931666-22-9"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xsi:schemaLocation="urn:isbn:1-931666-22-9 http://www.loc.gov/ead/ead.xsd"
-                exclude-result-prefixes="*">
+                exclude-result-prefixes="xsl ead xsi">
+
 
     <xsl:import href="record-ead-Archive.xsl"/>
     <xsl:output method="xml" omit-xml-declaration="yes" encoding="UTF-8" indent="no"/>
@@ -27,6 +28,7 @@
         <xsl:call-template name="navigation"/>
         <div id="arch">
             <xsl:for-each select="//ead:dsc">
+                <xsl:apply-templates select="."/>
                 <xsl:for-each select="ead:c01">
                     <xsl:call-template name="cxx"/>
                 </xsl:for-each>
@@ -61,7 +63,6 @@
         <xsl:variable name="level" select="substring(local-name(),2)"/>
         <xsl:choose>
             <xsl:when test="@level = 'series' or @level = 'subseries'">
-                <!--<xsl:apply-templates />-->
                 <xsl:apply-templates select="*[not(starts-with(name(),'c'))]"/>
             </xsl:when>
             <xsl:otherwise>
@@ -89,9 +90,10 @@
                 <xsl:value-of select="substring(local-name($c), 2)"/>
             </xsl:when>
             <xsl:otherwise>
+                <xsl:if test="not(name($c)='ead')">
                 <xsl:call-template name="parent">
                     <xsl:with-param name="c" select="$c/parent::*"/>
-                </xsl:call-template>
+                </xsl:call-template></xsl:if>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

@@ -27,7 +27,7 @@
  * @link     http://vufind.org/wiki/building_a_module Wiki
  */
 require_once 'Action.php';
-require_once 'services/Record/xsl/Lang.php';
+require_once 'services/Record/xsl/ArchiveUtil.php';
 
 /**
  * Home action for Record module
@@ -54,28 +54,23 @@ class Home extends Action
         $interface->assign('lang', $lang);
 
         $metsId = isset($_GET['metsId']) ? $_GET['metsId'] : null;
-        if ($metsId == null) {
-            header("HTTP/1.0 404 Not Found");
-            header("Status: 404 Not Found");
-            return;
-        }
+        if ($metsId == null) return $this->c404($metsId);
 
         $doc = new DOMDocument();
-        $doc->load($metsId);
-        if ($doc == null) {
-            header("HTTP/1.0 404 Not Found");
-            header("Status: 404 Not Found");
-            return;
+        try {
+            $doc->load($metsId);
+        } catch (Exception $e)  {
+            return $this->c404($e . ' : ' . $metsId);
         }
 
+        if ( $doc == null || !$doc->documentElement) return $this->c404($metsId);
 
         global $configArray;
-        global $interface;
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
         $rows = isset($_GET['rows']) ? $_GET['rows'] : $configArray['IISH']['visualmets.rows'];
 
         $style = new DOMDocument;
-        $style->load('services/Record/xsl/mets.xsl');
+        $style->load('services/Record/xsl/ArchiveMets.xsl');
         $xsl = new XSLTProcessor();
         $xsl->importStylesheet($style);
         $xsl->registerPHPFunctions('Lang::translate');
@@ -87,7 +82,15 @@ class Home extends Action
         $xsl->setParameter('', 'visualmets', $configArray['IISH']['visualmets.url']);
         $body = $xsl->transformToXML($doc);
         $interface->assign('body', $body);
+        $interface->display('Mets/home.tpl');
+    }
 
+    private function c404($msg)
+    {
+        header("HTTP/1.0 404 Not Found");
+        header("Status: 404 Not Found");
+        global $interface;
+        $interface->assign('body', '404 Not Found ' . $msg);
         $interface->display('Mets/home.tpl');
     }
 }

@@ -4,7 +4,7 @@
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:php="http://php.net/xsl"
                 xmlns:mets="http://www.loc.gov/METS/" xmlns:xlink="http://www.w3.org/1999/xlink"
-                exclude-result-prefixes="mets php xlink">
+                exclude-result-prefixes="xsl mets php xlink">
 
     <xsl:output method="html" encoding="UTF-8" indent="no"/>
 
@@ -31,12 +31,12 @@
                         <xsl:choose>
                             <xsl:when test="$page=1">
                                 <xsl:value-of
-                                        select="php:function('Lang::translate', $lang, 'ArchiveContentList.first')"/>
+                                        select="php:function('ArchiveUtil::translate', $lang, 'ArchiveContentList.first')"/>
                             </xsl:when>
                             <xsl:otherwise>
                                 <a href="{$url}&amp;page=1">
                                     <xsl:value-of
-                                            select="php:function('Lang::translate', $lang, 'ArchiveContentList.first')"/>
+                                            select="php:function('ArchiveUtil::translate', $lang, 'ArchiveContentList.first')"/>
                                 </a>
                             </xsl:otherwise>
                         </xsl:choose>
@@ -45,30 +45,30 @@
                         <xsl:choose>
                             <xsl:when test="$page=1">
                                 <xsl:value-of
-                                        select="php:function('Lang::translate', $lang, 'ArchiveContentList.previous')"/>
+                                        select="php:function('ArchiveUtil::translate', $lang, 'ArchiveContentList.previous')"/>
                             </xsl:when>
                             <xsl:otherwise>
                                 <a href="{$url}&amp;page={$page - 1}">
                                     <xsl:value-of
-                                            select="php:function('Lang::translate', $lang, 'ArchiveContentList.previous')"/>
+                                            select="php:function('ArchiveUtil::translate', $lang, 'ArchiveContentList.previous')"/>
                                 </a>
                             </xsl:otherwise>
                         </xsl:choose>
                     </li>
                     <li>
                         <xsl:value-of
-                                select="concat($page, ' ',php:function('Lang::translate', $lang, 'ArchiveContentList.of'), ' ', $pages)"/>
+                                select="concat($page, ' ',php:function('ArchiveUtil::translate', $lang, 'ArchiveContentList.of'), ' ', $pages)"/>
                     </li>
                     <li>
                         <xsl:choose>
                             <xsl:when test="$page=$pages">
                                 <xsl:value-of
-                                        select="php:function('Lang::translate', $lang, 'ArchiveContentList.next')"/>
+                                        select="php:function('ArchiveUtil::translate', $lang, 'ArchiveContentList.next')"/>
                             </xsl:when>
                             <xsl:otherwise>
                                 <a href="{$url}&amp;page={$page + 1}">
                                     <xsl:value-of
-                                            select="php:function('Lang::translate', $lang, 'ArchiveContentList.next')"/>
+                                            select="php:function('ArchiveUtil::translate', $lang, 'ArchiveContentList.next')"/>
                                 </a>
                             </xsl:otherwise>
                         </xsl:choose>
@@ -77,12 +77,12 @@
                         <xsl:choose>
                             <xsl:when test="$page=$pages">
                                 <xsl:value-of
-                                        select="php:function('Lang::translate', $lang, 'ArchiveContentList.last')"/>
+                                        select="php:function('ArchiveUtil::translate', $lang, 'ArchiveContentList.last')"/>
                             </xsl:when>
                             <xsl:otherwise>
                                 <a href="{$url}&amp;page={$pages}">
                                     <xsl:value-of
-                                            select="php:function('Lang::translate', $lang, 'ArchiveContentList.last')"/>
+                                            select="php:function('ArchiveUtil::translate', $lang, 'ArchiveContentList.last')"/>
                                 </a>
                             </xsl:otherwise>
                         </xsl:choose>
@@ -92,7 +92,7 @@
 
             <div id="metsfullview">
                 <a id="fullview" href="{concat($visualmets, '?metsId=', $metsId)}" target="_blank">
-                    <xsl:value-of select="php:function('Lang::translate', $lang, 'ArchiveContentList.fullview')"/>
+                    <xsl:value-of select="php:function('ArchiveUtil::translate', $lang, 'ArchiveContentList.fullview')"/>
                 </a>
             </div>
             <div style="clear:both"><!-- empty --></div>

@@ -49,25 +49,14 @@ class ArchiveAppendicesNavigation extends Record
     public function launch()
     {
         global $interface;
-        
+        $interface->assign('controller', 'ArchiveAppendices');
+
         if (!$interface->is_cached($this->cacheId)) {
-            $interface->setPageTitle(
-                translate('Description') . ': ' .
-                $this->recordDriver->getBreadcrumb()
-            );
-            $interface->assign(
-                'extendedMetadata', $this->recordDriver->getExtendedMetadata()
-            );
-            $interface->assign('subTemplate', 'view-description.tpl');
-            $interface->setTemplate('view.tpl');
+            $interface->setTemplate('archive-navigation.tpl');
         }
 
-        // Set Messages
-        $interface->assign('infoMsg', $this->infoMsg);
-        $interface->assign('errorMsg', $this->errorMsg);
-
         // Display Page
-        $interface->display('layout.tpl', $this->cacheId);
+        $interface->display('archive-navigation.tpl', $this->cacheId);
     }
 }
 

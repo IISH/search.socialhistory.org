@@ -9,7 +9,6 @@
     <ul>
         <li><a href="{$path}/Browse/Home">{translate text='Browse the Catalog'}</a></li>
         <li><a href="{$path}/AlphaBrowse/Home">{translate text='Browse Alphabetically'}</a></li>
-    {*<li><a href="{$path}/Search/NewItem">{translate text='New Items'}</a></li>*}
     </ul>
 </div>
 <div><p><strong>{translate text='Need Help?'}</strong></p>
@@ -21,6 +20,7 @@
         <li><a href="{$url}/Iish/Databases" onClick="window.open('{$url}/Iish/Databases', '{translate text='Databases'}', 'width=625, height=510'); return false;">{translate text='Databases'}</a></li>
         <li><a target="_blank" href="{translate text='footer.href.ask'}">{translate text='Ask a Librarian'}</a></li>
         <li><a target="_blank" href="{translate text='footer.href.faq'}">{translate text='FAQs'}</a></li>
+        <li><a target="_blank" href="{translate text='footer.howtorequest.href'}">{translate text='footer.howtorequest'}</a></li>
     </ul>
 </div>
 <div><p><strong>{translate text='more.information'}</strong></p>

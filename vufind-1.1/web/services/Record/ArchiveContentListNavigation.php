@@ -49,6 +49,7 @@ class ArchiveContentListNavigation extends Record
     public function launch()
     {
         global $interface;
+        $interface->assign('controller', 'ArchiveContentList');
         
         if (!$interface->is_cached($this->cacheId)) {
             $interface->setTemplate('archive-navigation.tpl');

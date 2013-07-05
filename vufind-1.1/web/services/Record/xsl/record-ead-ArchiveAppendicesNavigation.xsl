@@ -24,29 +24,25 @@
     </xsl:template>
 
     <xsl:template match="ead:ead">
-        <xsl:call-template name="navigation"/>
-        <div id="arch">
-            <xsl:call-template name="appendices"/>
-        </div>
-    </xsl:template>
-
-    <xsl:template name="appendices">
-        <xsl:apply-templates select="ead:archdesc/ead:descgrp[@type='appendices']/ead:odd"/>
+        <ul class="tree">
+            <xsl:apply-templates select="ead:archdesc/ead:descgrp[@type='appendices']/ead:odd"/>
+        </ul>
     </xsl:template>
 
     <xsl:template match="ead:odd">
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="ead:head">
-        <h2>
-            <xsl:call-template name="aname">
+        <li>
+            <xsl:call-template name="ahref">
                 <xsl:with-param name="value">
-                    <xsl:value-of select="normalize-space(text())"/>
+                    <xsl:value-of select="normalize-space(ead:head/text())"/>
                 </xsl:with-param>
                 <xsl:with-param name="tag" select="'1'"/>
             </xsl:call-template>
-        </h2>
+            <xsl:if test="ead:odd">
+                <ul>
+                    <xsl:apply-templates select="ead:odd"/>
+                </ul>
+            </xsl:if>
+        </li>
     </xsl:template>
 
 </xsl:stylesheet>

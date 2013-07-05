@@ -10,7 +10,7 @@
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xsi:schemaLocation="urn:isbn:1-931666-22-9 http://www.loc.gov/ead/ead.xsd"
                 xmlns:ext="http://exslt.org/common"
-                exclude-result-prefixes="*">
+                exclude-result-prefixes="xsl ead xsi ext">
 
     <xsl:import href="record-ead-Archive.xsl"/>
     <xsl:output method="xml" omit-xml-declaration="yes" encoding="UTF-8" indent="no"/>
@@ -25,15 +25,18 @@
     </xsl:template>
 
     <xsl:template match="ead:ead">
-        <xsl:for-each select="//ead:dsc">
-            <ul class="tree">
+        <ul class="tree">
+            <xsl:for-each select="//ead:dsc">
                 <li>
-                    <xsl:for-each select="ead:c01">
-                        <xsl:call-template name="cxx"/>
-                    </xsl:for-each>
+                    <xsl:apply-templates select="."/>
+                    <ul>
+                        <xsl:for-each select="ead:c01">
+                            <xsl:call-template name="cxx"/>
+                        </xsl:for-each>
+                    </ul>
                 </li>
-            </ul>
-        </xsl:for-each>
+            </xsl:for-each>
+        </ul>
     </xsl:template>
 
     <xsl:template name="cxx">
@@ -64,7 +67,6 @@
             mode="l">
         <xsl:choose>
             <xsl:when test="@level = 'series' or @level = 'subseries'">
-                <!--<xsl:apply-templates />-->
                 <xsl:apply-templates select="*[not(starts-with(name(),'c'))]"/>
             </xsl:when>
             <xsl:otherwise/>

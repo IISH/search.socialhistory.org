@@ -11,7 +11,7 @@
                 xsi:schemaLocation="urn:isbn:1-931666-22-9 http://www.loc.gov/ead/ead.xsd"
                 xmlns:ext="http://exslt.org/common"
                 xmlns:php="http://php.net/xsl"
-                exclude-result-prefixes="ead ext">
+                exclude-result-prefixes="xsl ead xsi ext php">
 
     <xsl:output method="xml" omit-xml-declaration="yes" encoding="UTF-8" indent="no"/>
 
@@ -20,11 +20,11 @@
         <xsl:param name="value"/>
         <xsl:if test="string-length($value) > 0">
             <tr>
-                <td>
+                <th>
                     <xsl:call-template name="language">
                         <xsl:with-param name="key" select="normalize-space($key)"/>
                     </xsl:call-template>
-                </td>
+                </th>
                 <td>
                     <xsl:copy-of select="$value"/>
                 </td>
@@ -35,14 +35,14 @@
     <xsl:template name="aname">
         <xsl:param name="value"/>
         <xsl:param name="tag"/>
-        <a name="{php:function('Lang::generateID', normalize-space($value), $tag)}">
+        <a name="{php:function('ArchiveUtil::generateID', normalize-space($value), $tag)}">
             <xsl:value-of select="$value"/>
         </a>
     </xsl:template>
     <xsl:template name="ahref">
         <xsl:param name="value"/>
         <xsl:param name="tag"/>
-        <a href="{concat('#', php:function('Lang::generateID', normalize-space($value), $tag))}">
+        <a href="{concat('#', php:function('ArchiveUtil::generateID', normalize-space($value), $tag))}">
             <xsl:value-of select="$value"/>
         </a>
     </xsl:template>
@@ -84,7 +84,7 @@
 
     <xsl:template name="language">
         <xsl:param name="key"/>
-        <xsl:value-of select="php:function('Lang::translate', $lang, normalize-space($key))"/>
+        <xsl:value-of select="php:function('ArchiveUtil::translate', $lang, normalize-space($key))"/>
     </xsl:template>
 
     <xsl:template match="ead:corpname|ead:persname|ead:name">
@@ -96,9 +96,15 @@
     </xsl:template>
 
     <xsl:template match="ead:p">
-        <xsl:copy>
+        <p>
             <xsl:apply-templates select="node()"/>
-        </xsl:copy>
+        </p>
+    </xsl:template>
+
+    <xsl:template match="ead:emph">
+        <i>
+            <xsl:apply-templates select="node()"/>
+        </i>
     </xsl:template>
 
     <xsl:template match="ead:list">
@@ -172,9 +178,9 @@
 
     <!-- Catch all -->
     <xsl:template match="ead:*">
-        <xsl:copy>
-            <xsl:apply-templates select="node()|@*"/>
-        </xsl:copy>
+        <xsl:element name="{local-name()}">
+            <xsl:apply-templates select="node()"/>
+        </xsl:element>
     </xsl:template>
 
 </xsl:stylesheet>

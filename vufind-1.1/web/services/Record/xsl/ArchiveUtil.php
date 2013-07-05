@@ -8,7 +8,7 @@
 
 require_once 'RecordDrivers/Utils.php';
 
-class Lang
+class ArchiveUtil
 {
 
     private static $dictionary = array();
@@ -21,10 +21,10 @@ class Lang
 
     public static function translate($lang, $key)
     {
-        if (empty(Lang::$dictionary)) {
-            Lang::load($lang);
+        if (empty(ArchiveUtil::$dictionary)) {
+            ArchiveUtil::load($lang);
         }
-        $ret = Lang::$dictionary[$key];
+        $ret = ArchiveUtil::$dictionary[$key];
         if ($ret == null) return $key;
         return $ret;
     }
@@ -41,7 +41,7 @@ class Lang
                 if ($pos > 1) {
                     $key = trim(substr($buffer, 0, $pos));
                     $value = trim(substr($buffer, $pos + 1));
-                    if (!empty($value)) Lang::$dictionary[$key] = $value;
+                    if (!empty($value)) ArchiveUtil::$dictionary[$key] = $value;
                 }
             }
         }
