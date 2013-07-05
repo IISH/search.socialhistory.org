@@ -18,7 +18,7 @@
                 var h = $('body').height() - position - 50;
                 archnav.css({'height': h + 'px', width: w + 'px' })
             }
-            $(window).resize(s);
+            $(window).resize(s);            no
             $(window).scroll(function () {
                 var scrollTop = $(window).scrollTop();
                 position = marker - scrollTop;

@@ -18,6 +18,7 @@
     <xsl:param name="action"/>
     <xsl:param name="baseUrl"/>
     <xsl:param name="lang"/>
+    <xsl:param name="title"/>
 
     <xsl:template match="/">
         <xsl:apply-templates select="//ead:ead"/>
@@ -25,7 +26,7 @@
 
     <xsl:template match="ead:ead">
         <xsl:call-template name="navigation"/>
-        <div id="arch"><table>
+        <div id="arch"><h1><xsl:value-of select="$title"/></h1><table>
             <xsl:call-template name="bibliographical"/>
             <xsl:call-template name="arrangement"/>
             <xsl:call-template name="content"/>

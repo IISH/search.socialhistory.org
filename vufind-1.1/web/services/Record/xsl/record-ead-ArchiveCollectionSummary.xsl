@@ -9,7 +9,8 @@
                 xmlns:ead="urn:isbn:1-931666-22-9"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xsi:schemaLocation="urn:isbn:1-931666-22-9 http://www.loc.gov/ead/ead.xsd"
-                exclude-result-prefixes="*">
+                xmlns:php="http://php.net/xsl"
+                exclude-result-prefixes="xsl ead xsi php">
 
     <xsl:import href="record-ead-Archive.xsl"/>
     <xsl:output method="xml" omit-xml-declaration="yes" encoding="UTF-8" indent="no"/>
@@ -18,6 +19,7 @@
     <xsl:param name="action"/>
     <xsl:param name="baseUrl"/>
     <xsl:param name="lang"/>
+    <xsl:param name="title"/>
 
     <xsl:variable name="digital_items" select="count(//ead:daogrp)"/>
 
@@ -38,7 +40,7 @@
                 </p>
             </div>
         </xsl:if>
-        <div id="arch">
+        <div id="arch"><h1><xsl:value-of select="$title"/></h1>
             <table>
                 <xsl:call-template name="creator"/>
                 <xsl:call-template name="secondcreator"/>
@@ -116,7 +118,7 @@
     <xsl:template name="abstract">
         <xsl:variable name="more">
             <xsl:value-of
-                    select="substring(ead:archdesc/ead:descgrp[@type='content_and_structure']/ead:scopecontent/ead:p[1], 1, 255)"/>
+                    select="php:function('ArchiveUtil::truncate' , string(ead:archdesc/ead:descgrp[@type='content_and_structure']/ead:scopecontent/ead:p[1]), 300)"/>
             <a href="{concat($baseUrl, '/', 'ArchiveContentAndStructure')}">
                 <br/>
                 <xsl:call-template name="language">

@@ -132,9 +132,11 @@ class EadRecord extends MarcRecord
         $xsl = new XSLTProcessor();
         $xsl->registerPHPFunctions('ArchiveUtil::generateID');
         $xsl->registerPHPFunctions('ArchiveUtil::translate');
+        $xsl->registerPHPFunctions('ArchiveUtil::truncate');
         $xsl->importStyleSheet($style);
         $xsl->setParameter('', 'action', $action);
         $xsl->setParameter('', 'baseUrl', '/Record/' . $this->getUniqueID());
+        $xsl->setParameter('', 'title', parent::getTitle());
         global $interface;
         $xsl->setParameter('', 'lang', $interface->getLanguage());
         return $xsl->transformToXML($doc);

@@ -18,6 +18,7 @@
     <xsl:param name="action"/>
     <xsl:param name="baseUrl"/>
     <xsl:param name="lang"/>
+    <xsl:param name="title"/>
 
     <xsl:template match="/">
         <xsl:apply-templates select="//ead:ead"/>

@@ -19,6 +19,20 @@ class ArchiveUtil
         return 'A' . substr(md5($key . ':' . $tag . '          '), 0, 10);
     }
 
+    public static function truncate($text, $limit = 300){
+
+        $separators = " -:;," ;
+        $length = strlen($text);
+
+        if ( $length < $limit) return $text;
+        for ( $i = $limit; $i < $length; $i++) {
+            if ( strrpos($separators, $text[$i]) !== false ){
+                return substr($text, 0, $i)  ;
+            }
+        }
+        return $text;
+    }
+
     public static function translate($lang, $key)
     {
         if (empty(ArchiveUtil::$dictionary)) {
