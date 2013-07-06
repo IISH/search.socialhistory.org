@@ -33,7 +33,6 @@
 
 {literal}
     <script type='text/javascript'>
-        $(function () {
             $('.m').each(function () {
                 var url = '/Mets/Home?metsId=' + encodeURI($(this).attr('title'));
                 var a = $('<a href="' + $(this).attr('title') + '">' + $(this).text() + '<\/a>');
@@ -51,6 +50,5 @@
                 $(a).insertAfter(this);
                 $(this).remove();
             })
-        });
     </script>
 {/literal}
