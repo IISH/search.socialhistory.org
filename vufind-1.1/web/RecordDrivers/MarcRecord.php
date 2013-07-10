@@ -238,7 +238,7 @@ class MarcRecord extends IndexRecord
             $append = $this->_getFirstFieldValue($field, $subfield);
             if ($append) {
                 $pos = strpos($title, $append);
-                if ($pos === false) return ": " . $append;
+                if ($pos === false) return " " . $append;
             }
         }
         return '';
