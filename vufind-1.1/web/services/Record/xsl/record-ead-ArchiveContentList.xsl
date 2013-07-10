@@ -79,7 +79,7 @@
                 <div style="margin-left:{$indent2}px;word-wrap: break-word;">
                     <xsl:apply-templates select="ead:did/*[not(local-name() = 'unitid')]"/>
                 </div>
-                <xsl:apply-templates select="*[not(local-name()='did')]" mode="l"/>
+                <!--<xsl:apply-templates select="*[not(name()='did')]" mode="l"/>-->
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
