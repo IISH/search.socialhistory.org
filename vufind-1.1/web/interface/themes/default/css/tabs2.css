@@ -1,8 +1,3 @@
-<?php
-Header ("Content-type: text/css");
-$configArray = parse_ini_file('../conf/config.ini', true);
-?>
-
 /* CSS Document */
 /* Based on Douglas Bowman's "Sliding Doors" (http://www.alistapart.com/articles/slidingdoors/*/
 
@@ -26,7 +21,7 @@ $configArray = parse_ini_file('../conf/config.ini', true);
   }
 #tabnav a {
   display:block;
-  background:url("<?php echo $configArray['Site']['path'];?>/images/tabs_bg.jpg") repeat-x right top;
+  background:url("../../../../images/tabs_bg.jpg") repeat-x right top;
   padding:.7em 1em .7em 1em;
   text-decoration:none;
   border-top: 1px solid #ccc;
@@ -37,10 +32,10 @@ $configArray = parse_ini_file('../conf/config.ini', true);
   
 
 #tabnav a:hover {
-  background:url("<?php echo $configArray['Site']['path'];?>/images/tabs_hover_bg.jpg") repeat-x right top;
+  background:url("../../../../images/tabs_hover_bg.jpg") repeat-x right top;
   }
 #tabnav .active a:hover {
-  background:url("<?php echo $configArray['Site']['path'];?>/images/tab_active_bg.jpg") repeat-x right top;
+  background:url("../../../../images/tab_active_bg.jpg") repeat-x right top;
   }
   
   
@@ -55,7 +50,7 @@ $configArray = parse_ini_file('../conf/config.ini', true);
  
   }
 #tabnav .active a {
-  background-image:url("<?php echo $configArray['Site']['path'];?>/images/tab_active_bg.jpg");
+  background-image:url("../../../../images/tab_active_bg.jpg");
   color:#000;
   }
 
@@ -66,7 +61,7 @@ $configArray = parse_ini_file('../conf/config.ini', true);
     margin-left:-8px;
     width:17px;
     height:15px;
-    background:url("<?php echo $configArray['Site']['path'];?>/images/tab_active_arrow.jpg") left top no-repeat;
+    background:url("../../../../images/tab_active_arrow.jpg") left top no-repeat;
 }
 * html .tabs .active span{
     margin-left:-20px;

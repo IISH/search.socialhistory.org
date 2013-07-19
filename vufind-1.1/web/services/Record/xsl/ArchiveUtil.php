@@ -16,7 +16,8 @@ class ArchiveUtil
 
     public static function generateID($key, $tag)
     {
-        return 'A' . substr(md5($key . ':' . $tag . '          '), 0, 10);
+        $t = ( $tag ) ? $tag[0]->nodeValue : ""  ;
+        return 'A' . substr(md5($key . ':' . $t . '          '), 0, 10);
     }
 
     public static function truncate($text, $limit = 300){

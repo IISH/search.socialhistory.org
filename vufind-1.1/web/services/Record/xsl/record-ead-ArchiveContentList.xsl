@@ -27,12 +27,9 @@
 
     <xsl:template match="ead:ead">
         <xsl:call-template name="navigation"/>
-        <div id="arch"><h1><xsl:value-of select="$title"/></h1>
-            <xsl:for-each select="//ead:dsc">
-                <xsl:apply-templates select="."/>
-                <xsl:for-each select="ead:c01">
-                    <xsl:call-template name="cxx"/>
-                </xsl:for-each>
+        <div id="arch">
+            <xsl:for-each select="//ead:dsc[1]/ead:c01">
+                <xsl:call-template name="cxx"/>
             </xsl:for-each>
         </div>
     </xsl:template>
@@ -50,12 +47,14 @@
     </xsl:template>
 
     <xsl:template match="ead:dsc">
-        <h2>
-            <xsl:call-template name="aname">
-                <xsl:with-param name="value" select="normalize-space(ead:head)"/>
-                <xsl:with-param name="tag" select="name(ancestor::node())"/>
-            </xsl:call-template>
-        </h2>
+        <!--
+                <h2>
+                    <xsl:call-template name="aname">
+                        <xsl:with-param name="value" select="normalize-space(ead:head)"/>
+                        <xsl:with-param name="tag" select="name(ancestor::node())"/>
+                    </xsl:call-template>
+                </h2>
+        -->
     </xsl:template>
 
     <xsl:template
@@ -72,12 +71,37 @@
                         <xsl:with-param name="c" select="parent::node()"/>
                     </xsl:call-template>
                 </xsl:variable>
-                <xsl:variable name="indent" select="($level - $offset - 1) * 40"/>
-                <xsl:variable name="indent2" select="($level - $offset - 1) * 40+60"/>
+                <xsl:variable name="size">
+                    <xsl:choose>
+                        <xsl:when test="string-length(normalize-space(ead:did/ead:unitid)) &lt; 8">60</xsl:when>
+                        <xsl:otherwise>80</xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <xsl:variable name="indent" select="($level - $offset - 1) * $size"/>
+                <xsl:variable name="indent2" select="($level - $offset - 1) * $size+60"/>
                 <div style="float:left;margin-left:{$indent}px;"><xsl:apply-templates select="ead:did/ead:unitid"/>.
                 </div>
                 <div style="margin-left:{$indent2}px;word-wrap: break-word;">
-                    <xsl:apply-templates select="ead:did/*[not(local-name() = 'unitid')]"/>
+                    <!--<xsl:apply-templates select="ead:did/*[not(local-name() = 'unitid')]"/>-->
+                    <xsl:choose>
+                        <xsl:when test="count(ead:did/ead:unittitle) = 0">
+                            <xsl:text> empty </xsl:text>
+                            <!-- no unittitle -->
+                            <xsl:apply-templates select="ead:did/*[not(local-name() = 'unitid')]"/>
+                        </xsl:when>
+                        <xsl:when test="count(ead:did/ead:unittitle) = 1">
+                            <xsl:apply-templates select="ead:did/*[not(local-name() = 'unitid')]"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <ul>
+                                <xsl:for-each select="ead:did/ead:unittitle">
+                                    <li>
+                                        <xsl:apply-templates select="."/>
+                                    </li>
+                                </xsl:for-each>
+                            </ul>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </div>
                 <!--<xsl:apply-templates select="*[not(name()='did')]" mode="l"/>-->
             </xsl:otherwise>
@@ -92,9 +116,10 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:if test="not(name($c)='ead')">
-                <xsl:call-template name="parent">
-                    <xsl:with-param name="c" select="$c/parent::*"/>
-                </xsl:call-template></xsl:if>
+                    <xsl:call-template name="parent">
+                        <xsl:with-param name="c" select="$c/parent::*"/>
+                    </xsl:call-template>
+                </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -120,14 +145,14 @@
                 <xsl:apply-templates/>
             </xsl:when>
             <xsl:when test="../../@level = 'series'">
-                <h3>
+                <h2>
                     <xsl:call-template name="aname">
                         <xsl:with-param name="value">
                             <xsl:apply-templates/>
                         </xsl:with-param>
-                        <xsl:with-param name="tag" select="name(../..)"/>
+                        <xsl:with-param name="tag" select="../../../ead:did/ead:unittitle/text()"/>
                     </xsl:call-template>
-                </h3>
+                </h2>
             </xsl:when>
             <xsl:when test="../../@level = 'subseries'">
                 <xsl:choose>
@@ -135,34 +160,34 @@
                             test="ancestor::ead:c04 | ancestor::ead:c05 | ancestor::ead:c06 | ancestor::ead:c07
                              | ancestor::ead:c08 | ancestor::ead:c09 | ancestor::ead:c09 | ancestor::ead:c10
                               | ancestor::ead:c11 | ancestor::ead:c12">
-                        <h4>
-                            <xsl:call-template name="aname">
-                                <xsl:with-param name="value">
-                                    <xsl:apply-templates/>
-                                </xsl:with-param>
-                                <xsl:with-param name="tag" select="name(../..)"/>
-                            </xsl:call-template>
-                        </h4>
-                    </xsl:when>
-                    <xsl:when test="ancestor::ead:c02">
-                        <h4>
-                            <xsl:call-template name="aname">
-                                <xsl:with-param name="value">
-                                    <xsl:apply-templates/>
-                                </xsl:with-param>
-                                <xsl:with-param name="tag" select="name(../..)"/>
-                            </xsl:call-template>
-                        </h4>
-                    </xsl:when>
-                    <xsl:when test="ancestor::ead:c03">
                         <h5>
                             <xsl:call-template name="aname">
                                 <xsl:with-param name="value">
                                     <xsl:apply-templates/>
                                 </xsl:with-param>
-                                <xsl:with-param name="tag" select="name(../..)"/>
+                                <xsl:with-param name="tag" select="../../../ead:did/ead:unittitle/text()"/>
                             </xsl:call-template>
                         </h5>
+                    </xsl:when>
+                    <xsl:when test="ancestor::ead:c02">
+                        <h3>
+                            <xsl:call-template name="aname">
+                                <xsl:with-param name="value">
+                                    <xsl:apply-templates/>
+                                </xsl:with-param>
+                                <xsl:with-param name="tag" select="../../../ead:did/ead:unittitle/text()"/>
+                            </xsl:call-template>
+                        </h3>
+                    </xsl:when>
+                    <xsl:when test="ancestor::ead:c03">
+                        <h4>
+                            <xsl:call-template name="aname">
+                                <xsl:with-param name="value">
+                                    <xsl:apply-templates/>
+                                </xsl:with-param>
+                                <xsl:with-param name="tag" select="../../../ead:did/ead:unittitle/text()"/>
+                            </xsl:call-template>
+                        </h4>
                     </xsl:when>
                 </xsl:choose>
             </xsl:when>
@@ -176,7 +201,17 @@
         <xsl:value-of select="normalize-space(text())"/>
     </xsl:template>
 
-    <xsl:template match="ead:physdesc/ead:extent">
+    <xsl:template match="ead:physdesc">
+        <xsl:apply-templates/>
+    </xsl:template>
+
+    <xsl:template match="ead:p">
+        <xsl:text> </xsl:text>
+        <xsl:apply-templates/>
+        <xsl:text> </xsl:text>
+    </xsl:template>
+
+    <xsl:template match="ead:extent">
         <xsl:text> </xsl:text><xsl:value-of select="normalize-space(text())"/>
     </xsl:template>
 

@@ -1,8 +1,3 @@
-<?php
-Header ("Content-type: text/css");
-$configArray = parse_ini_file('../../../../conf/config.ini', true);
-?>
-
 @import "layout.css";
 @import "autocomplete.css";
 @import "iish.css";
@@ -13,7 +8,7 @@ Code licensed under the BSD License:
 http://developer.yahoo.com/yui/license.html
 version: 2.8.1 (modified for VuFind)
 */
-.yui-h-slider,.yui-v-slider,.yui-region-slider{position:relative;}.yui-h-slider .yui-slider-thumb,.yui-v-slider .yui-slider-thumb,.yui-region-slider .yui-slider-thumb{position:absolute;cursor:default;}.yui-h-slider{background:url(<?php echo $configArray['Site']['path'];?>/images/yui/bg-h.gif) no-repeat 5px 0;height:28px;width:160px;}.yui-h-slider .yui-slider-thumb{top:4px;}.yui-v-slider{background:url(<?php echo $configArray['Site']['path'];?>/images/yui/bg-v.gif) no-repeat 12px 0;height:228px;width:48px;}.yui-region-slider{height:228px;width:228px;}
+.yui-h-slider,.yui-v-slider,.yui-region-slider{position:relative;}.yui-h-slider .yui-slider-thumb,.yui-v-slider .yui-slider-thumb,.yui-region-slider .yui-slider-thumb{position:absolute;cursor:default;}.yui-h-slider{background:url(../../../../images/yui/bg-h.gif) no-repeat 5px 0;height:28px;width:160px;}.yui-h-slider .yui-slider-thumb{top:4px;}.yui-v-slider{background:url(../../../../images/yui/bg-v.gif) no-repeat 12px 0;height:228px;width:48px;}.yui-region-slider{height:228px;width:228px;}
 
 /* My styles */
 
@@ -92,7 +87,7 @@ div.breadcrumbs a, div.breadcrumbs em, div.breadcrumbs span {
     font-size: 90%;
 }
 div.breadcrumbs span {
-    background:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/bg-breadcrumb.png) no-repeat left center;
+    background:url(../../../../interface/themes/default/images/bg-breadcrumb.png) no-repeat left center;
     overflow:hidden;
     padding:0;
     width:10px;
@@ -109,11 +104,11 @@ div.breadcrumbinner {width:73.076em;*width:71.25em;margin:0 auto;}
 
 b.btop, b.btop b, b.bbot, b.bbot b{
     display: block;height: 10px;font-size: 1px;
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/rc.jpg);
+    background-image:url(../../../../interface/themes/default/images/rc.jpg);
     background-repeat: no-repeat}
 b.gtop, b.gtop b, b.gbot, b.gbot b{
     display: block;height: 10px;font-size: 1px;
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/rc2.jpg);
+    background-image:url(../../../../interface/themes/default/images/rc2.jpg);
     background-repeat: no-repeat}
 b.btop b, b.gtop b{background-position: 100% -10px}
 b.bbot, b.gbot{background-position: 0 -20px}
@@ -292,7 +287,7 @@ ul.menu li{
     padding:0 0 1em 1em;
     border-bottom: 1px #eee solid;
     margin-bottom:.5em;
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/author_bg.jpg);
+    background-image:url(../../../../interface/themes/default/images/author_bg.jpg);
     background-repeat: repeat-x;
     background-position: bottom;
 }
@@ -494,11 +489,11 @@ ul.browse {
 }
 .sidegroup h4 {border-bottom:solid 2px #d5d5d5;padding:.5em 0 .5em 0;}
 .sidegroup {margin:0 0 3em 0;}
-ul.bulleted li {list-style: disc url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/side_bullet.png) outside;margin-left:1.5em;
+ul.bulleted li {list-style: disc url(../../../../interface/themes/default/images/side_bullet.png) outside;margin-left:1.5em;
 }
 
 /************* Tabs (Record Page) *****************/
-#tabnav {
+/*#tabnav {
     font-size:90%;
     margin-top:3em;
     padding:0 0 0 1em;
@@ -525,21 +520,21 @@ float: left;
     font-weight:normal;
     color:#000;
 }
-/* Commented Backslash Hack
-    hides rule from IE5-Mac \*/
+*//* Commented Backslash Hack
+    hides rule from IE5-Mac \*//*
 #tabnav a {float:none;}
-/* End IE5-Mac hack */
+*//* End IE5-Mac hack *//*
 #tabnav a:hover {
     color:#000;
 }
 #tabnav .active {
-    background:url("<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/subnavTab_left.jpg") no-repeat left top;margin-bottom:-1px;
+    background:url("../../../../interface/themes/default/images/subnavTab_left.jpg") no-repeat left top;margin-bottom:-1px;
 }
 #tabnav .active a {
-    background:url("<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/subnavTab_right.jpg") no-repeat right top;
+    background:url("../../../../interface/themes/default/images/subnavTab_right.jpg") no-repeat right top;
     color:#000;
     padding:18px 10px 12px 0px;
-}
+}*/
 
 
 /************* Top Tabs *****************/
@@ -574,10 +569,10 @@ float: left;
     color:#000;
 }
 #toptab .active {
-    background:url("<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/subnavTab_left.jpg") no-repeat left top;margin-bottom:-1px;
+    background:url("../../../../interface/themes/default/images/subnavTab_left.jpg") no-repeat left top;margin-bottom:-1px;
 }
 #toptab .active a {
-    background:url("<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/subnavTab_right.jpg") no-repeat right top;
+    background:url("../../../../interface/themes/default/images/subnavTab_right.jpg") no-repeat right top;
     color:#000;
     padding:18px 10px 12px 0px;
 }
@@ -739,77 +734,77 @@ table.datagrid tr.oddrow {
 
 /* Icon Classes */
 .cite {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/silk/report.png);
+    background-image:url(../../../../interface/themes/default/images/silk/report.png);
     background-repeat:no-repeat;
     background-position: left;
     padding:.5em .5em .5em 20px;
     margin-right:1em;
 }
 .export {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/silk/application_add.png);
+    background-image:url(../../../../interface/themes/default/images/silk/application_add.png);
     background-repeat:no-repeat;
     background-position: left;
     padding:.5em .5em .5em 20px;
     margin-right:1em;
 }
 .save {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/silk/disk-black.png);
+    background-image:url(../../../../interface/themes/default/images/silk/disk-black.png);
     background-repeat:no-repeat;
     background-position: left;
     padding:.5em .5em .5em 20px;
     margin-right:1em;
 }
 .sms {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/silk/phone.png);
+    background-image:url(../../../../interface/themes/default/images/silk/phone.png);
     background-repeat:no-repeat;
     background-position: left;
     padding:.5em .5em .5em 20px;
     margin-right:1em;
 }
 .tag {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/silk/tag_blue.png);
+    background-image:url(../../../../interface/themes/default/images/silk/tag_blue.png);
     background-repeat:no-repeat;
     background-position: left;
     padding:.5em .5em .5em 20px;
     margin-right:1em;
 }
 .mail {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/silk/email.png);
+    background-image:url(../../../../interface/themes/default/images/silk/email.png);
     background-repeat:no-repeat;
     background-position: left;
     padding:.5em .5em .5em 20px;
     margin-right:1em;
 }
 .fav {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/silk/heart.png);
+    background-image:url(../../../../interface/themes/default/images/silk/heart.png);
     background-repeat:no-repeat;
     background-position: left;
     padding:.5em .5em .5em 20px;
     margin-right:1em;
 }
 .edit {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/silk/edit.png);
+    background-image:url(../../../../interface/themes/default/images/silk/edit.png);
     background-repeat:no-repeat;
     background-position: left;
     padding:.5em 0 .5em 18px;
     margin-right:.7em;
 }
 .delete {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/silk/delete.png);
+    background-image:url(../../../../interface/themes/default/images/silk/delete.png);
     background-repeat:no-repeat;
     background-position: left;
     padding:.5em .5em .5em 18px;
     margin-right:0;
 }
 .feed {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/silk/feed.png);
+    background-image:url(../../../../interface/themes/default/images/silk/feed.png);
     background-repeat:no-repeat;
     background-position: left;
     padding:.5em .5em .5em 20px;
     margin-left:1em;
 }
 .list {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/silk/list.png);
+    background-image:url(../../../../interface/themes/default/images/silk/list.png);
     background-repeat:no-repeat;
     background-position: left;
     padding:.5em .5em .5em 20px;
@@ -819,14 +814,14 @@ table.datagrid tr.oddrow {
     vertical-align: text-bottom;
 }
 .add {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/silk/add.png);
+    background-image:url(../../../../interface/themes/default/images/silk/add.png);
     background-repeat:no-repeat;
     background-position: left;
     padding:.5em .5em .5em 18px;
     margin-right:0;
 }
 .available {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/silk/bullet_green.png);
+    background-image:url(../../../../interface/themes/default/images/silk/bullet_green.png);
     background-repeat:no-repeat;
     color:#009900;
     padding-left:18px
@@ -835,7 +830,7 @@ table.datagrid tr.oddrow {
     padding-left:10px;
 }
 .checkedout {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/silk/bullet_red.png);
+    background-image:url(../../../../interface/themes/default/images/silk/bullet_red.png);
     background-repeat:no-repeat;
     color:#cc0000;
     padding-left:18px
@@ -847,63 +842,63 @@ table.datagrid tr.oddrow {
     font-size: 90%;
 }
 .electronic {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/tango/www.png);
+    background-image:url(../../../../interface/themes/default/images/tango/www.png);
     background-repeat:no-repeat;
     background-position: left top;
     padding:0 .5em .5em 20px;
     margin-right:1em;
 }
 .map {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/silk/map.png);
+    background-image:url(../../../../interface/themes/default/images/silk/map.png);
     background-repeat:no-repeat;
     background-position: left top;
     padding:0 .5em .5em 20px;
     margin-right:1em;
 }
 .globe {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/silk/world.png);
+    background-image:url(../../../../interface/themes/default/images/silk/world.png);
     background-repeat:no-repeat;
     background-position: left top;
     padding:0 .5em .5em 20px;
     margin-right:1em;
 }
 .slide {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/silk/photo.png);
+    background-image:url(../../../../interface/themes/default/images/silk/photo.png);
     background-repeat:no-repeat;
     background-position: left top;
     padding:0 .5em .5em 20px;
     margin-right:1em;
 }
 .microfilm {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/silk/film.png);
+    background-image:url(../../../../interface/themes/default/images/silk/film.png);
     background-repeat:no-repeat;
     background-position: left top;
     padding:0 .5em .5em 20px;
     margin-right:1em;
 }
 .photo {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/silk/picture.png);
+    background-image:url(../../../../interface/themes/default/images/silk/picture.png);
     background-repeat:no-repeat;
     background-position: left top;
     padding:0 .5em .5em 20px;
     margin-right:1em;
 }
 .video {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/tango/video.png);
+    background-image:url(../../../../interface/themes/default/images/tango/video.png);
     background-repeat:no-repeat;
     background-position: left top;
     padding:0 .5em .5em 20px;
     margin-right:1em;
 }
 .kit {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/silk/package.png);
+    background-image:url(../../../../interface/themes/default/images/silk/package.png);
     background-repeat:no-repeat;
     background-position: left top;
     padding:0 .5em .5em 20px;
     margin-right:1em;
 }
 .musicalscore {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/silk/music.png);
+    background-image:url(../../../../interface/themes/default/images/silk/music.png);
     background-repeat:no-repeat;
     background-position: left top;
     padding:0 .5em .5em 20px;
@@ -912,7 +907,7 @@ table.datagrid tr.oddrow {
 .sensorimage {
 }
 .audio {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/tango/audio-volume-high.png);
+    background-image:url(../../../../interface/themes/default/images/tango/audio-volume-high.png);
     background-repeat:no-repeat;
     background-position: left top;
     padding:0 .5em .5em 20px;
@@ -921,35 +916,35 @@ table.datagrid tr.oddrow {
 .physicalobject {
 }
 .manuscript {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/silk/report_edit.png);
+    background-image:url(../../../../interface/themes/default/images/silk/report_edit.png);
     background-repeat:no-repeat;
     background-position: left top;
     padding:0 .5em .5em 20px;
     margin-right:1em;
 }
 .ebook {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/ebook.png);
+    background-image:url(../../../../interface/themes/default/images/ebook.png);
     background-repeat:no-repeat;
     background-position: left top;
     padding:0 .5em .5em 20px;
     margin-right:1em;
 }
 .book {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/silk/book.png);
+    background-image:url(../../../../interface/themes/default/images/silk/book.png);
     background-repeat:no-repeat;
     background-position: left top;
     padding:0 .5em .5em 20px;
     margin-right:1em;
 }
 .journal {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/silk/report.png);
+    background-image:url(../../../../interface/themes/default/images/silk/report.png);
     background-repeat:no-repeat;
     background-position: left top;
     padding:0 .5em .5em 20px;
     margin-right:1em;
 }
 .newspaper {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/silk/newspaper.png);
+    background-image:url(../../../../interface/themes/default/images/silk/newspaper.png);
     background-repeat:no-repeat;
     background-position: left top;
     padding:0 .5em .5em 20px;
@@ -961,7 +956,7 @@ table.datagrid tr.oddrow {
     font-weight: bold;
 }
 .addThis {
-    background-image:url(<?php echo $configArray['Site']['path'];?>/images/silk/tag_yellow.png);
+    background-image:url(../../../../images/silk/tag_yellow.png);
     background-repeat:no-repeat;
     background-position: left;
     padding:.5em .5em .5em 20px;
@@ -976,13 +971,13 @@ img.centered {
     margin-right: auto;
 }
 
-alignright {
+.alignright {
     padding: 4px;
     margin: 0 0 2px 7px;
     display: inline;
 }
 
-alignleft {
+.alignleft {
     padding: 4px;
     margin: 0 7px 2px 0;
     display: inline;
@@ -1059,11 +1054,11 @@ alignleft {
 }
 #searchHolder .group0 {
     border-top : 1px solid #D8D7D8;
-    background:url(<?php echo $configArray['Site']['path'];?>/images/gradient_grey.gif) repeat-y;
+    background:url(../../../../images/gradient_grey.gif) repeat-y;
 }
 #searchHolder .group1 {
     border-top: 1px solid #94C632;
-    background:url(<?php echo $configArray['Site']['path'];?>/images/gradient_green.gif) repeat-y;
+    background:url(../../../../images/gradient_green.gif) repeat-y;
 }
 #searchHolder .group {
     margin-bottom: 10px;
@@ -1126,7 +1121,7 @@ alignleft {
 }
 .browseNav a {
     display:block;
-    background:url("<?php echo $configArray['Site']['path'];?>/images/tabs_bg.jpg") repeat-x right top;
+    background:url("../../../../images/tabs_bg.jpg") repeat-x right top;
     padding:.7em 1em .7em 1em;
     text-decoration:none;
     border-top: 1px solid #ccc;
@@ -1136,10 +1131,10 @@ alignleft {
 }
 
 .browseNav a:hover {
-    background:url("<?php echo $configArray['Site']['path'];?>/images/tabs_hover_bg.jpg") repeat-x right top;
+    background:url("../../../../images/tabs_hover_bg.jpg") repeat-x right top;
 }
 .browseNav .active a:hover {
-    background:url("<?php echo $configArray['Site']['path'];?>/images/tab_active_bg.jpg") repeat-x right top;
+    background:url("../../../../images/tab_active_bg.jpg") repeat-x right top;
 }
 
 .browseNav a.first {
@@ -1151,7 +1146,7 @@ alignleft {
 .browseNav .active {
 }
 .browseNav .active a {
-    background-image:url("<?php echo $configArray['Site']['path'];?>/images/tab_active_bg.jpg");
+    background-image:url("../../../../images/tab_active_bg.jpg");
     color:#000;
 }
 
@@ -1162,7 +1157,7 @@ alignleft {
     margin-left:-8px;
     width:17px;
     height:15px;
-    background:url("<?php echo $configArray['Site']['path'];?>/images/tab_active_arrow.jpg") left top no-repeat;
+    background:url("../../../../images/tab_active_arrow.jpg") left top no-repeat;
 }
 
 .configEditor {

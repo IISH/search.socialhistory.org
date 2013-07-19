@@ -16,7 +16,7 @@
 
         ul.tree, ul.tree ul {
             list-style-type: none;
-            background: url('/images/vline.png') repeat-y;
+            background: #ffffff url('/images/vline.png') repeat-y;
             margin: 0;
             padding: 0;
         }
@@ -30,13 +30,12 @@
             margin: 0;
             padding: 0 12px;
             line-height: 20px;
-            background: url('/images/node.png') no-repeat;
+            background: #ffffff url('/images/node.png') no-repeat;
             color: #369;
-            font-weight: bold;
         }
 
         ul.tree li.last {
-            background: #fff url('/images/lastnode.png') no-repeat;
+            background: #ffffff url('/images/lastnode.png') no-repeat;
         }
     </style>
     <script type="text/javascript">
@@ -52,6 +51,7 @@
     {/literal}
 </head>
 
-<body>{$ead}</body>
+<body>{$ead}
+</body>
 
 </html>

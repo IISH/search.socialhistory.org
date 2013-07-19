@@ -7,7 +7,7 @@
 <xsl:stylesheet version="1.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:ead="urn:isbn:1-931666-22-9"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink"
                 xsi:schemaLocation="urn:isbn:1-931666-22-9 http://www.loc.gov/ead/ead.xsd"
                 xmlns:php="http://php.net/xsl"
                 exclude-result-prefixes="xsl ead xsi php">
@@ -31,7 +31,7 @@
         <xsl:call-template name="navigation"/>
         <xsl:if test="$digital_items>0">
             <xsl:variable name="handle" select="//ead:daogrp[1]/ead:daoloc[@label='thumbnail']/@href"/>
-            <div id="teaser" style="float:right;padding-right:25px">
+            <div id="teaser">
                 <img src="{$handle}"/>
                 <p>
                     <xsl:call-template name="language">
@@ -40,7 +40,7 @@
                 </p>
             </div>
         </xsl:if>
-        <div id="arch"><h1><xsl:value-of select="$title"/></h1>
+        <div id="arch">
             <table>
                 <xsl:call-template name="creator"/>
                 <xsl:call-template name="secondcreator"/>
@@ -60,7 +60,7 @@
             <script type="text/javascript">
                 (function() {
                 var urls=[
-                <xsl:for-each select="//ead:daogrp/ead:daoloc[@label='thumbnail'][1]/@href">
+                <xsl:for-each select="//ead:daogrp/ead:daoloc[@label='thumbnail'][1]/@xlink:href">
                     '<xsl:value-of select="."/>'
                     <xsl:if test="not(position()=last())">,</xsl:if>
                 </xsl:for-each>

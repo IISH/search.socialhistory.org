@@ -120,8 +120,8 @@ function addFavorite(handle, title) {
               <li{if $tab == 'Details'} class="active"{/if}>
                 <a href="{$url}/Record/{$id|escape:"url"}/Details#tabnav" class="first"><span></span>{translate text='Staff View'}</a>
               </li>
-            </ul><div style="clear:both;"></div>
-        </div>
+            </ul>
+        </div><div style="clear:both;"></div>
         <div class="recordsubcontent">
         {include file="Record/$subTemplate"}
     </div>

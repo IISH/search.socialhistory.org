@@ -1,26 +1,5 @@
-<?php
-Header
-
-(
-"Content-type: text/css"
-)
-;
-$configArray
-
-=
-parse_ini_file
-
-(
-'../../../../conf/config.ini'
-,
-true
-
-)
-;
-?>
-
 .archives {
-    background-image: url(<?php echo $configArray[ 'Site' ][ 'path' ];?>/interface/themes/default/images/silk/package.png );
+    background-image: url(../../../../interface/themes/default/images/silk/package.png );
     background-repeat: no-repeat;
     background-position: left top;
     padding: 0 .5em .5em 20px;
@@ -28,7 +7,7 @@ true
 }
 
 .musicandsound {
-    background-image: url(<?php echo $configArray[ 'Site' ][ 'path' ];?>/interface/themes/default/images/silk/music.png );
+    background-image: url(../../../../interface/themes/default/images/silk/music.png );
     background-repeat: no-repeat;
     background-position: left top;
     padding: 0 .5em .5em 20px;
@@ -36,7 +15,7 @@ true
 }
 
 .booksandbrochures {
-    background-image: url(<?php echo $configArray[ 'Site' ][ 'path' ];?>/interface/themes/default/images/silk/book.png );
+    background-image: url(../../../../interface/themes/default/images/silk/book.png );
     background-repeat: no-repeat;
     background-position: left top;
     padding: 0 .5em .5em 20px;
@@ -44,7 +23,7 @@ true
 }
 
 .documentation {
-    background-image: url(<?php echo $configArray[ 'Site' ][ 'path' ];?>/interface/themes/default/images/silk/list.png );
+    background-image: url(../../../../interface/themes/default/images/silk/list.png );
     background-repeat: no-repeat;
     background-position: left top;
     padding: 0 .5em .5em 20px;
@@ -52,7 +31,7 @@ true
 }
 
 .serials {
-    background-image: url(<?php echo $configArray[ 'Site' ][ 'path' ];?>/interface/themes/default/images/silk/newspaper.png );
+    background-image: url(../../../../interface/themes/default/images/silk/newspaper.png );
     background-repeat: no-repeat;
     background-position: left top;
     padding: 0 .5em .5em 20px;
@@ -60,7 +39,7 @@ true
 }
 
 .visualdocuments {
-    background-image: url(<?php echo $configArray[ 'Site' ][ 'path' ];?>/interface/themes/default/images/silk/picture.png );
+    background-image: url(../../../../interface/themes/default/images/silk/picture.png );
     background-repeat: no-repeat;
     background-position: left top;
     padding: 0 .5em .5em 20px;
@@ -227,7 +206,7 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
 }
 
 .favorite {
-    background-image: url(<?php echo $configArray[ 'Site' ][ 'path' ];?>/interface/themes/default/images/silk/world.png );
+    background-image: url(../../../../interface/themes/default/images/silk/world.png );
     background-repeat: no-repeat;
     background-position: left;
     padding: .5em .5em .5em 20px;
@@ -235,7 +214,7 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
 }
 
 .fav {
-    background-image: url(<?php echo $configArray[ 'Site' ][ 'path' ];?>/interface/themes/default/images/silk/edit.png );
+    background-image: url(../../../../interface/themes/default/images/silk/edit.png );
     background-repeat: no-repeat;
     background-position: left;
     padding: .5em .5em .5em 20px;
@@ -246,77 +225,106 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
     width: 75em;
 }
 
-#tabnavarch {
-    float: left;
-    padding: 0 0 0 0;
-    border-bottom: 1px dotted #cccccc;
-    margin: 0 0 15px 0;
-    background-color: #e7e7e7;
-    width: 100%;
+#tabnav {
+    margin-top:2em;
+    height:34px;
+    width:100%;
+    padding:0 0 0 0;
+    background-color:#fafafa;
+    border-top:1px #eee solid;
+}
+#tabnav.search {
+    margin-top:0px;
+    margin-left: 15px;
+}
+#tabnav ul {
+    display:block;
+    margin:0;
+    padding:0px 0 0 1em;
+    list-style:none;
+    border-bottom: 1px #ccc solid;
+}
+#tabnav li {
+    position:relative;
+    display:block;
+    float:left;
+    margin:0;
+    padding:0 0 0px 0px;
+    border-bottom: 1px #ccc solid;
+}
+#tabnav a {
+    display:block;
+    background:url("../../../../images/tabs_bg.jpg") repeat-x right top;
+    padding:.7em 1em .7em 1em;
+    text-decoration:none;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #ccc;
+    color:#333;
 }
 
-#tabnavarch ul {
-    list-style: none;
+
+#tabnav a:hover {
+    background:url("../../../../images/tabs_hover_bg.jpg") repeat-x right top;
+}
+#tabnav .active a:hover {
+    background:url("../../../../images/tab_active_bg.jpg") repeat-x right top;
 }
 
-#tabnavarch li {
-    float: left;
-    padding: 0 0 0 10px;
+
+#tabnav a.first {
+    border-left: 1px solid #ccc;
 }
 
-#tabnavarch a {
-    float: left;
-    display: block;
-    padding: 18px 10px 10px 5px;
-    text-decoration: none;
-    font-weight: normal;
-    color: #000;
+#tabnav a:hover {
+
+}
+#tabnav .active {
+
+}
+#tabnav .active a {
+    background-image:url("../../../../images/tab_active_bg.jpg");
+    color:#000;
 }
 
-/* Commented Backslash Hack
-    hides rule from IE5-Mac \*/
-#tabnavarch a {
-    float: none;
-}
-
-/* End IE5-Mac hack */
-#tabnavarch a:hover {
-    color: #000;
-}
-
-#tabnavarch .active {
-    background: url("<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/subnavTab_left.png") no-repeat left top;
-    margin-bottom: -1px;
-}
-
-#tabnavarch .active a {
-    background: url("<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/subnavTab_right.png") no-repeat right top;
-    color: #000;
-    padding: 18px 10px 12px 0px;
+#tabnav .active a span {
+    position:absolute;
+    bottom:-15px;
+    left:50%;
+    margin-left:-8px;
+    width:17px;
+    height:15px;
+    background:url("../../../../images/tab_active_arrow.jpg") left top no-repeat;
 }
 
 #arch {
-    padding: 0 1.5em 0 1.5em;
-}
-
-#arch h1 {
-    font-size: 150%;
-    font-weight: normal;
-    color: #000;
-    padding-bottom: 1em;
+    padding: 2em 1.5em 0 1.5em;
 }
 
 #arch h2 {
+    font-size: 1.3em;
     font-weight: bold;
     padding-top: 25px;
 }
 
+#arch h2:first-child{
+    padding-top: 0;
+}
+
 #arch h3 {
+    font-size: 1.2em;
     font-weight: bold;
     padding-top: 25px;
 }
 
 #arch h4 {
+    font-size: 1.1em;
+    font-weight: bold;
+    padding-top: 25px;
+}
+
+#arch h5 {
+    font-size: 1.1em;
     font-weight: bold;
     padding-top: 25px;
 }
@@ -368,6 +376,12 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
     box-shadow: 0 0 5px #888;
 }
 
+
+#teaser {
+    float:right;
+    padding-right:25px;
+    padding-top:25px;
+}
 #teaser p {
     text-align: center;
 }
@@ -415,7 +429,7 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
     position: fixed;
     background-color: white;
     padding: 5px;
-    margin-left: 25px;
+    margin-left: 10px;
     left: 0;
     z-index: 888;
     width: 300px;

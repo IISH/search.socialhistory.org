@@ -2,6 +2,6 @@
   RewriteEngine Off
 </IfModule>
 
-# Dynamic CSS
-AddType application/x-httpd-php .css
+RemoveType .css
+AddType text/css .css
 

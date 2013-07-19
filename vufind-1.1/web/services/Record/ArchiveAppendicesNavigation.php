@@ -52,11 +52,11 @@ class ArchiveAppendicesNavigation extends Record
         $interface->assign('controller', 'ArchiveAppendices');
 
         if (!$interface->is_cached($this->cacheId)) {
-            $interface->setTemplate('archive-navigation.tpl');
+            $interface->setTemplate('RecordDrivers/Ead/archive-navigation.tpl');
         }
 
         // Display Page
-        $interface->display('archive-navigation.tpl', $this->cacheId);
+        $interface->display('RecordDrivers/Ead/archive-navigation.tpl', $this->cacheId);
     }
 }
 

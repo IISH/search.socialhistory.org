@@ -25,18 +25,9 @@
     </xsl:template>
 
     <xsl:template match="ead:ead">
-        <ul class="tree">
-            <xsl:for-each select="//ead:dsc">
-                <li>
-                    <xsl:apply-templates select="."/>
-                    <ul>
-                        <xsl:for-each select="ead:c01">
-                            <xsl:call-template name="cxx"/>
-                        </xsl:for-each>
-                    </ul>
-                </li>
+            <xsl:for-each select="//ead:dsc[1]/ead:c01">
+                <xsl:call-template name="cxx"/>
             </xsl:for-each>
-        </ul>
     </xsl:template>
 
     <xsl:template name="cxx">
@@ -45,6 +36,7 @@
         </xsl:variable>
         <xsl:if test="ext:node-set($value)/li">
             <ul>
+                <xsl:if test="name()='c01'"><xsl:attribute name="class">tree</xsl:attribute></xsl:if>
                 <xsl:copy-of select="$value"/>
                 <xsl:for-each select="*[starts-with(name(), 'c')]">
                     <xsl:call-template name="cxx"/>
@@ -58,7 +50,7 @@
             <xsl:with-param name="value">
                 <xsl:value-of select="normalize-space(ead:head)"/>
             </xsl:with-param>
-            <xsl:with-param name="tag" select="name(../..)"/>
+            <xsl:with-param name="tag" select="../../../ead:did/ead:unittitle/text()"/>
         </xsl:call-template>
     </xsl:template>
 
@@ -113,7 +105,7 @@
                         <xsl:with-param name="value">
                             <xsl:apply-templates/>
                         </xsl:with-param>
-                        <xsl:with-param name="tag" select="name(../..)"/>
+                        <xsl:with-param name="tag" select="../../../ead:did/ead:unittitle/text()"/>
                     </xsl:call-template>
                 </li>
             </xsl:when>
@@ -128,7 +120,7 @@
                                 <xsl:with-param name="value">
                                     <xsl:apply-templates/>
                                 </xsl:with-param>
-                                <xsl:with-param name="tag" select="name(../..)"/>
+                                <xsl:with-param name="tag" select="../../../ead:did/ead:unittitle/text()"/>
                             </xsl:call-template>
                         </li>
                     </xsl:when>
@@ -138,7 +130,7 @@
                                 <xsl:with-param name="value">
                                     <xsl:apply-templates/>
                                 </xsl:with-param>
-                                <xsl:with-param name="tag" select="name(../..)"/>
+                                <xsl:with-param name="tag" select="../../../ead:did/ead:unittitle/text()"/>
                             </xsl:call-template>
                         </li>
                     </xsl:when>
@@ -148,7 +140,7 @@
                                 <xsl:with-param name="value">
                                     <xsl:apply-templates/>
                                 </xsl:with-param>
-                                <xsl:with-param name="tag" select="name(../..)"/>
+                                <xsl:with-param name="tag" select="../../../ead:did/ead:unittitle/text()"/>
                             </xsl:call-template>
                         </li>
                     </xsl:when>

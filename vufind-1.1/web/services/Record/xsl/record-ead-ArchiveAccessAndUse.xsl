@@ -27,7 +27,6 @@
     <xsl:template match="ead:ead">
         <xsl:call-template name="navigation"/>
         <div id="arch">
-            <h1><xsl:value-of select="$title"/></h1>
             <table>
                 <xsl:call-template name="access"/>
                 <xsl:call-template name="userestrict"/>

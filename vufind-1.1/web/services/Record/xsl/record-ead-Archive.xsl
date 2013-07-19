@@ -7,11 +7,11 @@
 <xsl:stylesheet version="1.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:ead="urn:isbn:1-931666-22-9"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink"
                 xsi:schemaLocation="urn:isbn:1-931666-22-9 http://www.loc.gov/ead/ead.xsd"
                 xmlns:ext="http://exslt.org/common"
                 xmlns:php="http://php.net/xsl"
-                exclude-result-prefixes="xsl ead xsi ext php">
+                exclude-result-prefixes="xsl ead xsi ext php xlink">
 
     <xsl:output method="xml" omit-xml-declaration="yes" encoding="UTF-8" indent="no"/>
 
@@ -64,14 +64,24 @@
                 <item>ArchiveAppendices</item>
             </xsl:if>
         </xsl:variable>
-        <div id="tabnavarch">
+
+        <xsl:if test="$title">
+            <h1 style="margin: 1em 0 0 1em">
+                <xsl:value-of select="$title"/>
+            </h1>
+        </xsl:if>
+
+        <div id="tabnav">
             <ul>
                 <xsl:for-each select="ext:node-set($items)/item">
                     <li>
                         <xsl:if test=".=$action">
                             <xsl:attribute name="class">active</xsl:attribute>
                         </xsl:if>
-                        <a href="{concat($baseUrl, '/', .)}">
+                        <a href="{concat($baseUrl, '/', .)}" class="first">
+                            <span>
+                                <xsl:text> </xsl:text>
+                            </span>
                             <xsl:call-template name="language">
                                 <xsl:with-param name="key" select="."/>
                             </xsl:call-template>
@@ -80,6 +90,7 @@
                 </xsl:for-each>
             </ul>
         </div>
+
     </xsl:template>
 
     <xsl:template name="language">
@@ -101,10 +112,12 @@
         </p>
     </xsl:template>
 
-    <xsl:template match="ead:emph">
+    <xsl:template match="ead:title | ead:emph">
+        <xsl:if test="node()">
         <i>
             <xsl:apply-templates select="node()"/>
         </i>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template match="ead:list">
@@ -137,14 +150,18 @@
 
     <xsl:template match="ead:extref">
         <a href="{@href}" target="_blank">
+            <xsl:if test="@label">
+                <xsl:attribute name="label">
+                    <xsl:value-of select="@label"/>
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:if test="@title">
+                <xsl:attribute name="title">
+                    <xsl:value-of select="@title"/>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:apply-templates select="node()"/>
         </a>
-    </xsl:template>
-
-    <xsl:template match="ead:title">
-        <i>
-            <xsl:apply-templates select="node()"/>
-        </i>
     </xsl:template>
 
     <xsl:template match="ead:lb">
@@ -160,14 +177,14 @@
 
     <xsl:template match="ead:daogrp">
         [
-        <a href="{ead:daoloc[@label='pdf']/@href}" target="_blank">
+        <a href="{ead:daoloc[@label='pdf']/@xlink:href}" target="_blank">
             <xsl:call-template name="language">
                 <xsl:with-param
                         name="key" select="'ArchiveContentList.pdf'"/>
             </xsl:call-template>
         </a>
         |
-        <span class="m" title="{ead:daoloc[@label='mets']/@href}">
+        <span class="m" title="{ead:daoloc[@label='mets']/@xlink:href}">
             <xsl:call-template name="language">
                 <xsl:with-param
                         name="key" select="'ArchiveContentList.view'"/>

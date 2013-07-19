@@ -1,27 +1,31 @@
 {if $tab=='ArchiveContentList' || $tab=='ArchiveAppendices'}
-    <iframe id="archnav" src="{$baseUrl}/{$tab}Navigation"></iframe>
-{/if}
-
-{$ead}
-
-{if $tab=='ArchiveContentList' || $tab=='ArchiveAppendices'}
+    <iframe id="archnav"></iframe>
     {literal}
         <script type='text/javascript'>
 
             var archnav = $('#archnav');
-            var position = $('#tabnavarch').position();
-            var w = position.left - 60;
+            var position = $('#bd').position();
+            var offsetW = position.left - 35;
             var marker = position.top;   // Do not go lower than this one.
             position = marker;
-            var offset = $('body').height() - position - 50;
+
+            var treeTop = $('body').height() - position - 50;
+            archnav.load(function(){
+                treeTop = $(this).contents().find('.tree').children().last().position().top + 30;
+                console.log("Set treeTop to " + treeTop);
+                s();
+            });
+
             function s() {
-                w = $('#tabnavarch').position().left - 60;
+                offsetW = $('#bd').position().left - 35;
                 var h = $('body').height() - position - 50;
-                if (w > 200)
-                    archnav.css({'display': 'block', 'height': h + 'px', width: w + 'px' });
+                if ( h > treeTop ) h = treeTop ;
+                if (offsetW > 50)
+                    archnav.css({'display': 'block', 'height': h + 'px', width: offsetW + 'px' });
                 else
                     archnav.css({'display': 'none'});
             }
+
             $(window).resize(s);
             $(window).scroll(function () {
                 var scrollTop = $(window).scrollTop();
@@ -30,10 +34,16 @@
                 archnav.css('top', position + 'px');
                 s();
             });
-            s();
+            //s();
+
+            $("#archnav").attr('src','{/literal}{$baseUrl}/{$tab}{literal}Navigation');
         </script>
     {/literal}
 {/if}
+
+{$ead}
+
+
 
 {literal}
     <script type='text/javascript'>

@@ -26,7 +26,7 @@
 
     <xsl:template match="ead:ead">
         <xsl:call-template name="navigation"/>
-        <div id="arch"><h1><xsl:value-of select="$title"/></h1>
+        <div id="arch">
             <table>
                 <xsl:call-template name="persname"/>
                 <xsl:call-template name="corpname"/>

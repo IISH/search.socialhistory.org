@@ -52,11 +52,11 @@ class ArchiveContentListNavigation extends Record
         $interface->assign('controller', 'ArchiveContentList');
         
         if (!$interface->is_cached($this->cacheId)) {
-            $interface->setTemplate('archive-navigation.tpl');
+            $interface->setTemplate('RecordDrivers/Ead/archive-navigation.tpl');
         }
 
         // Display Page
-        $interface->display('archive-navigation.tpl', $this->cacheId);
+        $interface->display('RecordDrivers/Ead/archive-navigation.tpl', $this->cacheId);
     }
 }
 
