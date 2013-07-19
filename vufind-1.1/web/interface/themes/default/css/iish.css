@@ -369,8 +369,17 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
     vertical-align: top;
 }
 
-#arch .i {
-    word-wrap: break-word;
+#arch .kfile {
+    float:left;
+}
+#arch .vfile {
+    margin-left:75px;
+}
+#arch .kitem {
+    float:left;margin-left:75px;
+}
+#arch .vitem {
+    margin-left:150px;
 }
 
 #arch .b {

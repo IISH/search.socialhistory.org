@@ -60,27 +60,12 @@
     <xsl:template
             match="ead:c01|ead:c02|ead:c03|ead:c04|ead:c05|ead:c06|ead:c07|ead:c08|ead:c09|ead:c10|ead:c11|ead:c12"
             mode="l">
-        <xsl:variable name="level" select="substring(local-name(),2)"/>
         <xsl:choose>
             <xsl:when test="@level = 'series' or @level = 'subseries'">
                 <xsl:apply-templates select="*[not(starts-with(name(),'c'))]"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:variable name="offset">
-                    <xsl:call-template name="parent">
-                        <xsl:with-param name="c" select="parent::node()"/>
-                    </xsl:call-template>
-                </xsl:variable>
-                <xsl:variable name="size">
-                    <xsl:choose>
-                        <xsl:when test="string-length(normalize-space(ead:did/ead:unitid)) &lt; 8">60</xsl:when>
-                        <xsl:otherwise>80</xsl:otherwise>
-                    </xsl:choose>
-                </xsl:variable>
-                <xsl:variable name="indent" select="($level - $offset - 1) * $size"/>
-                <xsl:variable name="indent2" select="($level - $offset - 1) * $size+60"/>
-                <div style="float:left;margin-left:{$indent}px;"><a class="b" name="{ead:did/ead:unitid}"><xsl:apply-templates select="ead:did/ead:unitid"/>.</a>
-                </div>
+
                 <xsl:variable name="t">
                     <xsl:choose>
                         <xsl:when test="count(ead:did/ead:unittitle) &lt; 2">
@@ -97,27 +82,16 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>
+
+                <div class="k{@level}">
+                    <a class="b" name="{ead:did/ead:unitid}"><xsl:apply-templates select="ead:did/ead:unitid"/>.</a>
+                </div>
                 <xsl:if test="string-length($t)>1">
-                    <div class="i" style="margin-left:{$indent2}px;">
+                    <div class="v{@level}">
                         <xsl:copy-of select="$t"/>
                     </div>
                 </xsl:if>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
 
-    <xsl:template name="parent">
-        <xsl:param name="c"/>
-        <xsl:choose>
-            <xsl:when test="$c[@level = 'series' or @level = 'subseries']">
-                <xsl:value-of select="substring(local-name($c), 2)"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:if test="not(name($c)='ead')">
-                    <xsl:call-template name="parent">
-                        <xsl:with-param name="c" select="$c/parent::*"/>
-                    </xsl:call-template>
-                </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
