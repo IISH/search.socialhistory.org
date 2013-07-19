@@ -79,17 +79,11 @@
                 </xsl:variable>
                 <xsl:variable name="indent" select="($level - $offset - 1) * $size"/>
                 <xsl:variable name="indent2" select="($level - $offset - 1) * $size+60"/>
-                <div style="float:left;margin-left:{$indent}px;"><xsl:apply-templates select="ead:did/ead:unitid"/>.
+                <div style="float:left;margin-left:{$indent}px;"><a class="b" name="{ead:did/ead:unitid}"><xsl:apply-templates select="ead:did/ead:unitid"/>.</a>
                 </div>
-                <div style="margin-left:{$indent2}px;word-wrap: break-word;">
-                    <!--<xsl:apply-templates select="ead:did/*[not(local-name() = 'unitid')]"/>-->
+                <xsl:variable name="t">
                     <xsl:choose>
-                        <xsl:when test="count(ead:did/ead:unittitle) = 0">
-                            <xsl:text> empty </xsl:text>
-                            <!-- no unittitle -->
-                            <xsl:apply-templates select="ead:did/*[not(local-name() = 'unitid')]"/>
-                        </xsl:when>
-                        <xsl:when test="count(ead:did/ead:unittitle) = 1">
+                        <xsl:when test="count(ead:did/ead:unittitle) &lt; 2">
                             <xsl:apply-templates select="ead:did/*[not(local-name() = 'unitid')]"/>
                         </xsl:when>
                         <xsl:otherwise>
@@ -102,8 +96,12 @@
                             </ul>
                         </xsl:otherwise>
                     </xsl:choose>
-                </div>
-                <!--<xsl:apply-templates select="*[not(name()='did')]" mode="l"/>-->
+                </xsl:variable>
+                <xsl:if test="string-length($t)>1">
+                    <div class="i" style="margin-left:{$indent2}px;">
+                        <xsl:copy-of select="$t"/>
+                    </div>
+                </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -206,13 +204,14 @@
     </xsl:template>
 
     <xsl:template match="ead:p">
-        <xsl:text> </xsl:text>
+        <xsl:text></xsl:text>
         <xsl:apply-templates/>
-        <xsl:text> </xsl:text>
+        <xsl:text></xsl:text>
     </xsl:template>
 
     <xsl:template match="ead:extent">
-        <xsl:text> </xsl:text><xsl:value-of select="normalize-space(text())"/>
+        <xsl:text></xsl:text>
+        <xsl:value-of select="normalize-space(text())"/>
     </xsl:template>
 
 </xsl:stylesheet>

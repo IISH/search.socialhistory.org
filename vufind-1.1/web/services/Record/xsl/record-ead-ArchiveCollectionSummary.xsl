@@ -30,7 +30,7 @@
     <xsl:template match="ead:ead">
         <xsl:call-template name="navigation"/>
         <xsl:if test="$digital_items>0">
-            <xsl:variable name="handle" select="//ead:daogrp[1]/ead:daoloc[@label='thumbnail']/@href"/>
+            <xsl:variable name="handle" select="//ead:daogrp[1]/ead:daoloc[@xlink:label='thumbnail']/@xlink:href"/>
             <div id="teaser">
                 <img src="{$handle}"/>
                 <p>
@@ -60,7 +60,7 @@
             <script type="text/javascript">
                 (function() {
                 var urls=[
-                <xsl:for-each select="//ead:daogrp/ead:daoloc[@label='thumbnail'][1]/@xlink:href">
+                <xsl:for-each select="//ead:daogrp/ead:daoloc[@xlink:label='thumbnail'][1]/@xlink:href">
                     '<xsl:value-of select="."/>'
                     <xsl:if test="not(position()=last())">,</xsl:if>
                 </xsl:for-each>

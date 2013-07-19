@@ -1,3 +1,11 @@
+.searchHomeBrowseHeader {
+    font-size: 1em;
+}
+
+.searchHomeBrowseInner {
+    font-size: 1em;
+}
+
 .archives {
     background-image: url(../../../../interface/themes/default/images/silk/package.png );
     background-repeat: no-repeat;
@@ -359,6 +367,14 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
 
 #arch table th, td {
     vertical-align: top;
+}
+
+#arch .i {
+    word-wrap: break-word;
+}
+
+#arch .b {
+    color:#000000;
 }
 
 .metsiframe {

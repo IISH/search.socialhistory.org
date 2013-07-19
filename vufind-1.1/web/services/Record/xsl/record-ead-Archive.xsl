@@ -149,15 +149,15 @@
     </xsl:template>
 
     <xsl:template match="ead:extref">
-        <a href="{@href}" target="_blank">
-            <xsl:if test="@label">
+        <a href="{@xlink:href}" target="_blank">
+            <xsl:if test="@xlink:label">
                 <xsl:attribute name="label">
-                    <xsl:value-of select="@label"/>
+                    <xsl:value-of select="@xlink:label"/>
                 </xsl:attribute>
             </xsl:if>
-            <xsl:if test="@title">
+            <xsl:if test="@xlink:title">
                 <xsl:attribute name="title">
-                    <xsl:value-of select="@title"/>
+                    <xsl:value-of select="@xlink:title"/>
                 </xsl:attribute>
             </xsl:if>
             <xsl:apply-templates select="node()"/>
@@ -177,14 +177,14 @@
 
     <xsl:template match="ead:daogrp">
         [
-        <a href="{ead:daoloc[@label='pdf']/@xlink:href}" target="_blank">
+        <a href="{ead:daoloc[@xlink:label='pdf']/@xlink:href}" target="_blank">
             <xsl:call-template name="language">
                 <xsl:with-param
                         name="key" select="'ArchiveContentList.pdf'"/>
             </xsl:call-template>
         </a>
         |
-        <span class="m" title="{ead:daoloc[@label='mets']/@xlink:href}">
+        <span class="m" title="{ead:daoloc[@xlink:label='mets']/@xlink:href}">
             <xsl:call-template name="language">
                 <xsl:with-param
                         name="key" select="'ArchiveContentList.view'"/>
