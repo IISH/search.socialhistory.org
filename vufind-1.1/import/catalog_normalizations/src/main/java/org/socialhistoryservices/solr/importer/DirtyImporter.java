@@ -97,8 +97,13 @@ public class DirtyImporter {
 
     private void sendSolrDocument(byte[] record) throws IOException {
 
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream(record.length+11)  ;
+        baos.write("<add>".getBytes());
+        baos.write(record)  ;
+        baos.write("</add>".getBytes()) ;
+
         final PostMethod post = new PostMethod(url);
-        final RequestEntity entity = new ByteArrayRequestEntity(record, "text/xml; charset=utf-8");
+        final RequestEntity entity = new ByteArrayRequestEntity(baos.toByteArray(), "text/xml; charset=utf-8");
         post.setRequestEntity(entity);
         log.info("Sending " + ++counter);
         try {

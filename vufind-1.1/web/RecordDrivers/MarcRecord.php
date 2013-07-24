@@ -334,7 +334,7 @@ class MarcRecord extends IndexRecord
             $xml->record->addAttribute(
                 'xsi:schemaLocation',
                 'http://www.loc.gov/MARC21/slim ' .
-                    'http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd',
+                'http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd',
                 'http://www.w3.org/2001/XMLSchema-instance'
             );
             $xml->record->addAttribute('type', 'Bibliographic');
@@ -474,8 +474,8 @@ class MarcRecord extends IndexRecord
      * array will contain separate entries for separate subfields.
      *
      * @param string $field     The MARC field number to read
-     * @param array  $subfields The MARC subfield codes to read
-     * @param bool   $concat    Should we concatenate subfields?
+     * @param array $subfields The MARC subfield codes to read
+     * @param bool $concat    Should we concatenate subfields?
      *
      * @return array
      * @access protected
@@ -522,7 +522,7 @@ class MarcRecord extends IndexRecord
      * If multiple subfields are specified, they will be concatenated together.
      *
      * @param string $field     The MARC field to read
-     * @param array  $subfields The MARC subfield codes to read
+     * @param array $subfields The MARC subfield codes to read
      *
      * @return string
      * @access private
@@ -747,8 +747,8 @@ class MarcRecord extends IndexRecord
      * will contain a separate entry for each subfield value found.
      *
      * @param object $currentField Result from File_MARC::getFields.
-     * @param array  $subfields    The MARC subfield codes to read
-     * @param bool   $concat       Should we concatenate subfields?
+     * @param array $subfields    The MARC subfield codes to read
+     * @param bool $concat       Should we concatenate subfields?
      *
      * @return array
      * @access private
@@ -909,32 +909,21 @@ class MarcRecord extends IndexRecord
         $tpl = parent::getCoreMetadata();
         global $interface;
         $coreCollector = $this->getCollector();
-        //$coreHolding = $this->getHolding();
         $coreIsShownAt = $this->getIsShownAt();
         $coreIsShownBy = $this->getIsShowBy();
         $interface->assign('coreIsShownAt', $coreIsShownAt);
         $interface->assign('coreIsShownBy', $coreIsShownBy);
-        //$interface->assign('coreHolding', $coreHolding);
         $interface->assign('coreFavorite', $this->getFavorite());
         $interface->assign('coreMainAuthorRole', $this->MainAuthorRole());
         $interface->assign('coreClassification', $this->CoreClassification());
         $interface->assign('coreCollector', $coreCollector);
 
-        // Main authorship
-        $interface->assign('coreMarc100', $this->getMarc1xx('100'));
-        $interface->assign('coreMarc100Role', $this->getMainMarcxxxRole('100'));
-        $interface->assign('coreMarc110', $this->getMarc1xx('110'));
-        $interface->assign('coreMarc110Role', $this->getMainMarcxxxRole('110'));
-        $interface->assign('coreMarc111', $this->getMarc1xx('111'));
-        $interface->assign('coreMarc111Role', $this->getMainMarcxxxRole('111'));
-
-        // Secondary authorship
-        $interface->assign('coreMarc700', $this->getMarc7xx('700'));
-        $interface->assign('coreMarc700Role', $this->getMainMarcxxxRole('700'));
-        $interface->assign('coreMarc710', $this->getMarc7xx('710'));
-        $interface->assign('coreMarc710Role', $this->getMainMarcxxxRole('710'));
-        $interface->assign('coreMarc711', $this->getMarc7xx('711'));
-        $interface->assign('coreMarc711Role', $this->getMainMarcxxxRole('711'));
+        $authors = array();
+        foreach (array(100, 110, 111, 700, 710, 711) as $tag) {
+            $key = 'author' . $tag;
+            $this->authorship($authors, $tag, $key);
+        }
+        $interface->assign('authors', $authors);
 
         // Journal article reference
         $interface->assign('coreArticle', $this->getMarc773('773'));
@@ -944,6 +933,49 @@ class MarcRecord extends IndexRecord
 
         $this->getExtendedMetadata();
         return $tpl;
+    }
+
+    /*
+     * authorship
+     *
+     * Group all author names under the same type:
+     * type 1: [author1, author2, author 3] ,
+     * type 2: [author 1, author2, author 3]
+     */
+    private function authorship(&$authors, $tag, $default_e)
+    {
+        $fields = $this->marcRecord->getFields($tag);
+        foreach ($fields as $field) {
+            $subfields = $field->getSubfields();
+            $name = "";
+            $role = $default_e;
+            $link = "" ;
+            foreach ($subfields as $subfield) {
+                switch ($subfield->getCode()) {
+                    case "a":
+                        $link=$subfield->getData();
+                    case "b":
+                    case "c":
+                    case "d":
+                        $name = $name . $subfield->getData() . ' ';
+                        break;
+                    case "e":
+                        $role = $this->normalize($subfield->getData());
+                        break;
+                }
+            }
+            if ( $name ) {
+                //$item = array("name"=>trim($name), "link"=>$link) ;
+                if ( $authors[$role] )
+                    array_push($authors[$role], trim($name));
+                else
+                    $authors[$role] = trim($name);
+            }
+        }
+    }
+
+    private function normalize($text){
+        return ucfirst(str_replace(array('.'), '', $text ) );
     }
 
     private function getIsShownAt()
@@ -1006,7 +1038,7 @@ class MarcRecord extends IndexRecord
         $holdings = array();
         $key = null;
         $datafields = $this->marcRecord->getFields();
-        $i = 1 ;
+        $i = 1;
         foreach ($datafields as $datafield) {
             $tag = $datafield->getTag();
             if ($tag == "852") {
@@ -1026,7 +1058,9 @@ class MarcRecord extends IndexRecord
                 $subfield = $datafield->getSubfield('a');
                 if ($subfield)
                     $holdings[$key]['note'] = $subfield->getData();
-            } else if ( $tag == "866" && !$key ) {print("Key was null ");}
+            } else if ($tag == "866" && !$key) {
+                print("Key was null ");
+            }
         }
         return $holdings;
     }
@@ -1063,16 +1097,6 @@ class MarcRecord extends IndexRecord
         return $configArray['IISH']['oaiPrefix'] . $id;
     }
 
-    private function getMarc1xx($field)
-    {
-        return $this->_getFirstFieldValue($field, array('a', 'b', 'c', 'd'));
-    }
-
-    private function getMarc7xx($field)
-    {
-        return $this->_getFieldArray($field, array('a', 'b', 'c', 'd'));
-    }
-
     protected function getMainMarcxxxRole($field)
     {
         return $this->_getFirstFieldValue($field, array('e'));
@@ -1081,8 +1105,8 @@ class MarcRecord extends IndexRecord
     private function getMarc773($field)
     {
         $a = $this->_getFirstFieldValue($field, array('a'));
-        $g =  $this->_getFirstFieldValue($field, array('g'));
-        if ( $a && $g ) return $a . ", " . $g ;
+        $g = $this->_getFirstFieldValue($field, array('g'));
+        if ($a && $g) return $a . ", " . $g;
         return ($a) ? $a : $g;
     }
 
