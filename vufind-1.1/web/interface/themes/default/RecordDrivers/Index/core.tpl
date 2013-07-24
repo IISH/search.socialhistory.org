@@ -123,7 +123,7 @@
             <th>{translate text=$role}:</th>
             <td>
                 {foreach from=$authorGroup item=author name=loop}
-                    <a href="{$url}/Author/Home?author={$author|escape:"url"}">{$author}</a>
+                    <a href="{$url}/Author/Home?author={$author.link|escape:"url"}">{$author.name}</a>
                     {if !$smarty.foreach.loop.last}<br/>{/if}
                 {/foreach}
             </td>

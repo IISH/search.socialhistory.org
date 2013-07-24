@@ -960,22 +960,24 @@ class MarcRecord extends IndexRecord
                         $name = $name . $subfield->getData() . ' ';
                         break;
                     case "e":
-                        $role = $this->normalize($subfield->getData());
+                        $role = $subfield->getData();
                         break;
                 }
             }
             if ( $name ) {
-                //$item = array("name"=>trim($name), "link"=>$link) ;
+                $item = array("name"=>$this->normalize(trim($name)), "link"=>$link) ;
                 if ( $authors[$role] )
-                    array_push($authors[$role], trim($name));
+                    array_push($authors[$role], $item);
                 else
-                    $authors[$role] = trim($name);
+                    $authors[$role] = array($item);
             }
         }
     }
 
     private function normalize($text){
-        return ucfirst(str_replace(array('.'), '', $text ) );
+        $i = strlen($text) - 1;
+        if ( $text[$i] == '.' || $text[$i] == ',') $text = substr($text, 0, $i) ;
+        return ucfirst($text);
     }
 
     private function getIsShownAt()
