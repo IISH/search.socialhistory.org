@@ -960,7 +960,7 @@ class MarcRecord extends IndexRecord
                         $name = $name . $subfield->getData() . ' ';
                         break;
                     case "e":
-                        $role = $subfield->getData();
+                        $role = $this->normalize($subfield->getData());
                         break;
                 }
             }
