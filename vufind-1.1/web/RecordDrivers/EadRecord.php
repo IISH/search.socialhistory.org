@@ -108,8 +108,8 @@ class EadRecord extends MarcRecord
 
         // When using the navigation of ArchiveContentListNavigation we have many undesireable empty elements.
         // We remove them here.
-
-
+        global $configArray;
+        $interface->assign('visualmets_url', $configArray['IISH']['visualmets.url']);
         $interface->assign('ead', $ead);
         $interface->assign('baseUrl', '/Record/' . $this->getUniqueID());
         return 'RecordDrivers/Ead/core.tpl';

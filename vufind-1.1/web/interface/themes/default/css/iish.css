@@ -391,7 +391,7 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
     background-repeat: no-repeat;
     background-position: center;
     width:730px;
-    height:200px;
+    height:550px;
     background-color: #ffffff;
     border: 1px solid #888;
     margin: 5px 0 5px 0;
@@ -443,16 +443,19 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
     width: 100px;
 }
 
+.mets-embedded {
+    background: url("/images/ajax_spinner.gif") no-repeat center;
+    height: 550px;
+    margin: 1em 0 1em 0;
+}
+
 /*
 #arch tr:nth-child(even) {background: #f9f4f2}
 #arch tr:nth-child(odd) {background: #ffffff}*/
 
 #archnav {
-    background-image: url("/images/ajax_spinner.gif") ;
-    background-repeat: no-repeat;
-    background-position: center;
     position: fixed;
-    background-color: white;
+    background: white url("/images/ajax_spinner.gif") no-repeat center;
     padding: 5px;
     margin-left: 10px;
     left: 0;

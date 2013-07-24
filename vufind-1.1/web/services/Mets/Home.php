@@ -55,33 +55,10 @@ class Home extends Action
 
         $metsId = isset($_GET['metsId']) ? $_GET['metsId'] : null;
         if ($metsId == null) return $this->c404($metsId);
-
-        $doc = new DOMDocument();
-        try {
-            $doc->load($metsId);
-        } catch (Exception $e)  {
-            return $this->c404($e . ' : ' . $metsId);
-        }
-
-        if ( $doc == null || !$doc->documentElement) return $this->c404($metsId);
+        $interface->assign('metsId', $metsId);
 
         global $configArray;
-        $page = isset($_GET['page']) ? $_GET['page'] : 1;
-        $rows = isset($_GET['rows']) ? $_GET['rows'] : $configArray['IISH']['visualmets.rows'];
-
-        $style = new DOMDocument;
-        $style->load('services/Mets/ArchiveMets.xsl');
-        $xsl = new XSLTProcessor();
-        $xsl->importStylesheet($style);
-        $xsl->registerPHPFunctions('ArchiveUtil::translate');
-        $xsl->setParameter('', 'lang', $lang);
-        $xsl->setParameter('', 'metsId', $metsId);
-        $xsl->setParameter('', 'level', 'level3');
-        $xsl->setParameter('', 'page', $page);
-        $xsl->setParameter('', 'rows', $rows);
-        $xsl->setParameter('', 'visualmets', $configArray['IISH']['visualmets.url']);
-        $body = $xsl->transformToXML($doc);
-        $interface->assign('body', $body);
+        $interface->assign('visualmets_url', $configArray['IISH']['visualmets.url']);
         $interface->display('Mets/home.tpl');
     }
 
