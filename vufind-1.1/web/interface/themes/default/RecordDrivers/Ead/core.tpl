@@ -33,15 +33,13 @@
             archnav.css('top', position + 'px');
             s();
         });
-        //s();
 
         $("#archnav").attr('src', '{/literal}{$baseUrl}/{$tab}{literal}Navigation');
     </script>
 {/literal}
-    <link href="{$visualmets_url}/css/themes/default/style.css" rel="stylesheet" type="text/css" media="all"
+    <link href="{$visualmets_url}/resources/css/themes/default/style.css" rel="stylesheet" type="text/css" media="all"
           id="theme"/>
-    <script type="text/javascript" src="{$visualmets_url}/js/mets2viewer.min.js"></script>
-    <script type="text/javascript" src="{$visualmets_url}/js/init.js"></script>
+    <script type="text/javascript" src="{$visualmets_url}/resources/js/mets2viewer.min.js"></script>
 {/if}
 
 {$ead}
@@ -57,16 +55,20 @@
                 if ($(div).hasClass('mets-embedded'))
                     $(div).remove();
                 else
-                    $('<div class="mets-embedded"><div class="mets-container mets-hide"></div></div>').insertAfter(parent).find(">:first-child").mets2Viewer({
-                        initialize: {
-                            'metsId': metsId,
-                            'defaults': true,
-                            'pager': {
-                                'start': 0,
-                                'rows': -1
-                            }
-                        }
-                    });
+                    $('<div class="mets-embedded">' +
+                            '<div class="mets-container mets-hide"></div>' +
+                            '</div>')
+                            .insertAfter(parent).find(">:first-child").mets2Viewer({
+                                initialize: {
+                                    'metsId': metsId,
+                                    'defaults': true,
+                                    'url': '{/literal}{$visualmets_url}/document?{literal}',
+                                    'pager': {
+                                        'start': 0,
+                                        'rows': -1
+                                    }
+                                }
+                            });
 
                 return false;
             });
