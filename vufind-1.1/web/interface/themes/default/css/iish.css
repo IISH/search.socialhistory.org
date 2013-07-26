@@ -391,7 +391,7 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
     background-repeat: no-repeat;
     background-position: center;
     width:730px;
-    height:550px;
+    height:600px;
     background-color: #ffffff;
     border: 1px solid #888;
     margin: 5px 0 5px 0;
@@ -448,6 +448,12 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
     height: 550px;
     margin: 1em 0 1em 0;
 }
+
+/*.mets-logo-holder {
+	background: url("/images/logo.png") no-repeat center;
+	width:165px;
+	height:35px;
+}*/
 
 /*
 #arch tr:nth-child(even) {background: #f9f4f2}
