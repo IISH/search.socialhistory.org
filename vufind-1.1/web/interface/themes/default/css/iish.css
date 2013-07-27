@@ -411,6 +411,10 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
     text-align: center;
 }
 
+#teaser img {
+    cursor:pointer;
+}
+
 #mets {
     padding: 15px 15px 15px 15px;
 }

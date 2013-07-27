@@ -30,9 +30,8 @@
     <xsl:template match="ead:ead">
         <xsl:call-template name="navigation"/>
         <xsl:if test="$digital_items>0">
-            <xsl:variable name="handle" select="//ead:daogrp[1]/ead:daoloc[@xlink:label='thumbnail']/@xlink:href"/>
             <div id="teaser">
-                <img src="{$handle}"/>
+                <img src=""/>
                 <p>
                     <xsl:call-template name="language">
                         <xsl:with-param name="key">ArchiveCollectionSummary.image</xsl:with-param>
@@ -66,10 +65,11 @@
                 </xsl:for-each>
                 ];
                 function swap() {
-                //document.getElementById('thumbnail').setAttribute('src', urls[Math.round(Math.random() * urls.length)]);
                     $('#teaser img').attr('src', urls[Math.round(Math.random() * urls.length)]);
+                    setTimeout(swap, 5000);
                 }
-                setInterval(swap, 5000);
+                $('#teaser img').click(function(){swap()});
+                swap();
                 })();
             </script>
         </xsl:if>
