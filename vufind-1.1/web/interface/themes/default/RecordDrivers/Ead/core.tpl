@@ -66,7 +66,7 @@
                                     'url': '{/literal}{$visualmets_url}/document?{literal}',
                                     'pager': {
                                         'start': 0,
-                                        'rows': -1
+                                        'rows': 8
                                     }
                                 }
                             });
