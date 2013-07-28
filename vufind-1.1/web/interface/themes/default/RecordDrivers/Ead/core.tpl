@@ -11,7 +11,8 @@
 
         var treeTop = $('body').height() - position - 50;
         archnav.load(function () {
-            treeTop = $(this).contents().find('.tree').children().last().position().top + 30;
+            var tree = $(this).contents().find('.tree').children().last().position();
+            treeTop = ( tree ) ? tree.top + 30 : null;
             s();
         });
 
@@ -19,7 +20,7 @@
             offsetW = $('#bd').position().left - 35;
             var h = $('body').height() - position - 50;
             if (h > treeTop) h = treeTop;
-            if (offsetW > 50)
+            if (treeTop && offsetW > 50)
                 archnav.css({'display': 'block', 'height': h + 'px', width: offsetW + 'px' });
             else
                 archnav.css({'display': 'none'});
@@ -45,38 +46,39 @@
 {$ead}
 
 {literal}
-    <script type='text/javascript'>
-        $('.m').each(function () {
-            var metsId = encodeURI($(this).attr('title'));
-            var a = $('<a href="' + $(this).attr('title') + '">' + $(this).text() + '<\/a>');
-            $(a).click(function () {
-                var parent = $(this).parent();
-                var div = $(parent).next();
-                if ($(div).hasClass('mets-embedded'))
-                    $(div).remove();
-                else
-                    $('<div class="mets-embedded">' +
-                            '<div class="mets-container mets-hide"></div>' +
-                            '</div>')
-                            .insertAfter(parent).find(">:first-child").mets2Viewer({
-                                template: '{/literal}{$visualmets_url}/mets2.template.html?callback=?{literal}',
-                                initialize: {
-                                    'metsId': metsId,
-                                    'defaults': true,
-                                    'url': '{/literal}{$visualmets_url}/document?{literal}',
-                                    'pager': {
-                                        'start': 0,
-                                        'rows': 8
-                                    }
+<script type='text/javascript'>
+    $('.m').each(function () {
+        var metsId = encodeURI($(this).attr('title'));
+        var a = $('<a href="' + $(this).attr('title') + '">' + $(this).text() + '<\/a>');
+        $(a).click(function () {
+            var parent = $(this).parent();
+            var div = $(parent).next();
+            if ($(div).hasClass('mets-embedded'))
+                $(div).remove();
+            else {
+                $('div .mets-embedded').remove();
+                $('<div class="mets-embedded">' +
+                        '<div class="mets-container mets-hide"></div>' +
+                        '</div>')
+                        .insertAfter(parent).find(">:first-child").mets2Viewer({
+                            template: '{/literal}{$visualmets_url}/mets2.template.html?callback=?{literal}',
+                            initialize: {
+                                'metsId': metsId,
+                                'defaults': true,
+                                'url': '{/literal}{$visualmets_url}/document?{literal}',
+                                'pager': {
+                                    'start': 0,
+                                    'rows': {/literal}{$visualmets_rows}{literal}
                                 }
-                            });
+                            }
+                        });
+            }
+            return false;
+        });
 
-                return false;
-            });
-
-            $(a).insertAfter(this);
-            $(this).remove();
-        })
-    </script>
+        $(a).insertAfter(this);
+        $(this).remove();
+    })
+</script>
 {/literal}
 

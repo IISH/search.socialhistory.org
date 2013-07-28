@@ -110,6 +110,7 @@ class EadRecord extends MarcRecord
         // We remove them here.
         global $configArray;
         $interface->assign('visualmets_url', $configArray['IISH']['visualmets.url']);
+        $interface->assign('visualmets_rows', $configArray['IISH']['visualmets.rows']);
         $interface->assign('ead', $ead);
         $interface->assign('baseUrl', '/Record/' . $this->getUniqueID());
         return 'RecordDrivers/Ead/core.tpl';
