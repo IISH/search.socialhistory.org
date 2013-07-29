@@ -66,10 +66,13 @@
                 ];
                 function swap() {
                     $('#teaser img').attr('src', urls[Math.round(Math.random() * urls.length)]);
-                    setTimeout(swap, 5000);
                 }
-                $('#teaser img').click(function(){swap()});
                 swap();
+                $('#teaser img').click(function(){
+                    var src = this.src;
+                    document.location.href = src.substring(0, src.length-6) + 'catalog';
+                });
+                setInterval( swap, 5000 ) ;
                 })();
             </script>
         </xsl:if>
