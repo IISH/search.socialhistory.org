@@ -50,7 +50,8 @@
     $('.m').each(function () {
         var metsId = encodeURI($(this).attr('title'));
         var a = $('<a href="' + $(this).attr('title') + '">' + $(this).text() + '<\/a>');
-        $(a).click(function () {
+        $(a).click(function (event) {
+	    event.preventDefault();
             var parent = $(this).parent();
             var div = $(parent).next();
             if ($(div).hasClass('mets-embedded'))
@@ -74,7 +75,6 @@
                             }
                         });
             }
-            return false;
         });
 
         $(a).insertAfter(this);
