@@ -65,6 +65,7 @@
                             initialize: {
                                 'metsId': metsId,
                                 'defaults': true,
+				'height':'550px',
                                 'url': '{/literal}{$visualmets_url}/document?{literal}',
                                 'pager': {
                                     'start': 0,
