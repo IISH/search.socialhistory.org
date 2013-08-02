@@ -11,7 +11,6 @@
         position = marker;
 
         var treeTop = $('body').height() - position - 50;
-        if ( treeTop < 140 ) treeTop = 140 ;
         archnav.load(function () {
             var tree = $(this).contents().find('.tree').children().last().position();
             treeTop = ( tree ) ? tree.top + 30 : null;
@@ -22,6 +21,7 @@
             offsetW = $('#bd').position().left - 35;
             var h = $('body').height() - position - 50;
             if (h > treeTop) h = treeTop;
+            if ( h < 140 ) h = 140 ;
             if (treeTop && offsetW > 50)
                 archnav.css({'display': 'block', 'height': h + 'px', width: offsetW + 'px' });
             else
