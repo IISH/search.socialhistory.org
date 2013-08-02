@@ -131,18 +131,6 @@
     {/foreach}
 {/if}
 
-{if !empty($extendedNotes)}
-    {assign var=extendedContentDisplayed value=1}
-    <tr valign="top">
-        <th>{translate text='Item Description'}: </th>
-        <td>
-            {foreach from=$extendedNotes item=field name=loop}
-                {$field|escape}<br>
-            {/foreach}
-        </td>
-    </tr>
-{/if}
-
 {if !empty($corePeriod)}
     <tr valign="top">
         <th>{translate text='Period'}:</th>
@@ -450,10 +438,15 @@
     </tr>
 {/if}
 
-{if !empty($coreNotes)}
+{if !empty($extendedNotes)}
+    {assign var=extendedContentDisplayed value=1}
     <tr valign="top">
-        <th>{translate text='Notes'}:</th>
-        <td>{translate text=$coreNotes}</td>
+        <th>{translate text='Notes'}: </th>
+        <td>
+            {foreach from=$extendedNotes item=field name=loop}
+                {$field|escape}<br/>
+            {/foreach}
+        </td>
     </tr>
 {/if}
 

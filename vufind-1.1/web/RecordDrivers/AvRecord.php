@@ -76,8 +76,8 @@ class AvRecord extends MarcRecord
         global $interface;
         $barcode = $this->getBarcode();
         $interface->assign('coreBarcode', $barcode);
-        $coreNotes = $this->getNotes();
-        $interface->assign('coreNotes', $coreNotes);
+        //$coreNotes = $this->getNotes();
+        //$interface->assign('coreNotes', $coreNotes);
         $interface->assign('coreCopyrightA', $this->getCopyright('a'));
         $interface->assign('coreCopyrightB', $this->getCopyright('b'));
         $corePeriod = $this->getPeriod();
@@ -93,6 +93,8 @@ class AvRecord extends MarcRecord
         $interface->assign('coreMarc611', $this->getMeeting());
         $interface->assign('coreMarc650', $this->_getFieldArray('650'));
         $interface->assign('coreMarc651', $this->_getFieldArray('651'));
+
+        $this->getExtendedMetadata();
 
         return $tpl;
     }
@@ -110,12 +112,6 @@ class AvRecord extends MarcRecord
     {
         $barcode = $this->_getFirstFieldValue('852', array('p'));
         return $barcode;
-    }
-
-    private function getNotes()
-    {
-        $notes = $this->_getFirstFieldValue('500', array('a'));
-        return $notes;
     }
 
     private function getCopyRight($subfield)
