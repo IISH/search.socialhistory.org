@@ -3,6 +3,7 @@
 {literal}
     <script type='text/javascript'>
 
+        // Set the navigation width, height properties
         var archnav = $('#archnav');
         var position = $('#bd').position();
         var offsetW = position.left - 35;
@@ -10,6 +11,7 @@
         position = marker;
 
         var treeTop = $('body').height() - position - 50;
+        if ( treeTop < 140 ) treeTop = 140 ;
         archnav.load(function () {
             var tree = $(this).contents().find('.tree').children().last().position();
             treeTop = ( tree ) ? tree.top + 30 : null;
@@ -66,7 +68,7 @@
                             initialize: {
                                 'metsId': metsId,
                                 'defaults': true,
-				'height':'550px',
+				                'height':'550px',
                                 'url': '{/literal}{$visualmets_url}/document?{literal}',
                                 'pager': {
                                     'start': 0,
