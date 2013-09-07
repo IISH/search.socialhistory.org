@@ -36,9 +36,9 @@
         </xsl:variable>
         <xsl:if test="ext:node-set($value)/li">
             <ul>
-                <xsl:if test="name()='c01'"><xsl:attribute name="class">tree</xsl:attribute></xsl:if>
+                <xsl:if test="local-name()='c01'"><xsl:attribute name="class">tree</xsl:attribute></xsl:if>
                 <xsl:copy-of select="$value"/>
-                <xsl:for-each select="*[starts-with(name(), 'c')]">
+                <xsl:for-each select="*[starts-with(local-name(), 'c')]">
                     <xsl:call-template name="cxx"/>
                 </xsl:for-each>
             </ul>
@@ -59,7 +59,7 @@
             mode="l">
         <xsl:choose>
             <xsl:when test="@level = 'series' or @level = 'subseries'">
-                <xsl:apply-templates select="*[not(starts-with(name(),'c'))]"/>
+                <xsl:apply-templates select="*[not(starts-with(local-name(),'c'))]"/>
             </xsl:when>
             <xsl:otherwise/>
         </xsl:choose>

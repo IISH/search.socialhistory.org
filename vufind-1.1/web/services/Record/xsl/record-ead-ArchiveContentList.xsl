@@ -40,7 +40,7 @@
         </xsl:variable>
         <xsl:if test="$value">
             <xsl:copy-of select="$value"/>
-            <xsl:for-each select="*[starts-with(name(), 'c')]">
+            <xsl:for-each select="*[starts-with(local-name(), 'c')]">
                 <xsl:call-template name="cxx"/>
             </xsl:for-each>
         </xsl:if>
@@ -62,7 +62,7 @@
             mode="l">
         <xsl:choose>
             <xsl:when test="@level = 'series' or @level = 'subseries'">
-                <xsl:apply-templates select="*[not(starts-with(name(),'c'))]"/>
+                <xsl:apply-templates select="*[not(starts-with(local-name(),'c'))]"/>
             </xsl:when>
             <xsl:otherwise>
 
@@ -72,6 +72,7 @@
                             <xsl:apply-templates select="ead:did/*[not(local-name() = 'unitid')]"/>
                         </xsl:when>
                         <xsl:otherwise>
+                            <xsl:apply-templates select="ead:did/*[not(local-name() = 'unitid' or local-name() = 'unittitle')]"/>
                             <ul>
                                 <xsl:for-each select="ead:did/ead:unittitle">
                                     <li>
