@@ -178,14 +178,18 @@
         <xsl:apply-templates/>
     </xsl:template>
 
+    <xsl:template match="ead:note">
+        <br/><xsl:apply-templates />
+    </xsl:template>
+
     <xsl:template match="ead:p">
-        <xsl:text></xsl:text>
+        <xsl:text> </xsl:text>
         <xsl:apply-templates/>
-        <xsl:text></xsl:text>
+        <xsl:text> </xsl:text>
     </xsl:template>
 
     <xsl:template match="ead:extent">
-        <xsl:text></xsl:text>
+        <xsl:text> </xsl:text>
         <xsl:value-of select="normalize-space(text())"/>
     </xsl:template>
 

@@ -186,6 +186,10 @@
    <field name="genre_facet" type="textFacet" indexed="true" stored="true" multiValued="true"/>
    <field name="geographic" type="text" indexed="true" stored="true" multiValued="true"/>
    <field name="geographic_facet" type="textFacet" indexed="true" stored="true" multiValued="true"/>
+
+   <field name="downloadable" type="text" indexed="true" stored="true" multiValued="false"/>
+   <field name="downloadable_facet" type="textFacet" indexed="true" stored="true" multiValued="false"/>
+
    <field name="era" type="text" indexed="true" stored="true" multiValued="true"/>
    <field name="era_facet" type="textFacet" indexed="true" stored="true" multiValued="true"/>
    <field name="illustrated" type="string" indexed="true" stored="true" multiValued="false"/>

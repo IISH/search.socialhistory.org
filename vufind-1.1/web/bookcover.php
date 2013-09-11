@@ -82,6 +82,9 @@ function sanitizeParameters()
     $_GET['isn'] = isset($_GET['isn'])
         ? preg_replace('/[^0-9xX]/', '', $_GET['isn']) : '';
 
+    if ( isset($_GET['pid'] ) )
+        $_GET['isn'] = $_GET['pid'] ;
+
     // sanitize contenttype
     // file names correspond to Summon Content Types with spaces
     // removed, eg. VideoRecording.png
@@ -191,6 +194,8 @@ function dieWithFailImage()
     // Get "no cover" image from config.ini:
     $noCoverImage = isset($configArray['Content']['noCoverAvailableImage'])
         ? $configArray['Content']['noCoverAvailableImage'] : null;
+    if ( $_GET['alt']) $noCoverImage = isset($configArray['Content'][$_GET['alt']])
+        ? $configArray['Content']['noCoverAvailableImageEad'] : null;
 
     // No setting -- use default, and don't log anything:
     if (empty($noCoverImage)) {
@@ -564,7 +569,7 @@ function summon($id)
 function iish()
 {
     $reductionSizeInWidth = 0;
-    $isn = $_GET['isn'];
+    $pid = $_GET['pid'];
     switch ($_GET['size']) {
         case 'small':
             $imageIndex = 'level3';
@@ -577,7 +582,7 @@ function iish()
             break;
     }
 
-    $imageUrl = "http://hdl.handle.net/10622/" . $isn . "?locatt=view:" . $imageIndex;
+    $imageUrl = "http://hdl.handle.net/10622/" . $pid . "?locatt=view:" . $imageIndex;
     processImageURL($imageUrl, true, $reductionSizeInWidth);
 }
 

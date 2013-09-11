@@ -52,6 +52,7 @@
   </div>
 
   <div class="yui-u">
+      {if !empty($summDownloadable)}<p class="iconlabel">{translate text="Downloadable content"}</p>{/if}
 {*
     <div id="saveLink{$summId|escape}">
       <a href="{$url}/Record/{$summId|escape:"url"}/Save" onClick="getLightbox('Record', 'Save', '{$summId|escape}', '', '{translate text='Add to favorites'}', 'Record', 'Save', '{$summId|escape}'); return false;" class="fav tool">{translate text='Add to favorites'}</a>

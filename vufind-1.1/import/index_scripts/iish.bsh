@@ -185,10 +185,11 @@ public Set getFormat(Record record) {
         File f = new File(folder);
         if (!f.exists())
             f.mkdirs();
-        File file = new File(folder, id + ".xml");
-        Document document = db.parse(url);
-            // And cache
-            //saveDocument(document, file);
+        File file = new File(f, id + ".xml");
+
+        Document document = ( file.exists() ) ? db.parse(file) : db.parse(url);
+        // And cache
+        if ( !file.exists() ) saveDocument(document, file);
 
         return document;
     }
@@ -326,3 +327,48 @@ public Set getFormat(Record record) {
         }
         return null;
     }
+
+    public String downloadableEad(Record record ){
+
+        final Set result = new LinkedHashSet();
+            final List fields = record.getVariableFields("856");
+            if (fields != null) {
+                final Iterator fieldsIter = fields.iterator();
+                while (fieldsIter.hasNext()) {
+                    final DataField physical = (DataField) fieldsIter.next();
+                    final List subfields = physical.getSubfields('q');
+                    if (subfields != null) {
+                        final Iterator subfieldsIter = subfields.iterator();
+                        while (subfieldsIter.hasNext()) {
+                            final Subfield subfield = (Subfield) subfieldsIter.next();
+                            final String data = subfield.getData().toLowerCase().trim();
+                            if ( data.equalsIgnoreCase("image/jpeg" ))
+                                return "Archival item";
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        public String downloadableBiblio(Record record ){
+
+                final Set result = new LinkedHashSet();
+                    final List fields = record.getVariableFields("856");
+                    if (fields != null) {
+                        final Iterator fieldsIter = fields.iterator();
+                        while (fieldsIter.hasNext()) {
+                            final DataField physical = (DataField) fieldsIter.next();
+                            final List subfields = physical.getSubfields('u');
+                            if (subfields != null) {
+                                final Iterator subfieldsIter = subfields.iterator();
+                                while (subfieldsIter.hasNext()) {
+                                    final Subfield subfield = (Subfield) subfieldsIter.next();
+                                    final String data = subfield.getData();
+                                    if ( data.contains("10622/3005100") ) return "Image" ;
+                                }
+                            }
+                        }
+                    }
+                    return null;
+                }

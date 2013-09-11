@@ -1,11 +1,11 @@
 <div id="record{$summId|escape}" class="yui-ge">
-    <div class="yui-u first">
-    <a href="{$url}/Record/{$summId|escape:"url"}/Description">{if $summThumb}
-        <img src="{$summThumb|escape}" class="alignleft" alt="{translate text='Cover Image'}"/>
-        {else}
-        {*<img src="{$path}/bookcover.php" class="alignleft" alt="{translate text='No Cover Image'}"/>*}
+  <div class="yui-u first">
+      <a href="{$url}/Record/{$summId|escape:"url"}/Description">{if $summThumb}
+        <img style="width:100px" src="{$summThumb|escape}&alt=noCoverAvailableImageEad" class="alignleft" alt="{translate text='Cover Image'}"/>
+    {else}
+        <img style="width:100px" src="/images/noCover1.gif" class="alignleft" />
     {/if}</a>
-        <div class="resultitem">
+        <div class="resultitem" style="margin-left:125px">
             <div class="resultItemLine1">
                 <a href="{$url}/Record/{$summId|escape:"url"}/Description"
                    class="title">{if !empty($summHighlightedTitle)}{$summHighlightedTitle|addEllipsis:$summTitle|highlight}{elseif !$summTitle}{translate text='Title not available'}{else}{$summTitle|truncate:180:"..."|escape}{/if}</a>
@@ -54,10 +54,12 @@
         {foreach from=$summFormats item=format}
             <span class="iconlabel {$format|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$format}</span>
         {/foreach}
+
         </div>
     </div>
 
     <div class="yui-u">
+        {if !empty($summDownloadable)}<p class="iconlabel">{translate text="Downloadable content"}</p>{/if}
         {*<div id="saveLink{$summId|escape}">
             <a href="{$url}/Record/{$summId|escape:"url"}/Save"
                onClick="getLightbox('Record', 'Save', '{$summId|escape}', '', '{translate text='Add to favorites'}', 'Record', 'Save', '{$summId|escape}'); return false;"

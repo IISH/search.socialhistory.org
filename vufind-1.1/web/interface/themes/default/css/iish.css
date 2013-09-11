@@ -240,6 +240,7 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
     padding:0 0 0 0;
     background-color:#fafafa;
     border-top:1px #eee solid;
+    clear:both;
 }
 #tabnav.search {
     margin-top:0px;
@@ -487,4 +488,13 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
 
 .menu                    {
     z-index: 889;
+}
+
+.downloadable {
+    float:left;width:100px;text-align: center;
+    padding-right: 25px;
+}
+
+.result {
+    padding-bottom: 5px;
 }

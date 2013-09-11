@@ -178,106 +178,10 @@ class AvRecord extends MarcRecord
         return $retval;
     }
 
-    /**
-    Just return the barcode for now...
-     */
-    private function getAudioVisual()
-    {
-        $urls = $this->getURLs();
-        foreach ($urls as $url) {
-            $pos = strpos($url, "/10622/");
-            if ($pos > 1) {
-                return substr($url, $pos + 7);
-            }
-        }
-        return false;
-    }
-
-    protected function getThumbnail($size = 'small')
-    {
-        global $configArray;
-
-        if ($audiovisual = $this->getAudioVisual()) { // In this case, the isn is the PID
-            return $configArray['Site']['url'] . '/bookcover.php?isn=' .
-                   $audiovisual . '&size=' . urlencode($size);
-        }
-
-        return false;
-    }
-
     private function getMeeting()    {
         return $this->_getFieldArray('611', array('a', 'e', 'n', 'd', 'c'));
     }
 
-    /*    private function _getFirstFieldValue($field, $subfields = null)
-        {
-            $matches = $this->_getFieldArray($field, $subfields);
-            return (is_array($matches) && count($matches) > 0) ?
-                    $matches[0] : null;
-        }*/
-
-/*    private function _getFieldArray($field, $subfields = null, $concat = true)
-    {
-        // Default to subfield a if nothing is specified.
-        if (!is_array($subfields)) {
-            $subfields = array('a');
-        }
-
-        // Initialize return array
-        $matches = array();
-
-        // Try to look up the specified field, return empty array if it doesn't
-        // exist.
-        $fields = $this->marcRecord->getFields($field);
-        if (!is_array($fields)) {
-            return $matches;
-        }
-
-        // Extract all the requested subfields, if applicable.
-        foreach ($fields as $currentField) {
-            $next = $this->_getSubfieldArray($currentField, $subfields, $concat);
-            $matches = array_merge($matches, $next);
-        }
-
-        return $matches;
-    }*/
-
-/*    private function _getSubfieldArray($currentField, $subfields, $concat = true)
-    {
-        // Start building a line of text for the current field
-        $matches = array();
-        $currentLine = '';
-
-        // Loop through all specified subfields, collecting results:
-        foreach ($subfields as $subfield) {
-            $subfieldsResult = $currentField->getSubfields($subfield);
-            if (is_array($subfieldsResult)) {
-                foreach ($subfieldsResult as $currentSubfield) {
-                    // Grab the current subfield value and act on it if it is
-                    // non-empty:
-                    $data = trim($currentSubfield->getData());
-                    if (!empty($data)) {
-                        // Are we concatenating fields or storing them separately?
-                        if ($concat) {
-                            $currentLine .= $data . ' ';
-                        } else {
-                            $matches[] = $data;
-                        }
-                    }
-                }
-            }
-        }
-
-        // If we're in concat mode and found data, it will be in $currentLine and
-        // must be moved into the matches array.  If we're not in concat mode,
-        // $currentLine will always be empty and this code will be ignored.
-        if (!empty($currentLine)) {
-            $matches[] = trim($currentLine);
-        }
-
-        // Send back our result array:
-        return $matches;
-    }*/
 }
 
 ?>

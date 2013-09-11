@@ -7,10 +7,11 @@
 <xsl:stylesheet version="1.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:ead="urn:isbn:1-931666-22-9"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
                 xsi:schemaLocation="urn:isbn:1-931666-22-9 http://www.loc.gov/ead/ead.xsd"
                 xmlns:php="http://php.net/xsl"
-                exclude-result-prefixes="xsl ead xsi php">
+                exclude-result-prefixes="xsl ead xsi php xlink">
 
     <xsl:import href="record-ead-Archive.xsl"/>
     <xsl:output method="xml" omit-xml-declaration="yes" encoding="UTF-8" indent="no"/>
@@ -21,7 +22,7 @@
     <xsl:param name="lang"/>
     <xsl:param name="title"/>
 
-    <xsl:variable name="digital_items" select="count(//ead:daogrp)"/>
+    <xsl:variable name="digital_items" select="count(//ead:daogrp[starts-with(ead:daoloc/@xlink:href, 'http://hdl.handle.net/10622/')])"/>
 
     <xsl:template match="/">
         <xsl:apply-templates select="//ead:ead"/>

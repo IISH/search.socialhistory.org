@@ -688,7 +688,10 @@ class IndexRecord implements RecordInterface
         $interface->assign('summAuthor', $this->getPrimaryAuthor());
         $interface->assign('summDate', $this->getPublicationDates());
         $interface->assign('summISBN', $this->getCleanISBN());
-        $interface->assign('summThumb', $this->getThumbnail());
+        $thumbnail = $this->getThumbnail();
+        $interface->assign('summThumb', $thumbnail);
+        $interface->assign('summDownloadable', $this->getDownloadable());
+
         $issn = $this->getCleanISSN();
         $interface->assign('summISSN', $issn);
         $interface->assign('summLCCN', $this->getLCCN());
@@ -1711,14 +1714,14 @@ class IndexRecord implements RecordInterface
     }
 
     /**
-     * Return a URL to a thumbnail preview of the record, if available; false
-     * otherwise.
+     * Return the local identifier bit if available;
+     * or false otherwise.
      *
      * @param array $size Size of thumbnail (small, medium or large -- small is
      * default).
      *
      * @return mixed
-     * @access protected
+     * @access protected                             summThumb
      *
      */
     protected function getThumbnail($size = 'small')
@@ -1728,10 +1731,48 @@ class IndexRecord implements RecordInterface
         if ($isbn = $this->getCleanISBN()) {
             return $configArray['Site']['url'] . '/bookcover.php?isn=' .
                    urlencode($isbn) . '&size=' . urlencode($size);
-        }
+        } else
+            if ( $audiovisual = $this->getAudioVisual() ) {
+                return $configArray['Site']['url'] . '/bookcover.php?pid=' .
+                urlencode($audiovisual) . '&size=' . urlencode($size);
+            }
 
         return false;
     }
+
+    /**
+    Just return the barcode or PID for now...
+     */
+    private function getAudioVisual()
+    {
+        $urls = $this->getURLs();
+        foreach ($urls as $url) {
+            $pos = strpos($url, "/10622/");
+            if ($pos > 1) {
+                $tmp = substr($url, $pos + 7);
+                $pos = strpos($tmp, "?");
+                return ($pos) ? substr($tmp, 0, $pos) : $tmp;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * getDownloadable
+     *
+     * True if we have a link to downloadable content
+     *
+     * @param $thumbnail
+     * @return bool|string
+     */
+    private function getDownloadable()
+    {
+        if (isset($this->fields['downloadable'])) {
+            return $this->fields['downloadable'];
+        }
+        return null;
+    }
+
 }
 
 ?>
