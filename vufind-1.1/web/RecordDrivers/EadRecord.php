@@ -106,8 +106,6 @@ class EadRecord extends MarcRecord
         global $interface;
         $ead = $this->getEADArray($xml);
 
-        // When using the navigation of ArchiveContentListNavigation we have many undesireable empty elements.
-        // We remove them here.
         global $configArray;
         $interface->assign('visualmets_url', $configArray['IISH']['visualmets.url']);
         $interface->assign('visualmets_rows', $configArray['IISH']['visualmets.rows']);

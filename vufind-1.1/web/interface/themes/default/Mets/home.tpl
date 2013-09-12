@@ -1,29 +1,48 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="{$lang}">
+
 <head>
     <title></title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    <link href="{$visualmets_url}/css/bootstrap.css" rel="stylesheet" type="text/css" media="screen"/>
-    <link href="{$visualmets_url}/css/themes/default/style.css" rel="stylesheet" type="text/css" media="all"
-          id="theme"/>
-    <script type="text/javascript" src="{$visualmets_url}/js/mets2viewer.min.js"></script>
-    <script type="text/javascript" src="{$visualmets_url}/js/init.js"></script>
+    {css media="screen" filename="styles.css"}
+    {css media="screen" filename="iish.css"}
+    <style type="text/css">
+        {literal}
+        body {
+            background-color: white;
+        }
 
-    {literal}
-        <style type="text/css">
-            .ccc {
-                /*width: 710px;*/
-                height: 550px;
-                width: 100%;
-            }
-        </style>
-    {/literal}
+        .black_overlay{
+            display: none;
+            position: absolute;
+            top: 0%;
+            left: 0%;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index:1001;
+            -moz-opacity: 0.8;
+            opacity:.80;
+            filter: alpha(opacity=80);
+        }
+        .white_content {
+            display: none;
+            position: absolute;
+            top: 25%;
+            left: 25%;
+            width: 50%;
+            height: 50%;
+            padding: 16px;
+            border: 16px solid orange;
+            background-color: white;
+            z-index:1002;
+            overflow: auto;
+        }
+
+        {/literal}
+    </style>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 </head>
 
-<body>
-
-<div class="ccc"><div class="mets-container mets-hide" id="metsViewSample"></div><form><input type="hidden" class="btn btn-primary pull-right btn-large save" name="metsId" value="{$metsId}"/></form></div>
-
-</body>
+<body>{$body}</body>
 
 </html>
