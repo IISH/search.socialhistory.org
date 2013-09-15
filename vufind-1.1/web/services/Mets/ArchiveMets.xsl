@@ -90,11 +90,6 @@
                 </ul>
             </div>
 
-            <div id="metsfullview">
-                <a id="fullview" href="{concat($visualmets, '?metsId=', $metsId)}" target="_blank">
-                    <xsl:value-of select="php:function('ArchiveUtil::translate', $lang, 'ArchiveContentList.fullview')"/>
-                </a>
-            </div>
             <div style="clear:both"><!-- empty --></div>
             <div id="metsimage">
                 <ul>

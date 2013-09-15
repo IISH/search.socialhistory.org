@@ -1,14 +1,15 @@
 <div class="searchHome">
   <b class="btop"><b></b></b>
   <div class="searchHomeContent">
-    {*<img src="{$path}/interface/themes/default/images/vufind_logo_large.gif" alt="VuFind">*}
-    
     <div class="searchHomeForm">
       {include file="Search/searchbox.tpl"}
     </div>
-
   </div>
 </div>
+
+{if !empty($messageOfTheDay)}
+    <div class="searchHomeBrowseHeader" id="messageOfTheDay"><h2>{$messageOfTheDay.title}</h2><p>{$messageOfTheDay.content}</p></div>
+{/if}
 
 {if $facetList}
   <div class="searchHomeBrowseHeader">
@@ -27,19 +28,6 @@
         {assign var=list value=$details.sortedList}
         <div{if $field == "callnumber-first" || $field == "dewey-hundreds"} class="searchHomeBrowseExtraWide"{/if}>
           <ul>
-            {* Special case: two columns for LC call numbers... *}
-            {*{if $field == "callnumber-first"}
-              {foreach from=$list item=currentUrl key=value name="callLoop"}
-                <li><a href="{$currentUrl|escape}">{$value|escape}</a></li>
-                {if $smarty.foreach.callLoop.iteration % 18 == 0}
-                  </ul>
-                  </div>
-                  <div>
-                  <ul>
-                {/if}
-              {/foreach}
-            <li><a href="{$path}/Search/Advanced"><strong>{translate text="More options"}...</strong></a></li>
-            {else}*}
               {assign var=break value=false}
               {foreach from=$list item=currentUrl key=value name="listLoop"}
                 {if $smarty.foreach.listLoop.iteration > 12}
@@ -51,7 +39,6 @@
                   <li><a href="{$currentUrl|escape}">{translate text=$value}</a></li>
                 {/if}
               {/foreach}
-            {*{/if}*}
           </ul>
         </div>
       {/foreach}

@@ -27,6 +27,7 @@
  * @link     http://vufind.org/wiki/building_a_module Wiki
  */
 require_once 'Action.php';
+require_once 'services/Search/easyRdf/lib/EasyRdf.php';
 
 /**
  * Home action for Search module
@@ -49,16 +50,16 @@ class Home extends Action
     public function launch()
     {
         global $interface;
-        global $configArray;
 
         // Cache homepage
         $interface->caching = 0;
-        $cacheId = 'homepage|' . $interface->lang . '|' . 
+        $cacheId = 'homepage|' . $interface->lang . '|' .
             (UserAccount::isLoggedIn() ? '1' : '0');
         if (!$interface->is_cached('layout.tpl', $cacheId)) {
             $interface->setPageTitle('Search Home');
             $interface->assign('searchTemplate', 'search.tpl');
             $interface->setTemplate('home.tpl');
+
 
             // Create our search object
             $searchObject = SearchObjectFactory::initSearchObject();
@@ -75,6 +76,8 @@ class Home extends Action
             // Shutdown the search object
             $searchObject->close();
 
+            $interface->assign("messageOfTheDay", $this->addMessageOfTheDay());
+
             // Add a sorted version to the facet list:
             if (count($facetList) > 0) {
                 $facets = array();
@@ -90,6 +93,25 @@ class Home extends Action
             }
         }
         $interface->display('layout.tpl', $cacheId);
+    }
+
+    private function addMessageOfTheDay()
+    {
+        global $interface;
+        global $configArray;
+
+        $resource = $configArray['IISH']['messageOfTheDay'];
+        if ($resource) {
+            $graph = EasyRdf_Graph::newAndLoad($resource);
+            $title = $graph->label();
+            $content=$graph->get(
+                $resource,
+                'content:encoded',
+                'literal',
+                $interface->lang);
+            if ( $content ) return array(title=>$title, content=>str_replace('.', '. ', $content), lang=>$content.lang) ;
+        }
+        return null ;
     }
 
 }

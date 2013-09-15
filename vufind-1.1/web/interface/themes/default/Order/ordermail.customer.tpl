@@ -2,7 +2,7 @@
 
 {translate text='order'}
 {translate text='Title'}: {$title}
-{translate text='Callnumber'}: {$callnumber}
+{translate text='Callnumbers'}: {$callnumbers}
 {translate text='Website'}: {$website}
 
 {translate text="order.details"}:

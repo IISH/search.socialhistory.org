@@ -2,9 +2,9 @@
 
 {translate text='order'}
 {translate text='Title'}: {$title}
-{translate text='Callnumber'}: {$callnumber}
+{translate text='Callnumbers'}: {$callnumbers}
 {translate text='Barcode'}: {$coreBarcode}
-{translate text='Download master from Sor'}: https://disseminate.objectrepository.org/file/master/10622/{$coreBarcode}?access_token=dc609ac9-1511-4d90-b649-4c949026d6d7&contentType=application/save
+{translate text='Download master from Sor'}: https://disseminate.objectrepository.org/file/master/10622/{$coreBarcode}?access_token=85276a5c-953f-4be2-8928-a2fe4d92a1c9&contentType=application/save
 {translate text='Website'}: {$website}
 
 {translate text="order.details"}:

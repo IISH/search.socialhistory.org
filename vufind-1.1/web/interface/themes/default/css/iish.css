@@ -498,3 +498,12 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
 .result {
     padding-bottom: 5px;
 }
+
+#messageOfTheDay {
+    margin: 0px;
+    background-color: white;
+}
+
+#messageOfTheDay p {
+    margin-bottom: 0;
+}

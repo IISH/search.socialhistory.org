@@ -96,10 +96,9 @@
                                     </tr>
                                 </table>
                                 <input type="hidden" name="title" id="title" value="{$coreShortTitle|escape}"/>
-                            {foreach from=$coreHolding key=key item=value name=loop}
-                                <input type="hidden" name="callnumber" id="callnumber" value="{$key|escape}"/>
-                            {/foreach}
-
+                                {if !empty($coreHolding)}
+                                    <input type="hidden" id="callnumbers" name="callnumbers" value="{foreach from=$coreHolding key=key item=value name=loop}{$value.c}{if !$smarty.foreach.foo.last} , {/if}{/foreach}"/>
+                                {/if}
                                 <input type="hidden" name="id" value="{$id}"/>
                                 <input type="hidden" name="coreBarcode" id="coreBarcode" value="{$coreBarcode|escape}"/>
                                 <input type="hidden" name="website" id="website"
