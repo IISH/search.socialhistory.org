@@ -27,7 +27,7 @@
  * @link     http://vufind.org/wiki/building_a_module Wiki
  */
 require_once 'Action.php';
-require_once 'services/Search/easyRdf/lib/EasyRdf.php';
+require_once 'services/Search/easyrdf/lib/EasyRdf.php';
 
 /**
  * Home action for Search module
