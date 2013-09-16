@@ -507,3 +507,7 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
 #messageOfTheDay p {
     margin-bottom: 0;
 }
+
+.video-js {
+    float:right;
+}

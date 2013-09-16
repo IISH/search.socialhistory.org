@@ -235,6 +235,7 @@ class IndexRecord implements RecordInterface
 
         // Addition to extended metadata...
         $interface->assign('corePhysical', $this->getPhysicalDescriptions());
+        $interface->assign('coreDownloadable', $this->getDownloadable());
 
 
         // Only display OpenURL link if the option is turned on and we have
@@ -281,6 +282,10 @@ class IndexRecord implements RecordInterface
 
         // Send back the template name:
         return 'RecordDrivers/Index/core.tpl';
+    }
+
+    private function downloadableContent() {
+
     }
 
     /**

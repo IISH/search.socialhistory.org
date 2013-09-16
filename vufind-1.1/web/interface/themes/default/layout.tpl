@@ -40,6 +40,11 @@
 {js filename="delivery_shop_custom/delivery.locale.nl.js"}
 {js filename="delivery_shop/delivery_shop.js"}
 
+{if $coreDownloadable && ( $coreDownloadable == 'video' || $coreDownloadable == 'audio' ) }
+    {css media="screen" filename="video-js/video-js.min.css"}
+    {js filename="video-js/video.js"}
+{/if}
+
 {literal}
 <script type="text/javascript">
 

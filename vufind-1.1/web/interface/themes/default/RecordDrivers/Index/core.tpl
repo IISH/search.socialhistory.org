@@ -42,7 +42,17 @@
 {/literal}
 {* Display Cover Image *}
 
-{if $coreThumbMedium}
+{if $coreDownloadable}
+    <video id="av" class="video-js vjs-default-skin" controls preload="none"
+        poster="http://hdl.handle.net/10622/{$coreIsShownBy}?locatt=view:level2"
+        data-setup="{literal}{}{/literal}" width="300px">
+        {if $coreDownloadable == 'Video'}
+            <source src="http://hdl.handle.net/10622/{$coreIsShownBy}?locatt=view:level1" type='video/mp4'/>
+        {else}
+            <source src="http://hdl.handle.net/10622/{$coreIsShownBy}?locatt=view:level1" type='audio/mp3'/>
+        {/if}
+    </video>
+{elseif $coreThumbMedium}
     <div class="alignright">
         {if $coreThumbLarge}
         {if ( empty($coreIsShownBy) )}<a href="{$coreThumbLarge|escape}">{else}<a
