@@ -41,12 +41,11 @@
     </script>
 {/literal}
 {* Display Cover Image *}
-
-{if $coreDownloadable}
+{if $coreDownloadable && ($coreDownloadable == 'video' || $coreDownloadable == 'audio')}
     <video id="av" class="video-js vjs-default-skin" controls preload="none"
         poster="http://hdl.handle.net/10622/{$coreIsShownBy}?locatt=view:level2"
         data-setup="{literal}{}{/literal}" width="300px">
-        {if $coreDownloadable == 'Video'}
+        {if $coreDownloadable == 'video'}
             <source src="http://hdl.handle.net/10622/{$coreIsShownBy}?locatt=view:level1" type='video/mp4'/>
         {else}
             <source src="http://hdl.handle.net/10622/{$coreIsShownBy}?locatt=view:level1" type='audio/mp3'/>
