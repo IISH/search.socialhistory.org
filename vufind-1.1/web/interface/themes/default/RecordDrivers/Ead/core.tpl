@@ -40,7 +40,7 @@
         $("#archnav").attr('src', '{/literal}{$baseUrl}/{$tab}{literal}Navigation');
     </script>
 {/literal}
-    <link href="{$visualmets_url}/resources/css/themes/default/style.css" rel="stylesheet" type="text/css" media="all"
+    <link href="{$visualmets_url}/resources/css/themes/iisg/style.css?_=2.1" rel="stylesheet" type="text/css" media="all"
           id="theme"/>
     <script type="text/javascript" src="{$visualmets_url}/resources/js/mets2viewer.min.js"></script>
 {/if}
