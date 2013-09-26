@@ -297,6 +297,8 @@ function handlePEARError($error)
     $interface->assign('debug', $configArray['System']['debug']);
 
     $interface->display('error.tpl');
+    header("HTTP/1.0 500 Server error");
+
 
     // Exceptions we don't want to log
     $doLog = true;
