@@ -27,6 +27,7 @@
  * @link     http://vufind.org/wiki/building_a_module Wiki
  */
 require_once 'Action.php';
+require_once 'RecordDrivers/Utils.php';
 require_once 'services/Search/easyrdf/lib/EasyRdf.php';
 
 /**
@@ -98,20 +99,25 @@ class Home extends Action
     private function addMessageOfTheDay()
     {
         global $interface;
-        global $configArray;
 
-        $resource = $configArray['IISH']['messageOfTheDay'];
-        if ($resource) {
-            $graph = EasyRdf_Graph::newAndLoad($resource);
+        $messageOfTheDay = translate('messageOfTheDay');
+        if ($messageOfTheDay) {
+            $graph = null;
+            try {
+                $graph = EasyRdf_Graph::newAndLoad($messageOfTheDay);
+            } catch (Exception $e) {
+                return null;
+            }
+            $graph->toArray();
             $title = $graph->label();
-            $content=$graph->get(
-                $resource,
+            $content = $graph->get(
+                $messageOfTheDay,
                 'content:encoded',
                 'literal',
                 $interface->lang);
-            if ( $content ) return array(title=>$title, content=>str_replace('.', '. ', $content), lang=>$content.lang) ;
+            if ($content) return array(title => $title, content => str_replace('.', '. ', $content), lang => $content . lang);
         }
-        return null ;
+        return null;
     }
 
 }
