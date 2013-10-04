@@ -108,7 +108,6 @@ class Home extends Action
             } catch (Exception $e) {
                 return null;
             }
-            $graph->toArray();
             $title = $graph->label();
             $content = $graph->get(
                 $messageOfTheDay,
