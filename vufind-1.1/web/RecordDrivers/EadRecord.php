@@ -101,15 +101,16 @@ class EadRecord extends MarcRecord
     public function getCoreMetadata()
     {
         parent::getCoreMetadata();
-        //$interface->assign('ead', $this->getEADArray(Utils::getOAIRecord, this->getUniqueID(), $this->getOAIPid(), 'ead')));
-        $xml = Utils::getResource("http://localhost/iish.archives/". $this->getUniqueID() . ".xml");
+
         global $interface;
-        $ead = $this->getEADArray($xml);
+        $doc = Utils::getOAIRecord($this->getUniqueID(), $this->getOAIPid(), 'ead');
+        if (!$doc)
+            die(sprintf('Record not found in OAI service: ' + $this->getOAIPid()));
 
         global $configArray;
         $interface->assign('visualmets_url', $configArray['IISH']['visualmets.url']);
         $interface->assign('visualmets_rows', $configArray['IISH']['visualmets.rows']);
-        $interface->assign('ead', $ead);
+        $interface->assign('ead', $this->getEADArray($doc));
         $interface->assign('baseUrl', '/Record/' . $this->getUniqueID());
         return 'RecordDrivers/Ead/core.tpl';
     }
@@ -138,10 +139,17 @@ class EadRecord extends MarcRecord
         $xsl->setParameter('', 'title', parent::getTitle());
         global $interface;
         $xsl->setParameter('', 'lang', $interface->getLanguage());
-        return $xsl->transformToXML($doc);
+
+        $result = $xsl->transformToXML($doc);
+        if (!$result) {
+            PEAR::RaiseError(new PEAR_Error(xslt_error($xsl)));
+            die();
+        }
+        return $result;
     }
 
-    public function getNavigation(){
+    public function getNavigation()
+    {
 
     }
 

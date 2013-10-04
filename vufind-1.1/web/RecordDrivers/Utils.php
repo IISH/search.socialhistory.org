@@ -10,7 +10,11 @@ final class Utils
     {
         global $configArray;
         $file = $configArray['IISH']['cache'] . '/' . md5($id . '_' . $pid . '_' . $metadataPrefix);
-        if (Utils::useCache($file)) return @file_get_contents($file);
+        if (Utils::useCache($file)) {
+            $doc = new DOMDocument();
+            $doc->load($file);
+            return $doc;
+        }
 
         // Load from api
         // Transform MARCXML... taken from /harvest/harvest_oai.php
@@ -26,7 +30,9 @@ final class Utils
         }
         $response = $request->getResponseBody();
         file_put_contents($file, $response);
-        return @file_get_contents($file);
+        $doc = new DOMDocument();
+        $doc->load($file);
+        return $doc;
     }
 
     public static function getResource($url)
@@ -47,6 +53,8 @@ final class Utils
     private static function useCache($file)
     {
         global $configArray;
-        return $configArray['IISH']['cacheExpiration'] && is_readable($file) && filectime($file) > (time() - $configArray['IISH']['cacheExpiration']);
+        return !isset($_GET['nocache']) && is_readable($file) &&
+            $configArray['IISH']['cacheExpiration'] &&
+            filectime($file) > (time() - $configArray['IISH']['cacheExpiration']);
     }
 }
