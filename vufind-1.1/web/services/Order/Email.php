@@ -55,6 +55,8 @@ class Email extends Action
         global $interface;
         global $configArray;
 
+        $interface->assign('orderAccess_token', $configArray['IISH']['orderAccess_token']);
+
         if (isset($_POST['submit'])) {
 
             $limit = 25;

@@ -103,7 +103,6 @@
                                 <input type="hidden" name="coreBarcode" id="coreBarcode" value="{$coreBarcode|escape}"/>
                                 <input type="hidden" name="website" id="website"
                                        value="{$url|escape}/Record/{$id|escape}"/>
-                                <input type="hidden" name="url" id="url" value="{$url|escape}/Order/Ordered"/>
                                 <input type="submit" name="submit" value="{translate text='order.submit'}">
                             </form>
                         </td>

@@ -4,7 +4,7 @@
 {translate text='Title'}: {$title}
 {translate text='Callnumbers'}: {$callnumbers}
 {translate text='Barcode'}: {$coreBarcode}
-{translate text='Download master from Sor'}: https://disseminate.objectrepository.org/file/master/10622/{$coreBarcode}?access_token=85276a5c-953f-4be2-8928-a2fe4d92a1c9&contentType=application/save
+{translate text='Download master from Sor'}: https://disseminate.objectrepository.org/file/master/10622/{$coreBarcode}?access_token={$orderAccess_token}&contentType=application/save
 {translate text='Website'}: {$website}
 
 {translate text="order.details"}:
