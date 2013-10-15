@@ -156,15 +156,6 @@ public Set getFormat(Record record) {
             return " ";
         Document document = loadDocument(url, id);
         return getText(document);
-/*try{
-  FileWriter fstream = new FileWriter("/tmp/" + id);
-  BufferedWriter out = new BufferedWriter(fstream);
-  out.write(t);
-  out.close();
-  }catch (Exception e){//Catch exception if any
-  System.err.println("Error: " + e.getMessage());
- }
-	return t ;*/
     }
 
      public String getAllSearchableFields(Record record, String lowerBoundStr, String upperBoundStr){
