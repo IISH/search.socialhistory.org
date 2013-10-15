@@ -45,6 +45,12 @@
     <script type="text/javascript" src="{$visualmets_url}/resources/js/mets2viewer.min.js"></script>
 {/if}
 
+{if $userLang=='nl'}
+{js filename="visual-mets/js/nl.lang.js"}
+{else}
+{js filename="visual-mets/js/en.lang.js"}
+{/if}
+
 {$ead}
 
 {literal}
