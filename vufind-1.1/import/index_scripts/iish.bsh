@@ -21,6 +21,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.Iterator;
 import java.util.List;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import org.apache.log4j.Logger;
 
@@ -39,8 +41,7 @@ public String getId(Record record) {
     final String id = (i == -1)
             ? text
             : text.substring(i + 1);
-    System.out.println(id);
-        return id;
+    return id;
 }
 
 public Set getFormat(Record record) {
@@ -154,7 +155,7 @@ public Set getFormat(Record record) {
         String id = indexer.getFirstFieldVal(record, "001");
         if (url == null)
             return " ";
-        Document document = loadDocument(url, id);
+        Document document = loadDocument(url, getId(record));
         return getText(document);
     }
 
@@ -172,17 +173,32 @@ public Set getFormat(Record record) {
         DocumentBuilder db = dbf.newDocumentBuilder();
 
         final String vufind_home = System.getenv().get("VUFIND_HOME");
-        String folder = vufind_home + "/caching/ead.xml/";
+        String folder = vufind_home + "/caching/";
         File f = new File(folder);
         if (!f.exists())
             f.mkdirs();
-        File file = new File(f, id + ".xml");
 
-        Document document = ( file.exists() ) ? db.parse(file) : db.parse(url);
-        // And cache
+        final File file = new File(f, md5FromString(id+"_ead"));
+        final Document document = ( file.exists() ) ? db.parse(file) : db.parse(url);
         if ( !file.exists() ) saveDocument(document, file);
-
         return document;
+    }
+
+    private String md5FromString(String text) throws NoSuchAlgorithmException {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(text.getBytes());
+            byte[] mdbytes = md.digest();
+            return getHex(mdbytes);
+    }
+
+    private String getHex(byte[] mdbytes) {
+            StringBuffer sb = new StringBuffer();
+            for (byte mdbyte : mdbytes) {
+                String hex = Integer.toHexString(0xff & mdbyte);
+                if (hex.length() == 1) sb.append('0');
+                sb.append(hex);
+            }
+            return sb.toString();
     }
 
     private void saveDocument(Document document, File file) throws Exception {

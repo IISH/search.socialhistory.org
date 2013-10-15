@@ -9,7 +9,7 @@ final class Utils
     public static function getOAIRecord($id, $pid, $metadataPrefix)
     {
         global $configArray;
-        $file = $configArray['IISH']['cache'] . '/' . md5($id . '_' . $pid . '_' . $metadataPrefix);
+        $file = $configArray['IISH']['cache'] . '/' . md5($id . '_' . $metadataPrefix);
         if (Utils::useCache($file)) {
             $doc = new DOMDocument();
             $doc->load($file);
@@ -32,21 +32,6 @@ final class Utils
         file_put_contents($file, $response);
         $doc = new DOMDocument();
         $doc->load($file);
-        return $doc;
-    }
-
-    public static function getResource($url)
-    {
-        global $configArray;
-        $file = $configArray['IISH']['cache'] . '/' . md5($url);
-        $doc = new DOMDocument();
-        if (Utils::useCache($file)) {
-            $doc->load($file);
-            if ($doc && $doc->documentElement) return $doc;
-        }
-
-        $doc->load($url);
-        $doc->save($file);
         return $doc;
     }
 
