@@ -1,10 +1,13 @@
 #!/bin/sh
 
 # Load all of the .jar files in the lib directory into the classpath
-folder=$VUFIND_HOME/caching
+folder=$VUFIND_HOME/caching/xml
 target=$VUFIND_HOME/caching/ead.pdf
 for file in ${folder}/* ; do
-    pdf=$(basename $file .xml).pdf
+    pdf=$target/$(basename $file .xml).pdf
     echo "Creating $pdf from $file"
-    fop -c $VUFIND_HOME/import/fop/fop.xconf -xml $file -xsl $VUFIND_HOME/import/xsl/ead_complete_fo.xsl -pdf $target/$pdf -param path $VUFIND_HOME/import/xsl -param sysYear $(date +'%Y')
+    fop -c $VUFIND_HOME/import/fop/fop.xconf -xml $file -xsl $VUFIND_HOME/import/xsl/ead_complete_fo.xsl -pdf $pdf -param path $VUFIND_HOME/import/xsl -param sysYear $(date +'%Y')
+    if [ -f "$pdf" ] ; then
+	chown www-data "$pdf"
+    fi
 done

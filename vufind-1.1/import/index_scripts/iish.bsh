@@ -173,7 +173,7 @@ public Set getFormat(Record record) {
         DocumentBuilder db = dbf.newDocumentBuilder();
 
         final String vufind_home = System.getenv().get("VUFIND_HOME");
-        String folder = vufind_home + "/caching/";
+        String folder = vufind_home + "/caching/xml/";
         File f = new File(folder);
         if (!f.exists())
             f.mkdirs();

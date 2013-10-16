@@ -47,10 +47,11 @@ do
         else
 		service tomcat6 stop
 		killall java
+                ./import-marc.sh -p import_$setSpec.properties $f
+                
 		service tomcat6 start
 		sleep 15
-                ./import-marc.sh -p import_$setSpec.properties $f
-                echo "Delete records"
+		echo "Delete records"
                 java -Dxsl=deleted -cp $app org.socialhistoryservices.solr.importer.Collate $dir $f.delete
                 while read line; do
                 if [ ${#line} -gt 5 ] ; then
@@ -95,6 +96,10 @@ service tomcat6 stop
 php $VUFIND_HOME/util/sitemap.php
 chown -R root:www-data /data/caching/sitemap
 chmod -R 754 /data/caching/sitemap
+
+##############################################################################
+# Cache permissions
+chown www-data /data/caching/xml/*
 
 
 ##############################################################################
