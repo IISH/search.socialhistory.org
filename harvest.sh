@@ -45,8 +45,11 @@ do
         if [ "$setSpec" == "iish.evergreen.authorities" ] ; then
                 ./import-marc-auth.sh $f import_auth.properties
         else
+		service tomcat6 stop
+		killall java
+		service tomcat6 start
+		sleep 15
                 ./import-marc.sh -p import_$setSpec.properties $f
-                wget -O /tmp/commit.txt http://localhost:8080/solr/biblio/update?commit=true
                 echo "Delete records"
                 java -Dxsl=deleted -cp $app org.socialhistoryservices.solr.importer.Collate $dir $f.delete
                 while read line; do
@@ -54,6 +57,9 @@ do
                         wget -O /tmp/deletion.txt http://localhost:8080/solr/biblio/update?stream.body=%3Cdelete%3E%3Cquery%3Epid%3A%22$line%22%3C%2Fquery%3E%3C%2Fdelete%3E
                 fi
                 done < $f.delete
+
+		service tomcat6 stop
+		killall java
         fi
 
 	echo "Clearing files"
@@ -67,9 +73,12 @@ done
 ##############################################################################
 # Optimize... this ought to trigger the replica's
 # Yes two times,,,,  sometimes the old index files are not cleared.
+service tomcat6 stop
+killall java
+service tomcat6 start
+sleep 15
 wget -O /tmp/optimize.txt http://localhost:8080/solr/biblio/update?optimize=true
 wget -O /tmp/optimize.txt http://localhost:8080/solr/biblio/update?optimize=true
-
 
 ##############################################################################
 # Update authority browse index
@@ -77,6 +86,7 @@ wget -O /tmp/optimize.txt http://localhost:8080/solr/biblio/update?optimize=true
 # Should the alphabetic browse fail, we have no longer that database functionality. But it is better to have no index, than a corrupt one.
 wget -O /tmp/optimize.txt http://localhost:8080/solr/authority/update?optimize=true
 wget -O /tmp/optimize.txt http://localhost:8080/solr/authority/update?optimize=true
+service tomcat6 stop
 ./index-alphabetic-browse.sh
 
 
