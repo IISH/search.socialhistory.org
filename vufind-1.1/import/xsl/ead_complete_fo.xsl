@@ -92,11 +92,11 @@
                     <fo:region-after extent="1cm"/>
                 </fo:simple-page-master>
             </fo:layout-master-set>
-            <xsl:apply-templates select="//ead:ead"/>
+            <xsl:apply-templates select="//ead:ead" mode="start"/>
         </fo:root>
     </xsl:template>
 
-    <xsl:template match="ead:ead">
+    <xsl:template match="ead:ead" mode="start">
         <fo:page-sequence master-reference="TitlePage">
             <fo:static-content flow-name="xsl-region-after">
                 <fo:block font-family="Arial" font-size="10pt" font-style="italic" margin-left="10cm">
@@ -403,7 +403,7 @@
             match="ead:bioghist | ead:scopecontent | ead:accessrestrict | ead:userestrict | ead:acqinfo | ead:processinfo | ead:arrangement | ead:controlaccess | ead:altformavail | ead:originalsloc | ead:relatedmaterial | ead:otherfindaid | ead:custodhist | ead:prefercite | ead:separatedmaterial">
         <fo:block id="{generate-id()}">
             <fo:marker marker-class-name="anchor">
-                <xsl:value-of select="name()"/>
+                <xsl:value-of select="local-name()"/>
             </fo:marker>
             <xsl:apply-templates/>
         </fo:block>
@@ -507,9 +507,9 @@
                         </fo:list-item-label>
                         <fo:list-item-body start-indent="body-start()">
                             <fo:block>
-                                <xsl:apply-templates select="ead:did/*[not(name() = 'unitid')]"/>
+                                <xsl:apply-templates select="ead:did/*[not(local-name() = 'unitid')]"/>
                             </fo:block>
-                            <xsl:apply-templates select="*[not(name()='did')]"/>
+                            <xsl:apply-templates select="*[not(local-name()='did')]"/>
                         </fo:list-item-body>
                     </fo:list-item>
                 </fo:list-block>
@@ -870,7 +870,7 @@
                 <xsl:apply-templates select="ead:did/ead:unittitle" mode="toc"/>
             </xsl:if>
             <xsl:apply-templates
-                    select="*[(starts-with(name(),'c0') or starts-with(name(),'c1')) and @level = 'subseries']"
+                    select="*[(starts-with(local-name(),'c0') or starts-with(local-name(),'c1')) and @level = 'subseries']"
                     mode="toc"/>
         </fo:block>
     </xsl:template>
@@ -933,7 +933,7 @@
         <xsl:if test="ead:did/ead:unittitle">
             <xsl:apply-templates select="ead:did/ead:unittitle" mode="toc"/>
         </xsl:if>
-        <xsl:apply-templates select="*[(starts-with(name(),'c0') or starts-with(name(),'c1')) and @level = 'subseries']"
+        <xsl:apply-templates select="*[(starts-with(local-name(),'c0') or starts-with(local-name(),'c1')) and @level = 'subseries']"
                              mode="toc"/>
     </xsl:template>
 

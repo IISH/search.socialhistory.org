@@ -183,6 +183,7 @@ class EadRecord extends MarcRecord
         $interface->assign('oaiBaseUrl', 'http://localhost/iish.archives/' . $this->getUniqueID() . '.xml');
         //$interface->assign('oaiBaseUrl', $configArray['IISH']['oaiBaseUrl']);
         $interface->assign('oaiPid', $this->getOAIPid());
+        $interface->assign('pdfFile', md5($this->getUniqueID() . '_ead') . '.pdf');
 
 
         // Send back the results:
