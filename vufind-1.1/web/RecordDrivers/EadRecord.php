@@ -104,8 +104,10 @@ class EadRecord extends MarcRecord
 
         global $interface;
         $doc = Utils::getOAIRecord($this->getUniqueID(), $this->getOAIPid(), 'ead');
-        if (!$doc)
-            die(sprintf('Record not found in OAI service: ' + $this->getOAIPid()));
+        if (!$doc) {
+            PEAR::RaiseError(new PEAR_Error('Record not found in OAI service: ' + $this->getOAIPid()));
+            die();
+        }
 
         global $configArray;
         $interface->assign('visualmets_url', $configArray['IISH']['visualmets.url']);
@@ -128,7 +130,8 @@ class EadRecord extends MarcRecord
         if ($action == "Description") $action = "ArchiveCollectionSummary";
 
         $style = new DOMDocument;
-        $style->load('services/Record/xsl/record-ead-' . $action . '.xsl');
+        $stylesheet = 'services/Record/xsl/record-ead-' . $action . '.xsl';
+        $style->load($stylesheet);
         $xsl = new XSLTProcessor();
         $xsl->registerPHPFunctions('ArchiveUtil::generateID');
         $xsl->registerPHPFunctions('ArchiveUtil::translate');
@@ -142,8 +145,8 @@ class EadRecord extends MarcRecord
 
         $result = $xsl->transformToXML($doc);
         if (!$result) {
-            PEAR::RaiseError(new PEAR_Error(xslt_error($xsl)));
-            die();
+            //PEAR::RaiseError(new PEAR_Error('Failed to compile xsl stylesheet ' + $stylesheet));
+            return null;
         }
         return $result;
     }

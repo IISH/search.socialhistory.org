@@ -26,7 +26,8 @@ final class Utils
         $request->addQueryString('metadataPrefix', $metadataPrefix);
         $result = $request->sendRequest();
         if (PEAR::isError($result)) {
-            die($result->getMessage() . "\n");
+            PEAR::RaiseError(new PEAR_Error($result->getMessage()));
+            die();
         }
         $response = $request->getResponseBody();
         file_put_contents($file, $response);
@@ -39,7 +40,7 @@ final class Utils
     {
         global $configArray;
         return !isset($_GET['nocache']) && is_readable($file) &&
-            $configArray['IISH']['cacheExpiration'] &&
-            filectime($file) > (time() - $configArray['IISH']['cacheExpiration']);
+        $configArray['IISH']['cacheExpiration'] &&
+        filectime($file) > (time() - $configArray['IISH']['cacheExpiration']);
     }
 }

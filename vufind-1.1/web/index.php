@@ -66,6 +66,8 @@ PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, 'handlePEARError');
 if ($configArray['System']['debug']) {
     ini_set('display_errors', true);
     error_reporting(E_ALL);
+} else {
+    error_reporting(E_ALL||~E_NOTICE);
 }
 
 // Start Interface
