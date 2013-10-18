@@ -128,7 +128,7 @@
                             </xsl:otherwise>
                         </xsl:choose>
                     </fo:block>
-                    <fo:block font-family="'Arial'" font-size="20pt" font-weight="bold" text-align="center">
+                    <fo:block font-family="Arial" font-size="20pt" font-weight="bold" text-align="center">
                         <fo:block>
                             <xsl:apply-templates select="//ead:archdesc/ead:did/ead:unittitle"/>
                         </fo:block>
@@ -193,7 +193,7 @@
                 </fo:block>
             </fo:static-content>
             <fo:flow flow-name="xsl-region-body">
-                <fo:block font-family="'Arial'" font-size="11pt">
+                <fo:block font-family="Arial" font-size="11pt">
                     <xsl:call-template name="createTOC"/>
                 </fo:block>
             </fo:flow>
@@ -219,7 +219,7 @@
                 </fo:block>
             </fo:static-content>
             <fo:flow flow-name="xsl-region-body">
-                <fo:block font-family="'Arial'" font-size="11pt" id="{generate-id(ead:archdesc/ead:did/ead:unittitle)}">
+                <fo:block font-family="Arial" font-size="11pt" id="{generate-id(ead:archdesc/ead:did/ead:unittitle)}">
                     <xsl:call-template name="heading2">
                         <xsl:with-param name="value">
                             <xsl:apply-templates select="ead:archdesc/ead:did/ead:unittitle"/>
@@ -528,7 +528,6 @@
             <xsl:value-of select="."/>
         </fo:block>
     </xsl:template>
-
 
     <xsl:template match="ead:unitid">
         <xsl:choose>

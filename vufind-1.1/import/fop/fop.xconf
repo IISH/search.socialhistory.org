@@ -31,6 +31,31 @@ the location of this file.
   <!-- Uses renderer mime type for renderers -->
   <renderers>
     <renderer mime="application/pdf">
+
+<fonts>
+
+
+<font metrics-url="/usr/local/vufind/import/fop/fonts/ttfarial.xml" kerning="yes" embed-url="/usr/local/vufind/import/fop/fonts/arial.ttf">
+          <font-triplet name="Arial" style="normal" weight="normal"/>
+          <font-triplet name="ArialMT" style="normal" weight="normal"/>
+        </font>
+        <font metrics-url="/usr/local/vufind/import/fop/fonts/ttfarialbd.xml" kerning="yes" embed-url="/usr/local/vufind/import/fop/fonts/arialbd.ttf">
+          <font-triplet name="Arial" style="normal" weight="bold"/>
+          <font-triplet name="ArialMT" style="normal" weight="bold"/>
+        </font>
+          <font metrics-url="/usr/local/vufind/import/fop/fonts/ttfarialbi.xml" kerning="yes" embed-url="/usr/local/vufind/import/fop/fonts/arialbi.ttf">
+          <font-triplet name="Arial" style="italic" weight="bold"/>
+          <font-triplet name="ArialMT" style="italic" weight="bold"/>
+        </font>
+        <font metrics-url="/usr/local/vufind/import/fop/fonts/ttfariali.xml" kerning="yes" embed-url="/usr/local/vufind/import/fop/fonts/ariali.ttf">
+          <font-triplet name="Arial" style="italic" weight="normal"/>
+          <font-triplet name="ArialMT" style="italic" weight="normal"/>
+        </font>
+
+      </fonts>
+
+
+
       <filterList>
         <!-- provides compression using zlib flate (default is on) -->
         <value>flate</value>
@@ -60,27 +85,6 @@ the location of this file.
       <renderer-resolution>240</renderer-resolution>
       <resource-group-file>resources.afp</resource-group-file>
 
-      <fonts>
-
-
-<font metrics-url="/usr/local/vufind/import/fop/fonts/ttfarial.xml" kerning="yes" embed-url="/usr/local/vufind/import/fop/fonts/arial.ttf">
-          <font-triplet name="Arial" style="normal" weight="normal"/>
-          <font-triplet name="ArialMT" style="normal" weight="normal"/>
-        </font>
-        <font metrics-url="/usr/local/vufind/import/fop/fonts/ttfarialbd.xml" kerning="yes" embed-url="/usr/local/vufind/import/fop/fonts/arialbd.ttf">
-          <font-triplet name="Arial" style="normal" weight="bold"/>
-          <font-triplet name="ArialMT" style="normal" weight="bold"/>
-        </font>
-          <font metrics-url="/usr/local/vufind/import/fop/fonts/ttfarialbi.xml" kerning="yes" embed-url="/usr/local/vufind/import/fop/fonts/arialbi.ttf">
-          <font-triplet name="Arial" style="italic" weight="bold"/>
-          <font-triplet name="ArialMT" style="italic" weight="bold"/>
-        </font>
-        <font metrics-url="/usr/local/vufind/import/fop/fonts/ttfariali.xml" kerning="yes" embed-url="/usr/local/vufind/import/fop/fonts/ariali.ttf">
-          <font-triplet name="Arial" style="italic" weight="normal"/>
-          <font-triplet name="ArialMT" style="italic" weight="normal"/>
-        </font>
-
-      </fonts>
     </renderer>
 
     <renderer mime="application/postscript">
