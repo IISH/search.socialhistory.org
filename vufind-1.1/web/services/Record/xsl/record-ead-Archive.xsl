@@ -39,6 +39,7 @@
             <xsl:value-of select="$value"/>
         </a>
     </xsl:template>
+
     <xsl:template name="ahref">
         <xsl:param name="value"/>
         <xsl:param name="tag"/>
@@ -133,7 +134,7 @@
     </xsl:template>
 
     <xsl:template match="ead:tgroup">
-        <xsl:apply-templates select="node()|@*"/>
+        <xsl:apply-templates select="node()"/>
     </xsl:template>
 
     <xsl:template match="ead:row">

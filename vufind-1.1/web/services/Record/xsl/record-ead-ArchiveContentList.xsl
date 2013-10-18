@@ -72,14 +72,14 @@
                             <xsl:apply-templates select="ead:did/*[not(local-name() = 'unitid')]"/>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:apply-templates select="ead:did/*[not(local-name() = 'unitid' or local-name() = 'unittitle')]"/>
-                            <ul>
-                                <xsl:for-each select="ead:did/ead:unittitle">
-                                    <li>
-                                        <xsl:apply-templates select="."/>
-                                    </li>
-                                </xsl:for-each>
-                            </ul>
+                            <xsl:apply-templates select="ead:did/*[not(local-name() = 'unitid')]"/>
+                            <!-- <ul>
+                                 <xsl:for-each select="ead:did/ead:unittitle">
+                                     <li>
+                                         ccc<xsl:apply-templates select="."/>
+                                     </li>
+                                 </xsl:for-each>
+                             </ul>-->
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>
@@ -115,7 +115,7 @@
     <xsl:template match="ead:unittitle">
         <xsl:choose>
             <xsl:when test="../../@level = 'file'">
-                <xsl:apply-templates/>
+                <xsl:apply-templates/><br/>
             </xsl:when>
             <xsl:when test="../../@level = 'series'">
                 <h2>
@@ -165,7 +165,7 @@
                 </xsl:choose>
             </xsl:when>
             <xsl:when test="../../@level = 'item'">
-                <xsl:apply-templates/>
+              <xsl:apply-templates/><br/>
             </xsl:when>
         </xsl:choose>
     </xsl:template>
@@ -175,11 +175,11 @@
     </xsl:template>
 
     <xsl:template match="ead:physdesc">
-        <xsl:apply-templates/>
+       <xsl:apply-templates/><br/>
     </xsl:template>
 
     <xsl:template match="ead:note">
-        <br/><xsl:apply-templates />
+        <xsl:apply-templates /><br/>
     </xsl:template>
 
     <xsl:template match="ead:p">
