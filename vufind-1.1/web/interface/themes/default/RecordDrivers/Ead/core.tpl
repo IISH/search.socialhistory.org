@@ -3,20 +3,6 @@
 {literal}
     <script type='text/javascript'>
 
-        // Set the navigation width, height properties
-        var archnav = $('#archnav');
-        var position = $('#bd').position();
-        var offsetW = position.left - 35;
-        var marker = position.top;   // Do not go lower than this one.
-        position = marker;
-
-        var treeTop = $('body').height() - position - 50;
-        archnav.load(function () {
-            var tree = $(this).contents().find('.tree').children().last().position();
-            treeTop = ( tree ) ? tree.top + 30 : null;
-            s();
-        });
-
         function s() {
             offsetW = $('#bd').position().left - 35;
             var h = $('body').height() - position - 50;
@@ -27,6 +13,21 @@
             else
                 archnav.css({'display': 'none'});
         }
+
+        // Set the navigation width, height properties
+        var archnav = $('#archnav');
+        var position = $('#bd').position();
+        var offsetW = position.left - 35;
+
+        var marker = position.top;   // Do not go lower than this one.
+        position = marker;
+        var treeTop = $('body').height() - position - 50;
+
+        archnav.load(function () {
+            var tree = $(this).contents().find('.tree').children().last().position();
+            treeTop = ( tree ) ? tree.top + 30 : null;
+            s();
+        });
 
         $(window).resize(s);
         $(window).scroll(function () {
