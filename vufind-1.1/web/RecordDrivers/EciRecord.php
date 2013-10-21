@@ -97,25 +97,19 @@ class EciRecord extends MarcRecord
         return 'RecordDrivers/Eci/holdings.tpl';
     }
 
-    private function getDetails($xml)
+    private function getDetails($doc)
     {
         $action = (isset($_REQUEST["action"]))
-                ? $_REQUEST["action"]
-                : "Holdings";
+            ? $_REQUEST["action"]
+            : "Holdings";
         // Prevent unprintable characters from interfering with the XSL transform:
-        $xml = str_replace(array(chr(29), chr(30), chr(31)), ' ', $xml);
         $style = new DOMDocument;
         $style->load('services/Record/xsl/record-eci.xsl');
         $xsl = new XSLTProcessor();
         $xsl->importStyleSheet($style);
         $xsl->setParameter('', "notgeschiedenis", translate('notgeschiedenis'));
         $xsl->setParameter('', "action", $action);
-        $doc = new DOMDocument();
-        if ($doc->loadXML($xml)) {
-            $html = $xsl->transformToXML($doc);
-            return $html;
-        }
-        return false;
+        return $xsl->transformToXML($doc);
     }
 
     /**
@@ -136,7 +130,7 @@ class EciRecord extends MarcRecord
         // Check which formats are currently active:
         global $configArray;
         $active = isset($configArray['Export']) ?
-                $configArray['Export'] : array();
+            $configArray['Export'] : array();
         foreach ($possible as $current) {
             if ($active[$current]) {
                 $formats[] = $current;

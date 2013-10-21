@@ -337,7 +337,6 @@ public Set getFormat(Record record) {
 
     public String downloadableEad(Record record ){
 
-        final Set result = new LinkedHashSet();
             final List fields = record.getVariableFields("856");
             if (fields != null) {
                 final Iterator fieldsIter = fields.iterator();
@@ -350,7 +349,7 @@ public Set getFormat(Record record) {
                             final Subfield subfield = (Subfield) subfieldsIter.next();
                             final String data = subfield.getData().toLowerCase().trim();
                             if ( data.equalsIgnoreCase("image/jpeg" ))
-                                return "Archival item";
+                                return getFormat(record).getAt(0);
                         }
                     }
                 }
@@ -366,13 +365,13 @@ public Set getFormat(Record record) {
                 while (fieldsIter.hasNext()) {
                     final DataField physical = (DataField) fieldsIter.next();
                     final String q = subfieldQ(physical);
-                    if ( q != null ) return q;
+                    if ( q != null ) return getFormat(record).getAt(0); // q;
                     final String u = subfieldU(physical);
-                    if ( u != null ) return u;
+                    if ( u != null ) return getFormat(record).getAt(0); // u;
                 }
             }
-                return null;
-            }
+            return null;
+        }
 
         private String subfieldQ(DataField datafield) {
             if ( datafield != null ) {
