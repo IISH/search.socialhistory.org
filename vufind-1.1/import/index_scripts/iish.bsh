@@ -184,7 +184,7 @@ public Set getFormat(Record record) {
         // Use cache ?
         boolean useCache = file.exists() && file.lastModified() + cacheLimit < new Date().getTime() ;
         final Document document = ( useCache ) ? db.parse(file) : db.parse(url);
-        if ( useCache ) saveDocument(document, file);
+        if ( !useCache ) saveDocument(document, file);
         return document;
     }
 
