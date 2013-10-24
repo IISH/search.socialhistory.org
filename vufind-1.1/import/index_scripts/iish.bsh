@@ -353,7 +353,7 @@ public Set getFormat(Record record) {
                             final Subfield subfield = (Subfield) subfieldsIter.next();
                             final String data = subfield.getData().toLowerCase().trim();
                             if ( data.equalsIgnoreCase("image/jpeg" ))
-                                return getFormat(record).getAt(0);
+                                return getFormat(record).iterator().next();
                         }
                     }
                 }
@@ -369,9 +369,9 @@ public Set getFormat(Record record) {
                 while (fieldsIter.hasNext()) {
                     final DataField physical = (DataField) fieldsIter.next();
                     final String q = subfieldQ(physical);
-                    if ( q != null ) return getFormat(record).getAt(0); // q;
+                    if ( q != null ) return getFormat(record).iterator().next(); // q;
                     final String u = subfieldU(physical);
-                    if ( u != null ) return getFormat(record).getAt(0); // u;
+                    if ( u != null ) return getFormat(record).iterator().next(); // u;
                 }
             }
             return null;
