@@ -179,8 +179,8 @@ public Set getFormat(Record record) {
             f.mkdirs();
 
         final File file = new File(f, md5FromString(id+"_ead"));
-        final Document document = ( file.exists() ) ? db.parse(file) : db.parse(url);
-        if ( !file.exists() ) saveDocument(document, file);
+        final Document document = db.parse(url);
+        saveDocument(document, file);
         return document;
     }
 
