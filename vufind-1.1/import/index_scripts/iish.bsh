@@ -33,6 +33,7 @@ import org.apache.log4j.Logger;
 // note that the SolrIndexer code will set this value before the script methods are called.
     org.solrmarc.index.SolrIndexer indexer = null;
  protected Logger logger = Logger.getLogger(this.getClass().getName());
+ protected long cacheLimit = 3600000; // One hour
 
 public String getId(Record record) {
 
@@ -179,8 +180,12 @@ public Set getFormat(Record record) {
             f.mkdirs();
 
         final File file = new File(f, md5FromString(id+"_ead"));
-        final Document document = db.parse(url);
-        saveDocument(document, file);
+
+        // Use cache ?
+        boolean useCache = ( file.exists() ) ? folder.lastModified() + cacheLimit < new Date().getTime() : false ;
+
+        final Document document = ( useCache ) ? db.parse(file) : db.parse(url);
+        if ( !file.exists() ) saveDocument(document, file);
         return document;
     }
 
