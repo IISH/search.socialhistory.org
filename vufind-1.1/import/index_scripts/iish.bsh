@@ -182,8 +182,7 @@ public Set getFormat(Record record) {
         final File file = new File(f, md5FromString(id+"_ead"));
 
         // Use cache ?
-        boolean useCache = ( file.exists() ) ? folder.lastModified() + cacheLimit < new Date().getTime() : false ;
-
+        boolean useCache = ( file.exists() ) ? file.lastModified() + cacheLimit < new Date().getTime() : false ;
         final Document document = ( useCache ) ? db.parse(file) : db.parse(url);
         if ( !file.exists() ) saveDocument(document, file);
         return document;
