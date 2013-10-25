@@ -297,6 +297,7 @@ function handlePEARError($error)
 
     $interface->assign('error', $error);
     $interface->assign('debug', $configArray['System']['debug']);
+    $interface->assign('hostname', $_SERVER['HTTP_HOST']);
 
     $interface->display('error.tpl');
     header("HTTP/1.0 500 Server error");
