@@ -57,7 +57,7 @@
 {literal}
 <script type='text/javascript'>
     $('.m').each(function () {
-        var metsId = encodeURI($(this).attr('title'));
+        var metsId = $(this).attr('title');
         var a = $('<a href="' + $(this).attr('title') + '">' + $(this).text() + '<\/a>');
         $(a).click(function (event) {
 	    event.preventDefault();
