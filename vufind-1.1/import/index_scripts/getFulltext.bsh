@@ -16,9 +16,16 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+
+import org.apache.log4j.Logger;
+
+
 // define the base level indexer so that its methods can be called from the script.
 // note that the SolrIndexer code will set this value before the script methods are called.
 org.solrmarc.index.SolrIndexer indexer = null;
+
+protected Logger logger = Logger.getLogger(this.getClass().getName());
+
 
 /**
  * Load configurations for the full text parser.  Return an array containing the
@@ -29,38 +36,8 @@ org.solrmarc.index.SolrIndexer indexer = null;
  */
 public String[] getFulltextParserSettings()
 {
-    String parserType = indexer.getConfigSetting(
-        "fulltext.ini", "General", "parser"
-    );
-    if (null != parserType) {
-        parserType = parserType.toLowerCase();
-    }
-
-    // Is Aperture active?
-    String aperturePath = indexer.getConfigSetting(
-        "fulltext.ini", "Aperture", "webcrawler"
-    );
-    if ((null == parserType && null != aperturePath)
-        || (null != parserType && parserType.equals("aperture"))
-    ) {
-        String[] array = { "aperture", aperturePath };
+        String[] array = { "tika", "/usr/local/vufind/import/tika-app-1.4.jar" };
         return array;
-    }
-
-    // Is Tika active?
-    String tikaPath = indexer.getConfigSetting(
-        "fulltext.ini", "Tika", "path"
-    );
-    if ((null == parserType && null != tikaPath)
-        || (null != parserType && parserType.equals("tika"))
-    ) {
-        String[] array = { "tika", tikaPath };
-        return array;
-    }
-
-    // No recognized parser found:
-    String[] array = { "none", null };
-    return array;
 }
 
 /**
@@ -116,6 +93,7 @@ public String getFulltext(Record record, String fieldSpec) {
  * @return String The full-text
  */
 public String getFulltext(Record record) {
+
     return getFulltext(record, "856u", null);
 }
 
@@ -229,7 +207,8 @@ public String harvestWithTika(url, scraperPath) {
     String cmd = "java -jar " + scraperPath + " -t -eUTF8 " + url;
 
     // Call our scraper
-    //System.out.println("Loading fulltext from " + url + ". Please wait ...");
+    //logger.info(cmd);
+    //logger.info("Loading fulltext from " + url + ". Please wait ...");
     Process p = Runtime.getRuntime().exec(cmd);
     BufferedReader stdInput = new BufferedReader(new
         InputStreamReader(p.getInputStream(), "UTF8"));
@@ -239,7 +218,7 @@ public String harvestWithTika(url, scraperPath) {
     while ((s = stdInput.readLine()) != null) {
         stringBuilder.append(s);
     }
-
+                         //logger.info(stringBuilder.toString());
     return sanitizeFullText(stringBuilder.toString());
 }
 
