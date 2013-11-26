@@ -10,6 +10,7 @@ if [[ $rc != 0 ]] ; then
 	service apache2 stop
 	sleep 5
 	killall java
+	mount -a
 	sleep 5
 	service tomcat6 start
 	service apache2 start

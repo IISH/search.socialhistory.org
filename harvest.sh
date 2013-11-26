@@ -88,6 +88,7 @@ wget -O /tmp/optimize.txt http://localhost:8080/solr/biblio/update?optimize=true
 wget -O /tmp/optimize.txt http://localhost:8080/solr/authority/update?optimize=true
 wget -O /tmp/optimize.txt http://localhost:8080/solr/authority/update?optimize=true
 service tomcat6 stop
+rm $VUFIND_HOME/solr/alphabetical_browse/*
 ./index-alphabetic-browse.sh
 
 
