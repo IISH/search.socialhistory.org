@@ -99,7 +99,7 @@ class HarvestOAI
      * Constructor.
      *
      * @param string $target   Target directory for harvest.
-     * @param array  $settings OAI-PMH settings from oai.ini.
+     * @param array $settings OAI-PMH settings from oai.ini.
      *
      * @access public
      */
@@ -279,7 +279,7 @@ class HarvestOAI
      * on success.
      *
      * @param string $verb   OAI-PMH verb to execute.
-     * @param array  $params GET parameters for ListRecords method.
+     * @param array $params GET parameters for ListRecords method.
      *
      * @return object        SimpleXML-formatted response.
      * @access private
@@ -336,7 +336,7 @@ class HarvestOAI
             $attribs = $result->error->attributes();
             die(
                 "OAI-PMH error -- code: {$attribs['code']}, " .
-                    "value: {$result->error}\n"
+                "value: {$result->error}\n"
             );
         }
 
@@ -365,7 +365,7 @@ class HarvestOAI
         }
 
         return $f . time() . '_' .
-            preg_replace('/[^\w]/', '_', $id) . '.' . $ext;
+        preg_replace('/[^\w]/', '_', $id) . '.' . $ext;
     }
 
     /**
@@ -444,7 +444,12 @@ class HarvestOAI
 
 
         // Save our XML:
-        file_put_contents($this->_getFilename($id, $extension), trim($xml));
+        $filename = $this->_getFilename($id, $extension);
+        file_put_contents($filename, trim($xml));
+        $datestamp = (isset($record->header) && strlen((string)$record->header->datestamp) >= 10)
+            ? strtotime(substr((string)$record->header->datestamp, 0, 10))
+            : time();
+        touch($filename, $datestamp);
     }
 
     /**
@@ -577,7 +582,7 @@ class HarvestOAI
         // Do we have IDs to log and a log filename?  If so, log them:
         if (!empty($this->_harvestedIdLog) && !empty($harvestedIds)) {
             $file = fopen($this->_basePath . $this->_harvestedIdLog, 'a')
-                or die ("Problem opening {$this->_harvestedIdLog}.\n");
+            or die ("Problem opening {$this->_harvestedIdLog}.\n");
             fputs($file, implode(PHP_EOL, $harvestedIds));
             fclose($file);
         }
