@@ -55,7 +55,7 @@ class SearchObject_Solr extends SearchObject_Base
     // Index
     protected $index = null;
     // Field List
-    protected $fields = 'score';
+    protected $fields = '*,score';
     // HTTP Method
     protected $method = HTTP_REQUEST_METHOD_GET;
     //protected $method = HTTP_REQUEST_METHOD_POST;

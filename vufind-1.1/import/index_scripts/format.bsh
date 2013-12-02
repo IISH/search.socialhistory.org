@@ -1,3 +1,10 @@
+/**
+ * Custom format determination script.
+ *
+ * This can be used to override built-in SolrMarc custom functions.  If you change
+ * this script, you will need to activate it in import/marc_local.properties before
+ * it will be applied during indexing.
+ */
 import org.marc4j.marc.Record;
 import org.marc4j.marc.ControlField;
 import org.marc4j.marc.DataField;
@@ -29,7 +36,7 @@ public Set getFormat(Record record){
     }
 
     // check the 007 - this is a repeating field
-    List fields = record.getVariableFields("");
+    List fields = record.getVariableFields("007");
     Iterator fieldsIter = fields.iterator();
     if (fields != null) {
         ControlField formatField;
@@ -47,7 +54,7 @@ public Set getFormat(Record record){
                         default:
                             result.add("Map");
                             break;
-                    }007
+                    }
                     break;
                 case 'C':
                     switch(formatCode2) {

@@ -1,7 +1,12 @@
 import org.marc4j.marc.Record;
 
 // Give ourselves the ability to import other BeanShell scripts
-addClassPath("../import");
+String vufindHome = System.getenv("VUFIND_HOME");
+String vufindLocal = System.getenv("VUFIND_LOCAL_DIR");
+addClassPath(vufindHome + "/import");
+if (vufindLocal != null) {
+    addClassPath(vufindLocal + "/import");
+}
 importCommands("index_scripts");
 
 // define the base level indexer so that its methods can be called from the script.

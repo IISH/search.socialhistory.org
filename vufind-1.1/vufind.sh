@@ -424,6 +424,7 @@ case "$ACTION" in
 
         if [ -f $JETTY_PID ]
         then
+		echo "Found $JETTY_PID"
             echo "Already Running!!"
             exit 1
         fi
