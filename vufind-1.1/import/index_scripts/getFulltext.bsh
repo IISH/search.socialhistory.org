@@ -179,7 +179,7 @@ public String harvestWithAperture(url, aperturePath) {
     String cmd = aperturePath + " -o " + f.getAbsolutePath().toString()  + " -x " + url;
 
     // Call Aperture
-    //System.out.println("Loading fulltext from " + url + ". Please wait ...");
+   // System.out.println("Loading fulltext from " + url + ". Please wait ...");
     Process p = Runtime.getRuntime().exec(cmd);
     BufferedReader stdInput = new BufferedReader(new
         InputStreamReader(p.getInputStream()));
@@ -229,7 +229,7 @@ public String harvestWithTika(url, scraperPath) {
     String cmd = "java -jar " + scraperPath + " -t -eUTF8 " + url;
 
     // Call our scraper
-    //System.out.println("Loading fulltext from " + url + ". Please wait ...");
+    System.out.println("cmd="+cmd);
     Process p = Runtime.getRuntime().exec(cmd);
     BufferedReader stdInput = new BufferedReader(new
         InputStreamReader(p.getInputStream(), "UTF8"));
