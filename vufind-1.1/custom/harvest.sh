@@ -43,8 +43,7 @@ do
     mv solrmarc.log.1 /data/log/solrmarc.$now.log.1
 
     if [ "$setSpec" == "iish.evergreen.authorities" ] ; then
-        # Will import with properties import_auth.properties
-        ./import-marc-auth.sh $f
+        ./import-marc-auth.sh $f import_auth.properties
     else
         ./import-marc.sh -p import_$setSpec.properties $f
         echo "Delete records"
