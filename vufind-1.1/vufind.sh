@@ -39,6 +39,7 @@ SOLR_HOME=/usr/local/vufind/solr
 #
 # JETTY_LOG
 #   The path where Jetty will store the log files
+JETTY_LOG=/usr/local/vufind/solr/jetty/log
 #
 # JETTY_CONSOLE
 #   Where Jetty console output should go. Defaults to first writeable of
@@ -62,6 +63,7 @@ SOLR_HOME=/usr/local/vufind/solr
 # JETTY_RUN
 #   Where the jetty.pid file should be stored. It defaults to the
 #   first available of /var/run, /usr/var/run, and /tmp if not set.
+JETTY_RUN=/tmp
 #
 # JETTY_PID
 #   The Jetty PID file, defaults to $JETTY_RUN/jetty.pid
@@ -424,7 +426,6 @@ case "$ACTION" in
 
         if [ -f $JETTY_PID ]
         then
-		echo "Found $JETTY_PID"
             echo "Already Running!!"
             exit 1
         fi

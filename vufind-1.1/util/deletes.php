@@ -77,6 +77,8 @@ if ($mode == 'flat') {
         if (!empty($id)) {
             $solr->deleteRecord($id);
             $solr->deleteRecordByQuery($id);
+            $solr->deleteRecordByQuery($id);
+            $solr->deleteRecordByQuery('pid:"' . $id . '"');
             $i++;
         }
     }

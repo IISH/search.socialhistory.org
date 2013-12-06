@@ -4,7 +4,6 @@
 
   export VUFIND_HOME=/usr/local/vufind
   export SOLR_HOME=$VUFIND_HOME/solr
-  export JAVA_HOME=/usr/lib/jvm/default-java
   app=/usr/bin/vufind/import-1.0.jar
 
 
@@ -48,11 +47,7 @@ do
         ./import-marc.sh -p import_$setSpec.properties $f
         echo "Delete records"
         java -Dxsl=deleted -cp $app org.socialhistoryservices.solr.importer.Collate $dir $f.delete
-        while read line; do
-        if [ ${#line} -gt 5 ] ; then
-            wget -O /tmp/deletion.txt http://localhost:8080/solr/biblio/update?stream.body=%3Cdelete%3E%3Cquery%3Epid%3A%22$line%22%3C%2Fquery%3E%3C%2Fdelete%3E
-        fi
-        done < $f.delete
+        php ../util/deletes.php $f.delete flat
     fi
 
     echo "Clearing files"
