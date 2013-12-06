@@ -47,7 +47,12 @@ do
         ./import-marc.sh -p import_$setSpec.properties $f
         echo "Delete records"
         java -Dxsl=deleted -cp $app org.socialhistoryservices.solr.importer.Collate $dir $f.delete
+        service vufind start
+        sleep 5
         php ../util/deletes.php $f.delete flat
+        service vufind stop
+        sleep 5
+        ./bin/optimizesolr
     fi
 
     echo "Clearing files"
@@ -56,6 +61,8 @@ do
     echo "Creating PDF documents"
     ./fop-$setSpec.sh
 done
+
+./bin/optimizesolr
 
 
 ##############################################################################
