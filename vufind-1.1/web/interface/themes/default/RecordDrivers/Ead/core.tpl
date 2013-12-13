@@ -72,6 +72,24 @@
                         '</div>')
                         .insertAfter(parent).find(">:first-child").mets2Viewer({
                             template: '{/literal}{$visualmets_url}/template.handler.html?callback=?{literal}',
+                            layoutConfig : {
+                                toFullScreen : {
+                                    'thumbnail' : 'thumbnailFullScreen',
+                                    'page'      : 'pageFullScreen'
+                                },
+                                toDefaultScreen   : {
+                                    'thumbnailFullScreen' : 'thumbnailIISG',
+                                    'pageFullScreen'      : 'page'
+                                },
+                                toStart : {
+                                    fullScreen    : {
+                                        'pageFullScreen' : 'thumbnailFullScreen'
+                                    },
+                                    defaultScreen : {
+                                        'page' : 'thumbnailIISG'
+                                    }
+                                }
+                            },
                             initialize: {
                                 'metsId': metsId,
                                 'defaults': true,
