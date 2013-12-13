@@ -72,6 +72,7 @@
                         '</div>')
                         .insertAfter(parent).find(">:first-child").mets2Viewer({
                             template: '{/literal}{$visualmets_url}/template.handler.html?callback=?{literal}',
+                            layout : 'thumbnailIISG',
                             layoutConfig : {
                                 toFullScreen : {
                                     'thumbnail' : 'thumbnailFullScreen',
