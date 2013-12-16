@@ -40,8 +40,7 @@ fi
     f=$dir/add.xml
 	rm $f
 	rm $h
-    echo "Collating files into $f" >> $log
-    java -cp $app org.socialhistoryservices.solr.importer.Collate $dir $f
+    java -Dxsl=marc -cp $app org.socialhistoryservices.solr.importer.Collate $dir $f
     cd $VUFIND_HOME/import
     echo "Begin import into solr" >> $log
 
