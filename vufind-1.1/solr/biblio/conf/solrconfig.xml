@@ -557,7 +557,7 @@
 
        To enable solr1.1 behavior, remove the /update handler or change its path
     -->
-  <requestHandler name="/update" class="solr.UpdateRequestHandler">
+  <requestHandler name="/update" class="solr.UpdateRequestHandler" enable="${enable.master:false}">
     <!-- See below for information on defining
          updateRequestProcessorChains that can be used by name
          on each Update Request
@@ -568,7 +568,7 @@
        </lst>
        -->
   </requestHandler>
-  <requestHandler name="/update/json" class="solr.JsonUpdateRequestHandler"/>
+  <requestHandler name="/update/json" class="solr.JsonUpdateRequestHandler" enable="${enable.master:false}"/>
 
   <!-- Field Analysis Request Handler
 
@@ -590,7 +590,7 @@
    -->
   <requestHandler name="/analysis/field"
                   startup="lazy"
-                  class="solr.FieldAnalysisRequestHandler" />
+                  class="solr.FieldAnalysisRequestHandler" enable="${enable.master:false}"/>
 
 
   <!-- Document Analysis Handler
@@ -625,11 +625,11 @@
   -->
   <requestHandler name="/analysis/document"
                   class="solr.DocumentAnalysisRequestHandler"
-                  startup="lazy" />
+                  startup="lazy" enable="${enable.master:false}"/>
 
 
   <!-- CSV update handler, loaded on demand -->
-  <requestHandler name="/update/csv" class="solr.CSVRequestHandler" startup="lazy" />
+  <requestHandler name="/update/csv" class="solr.CSVRequestHandler" startup="lazy" enable="${enable.master:false}"/>
 
 
   <!--
@@ -651,7 +651,7 @@
     </lst>
   </requestHandler>
   -->
-  <requestHandler name="/admin/" class="org.apache.solr.handler.admin.AdminHandlers" />
+  <requestHandler name="/admin/" class="org.apache.solr.handler.admin.AdminHandlers" enable="${enable.master:false}"/>
 
   <!-- ping/healthcheck -->
   <requestHandler name="/admin/ping" class="PingRequestHandler">
