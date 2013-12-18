@@ -4,24 +4,30 @@
 # This script is therefor a workaround. It is run from the store0 node
 
 # If no parameter was given, we replicate the master index
+
 if [ "$1" == "" ];
 then
-	index0=/data/search.socialhistory.org.index0/vufind-1.1/solr/
+	source=/data/erebus.index0/
 else
-	index0=$1
+	source=$1
 fi
 
 for i in {0..3}
 	do
-		base=/data/search.socialhistory.org.be"$i"
-		be=$base/vufind-1.1/solr/
-		tmp=$base/vufind-1.1/tmp/
-		if [ -d $tmp ] ; then
-		    rm -r $tmp
+		h=erebus.be"$i"
+		target=/data/$h
+		tmp=/data/tmp
+		solr=$tmp/vufind-1.1/solr
+		rsync --exclude '.git' --delete -avv $source $tmp
+		if [ ! -d $solr/biblio ] ; then
+			echo "No index replicated."
+			exit -1
 		fi
-		mkdir -p $tmp
-		rsync --delete -avv $index0 $tmp
-		rm -r $be
-		mv $tmp $be
-		chown -R tomcat6:tomcat6 $base
+		chown -R tomcat6:root $solr
+		chmod -R 744 $solr
+
+		wget -O /tmp/unload.txt "http://$h.iisg.net:8080/solr/admin/multicore?action=UNLOAD&core=biblio"
+		wget -O /tmp/unload.txt "http://$h.iisg.net:8080/solr/admin/multicore?action=UNLOAD&core=authority"
+		rm -r $target
+		mv $tmp $target
 done

@@ -1,0 +1,2 @@
+Do not remove this file.
+If a mirror detects it, it will restart.

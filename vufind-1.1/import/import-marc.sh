@@ -128,7 +128,7 @@ MARC_FILE=`basename $1`
 #####################################################
 
 pushd $SOLR_HOME
-RUN_CMD="$JAVA $INDEX_OPTIONS $SOLR_JAR_DEF -Dsolr.core.name=$SOLRCORE -Dsolrmarc.path=$SOLRMARC_HOME -Dsolr.path=$SOLR_HOME -Dsolr.solr.home=$SOLR_HOME $EXTRA_SOLRMARC_SETTINGS -jar $JAR_FILE $PROPERTIES_FILE $MARC_PATH/$MARC_FILE"
+RUN_CMD="$JAVA $INDEX_OPTIONS $SOLR_JAR_DEF -Denable.master=true -Dsolr.core.name=$SOLRCORE -Dsolrmarc.path=$SOLRMARC_HOME -Dsolr.path=$SOLR_HOME -Dsolr.solr.home=$SOLR_HOME $EXTRA_SOLRMARC_SETTINGS -jar $JAR_FILE $PROPERTIES_FILE $MARC_PATH/$MARC_FILE"
 echo "Now Importing $1 ..."
 echo $RUN_CMD
 exec $RUN_CMD

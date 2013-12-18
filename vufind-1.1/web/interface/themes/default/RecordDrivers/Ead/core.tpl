@@ -71,7 +71,8 @@
                         '<div class="mets-container mets-hide"></div>' +
                         '</div>')
                         .insertAfter(parent).find(">:first-child").mets2Viewer({
-                            template: '{/literal}{$visualmets_url}/template.handler.html?callback=?{literal}',
+				template:'{/literal}{$visualmets_url}/mets2.template.html?callback=?{literal}',
+                            /*template: '{/literal}{$visualmets_url}/template.handler.html?callback=?{literal}',
                             layout : 'thumbnailIISG',
                             layoutConfig : {
                                 toFullScreen : {
@@ -90,7 +91,7 @@
                                         'page' : 'thumbnailIISG'
                                     }
                                 }
-                            },
+                            },*/
                             initialize: {
                                 'metsId': metsId,
                                 'defaults': true,
