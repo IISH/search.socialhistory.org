@@ -369,7 +369,7 @@ class Solr implements IndexEngine
             'spellcheck' => 'true'
         );
 
-        $result = $this->_select($method, $options);
+        $result = $this->_select(HTTP_REQUEST_METHOD_POST, $options);
         if (PEAR::isError($result)) {
             PEAR::raiseError($result);
         }
@@ -746,9 +746,12 @@ class Solr implements IndexEngine
 
         // Translate special sort values into appropriate Solr fields:
         switch ($sortField) {
+            case 'callnumber':
+                $sortField = 'callnumber-first';
+                break;
         case 'year':
         case 'publishDate':
-            $sortField = 'publishDate';
+            $sortField = 'publishDateSort';
             $defaultSortDirection = 'desc';
             break;
         case 'author':
