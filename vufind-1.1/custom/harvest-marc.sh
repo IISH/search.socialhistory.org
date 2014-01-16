@@ -20,6 +20,7 @@ if [ -z "$setSpec" ] ; then
 	exit -1
 fi
 
+find $dir -type d -mtime 3 -exec rm -rf {} +
 if [ -d $dir ] ; then
 	echo "Folder $dir exists... skipping..." >> $log
 	exit -1
