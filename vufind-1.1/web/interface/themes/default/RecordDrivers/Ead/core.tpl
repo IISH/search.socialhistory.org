@@ -75,7 +75,7 @@
                             layout : 'thumbnailIISG',
                             layoutConfig : {
                                 toFullScreen : {
-                                    'thumbnailIISG' : 'thumbnailFullScreen',
+                                    'thumbnailIISG' : 'pageFullScreen',
                                     'page'      : 'pageFullScreen'
                                 },
                                 toDefaultScreen   : {
