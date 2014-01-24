@@ -9,8 +9,10 @@ restart=/usr/local/vufind/solr/restart.txt
 if [ $c == "restart" ] ; then
 	if [ -f $restart ] ; then
 		service tomcat6 stop
+		rm /var/log/tomcat6/*
+		rm /var/log/apache2/*.gz
 		service tomcat6 start
-		rm $restart
+		rm -f $restart
 	fi
 	exit 0
 fi
