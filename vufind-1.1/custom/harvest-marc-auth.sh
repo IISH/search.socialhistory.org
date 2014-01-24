@@ -45,7 +45,7 @@ fi
     cd $VUFIND_HOME/import
     echo "Begin import into solr" >> $log
 
-        ./import-marc-auth.sh $f import_auth.properties
+    ./import-marc-auth.sh $f
 
     cat solrmarc.log.1 >> $log
     cat solrmarc.log >> $log
