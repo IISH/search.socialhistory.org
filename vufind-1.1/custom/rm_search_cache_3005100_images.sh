@@ -1,5 +1,5 @@
 #!/bin/bash
 
-rm /data/caching/large/*
-rm /data/caching/medium/*
-rm /data/caching/small/*
+find /data/caching/large    -name '*.jpg' -delete
+find /data/caching/medium   -name '*.jpg' -delete
+find /data/caching/small    -name '*.jpg' -delete
