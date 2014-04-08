@@ -987,7 +987,7 @@ class MarcRecord extends IndexRecord
 
     private function getIsShowBy()
     {
-        $p = $this->_getFirstFieldValue('852', array('p'));
+        /*$p = $this->_getFirstFieldValue('852', array('p'));
         $pos = strpos($p, '30051');
         if ($pos === false) {
             $j = $this->_getFirstFieldValue('852', array('j'));
@@ -999,7 +999,8 @@ class MarcRecord extends IndexRecord
                 }
             }
         }
-        return ($pos === false) ? null : $p;
+        return ($pos === false) ? null : $p;*/
+        return null;
     }
 
     public function getExtendedMetadata()
