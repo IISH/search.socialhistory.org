@@ -473,9 +473,9 @@ class MarcRecord extends IndexRecord
      * will correspond with a single MARC field.  If $concat is false, the return
      * array will contain separate entries for separate subfields.
      *
-     * @param string $field     The MARC field number to read
+     * @param string $field The MARC field number to read
      * @param array $subfields The MARC subfield codes to read
-     * @param bool $concat    Should we concatenate subfields?
+     * @param bool $concat Should we concatenate subfields?
      *
      * @return array
      * @access protected
@@ -521,7 +521,7 @@ class MarcRecord extends IndexRecord
      * Get the first value matching the specified MARC field and subfields.
      * If multiple subfields are specified, they will be concatenated together.
      *
-     * @param string $field     The MARC field to read
+     * @param string $field The MARC field to read
      * @param array $subfields The MARC subfield codes to read
      *
      * @return string
@@ -747,8 +747,8 @@ class MarcRecord extends IndexRecord
      * will contain a separate entry for each subfield value found.
      *
      * @param object $currentField Result from File_MARC::getFields.
-     * @param array $subfields    The MARC subfield codes to read
-     * @param bool $concat       Should we concatenate subfields?
+     * @param array $subfields The MARC subfield codes to read
+     * @param bool $concat Should we concatenate subfields?
      *
      * @return array
      * @access private
@@ -949,11 +949,11 @@ class MarcRecord extends IndexRecord
             $subfields = $field->getSubfields();
             $name = "";
             $role = $default_e;
-            $link = "" ;
+            $link = "";
             foreach ($subfields as $subfield) {
                 switch ($subfield->getCode()) {
                     case "a":
-                        $link=$subfield->getData();
+                        $link = $subfield->getData();
                     case "b":
                     case "c":
                     case "d":
@@ -964,9 +964,9 @@ class MarcRecord extends IndexRecord
                         break;
                 }
             }
-            if ( $name ) {
-                $item = array("name"=>$this->normalize(trim($name)), "link"=>$link) ;
-                if ( $authors[$role] )
+            if ($name) {
+                $item = array("name" => $this->normalize(trim($name)), "link" => $link);
+                if ($authors[$role])
                     array_push($authors[$role], $item);
                 else
                     $authors[$role] = array($item);
@@ -974,9 +974,10 @@ class MarcRecord extends IndexRecord
         }
     }
 
-    private function normalize($text){
+    private function normalize($text)
+    {
         $i = strlen($text) - 1;
-        if ( $text[$i] == '.' || $text[$i] == ',') $text = substr($text, 0, $i) ;
+        if ($text[$i] == '.' || $text[$i] == ',') $text = substr($text, 0, $i);
         return ucfirst($text);
     }
 
@@ -987,7 +988,7 @@ class MarcRecord extends IndexRecord
 
     private function getIsShowBy()
     {
-        /*$p = $this->_getFirstFieldValue('852', array('p'));
+        $p = $this->_getFirstFieldValue('852', array('p'));
         $pos = strpos($p, '30051');
         if ($pos === false) {
             $j = $this->_getFirstFieldValue('852', array('j'));
@@ -999,8 +1000,7 @@ class MarcRecord extends IndexRecord
                 }
             }
         }
-        return ($pos === false) ? null : $p;*/
-        return null;
+        return ($pos === false) ? null : $p;
     }
 
     public function getExtendedMetadata()

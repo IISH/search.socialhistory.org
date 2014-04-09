@@ -568,7 +568,7 @@ function summon($id)
  */
 function iish()
 {
-    /*$reductionSizeInWidth = 0;
+    $reductionSizeInWidth = 0;
     $pid = $_GET['pid'];
     switch ($_GET['size']) {
         case 'small':
@@ -583,7 +583,7 @@ function iish()
     }
 
     $imageUrl = "http://hdl.handle.net/10622/" . $pid . "?locatt=view:" . $imageIndex;
-    processImageURL($imageUrl, true, $reductionSizeInWidth);*/
+    processImageURL($imageUrl, true, $reductionSizeInWidth);
 }
 
 ?>
