@@ -911,8 +911,12 @@ class MarcRecord extends IndexRecord
         $coreCollector = $this->getCollector();
         $coreIsShownAt = $this->getIsShownAt();
         $coreIsShownBy = $this->getIsShowBy();
+	    $publicationStatus = $this->getPublicationStatus();
+	    $imageUrl = $this->getImageURL();
         $interface->assign('coreIsShownAt', $coreIsShownAt);
         $interface->assign('coreIsShownBy', $coreIsShownBy);
+	    $interface->assign('publicationStatus', $publicationStatus);
+	    $interface->assign('imageUrl', $imageUrl);
         $interface->assign('coreFavorite', $this->getFavorite());
         $interface->assign('coreMainAuthorRole', $this->MainAuthorRole());
         $interface->assign('coreClassification', $this->CoreClassification());
@@ -1002,6 +1006,25 @@ class MarcRecord extends IndexRecord
         }
         return ($pos === false) ? null : $p;
     }
+
+	private function getPublicationStatus()
+	{
+		return $this->_getFirstFieldValue('542', array('m'));
+	}
+
+	private function getImageURL() {
+		$url = 'http://hdl.handle.net/10622/' . $this->getIsShowBy();
+
+		switch ($this->getPublicationStatus()) {
+			case 'closed':
+				return $url;
+			case 'minimal':
+				return $url . '?locatt=view:level3';
+			case 'restricted':
+			default:
+				return $url . '?locatt=view:level2';
+		}
+	}
 
     public function getExtendedMetadata()
     {
