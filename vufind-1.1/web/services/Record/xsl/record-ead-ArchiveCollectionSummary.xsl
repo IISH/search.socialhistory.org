@@ -164,12 +164,23 @@
     </xsl:template>
 
     <xsl:template name="extent">
-        <xsl:call-template name="row">
-            <xsl:with-param name="key" select="'ArchiveCollectionSummary.extent'"/>
-            <xsl:with-param name="value">
-                <xsl:value-of select="ead:archdesc/ead:did/ead:physdesc/ead:extent"/>
-            </xsl:with-param>
-        </xsl:call-template>
+        <xsl:for-each select="ead:archdesc/ead:did/ead:physdesc/ead:extent">
+            <xsl:variable name="key">
+                <xsl:choose>
+                    <xsl:when test="position()=1">
+                        <xsl:value-of
+                                select="'ArchiveCollectionSummary.extent'"/>
+                    </xsl:when>
+                    <xsl:otherwise/>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:call-template name="row">
+                <xsl:with-param name="key" select="$key"/>
+                <xsl:with-param name="value">
+                    <xsl:value-of select="text()"/>
+                </xsl:with-param>
+            </xsl:call-template>
+        </xsl:for-each>
     </xsl:template>
 
     <xsl:template name="access">
