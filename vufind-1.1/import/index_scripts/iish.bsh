@@ -47,6 +47,7 @@ public String getId(Record record) {
 
 public Set getFormat(Record record) {
 
+		final String AB = "Articles";
         final String SE = "Serials";
         final String BK = "Books and brochures";
         final String MU = "Music and sound";
@@ -61,6 +62,8 @@ public Set getFormat(Record record) {
         // example leader
         // 00427nam a22001330a 45a0
         String format = leader.substring(6, 8).toLowerCase();
+		if (format.equals("ab"))
+            result.add(AB);
         if (format.equals("ar") || format.equals("as") || format.equals("ps") || format.equals("ar"))
             result.add(SE);
         if (format.equals("am") || format.equals("pm"))
