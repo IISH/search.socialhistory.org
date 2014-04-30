@@ -150,7 +150,16 @@
     </tr>
 {/if}
 
-
+{if $journalMagazine}
+	<tr valign="top">
+		<th>{translate text='Journal/Magazine'}:</th>
+		<td>
+			<a href="{$url}/Search/Results?lookfor=%22{$journalMagazine|escape:"url"}%22&amp;type=Title">
+				{$journalMagazine|escape}
+			</a>
+		</td>
+	</tr>
+{/if}
 
 {if $recordLanguage}
     <tr valign="top">

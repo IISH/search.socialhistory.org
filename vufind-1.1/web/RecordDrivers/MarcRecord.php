@@ -936,6 +936,8 @@ class MarcRecord extends IndexRecord
         // extend the extendedDateSpan...
         $interface->assign('extendedDateSpanPublisher', $this->getExtendedDateSpanPublisher());
 
+        $interface->assign('journalMagazine', $this->getJournalMagazine());
+
         $this->getExtendedMetadata();
         return $tpl;
     }
@@ -1011,6 +1013,11 @@ class MarcRecord extends IndexRecord
 	private function getPublicationStatus()
 	{
 		return $this->_getFirstFieldValue('542', array('m'));
+	}
+
+	private function getJournalMagazine()
+	{
+		return $this->_getFirstFieldValue('730', array('a'));
 	}
 
 	private function getImageURL() {
