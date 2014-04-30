@@ -1131,9 +1131,12 @@ class MarcRecord extends IndexRecord
     private function getMarc773($field)
     {
         $a = $this->_getFirstFieldValue($field, array('a'));
+	    $t = $this->_getFirstFieldValue($field, array('t'));
         $g = $this->_getFirstFieldValue($field, array('g'));
         if ($a && $g) return $a . ", " . $g;
-        return ($a) ? $a : $g;
+	    if ($t && $g) return $t . ", " . $g;
+	    if ($a) return $a;
+        return ($t) ? $t : $g;
     }
 
     private function getExtendedDateSpanPublisher()
