@@ -154,7 +154,7 @@
 	<tr valign="top">
 		<th>{translate text='Journal/Magazine'}:</th>
 		<td>
-			<a href="{$url}/Search/Results?lookfor=%22{$journalMagazine|escape:"url"}%22&amp;type=Title">
+			<a href="{$url}/Search/Results?lookfor={$journalMagazine|escape:"url"}&amp;type=Title">
 				{$journalMagazine|escape}
 			</a>
 		</td>
