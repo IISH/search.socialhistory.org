@@ -599,6 +599,15 @@ class MarcRecord extends IndexRecord
         return $this->_getFieldArray('310', array('a', 'b'));
     }
 
+	/**
+	 * Override with the 'original' MARC record value to prevent translations
+	 * Example: return original [190?] value vs. 1900 as translated in the field 'publishDate'
+	 */
+	protected function getPublicationDates()
+	{
+		return $this->_getFieldArray('260', array('c'));
+	}
+
     /**
      * Get an array of information about record history, obtained in real-time
      * from the ILS.
