@@ -55,7 +55,7 @@
     <div class="alignright">
         {if $coreThumbLarge}
         {if ( empty($coreIsShownBy) )}<a href="{$coreThumbLarge|escape}">{else}<a
-                    href="http://hdl.handle.net/10622/{$coreIsShownBy}?locatt=view:level2" target="_blank">{/if}
+                    href="{$imageUrl}" target="_blank">{/if}
                 {/if}
                 <img id="cover" title='{$coreShortTitle|escape|regex_replace:"/\s.\Z/":""}'
                      alt="{translate text='Cover Image'}" class="recordcover" src="{$coreThumbMedium|escape}">
@@ -150,7 +150,16 @@
     </tr>
 {/if}
 
-
+{if $journalMagazine}
+	<tr valign="top">
+		<th>{translate text='Journal/Magazine'}:</th>
+		<td>
+			<a href="{$url}/Search/Results?lookfor={$journalMagazine|escape:"url"}&amp;type=Title">
+				{$journalMagazine|escape}
+			</a>
+		</td>
+	</tr>
+{/if}
 
 {if $recordLanguage}
     <tr valign="top">

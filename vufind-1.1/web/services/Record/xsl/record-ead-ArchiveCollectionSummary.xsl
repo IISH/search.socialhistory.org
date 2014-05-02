@@ -182,7 +182,7 @@
             </xsl:call-template>
         </xsl:if>
     </xsl:template>
-
+    
     <xsl:template name="access">
         <xsl:call-template name="row">
             <xsl:with-param name="key" select="'ArchiveCollectionSummary.access'"/>
