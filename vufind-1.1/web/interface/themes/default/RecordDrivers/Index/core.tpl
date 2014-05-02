@@ -119,25 +119,25 @@
     </td>
 </tr>
 
+{if !empty($authors)}
+	{foreach from=$authors key=role item=authorGroup name=loop}
+		<tr valign="top">
+			<th>{translate text=$role}:</th>
+			<td>
+				{foreach from=$authorGroup item=author name=loop}
+					<a href="{$url}/Author/Home?author={$author.link|escape:"url"}">{$author.name}</a>
+					{if !$smarty.foreach.loop.last}<br/>{/if}
+				{/foreach}
+			</td>
+		</tr>
+	{/foreach}
+{/if}
+
 {if !empty($coreArticle)}
     <tr valign="top">
         <th>{translate text='Published in'}:</th>
         <td>{$coreArticle}</td>
     </tr>
-{/if}
-
-{if !empty($authors)}
-    {foreach from=$authors key=role item=authorGroup name=loop}
-        <tr valign="top">
-            <th>{translate text=$role}:</th>
-            <td>
-                {foreach from=$authorGroup item=author name=loop}
-                    <a href="{$url}/Author/Home?author={$author.link|escape:"url"}">{$author.name}</a>
-                    {if !$smarty.foreach.loop.last}<br/>{/if}
-                {/foreach}
-            </td>
-        </tr>
-    {/foreach}
 {/if}
 
 {if !empty($corePeriod)}
