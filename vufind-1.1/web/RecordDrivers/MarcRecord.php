@@ -222,8 +222,9 @@ class MarcRecord extends IndexRecord
         // come from the ILS:
         $template = parent::getSearchResult();
         //$interface->assign('summAjaxStatus', false);
-        $article = $this->getMarc773('773');
-        $interface->assign('summExtendedTitle', ($article) ? $article : $this->getExtendedTitle());
+        //$article = $this->getMarc773('773');
+        //$interface->assign('summExtendedTitle', ($article) ? $article : $this->getExtendedTitle());
+	    $interface->assign('summExtendedTitle', $this->getExtendedTitle());
 
         return $template;
     }
@@ -911,8 +912,12 @@ class MarcRecord extends IndexRecord
         $coreCollector = $this->getCollector();
         $coreIsShownAt = $this->getIsShownAt();
         $coreIsShownBy = $this->getIsShowBy();
+	    $publicationStatus = $this->getPublicationStatus();
+	    $imageUrl = $this->getImageURL();
         $interface->assign('coreIsShownAt', $coreIsShownAt);
         $interface->assign('coreIsShownBy', $coreIsShownBy);
+	    $interface->assign('publicationStatus', $publicationStatus);
+	    $interface->assign('imageUrl', $imageUrl);
         $interface->assign('coreFavorite', $this->getFavorite());
         $interface->assign('coreMainAuthorRole', $this->MainAuthorRole());
         $interface->assign('coreClassification', $this->CoreClassification());
@@ -930,6 +935,8 @@ class MarcRecord extends IndexRecord
 
         // extend the extendedDateSpan...
         $interface->assign('extendedDateSpanPublisher', $this->getExtendedDateSpanPublisher());
+
+        $interface->assign('journalMagazine', $this->getJournalMagazine());
 
         $this->getExtendedMetadata();
         return $tpl;
@@ -1002,6 +1009,30 @@ class MarcRecord extends IndexRecord
         }
         return ($pos === false) ? null : $p;
     }
+
+	private function getPublicationStatus()
+	{
+		return $this->_getFirstFieldValue('542', array('m'));
+	}
+
+	private function getJournalMagazine()
+	{
+		return $this->_getFirstFieldValue('730', array('a'));
+	}
+
+	private function getImageURL() {
+		$url = 'http://hdl.handle.net/10622/' . $this->getIsShowBy();
+
+		switch ($this->getPublicationStatus()) {
+			case 'closed':
+				return $url;
+			case 'minimal':
+				return $url . '?locatt=view:level3';
+			case 'restricted':
+			default:
+				return $url . '?locatt=view:level2';
+		}
+	}
 
     public function getExtendedMetadata()
     {
@@ -1108,9 +1139,12 @@ class MarcRecord extends IndexRecord
     private function getMarc773($field)
     {
         $a = $this->_getFirstFieldValue($field, array('a'));
+	    $t = $this->_getFirstFieldValue($field, array('t'));
         $g = $this->_getFirstFieldValue($field, array('g'));
         if ($a && $g) return $a . ", " . $g;
-        return ($a) ? $a : $g;
+	    if ($t && $g) return $t . ", " . $g;
+	    if ($a) return $a;
+        return ($t) ? $t : $g;
     }
 
     private function getExtendedDateSpanPublisher()

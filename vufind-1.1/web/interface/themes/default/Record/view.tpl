@@ -10,7 +10,7 @@
       <b class="btop"><b></b></b>
         <div class="toolbar">
         <ul>
-            {if $recordType=="av"}<li><a href="{$url}/Order/Home?id={$id}" class="visualdocuments">{translate text='Order reproduction'}</a></li>{/if}
+            {if $recordType=="av" && $publicationStatus !== 'minimal' && $publicationStatus !== 'closed'}<li><a href="{$url}/Order/Home?id={$id}" class="visualdocuments">{translate text='Order reproduction'}</a></li>{/if}
             <li><a href="{$url}/Record/{$id|escape:"url"}/Cite" class="cite" onClick="getLightbox('Record', 'Cite', '{$id|escape}', null, '{translate text="Cite this"}'); return false;">{translate text="Cite this"}</a></li>
             <li><a href="{$url}/Record/{$id|escape:"url"}/Email" class="mail" onClick="getLightbox('Record', 'Email', '{$id|escape}', null, '{translate text="Email this"}'); return false;">{translate text="Email this"}</a></li>
             {if is_array($exportFormats) && count($exportFormats) > 0}

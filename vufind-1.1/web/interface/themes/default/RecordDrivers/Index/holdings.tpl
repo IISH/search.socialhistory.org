@@ -32,9 +32,7 @@
 <p>{translate text='isShownAt'}<br/><a href="http://hdl.handle.net/{$coreIsShownAt}" target="_blank">http://hdl.handle.net/{$coreIsShownAt}</a>
 </p>{/if}
 {if ( !empty($coreIsShownBy) )}
-<p>{translate text='isShownBy'}<br/><a href="http://hdl.handle.net/10622/{$coreIsShownBy}?locatt=view:level2"
-                                       target="_blank">http://hdl.handle.net/10622/{$coreIsShownBy}?locatt=view:level2</a></p>{/if}
-
+<p>{translate text='isShownBy'}<br/><a href="{$imageUrl}" target="_blank">{$imageUrl}</a></p>{/if}
 
 {if (empty($coreCopyrightA) || $coreCopyrightA != "Public Domain.") && !empty($coreIsShownBy) }
 <h3>{translate text='copyright.use'}</h3>
