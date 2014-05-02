@@ -150,12 +150,12 @@
     </tr>
 {/if}
 
-{if $journalMagazine}
+{if $journal}
 	<tr valign="top">
-		<th>{translate text='Journal/Magazine'}:</th>
+		<th>{translate text='Journal'}:</th>
 		<td>
-			<a href="{$url}/Search/Results?lookfor={$journalMagazine|escape:"url"}&amp;type=Title">
-				{$journalMagazine|escape}
+			<a href="{$url}/Search/Results?lookfor={$journal|escape:"url"}&amp;type=Title">
+				{$journal|escape}
 			</a>
 		</td>
 	</tr>
