@@ -48,19 +48,21 @@ fi
         ./import-marc.sh -p import_$setSpec.properties $f
         echo "Delete records" >> $log
         java -Dxsl=deleted -cp $app org.socialhistoryservices.solr.importer.Collate $dir $f.delete
-        service tomcat6 start
-        sleep 5
 	while read line; do
                 if [ ${#line} -gt 5 ] && [ ${#line} -lt 100 ]; then
                         wget -O /tmp/deletion.txt "http://localhost:8080/solr/biblio/update?stream.body=%3Cdelete%3E%3Cquery%3Epid%3A%22$line%22%3C%2Fquery%3E%3C%2Fdelete%3E"
                 fi
 	done < $f.delete
-        service tomcat6 stop
-        sleep 5
 
-    cat solrmarc.log.1 >> $log
-    cat solrmarc.log >> $log
-	rm solrmarc.lo*
+    if [ -f solrmarc.log.1 ] ; then
+    	cat solrmarc.log.1 >> $log
+    fi
+
+    if [ -f solrmarc.log ] ; then
+    	cat solrmarc.log >> $log
+    fi
+
+    rm solrmarc.lo*
 
     echo "Clearing files" >> $log
     rm -rf $dir

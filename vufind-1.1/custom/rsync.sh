@@ -25,6 +25,8 @@ for i in {0..3}
 		fi
 		chown -R tomcat6:root $solr
 		chmod -R 744 $solr
+		rm $solr/biblio/index/write.lock
+		rm $solr/authority/index/write.lock
 
 		wget -O /tmp/unload.txt "http://$h.iisg.net:8080/solr/admin/multicore?action=UNLOAD&core=biblio"
 		wget -O /tmp/unload.txt "http://$h.iisg.net:8080/solr/admin/multicore?action=UNLOAD&core=authority"

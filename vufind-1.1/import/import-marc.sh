@@ -114,7 +114,7 @@ JAR_FILE="$VUFIND_HOME/import/SolrMarc.jar"
 #SOLRWARLOCATIONORJARDIR="$VUFIND_HOME/solr/jetty/webapps/solr.war"
 #TEST_SOLR_JAR_DEF=-Done-jar.class.path=$SOLRWARLOCATIONORJARDIR
 #SOLR_JAR_DEF=`echo $TEST_SOLR_JAR_DEF | sed -e"s|-Done-jar.class.path=.*|-Done-jar.class.path=$SOLRWARLOCATIONORJARDIR|"`
-SOLR_JAR_DEF="-Dsolrmarc.solr.war.path=$VUFIND_HOME/solr/jetty/webapps/solr.war"
+#SOLR_JAR_DEF="-Dsolrmarc.solr.war.path=$VUFIND_HOME/solr/jetty/webapps/solr.war -Dsolr.hosturl=http://localhost:8080/solr/$SOLRCORE/update"
 
 #####################################################
 # Normalize target file path to absolute path
@@ -128,7 +128,7 @@ MARC_FILE=`basename $1`
 #####################################################
 
 pushd $SOLR_HOME
-RUN_CMD="$JAVA $INDEX_OPTIONS $SOLR_JAR_DEF -Denable.master=true -Dsolr.core.name=$SOLRCORE -Dsolrmarc.path=$SOLRMARC_HOME -Dsolr.path=$SOLR_HOME -Dsolr.solr.home=$SOLR_HOME $EXTRA_SOLRMARC_SETTINGS -jar $JAR_FILE $PROPERTIES_FILE $MARC_PATH/$MARC_FILE"
+RUN_CMD="$JAVA $INDEX_OPTIONS $SOLR_JAR_DEF -Denable.master=true -Dsolr.core.name=$SOLRCORE -Dsolrmarc.path=$SOLRMARC_HOME -Dsolr.path=REMOTE -Dsolr.solr.home=$SOLR_HOME $EXTRA_SOLRMARC_SETTINGS -jar $JAR_FILE $PROPERTIES_FILE $MARC_PATH/$MARC_FILE"
 echo "Now Importing $1 ..."
 echo $RUN_CMD
 exec $RUN_CMD
