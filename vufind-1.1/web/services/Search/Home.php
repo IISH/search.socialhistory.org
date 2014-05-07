@@ -99,24 +99,44 @@ class Home extends Action
     private function addMessageOfTheDay()
     {
         global $interface;
+        global $configArray;
 
         $messageOfTheDay = translate('messageOfTheDay');
         if ($messageOfTheDay) {
-            $graph = null;
-            try {
-                $graph = EasyRdf_Graph::newAndLoad($messageOfTheDay);
-            } catch (Exception $e) {
-                return null;
+            $language = $interface->getLanguage();
+            $motd = $configArray['IISH']['cache'] . '/motd_' . $language . '.txt';
+            $text = $this->useCache($motd) ? file_get_contents($motd) : null;
+            if ($text == null) {
+                $graph = null;
+                try {
+                    $graph = EasyRdf_Graph::newAndLoad($messageOfTheDay);
+                } catch (Exception $e) {
+                    return null;
+                }
+                $title = $graph->label();
+                $content = $graph->get(
+                    $messageOfTheDay,
+                    'content:encoded',
+                    'literal',
+                    $interface->lang);
+                if ($content)
+                    $text = serialize( array(title => $title, content => str_replace('.', '. ', $content), lang => $content . lang));
+                    file_put_contents($motd, $text);
             }
-            $title = $graph->label();
-            $content = $graph->get(
-                $messageOfTheDay,
-                'content:encoded',
-                'literal',
-                $interface->lang);
-            if ($content) return array(title => $title, content => str_replace('.', '. ', $content), lang => $content . lang);
+
+            if ( $text )
+                return unserialize($text);
+
         }
         return null;
+    }
+
+    private function useCache($file)
+    {
+        global $configArray;
+        return !isset($_GET['nocache']) && is_readable($file) &&
+            $configArray['IISH']['cacheExpiration'] &&
+            filectime($file) > (time() - $configArray['IISH']['cacheExpirationMotd']);
     }
 
 }

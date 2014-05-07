@@ -568,22 +568,25 @@ function summon($id)
  */
 function iish()
 {
-    /*$reductionSizeInWidth = 0;
     $pid = $_GET['pid'];
-    switch ($_GET['size']) {
-        case 'small':
-            $imageIndex = 'level3';
-            break;
-        case 'medium':
-        case 'large':
-        default:
-            $imageIndex = 'level2';
-		$reductionSizeInWidth = 350;
-            break;
-    }
+    if ( strpos($pid, '30051') === false ) {
 
-    $imageUrl = "http://hdl.handle.net/10622/" . $pid . "?locatt=view:" . $imageIndex;
-    processImageURL($imageUrl, true, $reductionSizeInWidth);*/
+        $reductionSizeInWidth = 0;
+        switch ($_GET['size']) {
+            case 'small':
+                $imageIndex = 'level3';
+                break;
+            case 'medium':
+            case 'large':
+            default:
+                $imageIndex = 'level2';
+                $reductionSizeInWidth = 350;
+                break;
+        }
+
+        $imageUrl = "http://hdl.handle.net/10622/" . $pid . "?locatt=view:" . $imageIndex;
+        processImageURL($imageUrl, true, $reductionSizeInWidth);
+    }
 }
 
 ?>

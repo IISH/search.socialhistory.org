@@ -920,7 +920,7 @@ class MarcRecord extends IndexRecord
         global $interface;
         $coreCollector = $this->getCollector();
         $coreIsShownAt = $this->getIsShownAt();
-        $coreIsShownBy = $this->getIsShowBy();
+        $coreIsShownBy = null ; //$this->getIsShowBy();
 	    $publicationStatus = $this->getPublicationStatus();
 	    $imageUrl = $this->getImageURL();
         $interface->assign('coreIsShownAt', $coreIsShownAt);

@@ -115,7 +115,7 @@ JAVA_OPTIONS="-server -Xms1024m -Xmx1024m -XX:+UseParallelGC -XX:NewRatio=5 -Den
 ##################################################
 if [ -z "$VUFIND_HOME" ]
 then
-  VUFIND_HOME="/usr/local/vufind"
+  VUFIND_HOME="/data/search.socialhistory.org/vufind-1.1"
 fi
 
 
