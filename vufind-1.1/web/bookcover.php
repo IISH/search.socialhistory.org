@@ -568,10 +568,10 @@ function summon($id)
  */
 function iish()
 {
+    $pid = $_GET['pid'];
     if ( strpos($pid, '30051') ) return;
 
     $reductionSizeInWidth = 0;
-    $pid = $_GET['pid'];
     switch ($_GET['size']) {
         case 'small':
             $imageIndex = 'level3';
