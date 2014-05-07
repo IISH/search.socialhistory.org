@@ -569,23 +569,24 @@ function summon($id)
 function iish()
 {
     $pid = $_GET['pid'];
-    if ( strpos($pid, '30051') ) return;
+    if ( strpos($pid, '30051') === false ) {
 
-    $reductionSizeInWidth = 0;
-    switch ($_GET['size']) {
-        case 'small':
-            $imageIndex = 'level3';
-            break;
-        case 'medium':
-        case 'large':
-        default:
-            $imageIndex = 'level2';
-		$reductionSizeInWidth = 350;
-            break;
+        $reductionSizeInWidth = 0;
+        switch ($_GET['size']) {
+            case 'small':
+                $imageIndex = 'level3';
+                break;
+            case 'medium':
+            case 'large':
+            default:
+                $imageIndex = 'level2';
+                $reductionSizeInWidth = 350;
+                break;
+        }
+
+        $imageUrl = "http://hdl.handle.net/10622/" . $pid . "?locatt=view:" . $imageIndex;
+        processImageURL($imageUrl, true, $reductionSizeInWidth);
     }
-
-    $imageUrl = "http://hdl.handle.net/10622/" . $pid . "?locatt=view:" . $imageIndex;
-    processImageURL($imageUrl, true, $reductionSizeInWidth);
 }
 
 ?>
