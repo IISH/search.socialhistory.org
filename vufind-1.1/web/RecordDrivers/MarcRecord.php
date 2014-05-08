@@ -914,6 +914,18 @@ class MarcRecord extends IndexRecord
         die();
     }
 
+	protected function getThumbnail($size = 'small')
+	{
+		$thumbnail = parent::getThumbnail($size);
+
+		$publicationStatus = $this->getPublicationStatus();
+		if (($thumbnail !== false) && !empty($publicationStatus)) {
+			return $thumbnail . '&publication=' . urlencode($publicationStatus);
+		}
+
+		return $thumbnail;
+	}
+
     public function getCoreMetadata()
     {
         $tpl = parent::getCoreMetadata();
@@ -1019,7 +1031,7 @@ class MarcRecord extends IndexRecord
         return ($pos === false) ? null : $p;
     }
 
-	private function getPublicationStatus()
+	protected function getPublicationStatus()
 	{
 		return $this->_getFirstFieldValue('542', array('m'));
 	}

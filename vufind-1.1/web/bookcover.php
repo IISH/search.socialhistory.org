@@ -56,7 +56,9 @@ if (isset($configArray['Proxy']['host'])) {
 // Display a fail image unless our parameters pass inspection and we are able to
 // display an ISBN or content-type-based image.
 if (!sanitizeParameters()) {
-    dieWithFailImage();
+	dieWithFailImage();
+} else if ($_GET['publication'] == 'closed') {
+	dieWithAccessClosedImage();
 } else if (!fetchFromISBN($_GET['isn'], $_GET['size'])
     && !fetchFromContentType($_GET['contenttype'], $_GET['size'])
 ) {
@@ -249,6 +251,18 @@ function dieWithDefaultFailImage()
     header('Content-type: image/gif');
     echo readfile('images/noCover2.gif');
     exit();
+}
+
+/**
+ * Display the default "access closed" graphic and terminate execution.
+ *
+ * @return void
+ */
+function dieWithAccessClosedImage()
+{
+	header('Content-type: image/jpeg');
+	echo readfile('images/noAccess.jpg');
+	exit();
 }
 
 /**
