@@ -56,9 +56,9 @@ if (isset($configArray['Proxy']['host'])) {
 // Display a fail image unless our parameters pass inspection and we are able to
 // display an ISBN or content-type-based image.
 if (!sanitizeParameters()) {
-	dieWithFailImage();
+    dieWithFailImage();
 } else if ($_GET['publication'] == 'closed') {
-	dieWithAccessClosedImage();
+    dieWithAccessClosedImage();
 } else if (!fetchFromISBN($_GET['isn'], $_GET['size'])
     && !fetchFromContentType($_GET['contenttype'], $_GET['size'])
 ) {
@@ -84,8 +84,8 @@ function sanitizeParameters()
     $_GET['isn'] = isset($_GET['isn'])
         ? preg_replace('/[^0-9xX]/', '', $_GET['isn']) : '';
 
-    if ( isset($_GET['pid'] ) )
-        $_GET['isn'] = $_GET['pid'] ;
+    if (isset($_GET['pid']))
+        $_GET['isn'] = $_GET['pid'];
 
     // sanitize contenttype
     // file names correspond to Summon Content Types with spaces
@@ -99,7 +99,7 @@ function sanitizeParameters()
 /**
  * Load bookcover fom URL from cache or remote provider and display if possible.
  *
- * @param string $isn  ISBN (10 characters preferred)
+ * @param string $isn ISBN (10 characters preferred)
  * @param string $size Size of cover (large, medium, small)
  *
  * @return bool        True if image displayed, false on failure.
@@ -196,7 +196,7 @@ function dieWithFailImage()
     // Get "no cover" image from config.ini:
     $noCoverImage = isset($configArray['Content']['noCoverAvailableImage'])
         ? $configArray['Content']['noCoverAvailableImage'] : null;
-    if ( $_GET['alt']) $noCoverImage = isset($configArray['Content'][$_GET['alt']])
+    if ($_GET['alt']) $noCoverImage = isset($configArray['Content'][$_GET['alt']])
         ? $configArray['Content']['noCoverAvailableImageEad'] : null;
 
     // No setting -- use default, and don't log anything:
@@ -260,15 +260,15 @@ function dieWithDefaultFailImage()
  */
 function dieWithAccessClosedImage()
 {
-	header('Content-type: image/jpeg');
-	echo readfile('images/noAccess.jpg');
-	exit();
+    header('Content-type: image/jpeg');
+    echo readfile('images/noAccess.jpg');
+    exit();
 }
 
 /**
  * Load image from URL, store in cache if requested, display if possible.
  *
- * @param string $url   URL to load image from
+ * @param string $url URL to load image from
  * @param string $cache Boolean -- should we store in local cache?
  *
  * @return bool         True if image displayed, false on failure.
@@ -299,13 +299,13 @@ function processImageURL($url, $cache = true, $reduce = false)
             return false;
         }
 
-        if ( $reduce > 0 ) {
-        		include('SimpleImage.php');
-        		$image = new SimpleImage();
-                	$image->load($tempFile);
-                	$image->resizeToWidth(350);
-                	$image->save($tempFile);
-        	}
+        if ($reduce > 0) {
+            include('SimpleImage.php');
+            $image = new SimpleImage();
+            $image->load($tempFile);
+            $image->resizeToWidth(350);
+            $image->save($tempFile);
+        }
 
         // Conversion needed -- do some normalization for non-JPEG images:
         if ($type != IMAGETYPE_JPEG) {
@@ -328,7 +328,6 @@ function processImageURL($url, $cache = true, $reduce = false)
             // If $tempFile is already a JPEG, let's store it in the cache.
             @rename($tempFile, $finalFile);
         }
-
 
 
         // Display the image:
@@ -583,24 +582,21 @@ function summon($id)
 function iish()
 {
     $pid = $_GET['pid'];
-    if ( strpos($pid, '30051') === false ) {
-
-        $reductionSizeInWidth = 0;
-        switch ($_GET['size']) {
-            case 'small':
-                $imageIndex = 'level3';
-                break;
-            case 'medium':
-            case 'large':
-            default:
-                $imageIndex = 'level2';
-                $reductionSizeInWidth = 350;
-                break;
-        }
-
-        $imageUrl = "http://hdl.handle.net/10622/" . $pid . "?locatt=view:" . $imageIndex;
-        processImageURL($imageUrl, true, $reductionSizeInWidth);
+    $reductionSizeInWidth = 0;
+    switch ($_GET['size']) {
+        case 'small':
+            $imageIndex = 'level3';
+            break;
+        case 'medium':
+        case 'large':
+        default:
+            $imageIndex = 'level2';
+            $reductionSizeInWidth = 350;
+            break;
     }
+
+    $imageUrl = "http://hdl.handle.net/10622/" . $pid . "?locatt=view:" . $imageIndex;
+    processImageURL($imageUrl, true, $reductionSizeInWidth);
 }
 
 ?>
