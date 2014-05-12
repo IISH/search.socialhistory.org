@@ -74,6 +74,7 @@ fi
 # Cache permissions
 chown www-data /data/caching/xml/*
 
+wget -O /tmp/commit.txt "http://localhost:8080/solr/biblio/update?commit=true"
 
 ##############################################################################
 # I think we are done for today...
