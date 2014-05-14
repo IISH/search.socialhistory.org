@@ -930,19 +930,15 @@ class MarcRecord extends IndexRecord
     {
         $tpl = parent::getCoreMetadata();
         global $interface;
-        $coreCollector = $this->getCollector();
-        $coreIsShownAt = $this->getIsShownAt();
-        $coreIsShownBy = $this->getIsShowBy();
-	    $publicationStatus = $this->getPublicationStatus();
-	    $imageUrl = $this->getImageURL();
-        $interface->assign('coreIsShownAt', $coreIsShownAt);
-        $interface->assign('coreIsShownBy', $coreIsShownBy);
-	    $interface->assign('publicationStatus', $publicationStatus);
-	    $interface->assign('imageUrl', $imageUrl);
+        $interface->assign('coreIsShownAt', $this->getIsShownAt());
+        $interface->assign('coreIsShownBy', $this->getIsShowBy());
+	    $interface->assign('publicationStatus', $this->getPublicationStatus());
+        $interface->assign('imagePidUrl', $this->getImageURL(true));
+        $interface->assign('imageUrl', $this->getImageURL(false));
         $interface->assign('coreFavorite', $this->getFavorite());
         $interface->assign('coreMainAuthorRole', $this->MainAuthorRole());
         $interface->assign('coreClassification', $this->CoreClassification());
-        $interface->assign('coreCollector', $coreCollector);
+        $interface->assign('coreCollector', $this->getCollector());
 
         $authors = array();
         foreach (array(100, 110, 111, 700, 710, 711) as $tag) {
@@ -1041,17 +1037,29 @@ class MarcRecord extends IndexRecord
 		return $this->_getFirstFieldValue('730', array('a'));
 	}
 
-	private function getImageURL() {
-		$url = 'http://hdl.handle.net/10622/' . $this->getIsShowBy();
+    /**
+     * getImageURL
+     *
+     * Shows the url that resolved to the web resource
+     *
+     * @param $showPid true if the persistent URL is to be returned. If not, use the bookcover handle.
+     * @return string
+     */
+    private function getImageURL($showPid) {
+
+        global $configArray;
+
+        $pid = $this->getIsShowBy();
+        $open_url = 'http://hdl.handle.net/10622/' . $pid;
 
 		switch ($this->getPublicationStatus()) {
 			case 'closed':
-				return $url;
-			case 'minimal':
-				return $url . '?locatt=view:level3';
+				return ($showPid) ? $open_url : $configArray['Site']['url'] . '/bookcover.php?size=large&pid=' . $pid ;
+            case 'minimal':
+                return ($showPid) ? $open_url . '?locatt=view:level3' : $configArray['Site']['url'] . '/bookcover.php?size=small&pid=' . $pid ;
 			case 'restricted':
 			default:
-				return $url . '?locatt=view:level2';
+                return ($showPid) ? $open_url . '?locatt=view:level2' : $configArray['Site']['url'] . '/bookcover.php?size=medium&pid=' . $pid ;
 		}
 	}
 

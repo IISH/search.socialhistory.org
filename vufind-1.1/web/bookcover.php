@@ -29,6 +29,7 @@
 require_once 'sys/Proxy_Request.php';
 require_once 'sys/Logger.php';
 require_once 'sys/ISBN.php';
+require_once 'RecordDrivers/Utils.php';
 
 // Retrieve values from configuration file
 $configArray = parse_ini_file('conf/config.ini', true);
@@ -57,8 +58,6 @@ if (isset($configArray['Proxy']['host'])) {
 // display an ISBN or content-type-based image.
 if (!sanitizeParameters()) {
     dieWithFailImage();
-} else if ($_GET['publication'] == 'closed') {
-    dieWithAccessClosedImage();
 } else if (!fetchFromISBN($_GET['isn'], $_GET['size'])
     && !fetchFromContentType($_GET['contenttype'], $_GET['size'])
 ) {
@@ -571,9 +570,13 @@ function summon($id)
 
 /**
  * Retrieve an audio\visual from the IISG.
- * The interpretation of the isb is the handle: http://hdl.handle.net/10622/[identifier]
+ * The interpretation of the isb is the handle: http://hdl.handle.net/10622/[pid]?locatt=view":[size]
  *
- * The images from this domain a a little too large, so we resize these
+ * The images from this domain a a little too large, so we resize these.
+ *
+ * We append an access token if the request comes from a known network.
+ *
+ * Do not cache, because different views would share the same cached resource.
  *
  * @param string
  *
@@ -581,22 +584,30 @@ function summon($id)
  */
 function iish()
 {
-    $pid = $_GET['pid'];
+    if (!isset($_GET['pid'])) return;
+
+    $access_token = Utils::accessToken();
+    if ($access_token == null && $_GET['publication'] == 'closed') {
+        dieWithAccessClosedImage();
+    }
+
     $reductionSizeInWidth = 0;
     switch ($_GET['size']) {
         case 'small':
             $imageIndex = 'level3';
             break;
-        case 'medium':
         case 'large':
-        default:
+            $imageIndex = 'level2';
+            break;
+        case 'medium':
+        default :
             $imageIndex = 'level2';
             $reductionSizeInWidth = 350;
             break;
     }
 
-    $imageUrl = "http://hdl.handle.net/10622/" . $pid . "?locatt=view:" . $imageIndex;
-    processImageURL($imageUrl, true, $reductionSizeInWidth);
+    $imageUrl = "http://hdl.handle.net/10622/" . $_GET['pid'] . "?locatt=view:" . $imageIndex . $access_token;
+    processImageURL($imageUrl, false, $reductionSizeInWidth);
 }
 
 ?>

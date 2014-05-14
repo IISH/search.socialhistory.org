@@ -31,8 +31,8 @@
 {if ( !empty($coreIsShownAt) )}
 <p>{translate text='isShownAt'}<br/><a href="http://hdl.handle.net/{$coreIsShownAt}" target="_blank">http://hdl.handle.net/{$coreIsShownAt}</a>
 </p>{/if}
-{if ( !empty($coreIsShownBy) )}
-<p>{translate text='isShownBy'}<br/><a href="{$imageUrl}" target="_blank">{$imageUrl}</a></p>{/if}
+{if ( !empty($imagePidUrl) )}
+<p>{translate text='isShownBy'}<br/><a href="{$imagePidUrl}" target="_blank">{$imagePidUrl}</a></p>{/if}
 
 {if (empty($coreCopyrightA) || $coreCopyrightA != "Public Domain.") && !empty($coreIsShownBy) }
 <h3>{translate text='copyright.use'}</h3>
