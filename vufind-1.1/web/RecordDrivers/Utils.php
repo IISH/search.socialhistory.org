@@ -59,6 +59,7 @@ final class Utils
                 if (Utils::netMatch($network, $client_ip)) {
                     file_put_contents('/data/caching/ip.txt', 'Allow ' . $client_ip . ' from network ' .$network , FILE_APPEND) ;
                     file_put_contents('/data/caching/ip.txt', PHP_EOL, FILE_APPEND) ;
+                    return null;
                     return $separator . 'urlappend=%3Faccess_token%3D' . $configArray['IISH']['anonymousAccess_token'];
                 }
             }
