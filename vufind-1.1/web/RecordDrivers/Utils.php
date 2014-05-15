@@ -1,8 +1,8 @@
 <?php
+
 /**
  * Utility class
  */
-
 final class Utils
 {
 
@@ -49,59 +49,43 @@ final class Utils
 
         global $configArray;
         if (isset($configArray['IISH']['audience_internal'])) {
-		// Just place this ip measurements here temporary
-            $client_ip = $_SERVER['REMOTE_ADDR'];
-            file_put_contents('/data/caching/ip.txt', $client_ip, FILE_APPEND) ;
-            file_put_contents('/data/caching/ip.txt', PHP_EOL, FILE_APPEND) ;
+            // Just place this ip measurements here temporary
+            $client_ip = Utils::client_ip();
             $networks = explode(',', $configArray['IISH']['audience_internal']);
-
             foreach ($networks as $network) {
                 if (Utils::netMatch($network, $client_ip)) {
-                    file_put_contents('/data/caching/ip.txt', 'Allow ' . $client_ip . ' from network ' .$network , FILE_APPEND) ;
-                    file_put_contents('/data/caching/ip.txt', PHP_EOL, FILE_APPEND) ;
-                    return null;
+                    file_put_contents('/tmp/ip.txt', 'Allow ' . $client_ip . ' from network ' . $network . PHP_EOL, FILE_APPEND);
                     return $separator . 'urlappend=%3Faccess_token%3D' . $configArray['IISH']['anonymousAccess_token'];
                 }
             }
+            file_put_contents('/tmp/ip.txt', 'Disallow ' . $client_ip . PHP_EOL, FILE_APPEND);
         }
 
         return null;
     }
 
-    public static function client_ip(){
-        if (isset($_SERVER["HTTP_CLIENT_IP"]))
-        {
+    public static function client_ip()
+    {
+        if (isset($_SERVER["HTTP_CLIENT_IP"])) {
             return $_SERVER["HTTP_CLIENT_IP"];
-        }
-        elseif (isset($_SERVER["HTTP_X_FORWARDED_FOR"]))
-        {
+        } elseif (isset($_SERVER["HTTP_X_FORWARDED_FOR"])) {
             return $_SERVER["HTTP_X_FORWARDED_FOR"];
-        }
-        elseif (isset($_SERVER["HTTP_X_FORWARDED"]))
-        {
+        } elseif (isset($_SERVER["HTTP_X_FORWARDED"])) {
             return $_SERVER["HTTP_X_FORWARDED"];
-        }
-        elseif (isset($_SERVER["HTTP_FORWARDED_FOR"]))
-        {
+        } elseif (isset($_SERVER["HTTP_FORWARDED_FOR"])) {
             return $_SERVER["HTTP_FORWARDED_FOR"];
-        }
-        elseif (isset($_SERVER["HTTP_FORWARDED"]))
-        {
+        } elseif (isset($_SERVER["HTTP_FORWARDED"])) {
             return $_SERVER["HTTP_FORWARDED"];
-        }
-        else
-        {
+        } else {
             return null;
         }
     }
 
     public static function netMatch($network, $ip)
     {
-
         $network = trim($network);
         $ip = trim($ip);
         if ($ip == $network) {
-            echo "used network ($network) for ($ip)\n";
             return TRUE;
         }
         $network = str_replace(' ', '', $network);
@@ -123,14 +107,14 @@ final class Utils
             }
         }
 
-        #echo "from original network($orig_network), used network ($network) for ($ip)\n";
-
         $d = strpos($network, '-');
         if ($d === FALSE) {
             $ip_arr = explode('/', $network);
+            if (sizeof($ip_arr) == 1) return FALSE;
             if (!preg_match('@\d*\.\d*\.\d*\.\d*@', $ip_arr[0], $matches)) {
                 $ip_arr[0] .= ".0"; // Alternate form 194.1.4/24
             }
+
             $network_long = ip2long($ip_arr[0]);
             $x = ip2long($ip_arr[1]);
             $mask = long2ip($x) == $ip_arr[1] ? $x : (0xffffffff << (32 - $ip_arr[1]));
