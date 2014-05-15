@@ -49,11 +49,16 @@ final class Utils
 
         global $configArray;
         if (isset($configArray['IISH']['audience_internal'])) {
+		// Just place this ip measurements here temporary
             $client_ip = $_SERVER['REMOTE_ADDR'];
+            file_put_contents('/data/caching/ip.txt', $client_ip, FILE_APPEND) ;
+            file_put_contents('/data/caching/ip.txt', PHP_EOL, FILE_APPEND) ;
             $networks = explode(',', $configArray['IISH']['audience_internal']);
 
             foreach ($networks as $network) {
                 if (Utils::netMatch($network, $client_ip)) {
+                    file_put_contents('/data/caching/ip.txt', 'Allow ' . $client_ip . ' from network ' .$network , FILE_APPEND) ;
+                    file_put_contents('/data/caching/ip.txt', PHP_EOL, FILE_APPEND) ;
                     return $separator . 'urlappend=%3Faccess_token%3D' . $configArray['IISH']['anonymousAccess_token'];
                 }
             }
