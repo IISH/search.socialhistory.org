@@ -875,6 +875,17 @@ class MarcRecord extends IndexRecord
                 if ($address) {
                     $address = $address->getData();
 
+	                if ($this->isIRSH()) {
+		                // Find out if the URL contains a query part, if so, replace it
+		                $pos = strpos($address, '?');
+		                if ($pos !== false) {
+			                $address = substr_replace($address, '?locatt=view:master', $pos);
+		                }
+		                else {
+			                $address = $address . '?locatt=view:master';
+		                }
+	                }
+
                     // Is there a description?  If not, just use the URL itself.
                     $desc = $url->getSubfield('z');
                     if ($desc) {
@@ -1030,6 +1041,15 @@ class MarcRecord extends IndexRecord
 	protected function getPublicationStatus()
 	{
 		return $this->_getFirstFieldValue('542', array('m'));
+	}
+
+	protected function isIRSH() {
+		$publicationStatus = $this->getPublicationStatus();
+		if (empty($publicationStatus)) {
+			$publicationStatus = 'irsh';
+		}
+
+		return ($publicationStatus == 'irsh');
 	}
 
 	private function getJournal()
