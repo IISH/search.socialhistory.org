@@ -374,13 +374,13 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
     float:left;
 }
 #arch .vfile {
-    margin-left:75px;
+    margin-left:100px;
 }
 #arch .kitem {
-    float:left;margin-left:75px;
+    float:left;margin-left:100px;
 }
 #arch .vitem {
-    margin-left:150px;
+    margin-left:200px;
 }
 
 #arch .b {

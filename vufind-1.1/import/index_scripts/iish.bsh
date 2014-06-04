@@ -405,6 +405,7 @@ public Set getFormat(Record record) {
                         final Subfield subfield = (Subfield) subfieldsIter.next();
                         final String data = subfield.getData();
                         if ( data.contains("10622/3005100") ) return "Image" ;
+                        if ( data.startsWith("http://hdl.handle.net/10622/") ) return "Image";
                     }
                 }
             }
