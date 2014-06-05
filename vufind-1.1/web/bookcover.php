@@ -259,8 +259,8 @@ function dieWithDefaultFailImage()
  */
 function dieWithAccessClosedImage()
 {
-    header('Content-type: image/jpeg');
-    echo readfile('images/noAccess.jpg');
+    header('Content-type: image/png');
+    echo readfile('images/no_access.png');
     exit();
 }
 
