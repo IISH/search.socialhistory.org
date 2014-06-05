@@ -1070,17 +1070,24 @@ class MarcRecord extends IndexRecord
         global $configArray;
 
         $pid = $this->getIsShowBy();
-        $open_url = 'http://hdl.handle.net/10622/' . $pid;
+	    if (!empty($pid)) {
+		    $open_url = 'http://hdl.handle.net/10622/' . $pid;
 
-		switch ($this->getPublicationStatus()) {
-			case 'closed':
-				return ($showPid) ? $open_url : $configArray['Site']['url'] . '/bookcover.php?size=large&pid=' . $pid ;
-            case 'minimal':
-                return ($showPid) ? $open_url . '?locatt=view:level3' : $configArray['Site']['url'] . '/bookcover.php?size=small&pid=' . $pid ;
-			case 'restricted':
-			default:
-                return ($showPid) ? $open_url . '?locatt=view:level2' : $configArray['Site']['url'] . '/bookcover.php?size=medium&pid=' . $pid ;
-		}
+		    switch ($this->getPublicationStatus()) {
+			    case 'closed':
+				    return ($showPid) ? $open_url :
+					    $configArray['Site']['url'] . '/bookcover.php?size=large&pid=' . $pid;
+			    case 'minimal':
+				    return ($showPid) ? $open_url . '?locatt=view:level3' :
+					    $configArray['Site']['url'] . '/bookcover.php?size=small&pid=' . $pid;
+			    case 'restricted':
+			    default:
+				    return ($showPid) ? $open_url . '?locatt=view:level2' :
+					    $configArray['Site']['url'] . '/bookcover.php?size=medium&pid=' . $pid;
+		    }
+	    }
+
+	    return null;
 	}
 
     public function getExtendedMetadata()
