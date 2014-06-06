@@ -320,6 +320,55 @@ public Set getFormat(Record record) {
         return null;
     }
 
+    public Set getGenreFacets(Record record) {
+    	final Set result = new LinkedHashSet();
+    	final String[] fieldSpecs = new String[]{"245", "600", "610", "611", "630", "648", "650", "651", "655"};
+
+    	final List fields = record.getVariableFields(fieldSpecs);
+    	if (fields != null) {
+    		final Iterator fieldsIter = fields.iterator();
+    		while (fieldsIter.hasNext()) {
+    			DataField physical = (DataField) fieldsIter.next();
+    			String tag = physical.getTag();
+    			List subfields;
+    			if (tag.equals("245")) {
+    				subfields = physical.getSubfields('k');
+    			}
+    			else if (tag.equals("655")) {
+    				subfields = physical.getSubfields('v');
+    				List subfields2 = physical.getSubfields('a');
+    				if (subfields == null) {
+    					subfields = subfields2;
+    				}
+    				else if (subfields2 != null) {
+    					subfields.add(subfields2);
+    				}
+    			}
+    			else {
+    				subfields = physical.getSubfields('v');
+    			}
+
+    			if (subfields != null) {
+    				final Iterator subfieldsIter = subfields.iterator();
+    				while (subfieldsIter.hasNext()) {
+    					final Subfield subfield = (Subfield) subfieldsIter.next();
+    					final String data = subfield.getData();
+    					if (tag.equals("245")) {
+    						if (data.toLowerCase().contains("annual report") && !result.contains("Annual report")) {
+    							result.add("Annual report");
+    						}
+    					}
+    					else if (!result.contains(data)) {
+    						result.add(data);
+    					}
+    				}
+    			}
+    		}
+    	}
+
+    	return result;
+    }
+
     public String hack(Record record ){
     final Set result = new LinkedHashSet();
         final List fields = record.getVariableFields("655");
