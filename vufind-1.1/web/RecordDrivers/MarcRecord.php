@@ -1038,18 +1038,16 @@ class MarcRecord extends IndexRecord
         return ($pos === false) ? null : $p;
     }
 
-	protected function getPublicationStatus()
-	{
-		return $this->_getFirstFieldValue('542', array('m'));
+	protected function getPublicationStatus() {
+		$publicationStatus = $this->_getFirstFieldValue('542', array('m'));
+		if (empty($publicationStatus)) {
+			$publicationStatus = 'closed';
+		}
+		return $publicationStatus;
 	}
 
 	protected function isIRSH() {
-		$publicationStatus = $this->getPublicationStatus();
-		if (empty($publicationStatus)) {
-			$publicationStatus = 'irsh';
-		}
-
-		return ($publicationStatus == 'irsh');
+		return $this->getPublicationStatus() == 'irsh';
 	}
 
 	private function getJournal()

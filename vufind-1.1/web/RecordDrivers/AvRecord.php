@@ -99,14 +99,14 @@ class AvRecord extends MarcRecord
         return $tpl;
     }
 
-	protected function getPublicationStatus() {
+	/*protected function getPublicationStatus() {
 		$publicationStatus = parent::getPublicationStatus();
 		if (empty($publicationStatus)) {
 			$publicationStatus = 'closed';
 		}
 
 		return $publicationStatus;
-	}
+	}*/
 
     protected function getPublicationDates(){
         $date = $this->_getFieldArray('260', array('c'));
