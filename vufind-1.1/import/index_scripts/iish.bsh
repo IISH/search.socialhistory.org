@@ -97,7 +97,7 @@ public Set getFormat(Record record) {
                     Iterator subfieldsIter = subfields.iterator();
                     String desc;
                     while (subfieldsIter.hasNext()) {
-                        desc = ((Subfield) subfieldsIter.next()).getData().toLowerCase();
+                        desc = (subfield(subfieldsIter.next())).getData().toLowerCase();
                         if (desc.contains("/10622/3005")) {
                             return "av";
                         }
@@ -126,7 +126,7 @@ public Set getFormat(Record record) {
                 if (subfields != null) {
                     final Iterator subfieldsIter = subfields.iterator();
                     while (subfieldsIter.hasNext()) {
-                        final Subfield subfield = (Subfield) subfieldsIter.next();
+                        final Subfield subfield = subfield(subfieldsIter.next());
                         final String data = subfield.getData();
                         if (!result.contains(data))
                             result.add(data);
@@ -351,7 +351,9 @@ public Set getFormat(Record record) {
     			if (subfields != null) {
     				final Iterator subfieldsIter = subfields.iterator();
     				while (subfieldsIter.hasNext()) {
-    					final Subfield subfield = (Subfield) subfieldsIter.next();
+    				    // Authorities are now part of the marc metadata. In that case, we get a list.
+    				    final Subfield subfield = subfield( subfieldsIter.next() ) ;
+
     					final String data = subfield.getData();
     					if (tag.equals("245")) {
     						if (data.toLowerCase().contains("annual report") && !result.contains("Annual report")) {
@@ -369,6 +371,10 @@ public Set getFormat(Record record) {
     	return result;
     }
 
+    public Subfield subfield(Object o) {
+        return ((o instanceof List) ? ((List) o).get(0) : o);
+    }
+
     public String hack(Record record ){
     final Set result = new LinkedHashSet();
         final List fields = record.getVariableFields("655");
@@ -380,7 +386,7 @@ public Set getFormat(Record record) {
                 if (subfields != null) {
                     final Iterator subfieldsIter = subfields.iterator();
                     while (subfieldsIter.hasNext()) {
-                        final Subfield subfield = (Subfield) subfieldsIter.next();
+                        final Subfield subfield = subfield( subfieldsIter.next() );
                         final String data = subfield.getData().toLowerCase().trim();
                         if (data.equals("archives format") || data.equals("archives format."))
                             throw Exception("Marc records with 655$a='Archives format.' will not be indexed.");
@@ -402,7 +408,7 @@ public Set getFormat(Record record) {
                     if (subfields != null) {
                         final Iterator subfieldsIter = subfields.iterator();
                         while (subfieldsIter.hasNext()) {
-                            final Subfield subfield = (Subfield) subfieldsIter.next();
+                            final Subfield subfield = subfield(subfieldsIter.next());
                             final String data = subfield.getData().toLowerCase().trim();
                             if ( data.equalsIgnoreCase("image/jpeg" ))
                                 return getFormat(record).iterator().next();
@@ -435,7 +441,7 @@ public Set getFormat(Record record) {
                 if (subfields != null) {
                     final Iterator subfieldsIter = subfields.iterator();
                     while (subfieldsIter.hasNext()) {
-                        final Subfield subfield = (Subfield) subfieldsIter.next();
+                        final Subfield subfield = subfield( subfieldsIter.next() );
                         final String data = subfield.getData();
                         final int i = data.indexOf("/");
                         if ( i != 0 ) return data.substring(0, 1).toUpperCase() + data.substring(1, i);
@@ -451,7 +457,7 @@ public Set getFormat(Record record) {
                 if (subfields != null) {
                     final Iterator subfieldsIter = subfields.iterator();
                     while (subfieldsIter.hasNext()) {
-                        final Subfield subfield = (Subfield) subfieldsIter.next();
+                        final Subfield subfield = subfield( subfieldsIter.next());
                         final String data = subfield.getData();
                         if ( data.contains("10622/3005100") ) return "Image" ;
                         if ( data.startsWith("http://hdl.handle.net/10622/") ) return "Image";
