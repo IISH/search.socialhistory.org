@@ -1038,18 +1038,16 @@ class MarcRecord extends IndexRecord
         return ($pos === false) ? null : $p;
     }
 
-	protected function getPublicationStatus()
-	{
-		return $this->_getFirstFieldValue('542', array('m'));
+	protected function getPublicationStatus() {
+		$publicationStatus = $this->_getFirstFieldValue('542', array('m'));
+		if (empty($publicationStatus)) {
+			$publicationStatus = 'closed';
+		}
+		return $publicationStatus;
 	}
 
 	protected function isIRSH() {
-		$publicationStatus = $this->getPublicationStatus();
-		if (empty($publicationStatus)) {
-			$publicationStatus = 'irsh';
-		}
-
-		return ($publicationStatus == 'irsh');
+		return $this->getPublicationStatus() == 'irsh';
 	}
 
 	private function getJournal()
@@ -1070,17 +1068,24 @@ class MarcRecord extends IndexRecord
         global $configArray;
 
         $pid = $this->getIsShowBy();
-        $open_url = 'http://hdl.handle.net/10622/' . $pid;
+	    if (!empty($pid)) {
+		    $open_url = 'http://hdl.handle.net/10622/' . $pid;
 
-		switch ($this->getPublicationStatus()) {
-			case 'closed':
-				return ($showPid) ? $open_url : $configArray['Site']['url'] . '/bookcover.php?size=large&pid=' . $pid ;
-            case 'minimal':
-                return ($showPid) ? $open_url . '?locatt=view:level3' : $configArray['Site']['url'] . '/bookcover.php?size=small&pid=' . $pid ;
-			case 'restricted':
-			default:
-                return ($showPid) ? $open_url . '?locatt=view:level2' : $configArray['Site']['url'] . '/bookcover.php?size=medium&pid=' . $pid ;
-		}
+		    switch ($this->getPublicationStatus()) {
+			    case 'closed':
+				    return ($showPid) ? $open_url :
+					    $configArray['Site']['url'] . '/bookcover.php?size=large&pid=' . $pid;
+			    case 'minimal':
+				    return ($showPid) ? $open_url . '?locatt=view:level3' :
+					    $configArray['Site']['url'] . '/bookcover.php?size=small&pid=' . $pid;
+			    case 'restricted':
+			    default:
+				    return ($showPid) ? $open_url . '?locatt=view:level2' :
+					    $configArray['Site']['url'] . '/bookcover.php?size=medium&pid=' . $pid;
+		    }
+	    }
+
+	    return null;
 	}
 
     public function getExtendedMetadata()
