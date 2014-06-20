@@ -371,10 +371,6 @@ public Set getFormat(Record record) {
     	return result;
     }
 
-    public Subfield subfield(Object o) {
-        return ((o instanceof List) ? ((List) o).get(0) : o);
-    }
-
     public String hack(Record record ){
     final Set result = new LinkedHashSet();
         final List fields = record.getVariableFields("655");
@@ -465,4 +461,8 @@ public Set getFormat(Record record) {
                 }
             }
             return null;
+        }
+
+        private Subfield subfield(Object o) {
+            return ((o instanceof List) ? ((List) o).get(0) : o);
         }
