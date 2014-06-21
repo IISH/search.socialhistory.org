@@ -1056,8 +1056,8 @@ class MarcRecord extends IndexRecord
 	}
 
 	protected function isIRSH() {
-        $p = $this->_getFirstFieldValue('852', array('p'));
-        return strpos($p, '01677845-');
+        $p = $this->_getFirstFieldValue('856', array('u'));
+        return !(strpos($p, '01677845-') === false);
 	}
 
 	private function getJournal()
