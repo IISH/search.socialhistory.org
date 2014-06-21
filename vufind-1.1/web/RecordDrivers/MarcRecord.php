@@ -1038,16 +1038,33 @@ class MarcRecord extends IndexRecord
         return ($pos === false) ? null : $p;
     }
 
-	protected function getPublicationStatus() {
+    /**
+     * getPublicationStatus
+     *
+     * Retrieve the publication status.
+     * Defaults to: closed with 852$p=30051* ; open in any other case.
+     *
+     * @return string
+     */
+    protected function getPublicationStatus() {
 		$publicationStatus = $this->_getFirstFieldValue('542', array('m'));
 		if (empty($publicationStatus)) {
-			$publicationStatus = 'closed';
+            $p = $this->_getFirstFieldValue('852', array('p'));
+			$publicationStatus = (strpos($p, '30051') === false) ? 'open' : 'closed';
 		}
 		return $publicationStatus;
 	}
 
-	protected function isIRSH() {
-		return $this->getPublicationStatus() == 'irsh';
+    /**
+     * isIRSH
+     *
+     * Determine if this is the journal known as the NEHA.
+     *
+     * @return bool
+     */
+    protected function isIRSH() {
+
+        return ( $this->getJournal() == 'Economisch- en sociaal-historisch jaarboek') ;
 	}
 
 	private function getJournal()
