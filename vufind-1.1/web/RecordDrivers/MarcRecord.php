@@ -1055,9 +1055,16 @@ class MarcRecord extends IndexRecord
 		return $publicationStatus;
 	}
 
-	protected function isIRSH() {
-        $p = $this->_getFirstFieldValue('856', array('u'));
-        return !(strpos($p, '01677845-') === false);
+    /**
+     * isIRSH
+     *
+     * Determine if this is the journal known as the NEHA.
+     *
+     * @return bool
+     */
+    protected function isIRSH() {
+
+        return ( $this->getJournal() == 'Economisch- en sociaal-historisch jaarboek') ;
 	}
 
 	private function getJournal()
