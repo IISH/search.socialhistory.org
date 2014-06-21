@@ -572,9 +572,9 @@ function summon($id)
  * Retrieve an audio\visual from the IISG.
  * The interpretation of the isb is the handle: http://hdl.handle.net/10622/[pid]?locatt=view":[size]
  *
- * The images from this domain a a little too large, so we resize these.
+ * The images from this domain a a little too large, so we resize them to get a uniform width..
  *
- * We append an access token if the request comes from a known network.
+ * We append an access token if the request comes from a known able network that is 'ours'.
  *
  * Do not cache, because different views would share the same cached resource.
  *
