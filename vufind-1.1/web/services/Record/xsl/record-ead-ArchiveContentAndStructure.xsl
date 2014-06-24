@@ -77,16 +77,6 @@
         </xsl:call-template>
     </xsl:template>
 
-    <xsl:template name="separatedmaterial">
-        <xsl:call-template name="row">
-            <xsl:with-param name="key" select="'ArchiveContentAndStructure.separatedmaterial'"/>
-            <xsl:with-param name="value">
-                <xsl:apply-templates
-                        select="ead:archdesc/ead:descgrp[@type='content_and_structure']/ead:separatedmaterial/*"/>
-            </xsl:with-param>
-        </xsl:call-template>
-    </xsl:template>
-
     <xsl:template name="processinfo">
         <xsl:call-template name="row">
             <xsl:with-param name="key" select="'ArchiveContentAndStructure.processinfo'"/>
@@ -120,6 +110,16 @@
             <xsl:with-param name="key" select="'ArchiveContentAndStructure.relatedmaterial'"/>
             <xsl:with-param name="value">
                 <xsl:apply-templates select="ead:archdesc/ead:descgrp[@type='allied_materials']/ead:relatedmaterial/*"/>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+
+    <xsl:template name="separatedmaterial">
+        <xsl:call-template name="row">
+            <xsl:with-param name="key" select="'ArchiveContentAndStructure.separatedmaterial'"/>
+            <xsl:with-param name="value">
+                <xsl:apply-templates
+                        select="ead:archdesc/ead:descgrp[@type='allied_materials']/ead:separatedmaterial/*"/>
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
