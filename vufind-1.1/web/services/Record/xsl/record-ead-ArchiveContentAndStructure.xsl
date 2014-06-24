@@ -28,7 +28,9 @@
         <xsl:call-template name="navigation"/>
         <div id="arch"><table>
             <xsl:call-template name="bibliographical"/>
+            <xsl:call-template name="custodhist"/>
             <xsl:call-template name="arrangement"/>
+            <xsl:call-template name="separatedmaterial"/>
             <xsl:call-template name="content"/>
             <xsl:call-template name="processinfo"/>
             <xsl:call-template name="altformavail"/>
@@ -42,6 +44,15 @@
             <xsl:with-param name="key" select="'ArchiveContentAndStructure.bibliographical'"/>
             <xsl:with-param name="value">
                 <xsl:apply-templates select="ead:archdesc/ead:descgrp[@type='context']/ead:bioghist/*"/>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+
+    <xsl:template name="custodhist">
+        <xsl:call-template name="row">
+            <xsl:with-param name="key" select="'ArchiveContentAndStructure.custodhist'"/>
+            <xsl:with-param name="value">
+                <xsl:apply-templates select="ead:archdesc/ead:descgrp[@type='context']/ead:custodhist/*"/>
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
@@ -62,6 +73,16 @@
             <xsl:with-param name="value">
                 <xsl:apply-templates
                         select="ead:archdesc/ead:descgrp[@type='content_and_structure']/ead:arrangement/*"/>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+
+    <xsl:template name="separatedmaterial">
+        <xsl:call-template name="row">
+            <xsl:with-param name="key" select="'ArchiveContentAndStructure.separatedmaterial'"/>
+            <xsl:with-param name="value">
+                <xsl:apply-templates
+                        select="ead:archdesc/ead:descgrp[@type='content_and_structure']/ead:separatedmaterial/*"/>
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
