@@ -1063,8 +1063,18 @@ class MarcRecord extends IndexRecord
      * @return bool
      */
     protected function isIRSH() {
+		$irshNames = array(
+			'Economisch-historisch jaarboek',
+			'Economisch- en sociaal-historisch jaarboek',
+			'NEHA-Jaarboek voor economische-, bedrijfs- en techniekgeschiedenis',
+			'Economic and Social History in the Netherlands',
+			'Jaarboek voor de Geschiedenis van Bedrijf en Techniek',
+			'NEHA-Bulletin. Orgaan ten behoeve van de economische geschiedenis in Nederland',
+			'NEHA-bulletin : tijdschrift voor de economische geschiedenis in Nederland',
+			'NEHA bulletin voor de economische geschiedenis in Nederland',
+		);
 
-        return ( $this->getJournal() == 'Economisch- en sociaal-historisch jaarboek') ;
+        return (array_search($this->getJournal(), $irshNames) !== false);
 	}
 
 	private function getJournal()
