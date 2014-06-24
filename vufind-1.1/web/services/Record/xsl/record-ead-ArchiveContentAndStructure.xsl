@@ -30,12 +30,12 @@
             <xsl:call-template name="bibliographical"/>
             <xsl:call-template name="custodhist"/>
             <xsl:call-template name="arrangement"/>
-            <xsl:call-template name="separatedmaterial"/>
             <xsl:call-template name="content"/>
             <xsl:call-template name="processinfo"/>
             <xsl:call-template name="altformavail"/>
             <xsl:call-template name="originalsloc"/>
             <xsl:call-template name="relatedmaterial"/>
+            <xsl:call-template name="separatedmaterial"/>
         </table></div>
     </xsl:template>
 
