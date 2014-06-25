@@ -1063,7 +1063,7 @@ class MarcRecord extends IndexRecord
      * @return bool
      */
     protected function isIRSH() {
-		$irshNames = array(
+		/*$irshNames = array(
 			'economisch-historisch jaarboek',
 			'economisch- en sociaal-historisch jaarboek',
 			'neha-jaarboek voor economische-, bedrijfs- en techniekgeschiedenis',
@@ -1081,8 +1081,10 @@ class MarcRecord extends IndexRecord
 		    }
 	    }
 
-        return false;
-	}
+        return false;*/
+
+	    return (preg_match('^http://hdl\.handle\.net/10622/\d{8}-\d{4}-\d{3}$', $this->getIsShowBy()) == 1);
+    }
 
 	private function getJournal()
 	{
