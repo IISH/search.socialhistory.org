@@ -1083,7 +1083,8 @@ class MarcRecord extends IndexRecord
 
         return false;*/
 
-	    return (preg_match('/^http:\/\/hdl\.handle\.net\/10622\/\d{8}-\d{4}-\d{3}$/', $this->getIsShowBy()) == 1);
+	    $u = $this->_getFirstFieldValue('856', array('u'));
+	    return (preg_match('/^http:\/\/hdl\.handle\.net\/10622\/\d{8}-\d{4}-\d{3}$/', $u) == 1);
     }
 
 	private function getJournal()
