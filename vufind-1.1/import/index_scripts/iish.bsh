@@ -371,6 +371,31 @@ public Set getFormat(Record record) {
     	return result;
     }
 
+    public Set getAuthorityFacets(Record record) {
+        final Set result = new LinkedHashSet();
+
+        final List fields = record.getVariableFields();
+        if (fields != null) {
+            final Iterator fieldsIter = fields.iterator();
+            while (fieldsIter.hasNext()) {
+                DataField physical = (DataField) fieldsIter.next();
+                List subfields = physical.getSubfields('0');
+
+                if (subfields != null) {
+                    final Iterator subfieldsIter = subfields.iterator();
+                    while (subfieldsIter.hasNext()) {
+                        // Authorities are now part of the marc metadata. In that case, we get a list.
+                        final Subfield subfield = subfield( subfieldsIter.next() ) ;
+                        final String data = subfield.getData();
+                        result.add(data);
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
+
     public String hack(Record record ){
     final Set result = new LinkedHashSet();
         final List fields = record.getVariableFields("655");
