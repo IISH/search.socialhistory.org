@@ -57,7 +57,7 @@
         <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
         <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
       </analyzer>
-    </fieldType>
+    </fieldType>    
     <!-- Basic Text Field for use with Spell Correction -->
     <fieldType name="textSpell" class="solr.TextField" positionIncrementGap="100">
       <analyzer>
