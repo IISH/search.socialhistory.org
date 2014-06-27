@@ -800,6 +800,59 @@ class MarcRecord extends IndexRecord
         return $matches;
     }
 
+	/**
+	 * Tries to find the authority for the specified MARC field.
+	 * If a value is given, the authority for that value is returned if found.
+	 * Otherwise the first found authority is returned instead.
+	 * If a subfield is given, the value is matched with the value of the given subfield.
+	 * Otherwise the first subfield (a) is used instead.
+	 *
+	 * @param string $field The MARC field
+	 * @param string|null $value The value of the given subfield for matching
+	 * @param string|null $subfield The MARC subfield
+	 * @return string|null The authority or null if not found
+	 */
+	protected function getAuthorityForField($field, $value = null, $subfield = null) {
+		if ($subfield == null) {
+			$subfield = 'a';
+		}
+
+		$subfields = array($subfield, '0');
+		$fields = $this->marcRecord->getFields($field);
+
+		foreach ($fields as $f) {
+			$subfieldValues = $this->_getSubfieldArray($f, $subfields, false);
+			if (($value == null) || (($value != null) && ($subfieldValues[0] == $value))) {
+				return isset($subfieldValues[1]) ? $subfieldValues[1] : null;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Tries to find the values and the authorities for the specified MARC field.
+	 * If no subfield is given, the first subfield (a) is used instead.
+	 *
+	 * @param string $field The MARC field
+	 * @param string|null $subfield The MARC subfield
+	 * @return array|null An array with the 'value' and the 'authority'
+	 */
+	protected function getAllAuthorityForField($field, $subfield = null) {
+		$results = array();
+		$fields = $this->marcRecord->getFields($field);
+		$subfields = ($subfield === null) ? array('a', '0') : array($subfield, '0');
+
+		foreach ($fields as $f) {
+			$subfieldValues = $this->_getSubfieldArray($f, $subfields, false);
+			$value = (isset($subfieldValues[0])) ? $subfieldValues[0] : null;
+			$authority = (isset($subfieldValues[1])) ? $subfieldValues[1] : null;
+			$results[] = array('value' => $value, 'authority' => $authority);
+		}
+
+		return $results;
+	}
+
     /**
      * Get an array of summary strings for the record.
      *
@@ -1063,26 +1116,6 @@ class MarcRecord extends IndexRecord
      * @return bool
      */
     protected function isIRSH() {
-		/*$irshNames = array(
-			'economisch-historisch jaarboek',
-			'economisch- en sociaal-historisch jaarboek',
-			'neha-jaarboek voor economische-, bedrijfs- en techniekgeschiedenis',
-			'economic and social history in the netherlands',
-			'jaarboek voor de geschiedenis van bedrijf en techniek',
-			'neha-bulletin. orgaan ten behoeve van de economische geschiedenis in nederland',
-			'neha-bulletin : tijdschrift voor de economische geschiedenis in nederland',
-			'neha bulletin voor de economische geschiedenis in nederland',
-		);
-
-	    $journal = strtolower($this->getJournal());
-	    foreach ($irshNames as $irshName) {
-		    if (strpos($journal, $irshName) !== false) {
-				return true;
-		    }
-	    }
-
-        return false;*/
-
 	    $u = $this->_getFirstFieldValue('856', array('u'));
 	    return (preg_match('/^http:\/\/hdl\.handle\.net\/10622\/\d{8}-\d{4}-\d{3}$/', $u) == 1);
     }
