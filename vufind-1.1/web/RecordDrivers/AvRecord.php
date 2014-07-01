@@ -88,25 +88,16 @@ class AvRecord extends MarcRecord
         $interface->assign('coreGenres', $coreGenres);
         $interface->assign('coreURLs', null);
         $interface->assign('recordLanguage', null);
-        $interface->assign('coreMarc600', $this->_getFieldArray('600'));
-        $interface->assign('coreMarc610', $this->_getFieldArray('610'));
+        $interface->assign('coreMarc600', $this->getAllAuthorityForField('600'));
+        $interface->assign('coreMarc610', $this->getAllAuthorityForField('610'));
         $interface->assign('coreMarc611', $this->getMeeting());
-        $interface->assign('coreMarc650', $this->_getFieldArray('650'));
-        $interface->assign('coreMarc651', $this->_getFieldArray('651'));
+        $interface->assign('coreMarc650', $this->getAllAuthorityForField('650'));
+        $interface->assign('coreMarc651', $this->getAllAuthorityForField('651'));
 
         $this->getExtendedMetadata();
 
         return $tpl;
     }
-
-	/*protected function getPublicationStatus() {
-		$publicationStatus = parent::getPublicationStatus();
-		if (empty($publicationStatus)) {
-			$publicationStatus = 'closed';
-		}
-
-		return $publicationStatus;
-	}*/
 
     protected function getPublicationDates(){
         $date = $this->_getFieldArray('260', array('c'));

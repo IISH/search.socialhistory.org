@@ -371,6 +371,26 @@ public Set getFormat(Record record) {
     	return result;
     }
 
+    public Set getAuthorityFacets(Record record) {
+        final Set result = new LinkedHashSet();
+
+        final List fields = record.getDataFields();
+        if (fields != null) {
+            final Iterator fieldsIter = fields.iterator();
+            while (fieldsIter.hasNext()) {
+                DataField physical = (DataField) fieldsIter.next();
+                Subfield subfield = physical.getSubfield('0');
+
+                if (subfield != null) {
+                    final String data = subfield.getData();
+                    result.add(data);
+                }
+            }
+        }
+
+        return result;
+    }
+
     public String hack(Record record ){
     final Set result = new LinkedHashSet();
         final List fields = record.getVariableFields("655");
