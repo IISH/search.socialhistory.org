@@ -79,3 +79,6 @@ solrmarc*
 ehthumbs.db
 Icon?
 Thumbs.db
+
+# Windows
+vufind-1.1/*.bat
