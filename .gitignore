@@ -1,7 +1,27 @@
+# Symbolic links
+vufind-1.1/web/images/covers/large
+vufind-1.1/web/images/covers/medium
+vufind-1.1/web/images/covers/small
+vufind-1.1/web/interface/cache
+vufind-1.1/web/interface/compile
+vufind-1.1/web/interface/themes/default/css/video-js
+vufind-1.1/web/interface/themes/default/js/delivery_shop
+vufind-1.1/web/interface/themes/default/js/video-js
+vufind-1.1/web/interface/themes/default/js/visual-mets
+vufind-1.1/web/maps
+vufind-1.1/web/pdf
+
 nohup.out
 
 httpd-vufind.conf
 config.ini
+config-acceptance.ini
+config-development.ini
+config-production.ini
+httpd-vufind.conf
+httpd-vufind.conf.acceptance
+httpd-vufind.conf.development
+httpd-vufind.conf.production
 
 
 #NFS
@@ -59,3 +79,6 @@ solrmarc*
 ehthumbs.db
 Icon?
 Thumbs.db
+
+# Windows
+vufind-1.1/*.bat
