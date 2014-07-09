@@ -10,8 +10,8 @@ if [ -z "$instance" ] ; then
     exit -1
 fi
 
-version=$2
-if [ -z "$version" ] ; then
+bamboo_tag_version=$2
+if [ -z "$bamboo_tag_version" ] ; then
     echo "Need the instance name. E.g. '1.0'"
     exit -1
 fi
