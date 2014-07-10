@@ -37,6 +37,7 @@ fi
 
     cd $VUFIND_HOME/harvest
     echo "Begin harvest" >> $log
+    ln -s $dir $setSpec
     php harvest_oai.php $setSpec >> $log
     f=$dir/add.xml
 	rm $f
