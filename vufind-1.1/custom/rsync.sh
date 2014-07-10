@@ -5,31 +5,25 @@
 
 # If no parameter was given, we replicate the master index
 
-if [ "$1" == "" ];
-then
-	source=/data/erebus.index0/
-else
-	source=$1
+source /usr/local/vufind/custom/config.sh
+
+source_index=$1
+if [ -z "$source_index" ] ; then
+    echo "Need the source index to rsync from."
+    exit 1
 fi
 
-for i in {0..3}
-	do
-		h=erebus.be"$i"
-		target=/data/$h
-		tmp=/data/tmp
-		solr=$tmp/vufind-1.1/solr
-		rsync --exclude '.git' --delete -avv $source $tmp
-		if [ ! -d $solr/biblio ] ; then
-			echo "No index replicated."
-			exit -1
-		fi
-		chown -R tomcat6:root $solr
-		chmod -R 744 $solr
-		rm $solr/biblio/index/write.lock
-		rm $solr/authority/index/write.lock
+if [ ! -d $source_index ] ; then
+    echo "Cannot find $source_index"
+    exit 1
+fi
 
-		wget -O /tmp/unload.txt "http://$h.iisg.net:8080/solr/admin/multicore?action=UNLOAD&core=biblio"
-		wget -O /tmp/unload.txt "http://$h.iisg.net:8080/solr/admin/multicore?action=UNLOAD&core=authority"
-		rm -r $target
-		mv $tmp $target
+for target in ${share_folder}solr/*/
+do
+    if [[ "$source_index" == "$target" ]] ; then
+        echo "Ignore"
+    else
+	    echo "Processing $f"
+	    rsync --delete -av $source_index $target
+    fi
 done

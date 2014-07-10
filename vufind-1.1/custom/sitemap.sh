@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source /usr/local/vufind/custom/setup.sh
+source /usr/local/vufind/custom/config.sh
 
 ##############################################################################
 # Build the sitemap

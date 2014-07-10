@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source /usr/local/vufind/custom/setup.sh
+source /usr/local/vufind/custom/config.sh
 
 #############################################################################
 # THe application path needs to be here:
@@ -10,13 +10,13 @@ cd $VUFIND_HOME/harvest
 
 setSpec=$1
 d=$2 
-dir=/data/datasets/$setSpec
+dir=$SHARE/datasets/$setSpec
 now=$(date +"%Y-%m-%d")
-log=/data/log/$setSpec.$now.log
+log=$SHARE/log/$setSpec.$now.log
 echo "Start job $setSpec" > $log
 
 if [ -z "$setSpec" ] ; then
-	echo "No setSpec given as argument." >> /data/log/error.$now.txt 
+	echo "No setSpec given as argument." >> $SHARE/log/error.$now.txt 
 	exit -1
 fi
 
@@ -41,7 +41,7 @@ fi
 	rm $f
 	rm $h
     echo "Collating files into $f" >> $log
-    java -Dxsl=marc -cp $app org.socialhistoryservices.solr.importer.Collate $dir $f
+    java -Dxsl=marc -cp $APP org.socialhistoryservices.solr.importer.Collate $dir $f
     cd $VUFIND_HOME/import
     echo "Begin import into solr" >> $log
 

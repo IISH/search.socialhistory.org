@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source /usr/local/vufind/custom/setup.sh
+source /usr/local/vufind/custom/config.sh
 
 #############################################################################
 # THe application path needs to be here:
@@ -10,13 +10,13 @@ cd $VUFIND_HOME/harvest
 
 setSpec=$1
 d=$2 
-dir=/data/datasets/$setSpec
+dir=/$SHARE/datasets/$setSpec
 now=$(date +"%Y-%m-%d")
-log=/data/log/$setSpec.$now.log
+log=/$SHARE/log/$setSpec.$now.log
 echo "Start job $setSpec" > $log
 
 if [ -z "$setSpec" ] ; then
-	echo "No setSpec given as argument." >> /data/log/error.$now.txt 
+	echo "No setSpec given as argument." >> /$SHARE/log/error.$now.txt 
 	exit -1
 fi
 
@@ -41,13 +41,13 @@ fi
     f=$dir/add.xml
 	rm $f
 	rm $h
-    java -Dxsl=marc -cp $app org.socialhistoryservices.solr.importer.Collate $dir $f
+    java -Dxsl=marc -cp $APP org.socialhistoryservices.solr.importer.Collate $dir $f
     cd $VUFIND_HOME/import
     echo "Begin import into solr" >> $log
 
         ./import-marc.sh -p import_$setSpec.properties $f
         echo "Delete records" >> $log
-        java -Dxsl=deleted -cp $app org.socialhistoryservices.solr.importer.Collate $dir $f.delete
+        java -Dxsl=deleted -cp $APP org.socialhistoryservices.solr.importer.Collate $dir $f.delete
 	while read line; do
                 if [ ${#line} -gt 5 ] && [ ${#line} -lt 100 ]; then
                         wget -O /tmp/deletion.txt "http://localhost:8080/solr/biblio/update?stream.body=%3Cdelete%3E%3Cquery%3Epid%3A%22$line%22%3C%2Fquery%3E%3C%2Fdelete%3E"
@@ -72,7 +72,7 @@ fi
 
 ##############################################################################
 # Cache permissions
-chown www-data /data/caching/xml/*
+chown www-data /$SHARE/caching/xml/*
 
 wget -O /tmp/commit.txt "http://localhost:8080/solr/biblio/update?commit=true"
 

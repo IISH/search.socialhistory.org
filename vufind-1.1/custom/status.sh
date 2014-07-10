@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source /usr/local/vufind/custom/config.sh
+
 c=$1
 if [ -z "$c" ] ; then
 	c="status"

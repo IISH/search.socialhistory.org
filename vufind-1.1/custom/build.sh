@@ -1,8 +1,14 @@
 #!/bin/bash
 #
-# Build
+# build.sh
 #
-# Creates a tar file
+# Creates a tar file.
+#
+# Usage: build.sh instance version
+#
+# Example:
+# $ build.sh search 1.0
+# creates target/search-1.0.tar.gz
 
 instance=$1
 if [ -z "$instance" ] ; then
