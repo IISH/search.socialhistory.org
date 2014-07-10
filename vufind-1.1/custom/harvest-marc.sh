@@ -10,13 +10,13 @@ cd $VUFIND_HOME/harvest
 
 setSpec=$1
 d=$2 
-dir=/$SHARE/datasets/$setSpec
+dir=$SHARE/datasets/$setSpec
 now=$(date +"%Y-%m-%d")
-log=/$SHARE/log/$setSpec.$now.log
+log=$SHARE/log/$setSpec.$now.log
 echo "Start job $setSpec" > $log
 
 if [ -z "$setSpec" ] ; then
-	echo "No setSpec given as argument." >> /$SHARE/log/error.$now.txt 
+	echo "No setSpec given as argument." >> $SHARE/log/error.$now.txt 
 	exit -1
 fi
 
@@ -73,7 +73,7 @@ fi
 
 ##############################################################################
 # Cache permissions
-chown www-data /$SHARE/caching/xml/*
+chown www-data $SHARE/caching/xml/*
 
 wget -O /tmp/commit.txt "http://localhost:8080/solr/biblio/update?commit=true"
 

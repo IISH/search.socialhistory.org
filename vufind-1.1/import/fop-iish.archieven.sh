@@ -3,8 +3,8 @@
 
 source /usr/local/vufind/custom/config.sh
 
-folder=$VUFIND_HOME/cache/xml
-target=$VUFIND_HOME/cache/pdf
+folder=$SHARE/cache/xml
+target=$SHARE/cache/pdf
 for file in ${folder}/* ; do
     pdf=$target/$(basename $file .xml).pdf
     echo "Creating $pdf from $file"

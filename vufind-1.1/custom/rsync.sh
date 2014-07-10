@@ -18,7 +18,7 @@ if [ ! -d $source_index ] ; then
     exit 1
 fi
 
-for target in ${share_folder}solr/*/
+for target in $SHARE/solr/*/
 do
     if [[ "$source_index" == "$target" ]] ; then
         echo "Ignore"
