@@ -30,7 +30,7 @@ require_once 'sys/Proxy_Request.php';
 
 // Read Config files
 $configArray = parse_ini_file('../web/conf/config.ini', true);
-$oaiSettings = @parse_ini_file('oai.ini', true);
+$oaiSettings = parse_ini_file('oai.ini', true);
 if (empty($oaiSettings)) {
     die("Please add OAI-PMH settings to oai.ini.\n");
 }
