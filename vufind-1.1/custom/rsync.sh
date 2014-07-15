@@ -1,9 +1,11 @@
 #!/bin/bash
+#
+# rsync.sh
+#
+# usage: rsync.sh [/path/to/source_index]
+#
+# Solr support replication. But it may be the case a quick replication of all indexes is needed.
 
-# Solr support replication. But the download time from the be0 and be1 can take rather long time and thus fail.
-# This script is therefor a workaround. It is run from the store0 node
-
-# If no parameter was given, we replicate the master index
 
 source /usr/local/vufind/custom/config.sh
 
