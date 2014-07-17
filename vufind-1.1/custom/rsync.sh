@@ -11,7 +11,7 @@ source /usr/local/vufind/custom/config.sh
 
 source_index=$1
 if [ -z "$source_index" ] ; then
-    echo "Need the source index to rsync from."
+    echo "Need the full source path to the solr folder to rsync from."
     exit 1
 fi
 
@@ -20,12 +20,14 @@ if [ ! -d $source_index ] ; then
     exit 1
 fi
 
-for target in $SHARE/solr/*/
+for target in $SHARE/solr/*
 do
     if [[ "$source_index" == "$target" ]] ; then
         echo "Ignore"
     else
-	    echo "Processing $f"
+	    echo "Processing $target"
+	    echo "maintenance" > /opt/tomcat_command.txt
 	    rsync --delete -av $source_index $target
+	    echo "start" > /opt/tomcat_command.txt
     fi
 done
