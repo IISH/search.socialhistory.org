@@ -15,6 +15,13 @@ if [ -z "$source_index" ] ; then
     exit 1
 fi
 
+i=$((${#source_index}-1))
+last=${str:$i:1}
+if [[ "$last" == "/" ]] ; then
+    echo "Last character in the foldername should not end with a /"
+    exit 1
+fi
+
 if [ ! -d $source_index ] ; then
     echo "Cannot find $source_index"
     exit 1
