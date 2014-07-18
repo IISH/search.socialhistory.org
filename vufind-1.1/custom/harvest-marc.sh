@@ -42,13 +42,13 @@ fi
     f=$dir/add.xml
 	rm $f
 	rm $h
-    java -Dxsl=marc -cp $APP org.socialhistory.solr.importer $dir $f
+    java -Dxsl=marc -cp $APP org.socialhistory.solr.importer.Collate $dir $f
     cd $VUFIND_HOME/import
     echo "Begin import into solr" >> $log
 
         ./import-marc.sh -p import_$setSpec.properties $f
         echo "Delete records" >> $log
-        java -Dxsl=deleted -cp $APP org.socialhistory.solr.importer $dir $f.delete
+        java -Dxsl=deleted -cp $APP org.socialhistory.solr.importer.Collate $dir $f.delete
 	while read line; do
                 if [ ${#line} -gt 5 ] && [ ${#line} -lt 100 ]; then
                         wget -O /tmp/deletion.txt "http://localhost:8080/solr/biblio/update?stream.body=%3Cdelete%3E%3Cquery%3Epid%3A%22$line%22%3C%2Fquery%3E%3C%2Fdelete%3E"
