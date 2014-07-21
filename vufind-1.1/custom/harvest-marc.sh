@@ -3,9 +3,7 @@
 source /usr/local/vufind/custom/config.sh
 
 #############################################################################
-# THe application path needs to be here:
-#
-# We shall set the harvest date to a reasonable three day range
+# THe application path
 cd $VUFIND_HOME/harvest
 
 setSpec=$1
@@ -73,7 +71,7 @@ fi
 
 ##############################################################################
 # Cache permissions
-chown www-data $SHARE/caching/xml/*
+chown www-data $SHARE/cache/xml/*
 
 wget -O /tmp/commit.txt "http://localhost:8080/solr/biblio/update?commit=true"
 
