@@ -25,10 +25,10 @@ final class Utils
         $request->addQueryString('identifier', $pid); // the oai identifier... not  that of the solr
         $request->addQueryString('metadataPrefix', $metadataPrefix);
         $result = $request->sendRequest();
-        if (PEAR::isError($result)) {
-            PEAR::RaiseError(new PEAR_Error($result->getMessage()));
-            die();
-        }
+	    if (PEAR::isError($result) || ($request->getResponseCode() !== 200)) {
+		    PEAR::RaiseError(new PEAR_Error($result ? $result->getMessage() : $request->getResponseReason()));
+		    die();
+	    }
         $response = $request->getResponseBody();
         file_put_contents($file, $response);
         $doc = new DOMDocument();
