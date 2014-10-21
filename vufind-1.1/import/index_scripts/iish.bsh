@@ -21,6 +21,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.Iterator;
 import java.util.List;
+import java.text.Normalizer;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -450,6 +451,46 @@ public Set getFormat(Record record) {
             }
             return null;
         }
+
+		public String getAlphabetical(Record record) {
+			final String[] tags = {"100", "110", "111"};
+			final String[] toRemove = { "the", "a", "an", "de", "het", "een", "le", "la",
+										"les", "dem", "der", "dem", "das", "t", "l"};
+
+			String title = "";
+			final List fields = record.getVariableFields(tags);
+			if (fields != null) {
+				final Iterator fieldsIter = fields.iterator();
+				while (fieldsIter.hasNext()) {
+					DataField field = (DataField) fieldsIter.next();
+					Subfield subfield = field.getSubfield('a');
+					if (subfield != null) {
+						title += subfield.getData() + " ";
+					}
+				}
+			}
+
+			title = Normalizer
+				.normalize(title, Normalizer.Form.NFKD)
+				.replaceAll("[^\\p{Alpha}\\s]", "")
+				.trim()
+				.toLowerCase();
+
+			title = " " + title + " ";
+			for (String word : toRemove) {
+				String wordTarget = " " + word + " ";
+				if (title.contains(wordTarget)) {
+					title = title.replace(wordTarget, " ");
+				}
+			}
+
+			title = title.trim().toUpperCase();
+			if (title.length() > 0) {
+				return title.substring(0, 1);
+			}
+
+			return null;
+		}
 
         private String subfieldQ(DataField datafield) {
             if ( datafield != null ) {

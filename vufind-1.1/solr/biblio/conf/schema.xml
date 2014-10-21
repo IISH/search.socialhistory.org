@@ -194,6 +194,7 @@
    <field name="downloadable_facet" type="textFacet" indexed="true" stored="true" multiValued="false"/>
 
    <field name="authority_facet" type="textFacetRaw" indexed="true" stored="true" multiValued="true"/>
+   <field name="alphabetical_facet" type="textFacet" indexed="true" stored="true" multiValued="false"/>
 
    <field name="era" type="text" indexed="true" stored="true" multiValued="true"/>
    <field name="era_facet" type="textFacet" indexed="true" stored="true" multiValued="true"/>
