@@ -30,6 +30,7 @@
   {/if}
   {if $sideFacetSet && $recordCount > 0}
     {foreach from=$sideFacetSet item=cluster key=title}
+	  {if $cluster.label !== 'Authority'}
       <dl class="narrowList navmenu narrow_begin">
         <dt>{translate text=$cluster.label}</dt>
         {if isset($dateFacets.$title)}
@@ -82,6 +83,7 @@
           {if $smarty.foreach.narrowLoop.total > 5}<dd><a href="#" onClick="lessFacets('{$title}'); return false;">{translate text='less'} ...</a></dd>{/if}
         {/if}
       </dl>
+	  {/if}
     {/foreach}
   {/if}
 </div>
