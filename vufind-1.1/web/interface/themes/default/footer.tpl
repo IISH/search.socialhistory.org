@@ -33,6 +33,7 @@
 <div><p><strong>{translate text='see.also'}</strong></p>
     <ul>
         <li><a href="{translate text='see.shp.href'}" title="{translate text='see.shp.title'}">{translate text='see.shp.text'}</a></li>
+	    <li><a href="{translate text='see.apex.href'}" title="{translate text='see.apex.title'}">{translate text='see.apex.text'}</a></li>
 	<li><a href="{translate text='see.europeana.href'}" title="{translate text='see.europeana.title'}">{translate text='see.europeana.text'}</a></li>
 	<li><a href="{translate text='see.worldcat.href'}" title="{translate text='see.worldcat.title'}">{translate text='see.worldcat.text'}</a></li>
     </ul>
