@@ -76,8 +76,58 @@ public Set getFormat(Record record) {
             result.add(AM);
         if (format.equals("av") || format.equals("rm") || format.equals("gm") || format.equals("pv") || format.equals("km") || format.equals("kc"))
             result.add(VM);
-        if (result.isEmpty())
-            result.add(OT);
+
+		List fields = record.getVariableFields("245");
+		if (fields != null) {
+			Iterator fieldsIter = fields.iterator();
+			DataField physical;
+			while (fieldsIter.hasNext()) {
+				physical = (DataField) fieldsIter.next();
+				List subfields = physical.getSubfields('k');
+				if (subfields != null) {
+					Iterator subfieldsIter = subfields.iterator();
+					while (subfieldsIter.hasNext()) {
+						String coll = subfield(subfieldsIter.next()).getData().trim().toLowerCase();
+						if (format.equals("ac") && coll.contains("book collection")) {
+							result.add(BK);
+						}
+						if (format.equals("ac") && coll.contains("serial collection")) {
+							result.add(SE);
+						}
+						if (format.equals("pc") && coll.contains("archief")) {
+							result.add(AM);
+						}
+						if (format.equals("pc") && coll.contains("archive")) {
+							result.add(AM);
+						}
+						if (format.equals("pc") && coll.contains("collection")) {
+							result.add(DO);
+						}
+						if (format.equals("gc") && coll.contains("moving image collection")) {
+							result.add(VM);
+						}
+						if (format.equals("kc") && coll.contains("photo collection")) {
+							result.add(VM);
+						}
+						if (format.equals("kc") && coll.contains("poster collection")) {
+							result.add(VM);
+						}
+						if (format.equals("rc") && coll.contains("object collection")) {
+							result.add(VM);
+						}
+						if (format.equals("ic") && coll.contains("sound collection")) {
+							result.add(MU);
+						}
+						if (format.equals("jc") && coll.contains("music collection")) {
+							result.add(MU);
+						}
+					}
+				}
+			}
+		}
+
+		if (result.isEmpty())
+			result.add(OT);
 
         return result;
     }
