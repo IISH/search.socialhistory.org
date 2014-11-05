@@ -237,6 +237,9 @@ class IndexRecord implements RecordInterface
         $interface->assign('corePhysical', $this->getPhysicalDescriptions());
         $interface->assign('coreDownloadable', $this->getDownloadable());
 
+	    // Addition to extended metadata...
+	    $interface->assign('coreHasAudio', $this->hasAudio());
+	    $interface->assign('coreHasVideo', $this->hasVideo());
 
         // Only display OpenURL link if the option is turned on and we have
         // an ISSN.  We may eventually want to make this rule more flexible,
