@@ -41,8 +41,8 @@
 {js filename="delivery_shop/delivery_shop.js"}
 
 {if $coreDownloadable && ($coreHasAudio || $coreHasVideo) }
-    {css media="screen" filename="mediaelement/mediaelementplayer.css"}
-    {js filename="mediaelement/mediaelement-and-player.min.js"}
+    {css media="screen" filename="mediaelement-2.15.1/build/mediaelementplayer.css"}
+    {js filename="mediaelement-2.15.1/build/mediaelement-and-player.min.js"}
 {/if}
 
 {literal}
