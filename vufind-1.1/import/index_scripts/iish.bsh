@@ -410,6 +410,35 @@ public Set getFormat(Record record) {
     						if (data.toLowerCase().contains("annual report") && !result.contains("Annual report")) {
     							result.add("Annual report");
     						}
+
+							String coll = data.trim().toLowerCase();
+							if (coll.contains("book collection")) {
+								result.add("Book collection");
+							}
+							if (coll.contains("serial collection")) {
+								result.add("Serial collection");
+							}
+							if (coll.contains("collection")) {
+								result.add("Collection");
+							}
+							if (coll.contains("moving image collection")) {
+								result.add("Moving image collection");
+							}
+							if (coll.contains("photo collection")) {
+								result.add("Photo collection");
+							}
+							if (coll.contains("poster collection")) {
+								result.add("Poster collection");
+							}
+							if (coll.contains("object collection")) {
+								result.add("Object collection");
+							}
+							if (coll.contains("sound collection")) {
+								result.add("Sound collection");
+							}
+							if (coll.contains("music collection")) {
+								result.add("Music collection");
+							}
     					}
     					else if (!result.contains(data)) {
     						result.add(data);
