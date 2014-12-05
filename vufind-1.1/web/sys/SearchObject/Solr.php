@@ -935,7 +935,7 @@ class SearchObject_Solr extends SearchObject_Base
                 ) {
                     $filterQuery[] = "$field:$value";
                 } else {
-                    $filterQuery[] = "$field:\"$value\"";
+	                $filterQuery[] = $field . ':"' . addcslashes($value, '"\\') . '"';
                 }
             }
         }
@@ -1264,7 +1264,7 @@ class SearchObject_Solr extends SearchObject_Base
                 $currentSettings['count'] = $facet[1];
                 $currentSettings['isApplied'] = false;
                 $currentSettings['url']
-                    = $this->renderLinkWithFilter("$field:".$facet[0]);
+                    = $this->renderLinkWithFilter("$field:"."\"$facet[0]\"");
                 // If we want to have expanding links (all values matching the
                 // facet) in addition to limiting links (filter current search
                 // with facet), do some extra work:
