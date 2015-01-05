@@ -25,11 +25,10 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/importing_records#oai-pmh_harvesting Wiki
  */
-require_once '../util/util.inc.php'; // set up util environment
-require_once 'sys/Proxy_Request.php';
+require_once 'Proxy_Request.php';
 
 // Read Config files
-$configArray = parse_ini_file('../web/conf/config.ini', true);
+$configArray = array('Site'=>array('timezone'=>'Europe/Amsterdam'));
 $oaiSettings = parse_ini_file('oai.ini', true);
 if (empty($oaiSettings)) {
     die("Please add OAI-PMH settings to oai.ini.\n");
@@ -73,23 +72,24 @@ die("Completed without errors -- {$processed} source(s) processed.\n");
  */
 class HarvestOAI
 {
-    private $_baseURL; // URL to harvest from
-    private $_set = null; // Target set to harvest (null for all records)
-    private $_metadata = 'oai_dc'; // Metadata type to harvest
-    private $_idPrefix = ''; // OAI prefix to strip from ID values
-    private $_idSearch = array(); // Regular expression searches
-    private $_idReplace = array(); // Replacements for regular expression matches
-    private $_basePath; // Directory for storing harvested files
-    private $_lastHarvestFile; // File for tracking last harvest date
-    private $_startDate = null; // Harvest start date (null for all records)
-    private $_granularity = 'auto'; // Date granularity
-    private $_injectId = false; // Tag to use for injecting IDs into XML
+    private $_baseURL;               // URL to harvest from
+    private $_set = null;            // Target set to harvest (null for all records)
+    private $_metadata = 'oai_dc';   // Metadata type to harvest
+    private $_idPrefix = '';         // OAI prefix to strip from ID values
+    private $_idSearch = array();    // Regular expression searches
+    private $_idReplace = array();   // Replacements for regular expression matches
+    private $_basePath;              // Directory for storing harvested files
+    private $_lastHarvestFile;       // File for tracking last harvest date
+    private $_startDate = null;      // Harvest start date (null for all records)
+    private $_granularity = 'auto';  // Date granularity
+    private $_injectId = false;      // Tag to use for injecting IDs into XML
     private $_injectSetSpec = false; // Tag to use for injecting setSpecs
     private $_injectSetName = false; // Tag to use for injecting set names
-    private $_injectDate = false; // Tag to use for injecting datestamp
-    private $_setNames = array(); // Associative array of setSpec => setName
-    private $_harvestedIdLog = false; // Filename for logging harvested IDs.
-    private $_verbose = false; // Should we display debug output?
+    private $_injectDate = false;    // Tag to use for injecting datestamp
+    private $_injectHeaderElements;  // List of header elements to copy into body
+    private $_setNames = array();    // Associative array of setSpec => setName
+    private $_harvestedIdLog = false;// Filename for logging harvested IDs.
+    private $_verbose = false;       // Should we display debug output?
 
     // As we harvest records, we want to track the most recent date encountered
     // so we can set a start point for the next harvest.
@@ -99,7 +99,7 @@ class HarvestOAI
      * Constructor.
      *
      * @param string $target   Target directory for harvest.
-     * @param array $settings OAI-PMH settings from oai.ini.
+     * @param array  $settings OAI-PMH settings from oai.ini.
      *
      * @access public
      */
@@ -113,9 +113,8 @@ class HarvestOAI
         // Set up base directory for harvested files:
         $this->_setBasePath($target);
 
-        $this->_lastHarvestFile = $this->_basePath . 'last_harvest.txt';
-
         // Check if there is a file containing a start date:
+        $this->_lastHarvestFile = $this->_basePath . 'last_harvest.txt';
         $this->_loadLastHarvestedDate();
 
         // Set up base URL:
@@ -153,6 +152,14 @@ class HarvestOAI
         }
         if (isset($settings['injectDate'])) {
             $this->_injectDate = $settings['injectDate'];
+        }
+        if (isset($settings['injectHeaderElements'])) {
+            $this->_injectHeaderElements
+                = is_array($settings['injectHeaderElements'])
+                ? $settings['injectHeaderElements']
+                : array($settings['injectHeaderElements']);
+        } else {
+            $this->_injectHeaderElements = array();
         }
         if (isset($settings['dateGranularity'])) {
             $this->_granularity = $settings['dateGranularity'];
@@ -292,21 +299,41 @@ class HarvestOAI
             print_r($params);
         }
 
-        // Set up the request:
-        $request = new Proxy_Request(null, array('allowRedirects' => true));
-        $request->setMethod(HTTP_REQUEST_METHOD_GET);
-        $request->setURL($this->_baseURL);
+        // Set up retry loop:
+        while (true) {
+            // Set up the request:
+            $request = new Proxy_Request();
+            $request->setMethod(HTTP_REQUEST_METHOD_GET);
+            $request->setURL($this->_baseURL);
 
-        // Load request parameters:
-        $request->addQueryString('verb', $verb);
-        foreach ($params as $key => $value) {
-            $request->addQueryString($key, $value);
-        }
+            // Load request parameters:
+            $request->addQueryString('verb', $verb);
+            foreach ($params as $key => $value) {
+                $request->addQueryString($key, $value);
+            }
 
-        // Perform request and die on error:
-        $result = $request->sendRequest();
-        if (PEAR::isError($result)) {
-            die($result->getMessage() . "\n");
+            // Perform request and die on error:
+            $result = $request->sendRequest();
+            if (PEAR::isError($result)) {
+                #die($result->getMessage() . "\n");
+                echo "Error: " . $result->getMessage() . "\n";
+                sleep(5);
+                continue;
+            }
+
+            // Check for 503 response.
+            if ($request->getResponseCode() == 503) {
+                $delay = $request->getResponseHeader('Retry-After');
+                if ($delay > 0) {
+                    if ($this->_verbose) {
+                        echo "Received 503 response; waiting {$delay} seconds...\n";
+                    }
+                    sleep($delay);
+                }
+            } else {
+                // If we didn't get a 503, we can leave the retry loop:
+                break;
+            }
         }
 
         // If we got this far, there was no error -- send back response.
@@ -355,16 +382,13 @@ class HarvestOAI
      */
     private function _getFilename($id, $ext)
     {
-        // // But we add a subfolder, because we dont want to overburden our fs now, do we?
-
-        $f = $this->_basePath . date("YmdHi") . "/";
+        $f = $this->_basePath . substr( md5($id), 0, 4) ;
         if (!is_dir($f)) {
             if (!mkdir($f, true)) {
                 die("Problem creating directory {$f}.\n");
             }
         }
-
-        return $f . time() . '_' .
+        return $f . '/' .
         preg_replace('/[^\w]/', '_', $id) . '.' . $ext;
     }
 
@@ -379,7 +403,7 @@ class HarvestOAI
     private function _saveDeletedRecord($id)
     {
         $filename = $this->_getFilename($id, 'delete');
-        file_put_contents($filename, $id);
+        file_put_contents($filename, "<marc:record xmlns:marc=\"http://www.loc.gov/MARC21/slim\"><marc:controlfield tag=\"001\">" . $id . "</marc:controlfield></marc:record>");
     }
 
     /**
@@ -391,21 +415,17 @@ class HarvestOAI
      * @return void
      * @access private
      */
-    private function _saveRecord($id, $record, $extension = 'xml')
+    private function _saveRecord($id, $record)
     {
         if (!isset($record->metadata)) {
-            //die("Unexpected missing record metadata.\n");
-            if (!isset($record->header)) {
-                die("Unexpected missing record metadata and header.\n");
-            }
-            $xml = '<marc:record xmlns:marc="http://www.loc.gov/MARC21/slim"><marc:controlfield tag="001">' . $id . '</marc:controlfield><marc:datafield ind1=" " ind2=" " tag="902"><marc:subfield code="a">' . $id . '</marc:subfield></marc:datafield></marc:record>';
-        } else {
-// Extract the actual metadata from inside the <metadata></metadata> tags;
-            // there is probably a cleaner way to do this, but this simple method avoids
-            // the complexity of dealing with namespaces in SimpleXML:
-            $xml = trim($record->metadata->asXML());
-            $xml = preg_replace('/(^<metadata>)|(<\/metadata>$)/m', '', $xml);
+            die("Unexpected missing record metadata.\n");
         }
+
+        // Extract the actual metadata from inside the <metadata></metadata> tags;
+        // there is probably a cleaner way to do this, but this simple method avoids
+        // the complexity of dealing with namespaces in SimpleXML:
+        $xml = trim($record->metadata->asXML());
+        $xml = preg_replace('/(^<metadata>)|(<\/metadata>$)/m', '', $xml);
 
         // If we are supposed to inject any values, do so now inside the first
         // tag of the file:
@@ -438,18 +458,19 @@ class HarvestOAI
                 }
             }
         }
+        if (!empty($this->_injectHeaderElements)) {
+            foreach ($this->_injectHeaderElements as $element) {
+                if (isset($record->header->$element)) {
+                    $insert .= $record->header->$element->asXML();
+                }
+            }
+        }
         if (!empty($insert)) {
             $xml = preg_replace('/>/', '>' . $insert, $xml, 1);
         }
 
-
         // Save our XML:
-        $filename = $this->_getFilename($id, $extension);
-        file_put_contents($filename, trim($xml));
-        $datestamp = (isset($record->header) && strlen((string)$record->header->datestamp) >= 10)
-            ? strtotime(substr((string)$record->header->datestamp, 0, 10))
-            : time();
-        touch($filename, $datestamp);
+        file_put_contents($this->_getFilename($id, 'xml'), trim($xml));
     }
 
     /**
@@ -564,8 +585,7 @@ class HarvestOAI
             // Save the current record, either as a deleted or as a regular file:
             $attribs = $record->header->attributes();
             if (strtolower($attribs['status']) == 'deleted') {
-                // $this->_saveDeletedRecord($id);
-                $this->_saveRecord($id, $record);
+                $this->_saveDeletedRecord($id);
             } else {
                 $this->_saveRecord($id, $record);
             }
