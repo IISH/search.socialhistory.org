@@ -28,7 +28,7 @@
 require_once 'Proxy_Request.php';
 
 // Read Config files
-$configArray = array('Site'=>array('timezone'=>'Europe/Amsterdam'));
+$configArray = array('Site' => array('timezone' => 'Europe/Amsterdam'));
 $oaiSettings = parse_ini_file('oai.ini', true);
 if (empty($oaiSettings)) {
     die("Please add OAI-PMH settings to oai.ini.\n");
@@ -72,24 +72,24 @@ die("Completed without errors -- {$processed} source(s) processed.\n");
  */
 class HarvestOAI
 {
-    private $_baseURL;               // URL to harvest from
-    private $_set = null;            // Target set to harvest (null for all records)
-    private $_metadata = 'oai_dc';   // Metadata type to harvest
-    private $_idPrefix = '';         // OAI prefix to strip from ID values
-    private $_idSearch = array();    // Regular expression searches
-    private $_idReplace = array();   // Replacements for regular expression matches
-    private $_basePath;              // Directory for storing harvested files
-    private $_lastHarvestFile;       // File for tracking last harvest date
-    private $_startDate = null;      // Harvest start date (null for all records)
-    private $_granularity = 'auto';  // Date granularity
-    private $_injectId = false;      // Tag to use for injecting IDs into XML
+    private $_baseURL; // URL to harvest from
+    private $_set = null; // Target set to harvest (null for all records)
+    private $_metadata = 'oai_dc'; // Metadata type to harvest
+    private $_idPrefix = ''; // OAI prefix to strip from ID values
+    private $_idSearch = array(); // Regular expression searches
+    private $_idReplace = array(); // Replacements for regular expression matches
+    private $_basePath; // Directory for storing harvested files
+    private $_lastHarvestFile; // File for tracking last harvest date
+    private $_startDate = null; // Harvest start date (null for all records)
+    private $_granularity = 'auto'; // Date granularity
+    private $_injectId = false; // Tag to use for injecting IDs into XML
     private $_injectSetSpec = false; // Tag to use for injecting setSpecs
     private $_injectSetName = false; // Tag to use for injecting set names
-    private $_injectDate = false;    // Tag to use for injecting datestamp
-    private $_injectHeaderElements;  // List of header elements to copy into body
-    private $_setNames = array();    // Associative array of setSpec => setName
-    private $_harvestedIdLog = false;// Filename for logging harvested IDs.
-    private $_verbose = false;       // Should we display debug output?
+    private $_injectDate = false; // Tag to use for injecting datestamp
+    private $_injectHeaderElements; // List of header elements to copy into body
+    private $_setNames = array(); // Associative array of setSpec => setName
+    private $_harvestedIdLog = false; // Filename for logging harvested IDs.
+    private $_verbose = false; // Should we display debug output?
 
     // As we harvest records, we want to track the most recent date encountered
     // so we can set a start point for the next harvest.
@@ -98,8 +98,8 @@ class HarvestOAI
     /**
      * Constructor.
      *
-     * @param string $target   Target directory for harvest.
-     * @param array  $settings OAI-PMH settings from oai.ini.
+     * @param string $target Target directory for harvest.
+     * @param array $settings OAI-PMH settings from oai.ini.
      *
      * @access public
      */
@@ -196,7 +196,6 @@ class HarvestOAI
         // Start harvesting at the requested date:
         $token = $this->_getRecordsByDate($this->_startDate, $this->_set);
 
-
         // Keep harvesting as long as a resumption token is provided:
         while ($token !== false) {
             $token = $this->_getRecordsByToken($token);
@@ -285,7 +284,7 @@ class HarvestOAI
      * Make an OAI-PMH request.  Die if there is an error; return a SimpleXML object
      * on success.
      *
-     * @param string $verb   OAI-PMH verb to execute.
+     * @param string $verb OAI-PMH verb to execute.
      * @param array $params GET parameters for ListRecords method.
      *
      * @return object        SimpleXML-formatted response.
@@ -355,16 +354,15 @@ class HarvestOAI
         // Parse the XML:
         $result = simplexml_load_string($xml);
         if (!$result) {
-            die("Problem loading XML: {$xml}\n");
+            $e = "Problem loading XML: {$xml}\n";
+            return simplexml_load_string('<errors><error>' . htmlspecialchars($e) . '</error></errors>');
         }
 
         // Detect errors and die if one is found:
         if ($result->error) {
             $attribs = $result->error->attributes();
-            die(
-                "OAI-PMH error -- code: {$attribs['code']}, " .
-                "value: {$result->error}\n"
-            );
+            $e = "OAI-PMH error -- code: {$attribs['code']}, value: {$result->error}";
+            return simplexml_load_string('<errors><error>' . htmlspecialchars($e) . '</error></errors>');
         }
 
         // If we got this far, we have a valid response:
@@ -374,7 +372,7 @@ class HarvestOAI
     /**
      * Get the filename for a specific record ID.
      *
-     * @param string $id  ID of record to save.
+     * @param string $id ID of record to save.
      * @param string $ext File extension to use.
      *
      * @return string     Full path + filename.
@@ -382,7 +380,7 @@ class HarvestOAI
      */
     private function _getFilename($id, $ext)
     {
-        $f = $this->_basePath . substr( md5($id), 0, 4) ;
+        $f = $this->_basePath . substr(md5($id), 0, 2);
         if (!is_dir($f)) {
             if (!mkdir($f, true)) {
                 die("Problem creating directory {$f}.\n");
@@ -400,16 +398,23 @@ class HarvestOAI
      * @return void
      * @access private
      */
-    private function _saveDeletedRecord($id)
+    private function _saveDeletedRecord($id, $record)
     {
-        $filename = $this->_getFilename($id, 'delete');
-        file_put_contents($filename, "<marc:record xmlns:marc=\"http://www.loc.gov/MARC21/slim\"><marc:controlfield tag=\"001\">" . $id . "</marc:controlfield></marc:record>");
+        $insert = "<status>deleted</status>";
+        if (!empty($this->_injectDate)) {
+            $insert .= "<{$this->_injectDate}>" .
+                htmlspecialchars((string)$record->header->datestamp) .
+                "</{$this->_injectDate}>";
+        }
+        $insert .= "</header>";
+        $filename = $this->_getFilename($id, 'xml');
+        file_put_contents($filename, "<marc:record xmlns:marc=\"http://www.loc.gov/MARC21/slim\">" . $insert . "<marc:datafield tag=\"901\"><marc:subfield code=\"a\">" . $id . "</marc:subfield></marc:datafield></marc:record>");
     }
 
     /**
      * Save a record to disk.
      *
-     * @param string $id     ID of record to save.
+     * @param string $id ID of record to save.
      * @param object $record Record to save (in SimpleXML format).
      *
      * @return void
@@ -585,7 +590,7 @@ class HarvestOAI
             // Save the current record, either as a deleted or as a regular file:
             $attribs = $record->header->attributes();
             if (strtolower($attribs['status']) == 'deleted') {
-                $this->_saveDeletedRecord($id);
+                $this->_saveDeletedRecord($id, $record);
             } else {
                 $this->_saveRecord($id, $record);
             }
@@ -619,7 +624,16 @@ class HarvestOAI
     private function _getRecords($params)
     {
         // Make the OAI-PMH request:
-        $response = $this->_sendRequest('ListRecords', $params);
+        $response = null;
+        while (true) {
+            $response = $this->_sendRequest('ListRecords', $params);
+            if ($response->error) {
+                echo $response->error . "\n";
+                sleep(60);
+                continue;
+            }
+            break;
+        }
 
         // Save the records from the response:
         if ($response->ListRecords->record) {
@@ -644,7 +658,7 @@ class HarvestOAI
      * Harvest records via OAI-PMH using date and set.
      *
      * @param string $date Harvest start date (null for all records).
-     * @param string $set  Set to harvest (null for all records).
+     * @param string $set Set to harvest (null for all records).
      *
      * @return mixed        Resumption token if provided, false if finished
      * @access private
