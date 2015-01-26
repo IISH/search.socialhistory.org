@@ -41,16 +41,17 @@
     </script>
 {/literal}
 {* Display Cover Image *}
-{if $coreDownloadable && ($coreDownloadable == 'video' || $coreDownloadable == 'audio')}
-    <video id="av" class="video-js vjs-default-skin" controls preload="none"
-        poster="http://hdl.handle.net/10622/{$coreIsShownBy}?locatt=view:level2"
-        data-setup="{literal}{}{/literal}" width="300px">
-        {if $coreDownloadable == 'video'}
-            <source src="http://hdl.handle.net/10622/{$coreIsShownBy}?locatt=view:level1" type='video/mp4'/>
-        {else}
-            <source src="http://hdl.handle.net/10622/{$coreIsShownBy}?locatt=view:level1" type='audio/mp3'/>
-        {/if}
-    </video>
+{if $coreDownloadable && $coreHasVideo}
+	<div id="videoContainer">
+		<video controls preload="none" style="width: 100%; height: 100%;" width="300"
+		       poster="http://hdl.handle.net/10622/{$coreIsShownBy}?locatt=view:level2">
+			<source src="http://hdl.handle.net/10622/{$coreIsShownBy}?locatt=view:level1" type='video/mp4'/>
+
+			<!-- Image as a last resort -->
+			<img src="http://hdl.handle.net/10622/{$coreIsShownBy}?locatt=view:level2" width="300"
+			     title="No video playback capabilities" />
+		</video>
+	</div>
 {elseif $coreThumbMedium}
     <div class="alignright">
         {if $coreThumbLarge}
@@ -598,6 +599,16 @@
             {/foreach}
         </td>
     </tr>
+{/if}
+
+{if $coreDownloadable && $coreHasAudio}
+	<tr valign="top">
+		<td colspan="2" id="audioContainer">
+			<audio controls preload="none" style="width: 100%;">
+				<source src="http://hdl.handle.net/10622/{$coreIsShownBy}?locatt=view:level1" type='audio/mp3'/>
+			</audio>
+		</td>
+	</tr>
 {/if}
 
 {*{if !empty($coreHolding)}

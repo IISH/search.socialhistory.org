@@ -372,6 +372,26 @@ class MarcRecord extends IndexRecord
         return true;
     }
 
+	/**
+	 * Does this record have audio content available?
+	 *
+	 * @return bool
+	 * @access public
+	 */
+	public function hasAudio() {
+		return strpos($this->_getFirstFieldValue('856', array('q')), 'audio') === 0;
+	}
+
+	/**
+	 * Does this record have video content available?
+	 *
+	 * @return bool
+	 * @access public
+	 */
+	public function hasVideo() {
+		return strpos($this->_getFirstFieldValue('856', array('q')), 'video') === 0;
+	}
+
     /**
      * Get access restriction notes for the record.
      *

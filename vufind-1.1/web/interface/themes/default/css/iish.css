@@ -508,6 +508,12 @@ b.gtop, b.gtop b, b.gtop, b.gtop b {
     margin-bottom: 0;
 }
 
-.video-js {
-    float:right;
+#videoContainer {
+    float: right;
+    width: 300px;
+}
+
+#audioContainer {
+    padding: 0;
+    padding-top: 20px;
 }
