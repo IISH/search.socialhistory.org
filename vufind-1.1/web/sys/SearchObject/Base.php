@@ -269,7 +269,7 @@ abstract class SearchObject_Base
                         'display'    => $display,   // version to display to user
                         'field'      => $field,
                         'removalUrl' =>
-                            $this->renderLinkWithoutFilter("$field:$value")
+                            $this->renderLinkWithoutFilter("$field:\"$value\"")
                     );
                 }
             }

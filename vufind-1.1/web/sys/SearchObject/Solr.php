@@ -935,7 +935,7 @@ class SearchObject_Solr extends SearchObject_Base
                 ) {
                     $filterQuery[] = "$field:$value";
                 } else {
-                    $filterQuery[] = "$field:\"$value\"";
+	                $filterQuery[] = $field . ':"' . addcslashes($value, '"\\') . '"';
                 }
             }
         }
