@@ -1262,17 +1262,11 @@ class MarcRecord extends IndexRecord
         return null;
     }
 
-    // return a oai identifier reference. Usually in the 902$a field.
-    // If not available, fall back to the Solr id
+    // return a oai identifier reference.
     public function getOAIPid()
     {
-
         global $configArray;
-        $pid = $this->_getFieldArray('902', array('a'), false);
-        $id = (sizeof($pid) == 0)
-            ? $this->getUniqueID()
-            : $pid[0];
-        return $configArray['IISH']['oaiPrefix'] . $id;
+        return $configArray['IISH']['oaiPrefix'] . $this->getUniqueID();
     }
 
     protected function getMainMarcxxxRole($field)

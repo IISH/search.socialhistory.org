@@ -398,17 +398,10 @@ class HarvestOAI
      * @return void
      * @access private
      */
-    private function _saveDeletedRecord($id, $record)
+    private function _deletedRecord($id)
     {
-        $insert = "<status>deleted</status>";
-        if (!empty($this->_injectDate)) {
-            $insert .= "<{$this->_injectDate}>" .
-                htmlspecialchars((string)$record->header->datestamp) .
-                "</{$this->_injectDate}>";
-        }
-        $insert .= "</header>";
-        $filename = $this->_getFilename($id, 'xml');
-        file_put_contents($filename, "<marc:record xmlns:marc=\"http://www.loc.gov/MARC21/slim\">" . $insert . "<marc:datafield tag=\"901\"><marc:subfield code=\"a\">" . $id . "</marc:subfield></marc:datafield></marc:record>");
+        $url = "http://localhost:8080/solr/biblio/update?stream.body=<delete><id>" . $id . "</id></delete>";
+        echo shell_exec($url);
     }
 
     /**
@@ -590,7 +583,7 @@ class HarvestOAI
             // Save the current record, either as a deleted or as a regular file:
             $attribs = $record->header->attributes();
             if (strtolower($attribs['status']) == 'deleted') {
-                $this->_saveDeletedRecord($id, $record);
+                $this->_deletedRecord($id);
             } else {
                 $this->_saveRecord($id, $record);
             }
