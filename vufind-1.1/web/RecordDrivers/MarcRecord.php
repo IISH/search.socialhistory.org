@@ -1266,11 +1266,7 @@ class MarcRecord extends IndexRecord
     public function getOAIPid()
     {
         global $configArray;
-        $pid = $this->_getFieldArray('902', array('a'), false);
-        $id = (strlen($pid) == 42)
-            ? $this->getUniqueID()
-            : $pid[0];
-        return $configArray['IISH']['oaiPrefix'] . $id;
+        return $configArray['IISH']['oaiPrefix'] . $this->getUniqueID();
     }
 
     protected function getMainMarcxxxRole($field)
