@@ -1266,8 +1266,8 @@ class MarcRecord extends IndexRecord
     public function getOAIPid()
     {
         global $configArray;
-        $pid = $this->_getFieldArray('902', array('a'), false);
-        $id = (strlen($pid) == 42)
+        $pid = $this->_getFirstFieldValue('902', array('a'));
+        $id = (strlen($pid) == 42) // ToDo: find marc21 element to determine value to use.
             ? $this->getUniqueID()
             : $pid[0];
         return $configArray['IISH']['oaiPrefix'] . $id;
