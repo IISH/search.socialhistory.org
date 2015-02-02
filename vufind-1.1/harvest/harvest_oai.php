@@ -25,7 +25,9 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/importing_records#oai-pmh_harvesting Wiki
  */
-require_once 'Proxy_Request.php';
+
+require_once '../util/util.inc.php';        // set up util environment
+require_once 'sys/Proxy_Request.php';
 
 // Read Config files
 $configArray = array('Site' => array('timezone' => 'Europe/Amsterdam'));
