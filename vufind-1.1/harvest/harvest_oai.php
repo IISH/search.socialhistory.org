@@ -200,7 +200,7 @@ class HarvestOAI
     public function launch()
     {
         # Open the XML document
-        file_put_contents($this->_catalog, '<?xml version="1.0" encoding="UTF-8"?><marc:catalog xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/MARC21/slim http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd"');
+        file_put_contents($this->_catalog, '<?xml version="1.0" encoding="UTF-8"?><marc:catalog xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/MARC21/slim http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">');
 
         // Start harvesting at the requested date:
         $token = $this->_getRecordsByDate($this->_startDate, $this->_set);
@@ -443,11 +443,11 @@ class HarvestOAI
         $marc = new DOMDocument();
         if ($marc->loadXML($xml) ) {
             if ( ! $marc->schemaValidate('marc21slim_custom.xsd') ) {
-                print("XML not valid for" . $id . "\n");
+                print("XML not valid for " . $id . "\n");
                 return;
             }
         } else {
-            print("XML cannot be parsed for" . $id . "\n");
+            print("XML cannot be parsed for " . $id . "\n");
             return;
         }
 
@@ -494,8 +494,7 @@ class HarvestOAI
         }
 
         // Save our XML:
-        file_put_contents($this->_catalog, trim($xml), FILE_APPEND);
-        #file_put_contents($this->_getFilename($id, 'xml'), trim($xml));
+        file_put_contents($this->_catalog, trim($xml) . "\n", FILE_APPEND);
     }
 
     /**
