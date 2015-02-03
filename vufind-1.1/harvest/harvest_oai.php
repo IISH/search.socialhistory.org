@@ -402,8 +402,11 @@ class HarvestOAI
      */
     private function _deletedRecord($id)
     {
-        $url = "http://localhost:8080/solr/biblio/update?stream.body=<delete><id>" . $id . "</id></delete>";
-        echo shell_exec($url);
+        $id = explode(':', $id); // oai:domain:identifier
+        if (sizeof($id) == 3) {
+            $url = "wget -O /dev/null \"http://localhost:8080/solr/biblio/update?stream.body=<delete><id>" . $id . "</id></delete>\"";
+            echo shell_exec($url);
+        }
     }
 
     /**
