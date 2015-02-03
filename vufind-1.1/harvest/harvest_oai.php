@@ -47,6 +47,8 @@ if (isset($argv[1])) {
     }
 }
 
+
+
 // Loop through all the settings and perform harvests:
 $processed = 0;
 foreach ($oaiSettings as $target => $settings) {
@@ -92,6 +94,7 @@ class HarvestOAI
     private $_setNames = array(); // Associative array of setSpec => setName
     private $_harvestedIdLog = false; // Filename for logging harvested IDs.
     private $_verbose = false; // Should we display debug output?
+    private $_catalog = null ; // filename of the document that stored all records.
 
     // As we harvest records, we want to track the most recent date encountered
     // so we can set a start point for the next harvest.
@@ -117,6 +120,7 @@ class HarvestOAI
 
         // Check if there is a file containing a start date:
         $this->_lastHarvestFile = $this->_basePath . 'last_harvest.txt';
+        $this->_catalog = $this->_basePath . 'catalog.xml';
         $this->_loadLastHarvestedDate();
 
         // Set up base URL:
@@ -195,6 +199,9 @@ class HarvestOAI
      */
     public function launch()
     {
+        # Open the XML document
+        file_put_contents($this->_catalog, '<?xml version="1.0" encoding="UTF-8"?><marc:catalog xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/MARC21/slim http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd"');
+
         // Start harvesting at the requested date:
         $token = $this->_getRecordsByDate($this->_startDate, $this->_set);
 
@@ -202,6 +209,9 @@ class HarvestOAI
         while ($token !== false) {
             $token = $this->_getRecordsByToken($token);
         }
+
+        # Close the XML document
+        file_put_contents($this->_catalog, '</marc:catalog>', FILE_APPEND) ;
     }
 
     /**
@@ -430,6 +440,17 @@ class HarvestOAI
         $xml = trim($record->metadata->asXML());
         $xml = preg_replace('/(^<metadata>)|(<\/metadata>$)/m', '', $xml);
 
+        $marc = new DOMDocument();
+        if ($marc->loadXML($xml) ) {
+            if ( ! $marc->schemaValidate('marc21slim_custom.xsd') ) {
+                print("XML not valid for" . $id . "\n");
+                return;
+            }
+        } else {
+            print("XML cannot be parsed for" . $id . "\n");
+            return;
+        }
+
         // If we are supposed to inject any values, do so now inside the first
         // tag of the file:
         $insert = '';
@@ -473,7 +494,8 @@ class HarvestOAI
         }
 
         // Save our XML:
-        file_put_contents($this->_getFilename($id, 'xml'), trim($xml));
+        file_put_contents($this->_catalog, trim($xml), FILE_APPEND);
+        #file_put_contents($this->_getFilename($id, 'xml'), trim($xml));
     }
 
     /**
