@@ -24,10 +24,12 @@ if [ -d $dir ] ; then
 	exit -1
 fi
 
+    echo "Clearing files" >> $log
+    rm -rf $dir
     mkdir -p $dir
 
 h=$dir/last_harvest.txt
-if [ ! -z "$d" ] ; then 
+if [ ! -z "$d" ] ; then
     echo "Adding harvest datestamp from $d" >> $log
     php $VUFIND_HOME/harvest/LastHarvestFile.php "$now" "$d" $h
     setSpec=`basename $dir`
@@ -38,29 +40,21 @@ fi
     rm $setSpec
     ln -s $dir $setSpec
     php harvest_oai.php $setSpec >> $log
-	rm $setSpec
-    f=$dir/add.xml
-	rm $f
-	rm $h
-    java -Dxsl=marc -cp $APP org.socialhistory.solr.importer.Collate $dir $f
+        rm $setSpec
+    f=$dir/catalog.xml
+        rm $f
+        rm $h
     cd $VUFIND_HOME/import
     echo "Begin import into solr" >> $log
 
         ./import-marc.sh -p import_$setSpec.properties $f
-        echo "Delete records" >> $log
-        java -Dxsl=deleted -cp $APP org.socialhistory.solr.importer.Collate $dir $f.delete
-	while read line; do
-                if [ ${#line} -gt 5 ] && [ ${#line} -lt 100 ]; then
-                        wget -O /tmp/deletion.txt "http://localhost:8080/solr/biblio/update?stream.body=%3Cdelete%3E%3Cquery%3Epid%3A%22$line%22%3C%2Fquery%3E%3C%2Fdelete%3E"
-                fi
-	done < $f.delete
 
     if [ -f solrmarc.log.1 ] ; then
-    	cat solrmarc.log.1 >> $log
+        cat solrmarc.log.1 >> $log
     fi
 
     if [ -f solrmarc.log ] ; then
-    	cat solrmarc.log >> $log
+        cat solrmarc.log >> $log
     fi
 
     rm solrmarc.lo*
@@ -69,7 +63,7 @@ fi
     rm -rf $dir
 
     echo "Creating PDF documents" >> $log
-    ./fop-$setSpec.sh 
+    ./fop-$setSpec.sh
 
 ##############################################################################
 # Cache permissions

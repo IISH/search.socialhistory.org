@@ -414,7 +414,7 @@ class HarvestOAI
     {
         $id = explode(':', $id); // oai:domain:identifier
         if (sizeof($id) == 3) {
-            $url = "wget -O /dev/null \"http://localhost:8080/solr/biblio/update?stream.body=<delete><id>" . $id . "</id></delete>\"";
+            $url = "wget -O /dev/null \"http://localhost:8080/solr/biblio/update?stream.body=<delete><id>" . $id[2] . "</id></delete>\"";
             echo shell_exec($url);
         }
     }
