@@ -40,10 +40,9 @@ fi
     rm $setSpec
     ln -s $dir $setSpec
     php harvest_oai.php $setSpec >> $log
-        rm $setSpec
+    rm $setSpec
     f=$dir/catalog.xml
-        rm $f
-        rm $h
+    rm $h
     cd $VUFIND_HOME/import
     echo "Begin import into solr" >> $log
 
