@@ -406,15 +406,19 @@ class HarvestOAI
      * Create a tracking file to record the deletion of a record.
      *
      * @param string $id ID of deleted record.
+     * During indexation the Solr identifier _id is made by removing the prefix from the prefix/identifier.
+     * E.g. 10622/12345 becomes 12345 if there was a /
      *
      * @return void
      * @access private
      */
-    private function _deletedRecord($id)
+    private function _deletedRecord($oai_id)
     {
-        $id = explode(':', $id); // oai:domain:identifier
-        if (sizeof($id) == 3) {
-            $url = "wget -O /dev/null \"http://localhost:8080/solr/biblio/update?stream.body=<delete><id>" . $id[2] . "</id></delete>\"";
+        $oai_id = explode(':', $oai_id, 3); // oai:domain:identifier
+        if (sizeof($oai_id) == 3) {
+            $id = explode('/', $oai_id[2], 2); // either id=10622/12345 or id=12345
+            $id = (sizeof($id) == 1) ? $id[0] : $id[1];
+            $url = "wget -O /dev/null \"http://localhost:8080/solr/biblio/update?stream.body=<delete><id>" . $id . "</id></delete>\"";
             echo shell_exec($url);
         }
     }
@@ -441,8 +445,8 @@ class HarvestOAI
         $xml = preg_replace('/(^<metadata>)|(<\/metadata>$)/m', '', $xml);
 
         $marc = new DOMDocument();
-        if ($marc->loadXML($xml) ) {
-            if ( ! $marc->schemaValidate('marc21slim_custom.xsd') ) {
+        if ($marc->loadXML($xml)) {
+            if (!$marc->schemaValidate('marc21slim_custom.xsd')) {
                 print("XML not valid for " . $id . "\n");
                 return;
             }
