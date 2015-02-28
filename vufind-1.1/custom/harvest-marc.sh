@@ -18,15 +18,16 @@ if [ -z "$setSpec" ] ; then
 	exit -1
 fi
 
+# Find a directory younger than three days. If it is there, we assume a job is in progress.
 find $dir -type d -mtime 3 -exec rm -rf {} +
 if [ -d $dir ] ; then
 	echo "Folder $dir exists... skipping..." >> $log
 	exit -1
 fi
 
-    echo "Clearing files" >> $log
-    rm -rf $dir
-    mkdir -p $dir
+echo "Clearing files" >> $log
+rm -rf $dir
+mkdir -p $dir
 
 h=$dir/last_harvest.txt
 if [ ! -z "$d" ] ; then

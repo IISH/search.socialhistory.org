@@ -53,7 +53,7 @@ fi
 # -XX:+UseParallelGC
 # -XX:+AggressiveOpts
 ##################################################
-INDEX_OPTIONS='-Xms512m -Xmx1596m'
+INDEX_OPTIONS='-Xms512m -Xmx1596m -Djdk.xml.entityExpansionLimit=0'
 
 
 ##################################################
