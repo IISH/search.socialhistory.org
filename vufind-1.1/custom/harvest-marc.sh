@@ -59,11 +59,11 @@ fi
 
     rm solrmarc.lo*
 
-    echo "Clearing files" >> $log
-    rm -rf $dir
-
     echo "Creating PDF documents" >> $log
     ./fop-$setSpec.sh
+
+    echo "Clearing files" >> $log
+    rm -rf $dir
 
 ##############################################################################
 # Cache permissions
