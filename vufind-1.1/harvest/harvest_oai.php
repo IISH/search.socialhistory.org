@@ -374,7 +374,10 @@ class HarvestOAI
         if ($result->error) {
             $attribs = $result->error->attributes();
             $e = "OAI-PMH error -- code: {$attribs['code']}, value: {$result->error}";
-            return simplexml_load_string('<errors><error>' . htmlspecialchars($e) . '</error></errors>');
+            if ($attribs['code'] == 'noRecordsMatch')
+                return simplexml_load_string('<ListRecords><!-- noRecordsMatch --></ListRecords>');
+            else
+                return simplexml_load_string('<errors><error>' . htmlspecialchars($e) . '</error></errors>');
         }
 
         // If we got this far, we have a valid response:
